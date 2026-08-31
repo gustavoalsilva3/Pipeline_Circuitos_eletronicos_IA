@@ -1,0 +1,32 @@
+AVALIAÇÃO DO MODELO
+│
+├── 1. ANÁLISE NUMÉRICA
+│   │
+│   ├── Vout
+│   ├── Tensões
+│   ├── Correntes
+│   └── Potências
+│
+│   Métricas:
+│   ├── Erro Relativo Médio
+│   ├── MAE
+│   └── RMSE
+├── 2. ANÁLISE CATEGÓRICA
+│   │
+│   ├── Tipo de circuito
+│   ├── Região de operação
+│   └── Terra virtual
+│
+│   Métrica:
+│   └── Hit Rate
+│
+└── 3. IDENTIFICAÇÃO DE COMPONENTES
+    │
+    ├── Componentes corretos
+    ├── Componentes ausentes
+    └── Componentes inventados
+
+    Métricas:
+    ├── Precision
+    ├── Recall
+    └── F1-score

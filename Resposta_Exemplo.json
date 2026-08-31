@@ -1,0 +1,142 @@
+# Ideia inicial de JSON resposta. #
+
+{
+    "tipo_circuito": "Amplificador Operacional Inversor",
+
+    "funcao": "Amplificar tensão com inversão de fase",
+
+    "regiao_operacao": "Saturação negativa",
+
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": "U1",
+                "modelo": "LT1057"
+            }
+        ],
+
+        "resistores": {
+            "R1": "10 kΩ",
+            "R2": "10 kΩ",
+            "R3": "50 kΩ"
+        },
+
+        "fontes": {
+            "V1": "+12 V",
+            "V2": "-12 V",
+            "V3": "+10 V"
+        },
+
+        "capacitores": {},
+
+        "diodos": {},
+
+        "transistores": {}
+    },
+
+    "topologia": {
+        "numero_estagios": 1,
+        "realimentacao": "Negativa",
+        "entrada": "Inversora",
+        "saida": "Vout"
+    },
+
+    "analise_eletrica": {
+
+        "ganho_teorico": -5.0,
+
+        "Vout_teorico_V": -50.0,
+
+        "Vout_real_V": -12.0,
+
+        "tensoes_V": {
+
+            "entrada_inversora": 0.0,
+
+            "entrada_nao_inversora": 0.0,
+
+            "saida_ampop": -12.0,
+
+            "Vout": -12.0
+        },
+
+        "correntes_A": {
+
+            "R1": 0.001,
+
+            "R2": 0.0,
+
+            "R3": 0.00024
+        },
+
+        "potencias_W": {
+
+            "R1": 0.01,
+
+            "R2": 0.0,
+
+            "R3": 0.00288
+        }
+    },
+
+    "explicacao": {
+
+        "descricao": "O circuito é um amplificador inversor com ganho teórico de -5. Como a entrada é de 10 V, a saída ideal seria -50 V. Entretanto, a alimentação é de ±12 V, fazendo com que o amplificador operacional entre em saturação negativa.",
+
+        "terra_virtual": true,
+
+        "justificativa_regiao_operacao": "A tensão de saída ideal excede a tensão de alimentação negativa."
+    },
+
+    "confianca_modelo": 98
+}
+
+# Modelo Separado Atual#
+
+{
+    "tipo_circuito": "Amplificador Operacional Inversor",
+
+    "componentes": {
+        "amplificadores_operacionais": [
+            {"id": "U1", "modelo": "LT1057"}
+        ],
+        "resistores": [
+            {"id": "R1", "valor": "10 kΩ"},
+            {"id": "R2", "valor": "10 kΩ"},
+            {"id": "R3", "valor": "50 kΩ"}
+        ],
+        "fontes": [
+            {"id": "V1", "valor": "+12 V"},
+            {"id": "V2", "valor": "-12 V"},
+            {"id": "V3", "valor": "+10 V"}
+        ],
+        "capacitores": [],
+        "diodos": []
+    },
+
+    "analise_numerica": {
+        "ganho_teorico": -5.0,
+        "Vout_teorico_V": -50.0,
+        "Vout_real_V": -12.0,
+        "tensoes_V": {
+            "entrada_inversora": 0.0,
+            "entrada_nao_inversora": 0.0,
+            "saida_ampop": -12.0
+        },
+        "correntes_A": {
+            "R1": 0.001,
+            "R2": 0.0,
+            "R3": 0.00024
+        },
+        "potencias_W": {
+            "R1": 0.01,
+            "R2": 0.0,
+            "R3": 0.00288
+        }
+    },
+
+    "analise_textual": {
+        "regiao_operacao": "Saturação negativa",
+        "terra_virtual": true
+    }
+}

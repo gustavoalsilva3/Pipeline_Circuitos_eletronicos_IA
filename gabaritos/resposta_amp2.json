@@ -1,0 +1,63 @@
+{
+    "tipo_circuito": "Amplificador Operacional Inversor",
+
+    "componentes": {
+        "amplificadores_operacionais": [
+            {"id": "U1", "modelo": "LT1057"}
+        ],
+        "resistores": [
+            {"id": "R1", "valor": "2 kΩ"},
+            {"id": "R2", "valor": "10 kΩ"},
+            {"id": "R3", "valor": "10 kΩ"},
+            {"id": "R4", "valor": "2 kΩ"}
+        ],
+        "fontes": [
+            {"id": "V1", "valor": "+10 V"},
+            {"id": "V2", "valor": "-8 V"},
+            {"id": "V3", "valor": "+15 V"}
+        ],
+        "capacitores": [],
+        "diodos": []
+    },
+
+    "analise_numerica": {
+        "ganho_teorico": -5.0,
+        "Vout_teorico_V": -75.0,
+        "Vout_real_V": -5.99,
+
+        "tensoes_V": {
+            "entrada_inversora": 11.50,
+            "entrada_nao_inversora": 0.0,
+            "saida_ampop": -5.99
+        },
+
+        "correntes_A": {
+            "R1": -0.00174975,
+            "R2": 0.0,
+            "R3": -0.00174975,
+            "R4": -0.00299852
+        },
+
+        "potencias_W": {
+            "R1": 0.00612,
+            "R2": 0.0,
+            "R3": 0.03061,
+            "R4": 0.01798
+        }
+    },
+
+    "analise_textual": {
+        "regiao_operacao": "Saturação negativa",
+        "terra_virtual": true,
+
+        "funcao": "Amplificar tensão com inversão de fase",
+        "justificativa_regiao_operacao": "A tensão de saída calculada teoricamente (-75 V) excede o limite inferior da fonte de alimentação (VEE = -8 V), rompendo o regime linear e o terra virtual.",
+        "topologia": {
+            "numero_estagios": 1,
+            "realimentacao": "Negativa",
+            "entrada": "Inversora",
+            "saida": "Vout"
+        },
+        "explicacao": "O circuito é um amplificador inversor com ganho teórico de -5. Com uma entrada de +15 V, a saída teórica seria de -75 V. No entanto, a alimentação negativa (VEE) limita a saída em -8 V, fazendo o AmpOp entrar em saturação negativa."
+    }
+}
