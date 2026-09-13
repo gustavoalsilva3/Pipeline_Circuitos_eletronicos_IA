@@ -1,0 +1,73 @@
+{
+    "tipo_circuito": "Limitador com Diodos (Teto e Piso)",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "2 Ω"
+            },
+            {
+                "id": "R2",
+                "valor": "6 Ω"
+            },
+            {
+                "id": "R3",
+                "valor": "3 Ω"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "-3 V"
+            },
+            {
+                "id": "V2",
+                "valor": "+3 V"
+            },
+            {
+                "id": "V3",
+                "valor": "+8 V"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [
+            {
+                "id": "D1"
+            },
+            {
+                "id": "D2"
+            }
+        ],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": null,
+        "Vout_teorico_V": 2.0,
+        "Vout_real_V": 2.56449,
+        "tensoes_V": {
+            "A": 3.84673
+        },
+        "correntes_A": {
+            "D1": 0.0,
+            "D2": 1.64922,
+            "R1": 2.07664,
+            "R2": 0.427414,
+            "R3": 0.427414
+        },
+        "potencias_W": {
+            "D1": 0.0,
+            "D2": 0.0,
+            "R1": 8.624867,
+            "R2": 1.096096,
+            "R3": 0.548048
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "D1": "Corte",
+            "D2": "Condução Direta"
+        },
+        "terra_virtual": false
+    }
+}

@@ -25,7 +25,19 @@ class GeminiCircuitAnalyzer:
         self.client = genai.Client(api_key=api_key)
         self.model_name = model_name
 
-    def analisar_imagem(self, image_path, prompt: str) -> dict:
+    def analisar_imagem(self, image_path, prompt: str):
+        """Envia a imagem + prompt ao Gemini e retorna SEMPRE uma tupla de
+        3 valores: (resposta_dict, input_tokens, output_tokens) — mesmo em
+        caso de erro (ver bloco except abaixo).
+
+        Contrato importante: NUNCA retornar só o dict da resposta. O
+        main.py desempacota o retorno como
+        `resposta, input_tokens, output_tokens = analisar_imagem(...)`;
+        se essa função devolvesse o dict diretamente, o desempacotamento
+        iteraria as CHAVES do dict (não os valores) e quebraria com
+        "too many/not enough values to unpack" sempre que o JSON de
+        resposta não tivesse exatamente 3 chaves de topo.
+        """
 
         image = Image.open(image_path)
 
@@ -39,22 +51,30 @@ class GeminiCircuitAnalyzer:
                     model=self.model_name,
                     contents=[prompt, image],
                     config=types.GenerateContentConfig(
-                        temperature=0.2,
+                        temperature=0.0,
                         response_mime_type="application/json"
                     )
                 )
 
+                # usage_metadata traz a contagem real de tokens da chamada.
+                # getattr com default 0 evita quebrar caso a API não devolva
+                # esse campo em algum cenário (ex: resposta bloqueada por
+                # filtro de segurança, onde usage_metadata pode vir None).
+                uso = getattr(response, "usage_metadata", None)
+                input_tokens = getattr(uso, "prompt_token_count", 0) or 0
+                output_tokens = getattr(uso, "candidates_token_count", 0) or 0
+
                 texto = response.text
 
                 try:
-                    return json.loads(texto)
-
+                    resposta = json.loads(texto)
                 except json.JSONDecodeError:
-
-                    return {
+                    resposta = {
                         "erro_json": True,
                         "resposta_bruta": texto
                     }
+
+                return resposta, input_tokens, output_tokens
 
             except Exception as e:
 
@@ -67,7 +87,10 @@ class GeminiCircuitAnalyzer:
 
                 else:
 
+                    # Falha definitiva: sem chamada bem-sucedida não há
+                    # tokens para contar, mas ainda retornamos 3 valores
+                    # para não quebrar o desempacotamento no main.py.
                     return {
                         "erro_api": True,
                         "mensagem_erro": str(e)
-                    }
+                    }, 0, 0

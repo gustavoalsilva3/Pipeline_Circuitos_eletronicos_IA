@@ -1,7 +1,19 @@
-"""Divide a resposta da IA entre dados numéricos e dados textuais.
+"""Divide a resposta da IA (e o gabarito, que passa pela mesma função) entre
+dados numéricos e dados textuais.
 
 Esse módulo serve como camada de pré-processamento para que o avaliador
-possa lidar de forma separada com valores quantitativos e atributos descritivos.
+possa lidar de forma separada com valores quantitativos e atributos
+descritivos.
+
+Nem todo campo textual extraído aqui é hoje avaliado: 'regiao_operacao' e
+'terra_virtual' são consumidos por evaluator_textual.avaliar_textual, mas
+'tipo_circuito', 'funcao', 'topologia', 'explicacao' e 'confianca_modelo'
+são extraídos e ficam disponíveis no dict 'textual' sem que nenhum
+evaluator os utilize atualmente (avaliação de texto livre foi deixada de
+fora do escopo — ver o docstring de evaluator_textual.py para o porquê).
+'componentes' também é extraído para dentro de 'textual', mas quem
+realmente avalia componentes é evaluator_componentes.py, direto na
+resposta bruta — o valor que aparece aqui em 'textual' não é usado.
 """
 
 from __future__ import annotations
@@ -49,6 +61,7 @@ def separar_resposta(resposta: dict | None) -> dict[str, dict[str, Any]]:
         "tipo_circuito": [("tipo_circuito",), ("analise_textual", "tipo_circuito")],
         "funcao": [("funcao",), ("analise_textual", "funcao")],
         "regiao_operacao": [("regiao_operacao",), ("analise_textual", "regiao_operacao")],
+        "terra_virtual": [("terra_virtual",), ("analise_textual", "terra_virtual")],
         "componentes": [("componentes",), ("analise_textual", "componentes")],
         "topologia": [("topologia",), ("analise_textual", "topologia")],
         "explicacao": [("explicacao",), ("analise_textual", "explicacao")],

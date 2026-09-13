@@ -1,0 +1,81 @@
+{
+    "tipo_circuito": "Amplificador Operacional em Dois Estágios (Inversor + Comparador em Cascata)",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": "U1"
+            },
+            {
+                "id": "U2"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "2 Ω"
+            },
+            {
+                "id": "R3",
+                "valor": "2 Ω"
+            },
+            {
+                "id": "R4",
+                "valor": "20 Ω"
+            },
+            {
+                "id": "R5",
+                "valor": "4 Ω"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "+15 V"
+            },
+            {
+                "id": "V2",
+                "valor": "+10 V"
+            },
+            {
+                "id": "V3",
+                "valor": "-10 V"
+            },
+            {
+                "id": "V4",
+                "valor": "+6 V"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": null,
+        "Vout_teorico_V": 10.0,
+        "Vout_real_V": 9.99998,
+        "tensoes_V": {
+            "A": 14.6916,
+            "B": 6.0,
+            "C": 9.99998
+        },
+        "correntes_A": {
+            "R1": 0.154204,
+            "R3": 0.0,
+            "R4": 0.154204,
+            "R5": 0.0
+        },
+        "potencias_W": {
+            "R1": 0.0475577,
+            "R3": 0.0,
+            "R4": 0.4755775,
+            "R5": 0.0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "U1": "Saturação Positiva",
+            "U2": "Saturação Positiva"
+        },
+        "terra_virtual": true
+    }
+}

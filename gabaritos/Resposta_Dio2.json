@@ -1,0 +1,59 @@
+{
+    "tipo_circuito": "Circuito de Diodos em Condução Direta",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "10 Ω"
+            },
+            {
+                "id": "R2",
+                "valor": "5 Ω"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "+10 V"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [
+            {
+                "id": "D1"
+            },
+            {
+                "id": "D2"
+            }
+        ],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": 1.0,
+        "Vout_teorico_V": 10.0,
+        "Vout_real_V": 9.995,
+        "tensoes_V": {
+            "A": 9.997
+        },
+        "correntes_A": {
+            "D1": 2.9987,
+            "D2": 1.999,
+            "R1": 0.9997,
+            "R2": 1.999
+        },
+        "potencias_W": {
+            "D1": 0.009,
+            "D2": 0.004,
+            "R1": 9.994,
+            "R2": 19.98
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "D1": "Condução Direta",
+            "D2": "Condução Direta"
+        },
+        "terra_virtual": false
+    }
+}

@@ -1,0 +1,76 @@
+{
+    "tipo_circuito": "Rede RLC com Duas Fontes (Superposição)",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "5 Ω"
+            },
+            {
+                "id": "R2",
+                "valor": "5 Ω"
+            },
+            {
+                "id": "R3",
+                "valor": "2 Ω"
+            },
+            {
+                "id": "R4",
+                "valor": "8 Ω"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "+10 V"
+            },
+            {
+                "id": "V2",
+                "valor": "+20 V"
+            }
+        ],
+        "capacitores": [
+            {
+                "id": "C1",
+                "valor": "10 mF"
+            }
+        ],
+        "diodos": [],
+        "indutores": [
+            {
+                "id": "L1",
+                "valor": "1 H"
+            }
+        ]
+    },
+    "analise_numerica": {
+        "ganho_teorico": null,
+        "Vout_teorico_V": 9.6,
+        "Vout_real_V": 9.59923,
+        "tensoes_V": {
+            "A": 12.0002,
+            "B": 11.999
+        },
+        "correntes_A": {
+            "R1": 0.400048,
+            "R2": 1.59995,
+            "R3": 1.1999,
+            "R4": 1.1999,
+            "L1": 1.1999,
+            "C1": 0.0
+        },
+        "potencias_W": {
+            "R1": 0.800192,
+            "R2": 12.7992,
+            "R3": 2.87952,
+            "R4": 11.51808,
+            "L1": 0.0,
+            "C1": 0.0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {},
+        "terra_virtual": false
+    }
+}

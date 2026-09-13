@@ -1,0 +1,71 @@
+{
+    "tipo_circuito": "Ponte Resistiva com Indutor e Capacitor em Ramos Diferentes",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "4 Ω"
+            },
+            {
+                "id": "R2",
+                "valor": "5 Ω"
+            },
+            {
+                "id": "R3",
+                "valor": "6 Ω"
+            },
+            {
+                "id": "R4",
+                "valor": "5 Ω"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "+20 V"
+            }
+        ],
+        "capacitores": [
+            {
+                "id": "C1",
+                "valor": "10 mF"
+            }
+        ],
+        "diodos": [],
+        "indutores": [
+            {
+                "id": "L1",
+                "valor": "1 H"
+            }
+        ]
+    },
+    "analise_numerica": {
+        "ganho_teorico": 0.5,
+        "Vout_teorico_V": 10.0,
+        "Vout_real_V": 10.0035,
+        "tensoes_V": {
+            "A": 0.00699639
+        },
+        "correntes_A": {
+            "R1": 4.99825,
+            "R2": 1.9993,
+            "R3": 0.00116606,
+            "R4": 1.9993,
+            "L1": 6.99639,
+            "C1": 0.0
+        },
+        "potencias_W": {
+            "R1": 99.930012,
+            "R2": 19.986002,
+            "R3": 0.0,
+            "R4": 19.986002,
+            "L1": 0.0,
+            "C1": 0.0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {},
+        "terra_virtual": false
+    }
+}

@@ -1,0 +1,43 @@
+{
+    "tipo_circuito": "Divisor de Tensão Resistivo",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "4 Ω"
+            },
+            {
+                "id": "R2",
+                "valor": "6 Ω"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "+10 V"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": 0.6,
+        "Vout_teorico_V": 6.0,
+        "Vout_real_V": 6.0,
+        "tensoes_V": {},
+        "correntes_A": {
+            "R1": 1.0,
+            "R2": 1.0
+        },
+        "potencias_W": {
+            "R1": 4.0,
+            "R2": 6.0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {},
+        "terra_virtual": false
+    }
+}

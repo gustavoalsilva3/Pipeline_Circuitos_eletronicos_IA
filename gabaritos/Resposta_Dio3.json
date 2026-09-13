@@ -1,0 +1,63 @@
+{
+    "tipo_circuito": "Rede de Diodos com Duas Fontes (Seleção de Caminho)",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "5 Ω"
+            },
+            {
+                "id": "R2",
+                "valor": "10 Ω"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "+5 V"
+            },
+            {
+                "id": "V2",
+                "valor": "+10 V"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [
+            {
+                "id": "D1"
+            },
+            {
+                "id": "D2"
+            }
+        ],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": null,
+        "Vout_teorico_V": 6.66667,
+        "Vout_real_V": 6.66689,
+        "tensoes_V": {
+            "A": 6.66656
+        },
+        "correntes_A": {
+            "D1": 0.0,
+            "D2": 0.333311,
+            "R1": 0.333311,
+            "R2": 0.333311
+        },
+        "potencias_W": {
+            "D1": 0.0,
+            "D2": 0.0,
+            "R1": 0.555484,
+            "R2": 1.110962
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "D1": "Corte",
+            "D2": "Condução Direta"
+        },
+        "terra_virtual": false
+    }
+}

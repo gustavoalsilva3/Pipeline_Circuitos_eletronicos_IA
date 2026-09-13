@@ -1,0 +1,83 @@
+{
+    "tipo_circuito": "Amplificador Operacional em Dois Estágios (Inversor em Cascata)",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": "U1"
+            },
+            {
+                "id": "U2"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "20 Ω"
+            },
+            {
+                "id": "R2",
+                "valor": "10 Ω"
+            },
+            {
+                "id": "R3",
+                "valor": "2 Ω"
+            },
+            {
+                "id": "R4",
+                "valor": "2 Ω"
+            },
+            {
+                "id": "R5",
+                "valor": "4 Ω"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "+5 V"
+            },
+            {
+                "id": "V2",
+                "valor": "+10 V"
+            },
+            {
+                "id": "V3",
+                "valor": "-10 V"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": 0.5,
+        "Vout_teorico_V": 2.5,
+        "Vout_real_V": 3.40004,
+        "tensoes_V": {
+            "A": 4.00003,
+            "B": 3.50004,
+            "C": 3.45004
+        },
+        "correntes_A": {
+            "R1": 0.0499987,
+            "R2": 0.0499987,
+            "R3": 0.0249993,
+            "R4": 0.0249993,
+            "R5": 0.0
+        },
+        "potencias_W": {
+            "R1": 0.0499974,
+            "R2": 0.0249987,
+            "R3": 0.00124993,
+            "R4": 0.00124993,
+            "R5": 0.0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "U1": "Linear",
+            "U2": "Linear"
+        },
+        "terra_virtual": true
+    }
+}

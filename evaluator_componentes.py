@@ -1,174 +1,385 @@
-"""Módulo de avaliação de componentes identificados pela IA em um circuito.
-
-Escopo reduzido de propósito, seguindo a mesma lógica aplicada em
-evaluator_textual.py: avalia apenas o que tem valor de engenharia direto.
-
-  - Identificação do componente (por 'id'): taxa de acerto simples
-    (identificados corretamente / total esperado no gabarito), mais as
-    listas de componentes "alucinados" (citados mas inexistentes) e "não
-    identificados" (existem no circuito, IA não citou).
-  - Atributo 'valor' (ex: "10 kΩ"): comparado numericamente, reaproveitando
-    o parser de unidades de engenharia e a tolerância de 5% definidos em
-    evaluator_numerico.py.
-
-Duas simplificações em relação à versão anterior:
-  - Sem comparação de 'modelo' (ex: "LT1057" vs "TL081"): o modelo
-    específico de op-amp usado na simulação é praticamente arbitrário e não
-    testa entendimento de engenharia do circuito — mesmo racional que
-    tirou 'funcao'/'explicacao' do evaluator_textual.py.
-  - Sem precision/recall/F1: substituídos por uma taxa de acerto única
-    (mais simples de reportar e interpretar), com alucinados e não
-    identificados reportados separadamente em vez de compostos numa métrica.
-  - Categoria 'transistores' removida: fora do escopo do TCC (delimitação
-    explícita — "transistores BJT e MOSFET não serão incluídos").
 """
-print("EVALUATOR_COMPONENTES_V2_CARREGADO")
+Módulo de avaliação da identificação de componentes pela IA.
 
-from evaluator_numerico import classificar_status
+A avaliação é dividida em duas partes:
 
+1. Identificação dos componentes
+   - Precision
+   - Recall
+   - F1-score
 
+2. Valores dos componentes
+   - Para cada componente corretamente identificado (TP), compara o valor
+     informado pela IA com o valor presente no gabarito, com tolerância
+     percentual de engenharia (mesmo parser numérico do evaluator_numerico,
+     não igualdade exata de string).
+   - Além da comparação detalhada por ID (guardada em 'valores'), o
+     resultado inclui 'valor_taxa_acerto_percentual': dos componentes
+     identificados corretamente, quantos também têm o valor certo. É uma
+     pergunta diferente de precision/recall, que só olham identificação.
+
+A identificação dos componentes é feita pelo campo 'id'. Só as categorias
+em CATEGORIAS_PADRAO são avaliadas com precision/recall/f1; qualquer outra
+chave que apareça em 'componentes' (alucinada pela IA ou um nome diferente
+no gabarito) é listada em 'categorias_invalidas' em vez de virar uma
+categoria nova.
+
+Exemplo:
+
+Gabarito:
+    R1, R2, V1
+
+IA:
+    R1, R2, R3
+
+Temos:
+    TP = R1, R2
+    FP = R3
+    FN = V1
+
+Logo:
+    Precision = 2 / 3
+    Recall    = 2 / 3
+    F1        = 2 / 3
+"""
+
+from config import TOLERANCIA_PADRAO_PERCENTUAL
+from evaluator_numerico import parse_numeric_value
+
+# Categorias consideradas no dataset.
 CATEGORIAS_PADRAO = [
     "amplificadores_operacionais",
     "resistores",
     "fontes",
     "capacitores",
     "diodos",
+    "indutores"
 ]
 
-# Único atributo avaliado numericamente. 'modelo' e qualquer outro atributo
-# descritivo não entram mais na pontuação (ver docstring do módulo).
-ATRIBUTO_AVALIADO = "valor"
 
-# Categorias em que só a presença/identificação do componente importa —
-# nenhum atributo é comparado, mesmo que 'valor' esteja presente no JSON.
-# 'diodos' entrou aqui porque o TCC não tem um valor de referência de
-# engenharia estabelecido para diodo (ao contrário de resistor/fonte, onde
-# o valor numérico é o dado central da análise).
-CATEGORIAS_APENAS_PRESENCA = {"diodos"}
-
+# ---------------------------------------------------------------------------
+# FUNÇÕES AUXILIARES
+# ---------------------------------------------------------------------------
 
 def _normalizar_id(id_bruto):
-    """Normaliza o identificador do componente para comparação (ex: ' r1 ' -> 'R1')."""
+    """
+    Normaliza o ID do componente.
+
+    Exemplos:
+        'r1'   -> 'R1'
+        ' R1 ' -> 'R1'
+        'V1'   -> 'V1'
+
+    Isso evita que diferenças de maiúsculas/minúsculas ou espaços
+    sejam consideradas como erro.
+    """
+
     if id_bruto is None:
         return ""
+
     return str(id_bruto).strip().upper()
 
 
 def _indexar_por_id(lista_componentes):
-    """Converte uma lista [{'id': 'R1', ...}, ...] em dict {'R1': {...}},
-    ignorando entradas sem 'id' (evita que uma resposta malformada quebre a
-    avaliação inteira do circuito)."""
+    """
+    Converte uma lista de componentes em um dicionário indexado pelo ID.
+
+    Entrada:
+        [
+            {"id": "R1", "valor": "10 kΩ"},
+            {"id": "R2", "valor": "5 kΩ"}
+        ]
+
+    Saída:
+        {
+            "R1": {"id": "R1", "valor": "10 kΩ"},
+            "R2": {"id": "R2", "valor": "5 kΩ"}
+        }
+
+    Componentes sem ID são ignorados.
+    """
+
     indice = {}
+
     for componente in lista_componentes or []:
+
+        # Ignora entradas que não sejam objetos/dicionários.
         if not isinstance(componente, dict):
             continue
+
         id_norm = _normalizar_id(componente.get("id"))
-        if id_norm:
-            indice[id_norm] = componente
+
+        # Ignora componentes sem ID válido.
+        if not id_norm:
+            continue
+
+        indice[id_norm] = componente
+
     return indice
 
 
-def avaliar_categoria_componentes(lista_ia, lista_real, avaliar_atributo=True):
-    """Avalia uma única categoria (ex: todos os resistores do circuito).
+def _comparar_valor(valor_ia, valor_real, tolerancia_percentual=TOLERANCIA_PADRAO_PERCENTUAL):
+    """
+    Compara o valor informado pela IA com o valor do gabarito usando o
+    mesmo parser tolerante a prefixos de engenharia do evaluator_numerico
+    (ex: "10 V" == "+10 V", "10 kΩ" == "10000 Ω"), em vez de igualdade
+    exata de string — que classificava como erro respostas corretas só
+    por causa de formatação diferente (sinal, espaço, unidade).
 
-    Retorna a taxa de acerto na identificação por 'id', mais a comparação
-    do atributo 'valor' para os componentes corretamente identificados
-    (quando avaliar_atributo=True; para categorias em CATEGORIAS_APENAS_PRESENCA,
-    só a identificação é avaliada).
+        - valores numericamente iguais (dentro da tolerância) -> True
+        - valores numericamente diferentes -> False
+        - algum valor ausente -> None
+        - nenhum dos dois é numérico -> cai para comparação de string
+          (preserva a checagem para eventuais campos textuais)
     """
 
+    if valor_ia is None or valor_real is None:
+        return None
+
+    valor_ia_n = parse_numeric_value(valor_ia)
+    valor_real_n = parse_numeric_value(valor_real)
+
+    if valor_ia_n is None or valor_real_n is None:
+        return str(valor_ia).strip().lower() == str(valor_real).strip().lower()
+
+    if abs(valor_real_n) < 1e-9:
+        return abs(valor_ia_n) < 1e-9
+
+    erro_percentual = abs(valor_ia_n - valor_real_n) / abs(valor_real_n) * 100
+    return erro_percentual <= tolerancia_percentual
+
+
+# ---------------------------------------------------------------------------
+# AVALIAÇÃO DE UMA CATEGORIA
+# ---------------------------------------------------------------------------
+
+def avaliar_categoria_componentes(lista_ia, lista_real):
+    """
+    Avalia uma categoria específica de componentes.
+
+    Exemplo:
+        categoria = resistores
+
+    A função calcula:
+
+        TP -> componente existe no gabarito e foi identificado pela IA
+        FP -> IA identificou um componente que não existe
+        FN -> componente existe, mas não foi identificado
+
+    A partir desses valores são calculados:
+
+        Precision
+        Recall
+        F1-score
+
+    Também registra a comparação dos valores dos componentes
+    corretamente identificados.
+    """
+
+    # Indexa os componentes pelo ID.
     indice_ia = _indexar_por_id(lista_ia)
     indice_real = _indexar_por_id(lista_real)
 
+    # Conjuntos de IDs.
     ids_ia = set(indice_ia.keys())
     ids_real = set(indice_real.keys())
 
+    # -----------------------------------------------------------------------
+    # IDENTIFICAÇÃO
+    # -----------------------------------------------------------------------
+
+    # Verdadeiros positivos:
+    # componentes que existem no gabarito e foram identificados pela IA.
     verdadeiros_positivos = ids_ia & ids_real
-    falsos_positivos = ids_ia - ids_real   # alucinados: citados mas inexistentes
-    falsos_negativos = ids_real - ids_ia   # existem no circuito, IA não citou
 
-    # Taxa de acerto = quantos componentes reais o modelo identificou.
-    # Sem componentes reais nesta categoria, não há o que acertar (None).
-    taxa_acerto = round(len(verdadeiros_positivos) / len(ids_real), 3) if ids_real else None
+    # Falsos positivos:
+    # componentes citados pela IA que não existem no gabarito.
+    falsos_positivos = ids_ia - ids_real
 
-    atributos = {}
-    if avaliar_atributo:
-        for id_componente in sorted(verdadeiros_positivos):
-            valor_ia = indice_ia[id_componente].get(ATRIBUTO_AVALIADO)
-            valor_real = indice_real[id_componente].get(ATRIBUTO_AVALIADO)
+    # Falsos negativos:
+    # componentes que existem no gabarito, mas não foram identificados.
+    falsos_negativos = ids_real - ids_ia
 
-            if valor_ia is None and valor_real is None:
-                continue
+    TP = len(verdadeiros_positivos)
+    FP = len(falsos_positivos)
+    FN = len(falsos_negativos)
 
-            atributos[id_componente] = {
-                "esperado": valor_real,
-                "obtido": valor_ia,
-                "status": classificar_status(valor_real, valor_ia),
-            }
+    # -----------------------------------------------------------------------
+    # PRECISION
+    # -----------------------------------------------------------------------
+
+    # Precision responde:
+    #
+    # "Dos componentes identificados pela IA, quantos realmente existem?"
+    #
+    # Se a IA não identificou nenhum componente, a métrica não é definida.
+    if TP + FP > 0:
+        precision = TP / (TP + FP)
+    else:
+        precision = None
+
+    # -----------------------------------------------------------------------
+    # RECALL
+    # -----------------------------------------------------------------------
+
+    # Recall responde:
+    #
+    # "Dos componentes que realmente existem, quantos a IA identificou?"
+    #
+    # Se o gabarito não possui componentes naquela categoria,
+    # não existe o que recuperar.
+    if TP + FN > 0:
+        recall = TP / (TP + FN)
+    else:
+        recall = None
+
+    # -----------------------------------------------------------------------
+    # F1-SCORE
+    # -----------------------------------------------------------------------
+
+    # F1 combina Precision e Recall.
+    if precision is not None and recall is not None:
+
+        if precision + recall > 0:
+            f1 = 2 * (precision * recall) / (precision + recall)
+        else:
+            f1 = 0.0
+
+    else:
+        f1 = None
+
+    # -----------------------------------------------------------------------
+    # COMPARAÇÃO DOS VALORES
+    # -----------------------------------------------------------------------
+
+    valores = {}
+
+    # O valor só é comparado quando o componente foi corretamente
+    # identificado pela IA.
+    for id_componente in sorted(verdadeiros_positivos):
+
+        componente_ia = indice_ia[id_componente]
+        componente_real = indice_real[id_componente]
+
+        valor_ia = componente_ia.get("valor")
+        valor_real = componente_real.get("valor")
+
+        valores[id_componente] = {
+            "valor_esperado": valor_real,
+            "valor_obtido": valor_ia,
+            "valor_correto": _comparar_valor(
+                valor_ia,
+                valor_real
+            )
+        }
+
+    # -----------------------------------------------------------------------
+    # AGREGADO DA COMPARAÇÃO DE VALORES
+    #
+    # Mede uma pergunta diferente de precision/recall: "dos componentes que
+    # a IA identificou corretamente (TP), ela também acertou o valor?".
+    # Por isso o denominador é TP, não o total esperado no gabarito — um
+    # componente não identificado já é penalizado no recall, não deve ser
+    # penalizado de novo aqui. 'faltante' (valor_correto is None, quando
+    # falta o campo 'valor' de um dos lados) entra no denominador para não
+    # inflar a taxa artificialmente, no mesmo espírito do
+    # 'taxa_acerto_percentual' do evaluator_numerico.
+    # -----------------------------------------------------------------------
+
+    valor_status_counts = {"correto": 0, "incorreto": 0, "faltante": 0}
+    for info in valores.values():
+        if info["valor_correto"] is None:
+            valor_status_counts["faltante"] += 1
+        elif info["valor_correto"]:
+            valor_status_counts["correto"] += 1
+        else:
+            valor_status_counts["incorreto"] += 1
+
+    # Se todos os itens caíram em 'faltante' (categoria sem campo 'valor'
+    # aplicável, ex: amplificadores_operacionais, que só tem 'id'), não há
+    # nada avaliável — retorna None em vez de 0.0, que sugeriria erro real.
+    quantidade_avaliavel = valor_status_counts["correto"] + valor_status_counts["incorreto"]
+    valor_taxa_acerto_percentual = (
+        round(valor_status_counts["correto"] / TP * 100, 1)
+        if TP > 0 and quantidade_avaliavel > 0
+        else None
+    )
+
+    # -----------------------------------------------------------------------
+    # RESULTADO
+    # -----------------------------------------------------------------------
 
     return {
-        "taxa_acerto": taxa_acerto,
-        "alucinados": sorted(falsos_positivos),
-        "nao_identificados": sorted(falsos_negativos),
-        "atributos": atributos,
+        "TP": TP,
+        "FP": FP,
+        "FN": FN,
+
+        "precision": round(precision, 4) if precision is not None else None,
+        "recall": round(recall, 4) if recall is not None else None,
+        "f1_score": round(f1, 4) if f1 is not None else None,
+
+        "valor_taxa_acerto_percentual": valor_taxa_acerto_percentual,
+        "valor_status_counts": valor_status_counts,
+
+        # Informação diagnóstica.
+        "componentes_identificados": sorted(verdadeiros_positivos),
+        "componentes_alucinados": sorted(falsos_positivos),
+        "componentes_nao_identificados": sorted(falsos_negativos),
+
+        # Comparação dos valores.
+        "valores": valores
     }
 
 
-def avaliar_componentes(resposta: dict, gabarito: dict):
-    """Avalia todas as categorias de componentes de um circuito.
+# ---------------------------------------------------------------------------
+# AVALIAÇÃO COMPLETA DO CIRCUITO
+# ---------------------------------------------------------------------------
 
-    Recebe os dicionários completos de resposta e gabarito (mesmo padrão de
-    avaliar_numerico em evaluator_numerico.py) e extrai a seção
-    'componentes' internamente. Mantida com esse nome para integração direta
-    com main.py, ao lado de avaliar_numerico e avaliar_textual.
+def avaliar_componentes(resposta: dict, gabarito: dict):
+    """
+    Avalia os componentes de um circuito completo.
+
+    A função percorre todas as categorias existentes na resposta e no
+    gabarito e calcula Precision, Recall e F1-score para cada categoria.
+
+    Também realiza a comparação dos valores dos componentes corretamente
+    identificados.
     """
 
+    # Obtém a seção de componentes da IA.
     componentes_ia = resposta.get("componentes", {}) or {}
+
+    # Obtém a seção de componentes do gabarito.
     componentes_real = gabarito.get("componentes", {}) or {}
 
-    categorias = sorted(
-        set(CATEGORIAS_PADRAO) | set(componentes_ia.keys()) | set(componentes_real.keys())
+    # Lista de categorias FECHADA (só CATEGORIAS_PADRAO) — se a IA alucinar
+    # uma chave fora do padrão (erro de digitação, categoria em inglês,
+    # etc.), ela não vira uma coluna nova e imprevisível no CSV. As chaves
+    # extras ficam registradas em 'categorias_invalidas' para diagnóstico,
+    # sem receber o mesmo tratamento (precision/recall/f1) das válidas.
+    categorias_invalidas = sorted(
+        (set(componentes_ia.keys()) | set(componentes_real.keys()))
+        - set(CATEGORIAS_PADRAO)
     )
 
     resultado = {}
-    for categoria in categorias:
-        lista_ia = componentes_ia.get(categoria, [])
-        lista_real = componentes_real.get(categoria, [])
+    if categorias_invalidas:
+        resultado["categorias_invalidas"] = categorias_invalidas
 
+    # Avalia cada categoria separadamente.
+    for categoria in CATEGORIAS_PADRAO:
+
+        lista_ia = componentes_ia.get(categoria, []) or []
+        lista_real = componentes_real.get(categoria, []) or []
+
+        # Se nenhum dos dois possui componentes nessa categoria,
+        # não há nada para avaliar.
         if not lista_ia and not lista_real:
-            continue  # categoria vazia dos dois lados: fora do escopo deste circuito
+            continue
 
         resultado[categoria] = avaliar_categoria_componentes(
-            lista_ia, lista_real,
-            avaliar_atributo=categoria not in CATEGORIAS_APENAS_PRESENCA,
+            lista_ia,
+            lista_real
         )
 
     return resultado
-
-
-def agregar_componentes(lista_resultados):
-    """Agrega a taxa de acerto de identificação por categoria de componente
-    ao longo de vários circuitos, pronto para virar gráfico de barras."""
-
-    por_categoria = {}
-
-    for resultado_circuito in lista_resultados:
-        for categoria, dados in resultado_circuito.items():
-            bucket = por_categoria.setdefault(categoria, {
-                "taxas": [], "alucinados": 0, "nao_identificados": 0,
-            })
-
-            if dados["taxa_acerto"] is not None:
-                bucket["taxas"].append(dados["taxa_acerto"])
-
-            bucket["alucinados"] += len(dados["alucinados"])
-            bucket["nao_identificados"] += len(dados["nao_identificados"])
-
-    return {
-        categoria: {
-            "taxa_acerto_media": round(sum(bucket["taxas"]) / len(bucket["taxas"]), 3) if bucket["taxas"] else None,
-            "total_alucinados": bucket["alucinados"],
-            "total_nao_identificados": bucket["nao_identificados"],
-        }
-        for categoria, bucket in por_categoria.items()
-    }

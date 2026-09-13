@@ -6,7 +6,9 @@ Este módulo coordena as etapas de:
 3. salvar a resposta bruta em JSON;
 4. carregar o gabarito correspondente;
 5. avaliar a resposta nas três dimensões (numérica, textual, componentes);
-6. consolidar os resultados em um CSV para análise posterior.
+6. consolidar os resultados em dois CSVs: um resumo (uma linha por execução,
+   só com métricas agregadas) e um detalhe (uma linha por item comparado —
+   nó de tensão, ID de componente — ver avaliar_resposta_completa).
 """
 
 import json
@@ -22,14 +24,22 @@ from config import (
     IMAGENS_DIR,
     RESULTADOS_DIR,
     JSON_DIR,
-    CSV_RESULTADOS,
+    PREFIXO_CSV_RESULTADOS,
+    PREFIXO_CSV_DETALHES,
     MODELO_GEMINI,
+    PRECO_INPUT_1M,
+    PRECO_OUTPUT_1M,
+    COTACAO_USD_BRL,
+    IDIOMA_PROMPT,
 )
 
 from prompts import (
     PROMPT_ANALISE_CIRCUITO_1,
     PROMPT_ANALISE_CIRCUITO_2,
     PROMPT_ANALISE_CIRCUITO_3,
+    PROMPT_ANALISE_CIRCUITO_1_EN,
+    PROMPT_ANALISE_CIRCUITO_2_EN,
+    PROMPT_ANALISE_CIRCUITO_3_EN,
 )
 from gemini_client import GeminiCircuitAnalyzer
 from evaluator_numerico import avaliar_resposta as avaliar_numerico_textual
@@ -37,19 +47,16 @@ from evaluator_componentes import avaliar_componentes
 
 
 # =========================================================
-# Combina os três evaluators (numérico+textual via evaluator_numerico,
-# componentes via evaluator_componentes) num resultado único, achatado em
-# colunas planas prontas para uma linha de CSV/DataFrame.
+# Achata um dict aninhado em chaves separadas por '_' (ex: {"numerico":
+# {"Vout": {"status": "correto"}}} -> {"numerico_Vout_status": "correto"}).
 #
 # Sem isso, **avaliacao no CSV jogaria dicts aninhados direto nas colunas
 # do DataFrame — cada célula viraria uma string Python ilegível em vez de
-# colunas separadas (ex: numerico_Vout_status, componentes_resistores_
-# taxa_acerto) que dá pra usar em groupby/pivot no pandas depois.
+# colunas separadas que dá pra usar em groupby/pivot no pandas depois.
+# Listas (ex: uma eventual 'categorias_invalidas') viram uma string JSON
+# compacta em vez de um objeto Python, pelo mesmo motivo.
 # =========================================================
 def _achatar(dados, prefixo=""):
-    """Achata um dict aninhado em chaves separadas por '_'. Listas (ex:
-    'alucinados': ['R4']) viram uma string JSON compacta em vez de um
-    objeto Python, para ficar legível numa célula de CSV."""
 
     plano = {}
 
@@ -66,9 +73,169 @@ def _achatar(dados, prefixo=""):
     return plano
 
 
-def avaliar_resposta_completa(resposta: dict, gabarito: dict) -> dict:
+# =========================================================
+# Chaves com granularidade por item (nó de tensão, ID de componente) que
+# NÃO entram no resumo achatado — cada uma vira, em vez disso, uma ou mais
+# linhas na planilha de detalhe (formato longo). São elas que crescem sem
+# limite conforme aparecem circuitos com nós/componentes diferentes; o
+# resumo fica só com métricas agregadas (taxa_acerto, precision/recall/f1
+# etc.), que têm sempre o mesmo formato não importa quantos itens existam.
+# =========================================================
+CHAVES_DETALHE_NUMERICO = {"valores"}
+CHAVES_DETALHE_COMPONENTES = {
+    "valores",
+    "componentes_identificados",
+    "componentes_alucinados",
+    "componentes_nao_identificados",
+}
+
+
+def _resumo_numerico(resultado_numerico: dict) -> dict:
+    """Remove o dict 'valores' (item a item) de cada categoria (tensoes/
+    correntes/potencias), mantendo só os agregados (taxa_acerto_percentual,
+    ERM, MAE, RMSE, status_counts...). Vout/Vout_teorico/ganho são escalares
+    (não têm 'valores'), então passam intactos."""
+
+    resumo = {}
+    for chave, valor in resultado_numerico.items():
+        if isinstance(valor, dict) and "valores" in valor:
+            resumo[chave] = {k: v for k, v in valor.items() if k not in CHAVES_DETALHE_NUMERICO}
+        else:
+            resumo[chave] = valor
+    return resumo
+
+
+def _resumo_componentes(resultado_componentes: dict) -> dict:
+    """Remove 'valores' e as listas de IDs (identificados/alucinados/
+    não_identificados) de cada categoria, mantendo TP/FP/FN/precision/
+    recall/f1_score/valor_taxa_acerto_percentual."""
+
+    resumo = {}
+    for categoria, info in resultado_componentes.items():
+        if categoria == "categorias_invalidas" or not isinstance(info, dict):
+            resumo[categoria] = info
+            continue
+        resumo[categoria] = {k: v for k, v in info.items() if k not in CHAVES_DETALHE_COMPONENTES}
+    return resumo
+
+
+def _resumo_textual(resultado_textual: dict) -> dict:
+    """Remove o dict 'valores' (por componente) de 'regiao_operacao',
+    mantendo só o agregado (quantidade, taxa_acerto_percentual,
+    status_counts). 'terra_virtual' é um campo escalar único (não tem
+    'valores'), passa intacto."""
+
+    resumo = {}
+    for chave, valor in resultado_textual.items():
+        if isinstance(valor, dict) and "valores" in valor:
+            resumo[chave] = {k: v for k, v in valor.items() if k != "valores"}
+        else:
+            resumo[chave] = valor
+    return resumo
+
+
+def _extrair_detalhes_textual(resultado_textual: dict, id_execucao: int) -> list[dict]:
+    """Converte o dict 'valores' (por componente) de 'regiao_operacao' em
+    linhas de detalhe, mesmo formato longo do numérico/componentes."""
+
+    linhas = []
+    bloco = resultado_textual.get("regiao_operacao")
+    if isinstance(bloco, dict):
+        for item, info in bloco.get("valores", {}).items():
+            linhas.append({
+                "id_execucao": id_execucao,
+                "origem": "textual",
+                "categoria": "regiao_operacao",
+                "item": item,
+                "valor_ia": info.get("obtido"),
+                "valor_real": info.get("esperado"),
+                "status": info.get("status"),
+            })
+    return linhas
+
+
+def _extrair_detalhes_numerico(resultado_numerico: dict, id_execucao: int) -> list[dict]:
+    """Converte o dict 'valores' de tensoes/correntes/potencias em linhas
+    de detalhe (uma por nó/componente), no formato longo."""
+
+    linhas = []
+    for categoria in ("tensoes", "correntes", "potencias"):
+        bloco = resultado_numerico.get(categoria, {})
+        if not isinstance(bloco, dict):
+            continue
+        for item, info in bloco.get("valores", {}).items():
+            linhas.append({
+                "id_execucao": id_execucao,
+                "origem": "numerico",
+                "categoria": categoria,
+                "item": item,
+                "valor_ia": info.get("IA"),
+                "valor_real": info.get("REAL"),
+                "status": info.get("status"),
+            })
+    return linhas
+
+
+def _extrair_detalhes_componentes(resultado_componentes: dict, id_execucao: int) -> list[dict]:
+    """Converte 'valores' (comparação de valor) e as listas de IDs
+    (alucinados/não identificados) de cada categoria de componente em
+    linhas de detalhe."""
+
+    linhas = []
+    for categoria, info in resultado_componentes.items():
+        if categoria == "categorias_invalidas" or not isinstance(info, dict):
+            continue
+
+        for item, val in info.get("valores", {}).items():
+            valor_ia = val.get("valor_obtido")
+            valor_real = val.get("valor_esperado")
+
+            # Categorias sem campo 'valor' aplicável no schema (amp-ops e
+            # diodos só têm 'id') fazem os dois lados virem None aqui — não
+            # é uma comparação "faltante" de verdade (o componente já foi
+            # corretamente identificado, é um TP), é simplesmente um campo
+            # que não existe para essa categoria. Sem esse filtro, TODO
+            # amp-op/diodo identificado certo virava uma linha 'faltante'
+            # no detalhe, poluindo status_geral/status_por_categoria com um
+            # falso 100% de falha nessas duas categorias.
+            if valor_ia is None and valor_real is None:
+                continue
+
+            valor_correto = val.get("valor_correto")
+            status = "faltante" if valor_correto is None else ("correto" if valor_correto else "incorreto")
+            linhas.append({
+                "id_execucao": id_execucao,
+                "origem": "componentes",
+                "categoria": categoria,
+                "item": item,
+                "valor_ia": valor_ia,
+                "valor_real": valor_real,
+                "status": status,
+            })
+
+        for item in info.get("componentes_alucinados", []):
+            linhas.append({
+                "id_execucao": id_execucao, "origem": "componentes", "categoria": categoria,
+                "item": item, "valor_ia": "", "valor_real": "", "status": "alucinado",
+            })
+
+        for item in info.get("componentes_nao_identificados", []):
+            linhas.append({
+                "id_execucao": id_execucao, "origem": "componentes", "categoria": categoria,
+                "item": item, "valor_ia": "", "valor_real": "", "status": "nao_identificado",
+            })
+
+    return linhas
+
+
+def avaliar_resposta_completa(resposta: dict, gabarito: dict, id_execucao: int) -> tuple[dict, list[dict]]:
     """Avalia uma resposta contra o gabarito usando os três módulos e
-    devolve um dict plano, pronto para `linha = {..., **avaliacao}`.
+    devolve (resumo achatado, lista de linhas de detalhe).
+
+    O resumo tem sempre o mesmo formato de colunas (métricas agregadas);
+    o detalhe é quem carrega a comparação item a item (nó de tensão, ID de
+    componente), em formato longo — uma linha por item em vez de colunas
+    novas por item.
 
     Se o gabarito estiver ausente (dict vazio), NÃO avalia — evita gerar
     'incorreto'/'faltante' em tudo, o que poluiria as médias agregadas
@@ -76,29 +243,58 @@ def avaliar_resposta_completa(resposta: dict, gabarito: dict) -> dict:
     """
 
     if not gabarito:
-        return {"gabarito_encontrado": False}
+        return {"gabarito_encontrado": False}, []
 
     resultado_num_textual = avaliar_numerico_textual(resposta, gabarito)
     resultado_componentes = avaliar_componentes(resposta, gabarito)
 
     combinado = {
         "gabarito_encontrado": True,
-        "numerico": resultado_num_textual["numerico"],
-        "textual": resultado_num_textual["textual"],
-        "componentes": resultado_componentes,
+        "numerico": _resumo_numerico(resultado_num_textual["numerico"]),
+        "textual": _resumo_textual(resultado_num_textual["textual"]),
+        "componentes": _resumo_componentes(resultado_componentes),
     }
 
-    return _achatar(combinado)
+    detalhes = (
+        _extrair_detalhes_numerico(resultado_num_textual["numerico"], id_execucao)
+        + _extrair_detalhes_componentes(resultado_componentes, id_execucao)
+        + _extrair_detalhes_textual(resultado_num_textual["textual"], id_execucao)
+    )
+
+    return _achatar(combinado), detalhes
 
 
 # =========================================================
-# Níveis de prompt (direto / guiado / estruturado)
+# Níveis de prompt (direto / guiado / estruturado), por idioma. As chaves
+# JSON pedidas na resposta são sempre em português (ver prompts.py); só o
+# texto de instrução muda entre os dois dicionários abaixo.
 # =========================================================
-NIVEIS_PROMPT = {
-    1: PROMPT_ANALISE_CIRCUITO_1,
-    2: PROMPT_ANALISE_CIRCUITO_2,
-    3: PROMPT_ANALISE_CIRCUITO_3,
+NIVEIS_PROMPT_POR_IDIOMA = {
+    "pt": {
+        1: PROMPT_ANALISE_CIRCUITO_1,
+        2: PROMPT_ANALISE_CIRCUITO_2,
+        3: PROMPT_ANALISE_CIRCUITO_3,
+    },
+    "en": {
+        1: PROMPT_ANALISE_CIRCUITO_1_EN,
+        2: PROMPT_ANALISE_CIRCUITO_2_EN,
+        3: PROMPT_ANALISE_CIRCUITO_3_EN,
+    },
 }
+
+# =========================================================
+# Idiomas efetivamente rodados nesta execução, conforme config.IDIOMA_PROMPT
+# ("pt", "en" ou "ambos" — roda os dois, um após o outro, no mesmo par de
+# CSVs, marcando cada linha com a coluna "idioma").
+# =========================================================
+if IDIOMA_PROMPT == "ambos":
+    IDIOMAS_EXECUCAO = ["pt", "en"]
+elif IDIOMA_PROMPT in ("pt", "en"):
+    IDIOMAS_EXECUCAO = [IDIOMA_PROMPT]
+else:
+    raise ValueError(
+        f"config.IDIOMA_PROMPT inválido: {IDIOMA_PROMPT!r} — use 'pt', 'en' ou 'ambos'."
+    )
 
 
 # =========================================================
@@ -124,30 +320,6 @@ def preparar_pastas():
 
     RESULTADOS_DIR.mkdir(exist_ok=True)
     JSON_DIR.mkdir(exist_ok=True)
-
-
-# =========================================================
-# Carrega o CSV anterior de forma tolerante a arquivos
-# antigos ou malformados
-# =========================================================
-def carregar_resultados_csv(caminho: Path) -> pd.DataFrame:
-    """Lê um CSV antigo de forma tolerante a arquivos malformados ou com linhas quebradas."""
-    if not caminho.exists():
-        return pd.DataFrame()
-
-    try:
-        return pd.read_csv(
-            caminho,
-            sep=";",
-            engine="python",
-            on_bad_lines="skip",
-            keep_default_na=False,
-            dtype=str,
-        )
-    except Exception as exc:
-        print(f"Atenção: não foi possível ler {caminho.name}: {exc}")
-        print("Iniciando o CSV com um estado limpo.")
-        return pd.DataFrame()
 
 
 # =========================================================
@@ -226,56 +398,35 @@ def carregar_json(caminho: Path) -> dict:
         return {}
 
 
-def _normalizar_nome_arquivo(nome: str) -> str:
-    """Normaliza nomes de arquivos para comparar imagem e gabarito de maneira mais robusta."""
-    if not nome:
-        return ""
+def _identificar_circuito(nome: str) -> tuple[str, int] | None:
+    """Extrai a família e o número do circuito a partir do nome do arquivo."""
+    nome_normalizado = nome.lower()
 
-    nome = nome.lower()
-    nome = re.sub(r"\.(json|png|jpg|jpeg|webp)$", "", nome)
-    nome = re.sub(r"[^a-z0-9]+", " ", nome)
+    if "amp" in nome_normalizado:
+        familia = "amp"
+    elif "diodo" in nome_normalizado or "dio" in nome_normalizado:
+        familia = "dio"
+    elif "rlc" in nome_normalizado:
+        familia = "rlc"
+    else:
+        return None
 
-    tokens = []
-    for token in nome.split():
-        token = token.strip()
-        if not token:
-            continue
+    numeros = re.findall(r"\d+", nome_normalizado)
+    if not numeros:
+        return None
 
-        for prefixo in ["resposta", "gabarito", "circuito", "img", "image", "arquivo"]:
-            if token.startswith(prefixo):
-                token = token[len(prefixo):]
-                break
-
-        token = re.sub(r"\d+$", "", token)
-        if token:
-            tokens.append(token)
-
-    return " ".join(tokens)
+    return familia, int(numeros[-1])
 
 
 def _nomes_batem(imagem_path: Path, arquivo_gabarito: Path) -> bool:
-    """Compara nome da imagem e do arquivo de gabarito usando regras flexíveis de correspondência."""
-    imagem_stem = imagem_path.stem.lower()
-    nome_gabarito = arquivo_gabarito.stem.lower()
+    """Compara estritamente a família e o número do circuito."""
+    circuito_imagem = _identificar_circuito(imagem_path.stem)
+    circuito_gabarito = _identificar_circuito(arquivo_gabarito.stem)
 
-    if imagem_stem == nome_gabarito:
-        return True
-
-    imagem_norm = _normalizar_nome_arquivo(imagem_stem)
-    gabarito_norm = _normalizar_nome_arquivo(nome_gabarito)
-
-    if imagem_norm and gabarito_norm:
-        if imagem_norm == gabarito_norm:
-            return True
-        if imagem_norm in gabarito_norm or gabarito_norm in imagem_norm:
-            return True
-
-        tokens_imagem = set(imagem_norm.split())
-        tokens_gabarito = set(gabarito_norm.split())
-        if tokens_imagem & tokens_gabarito:
-            return True
-
-    return any(parte in nome_gabarito for parte in imagem_stem.split("_"))
+    return (
+        circuito_imagem is not None
+        and circuito_imagem == circuito_gabarito
+    )
 
 
 def carregar_gabarito(imagem_path: Path) -> tuple[dict, Path | None]:
@@ -321,6 +472,7 @@ def salvar_json(nome_arquivo, resposta):
 # =========================================================
 # Programa principal
 # =========================================================
+
 def main():
     """Executa o fluxo completo: análise da imagem, avaliação e exportação dos resultados."""
 
@@ -329,132 +481,156 @@ def main():
     modelos = montar_modelos()
     imagens = listar_imagens()
 
-    # Lista que armazenará todas as linhas do CSV
+    # =====================================================
+    # Cada chamada de main() gera um par de arquivos NOVO (resumo + detalhe),
+    # com o timestamp desta execução no nome — não acumula/sobrescreve o
+    # resultado de rodadas anteriores. Dentro desta mesma chamada, os
+    # arquivos ainda são salvos a cada iteração (não só no final), então se
+    # o processo travar ou for interrompido, o que já rodou não se perde.
+    # =====================================================
+    timestamp_execucao = datetime.now().strftime("%Y%m%d_%H%M%S")
+    caminho_saida = RESULTADOS_DIR / f"{PREFIXO_CSV_RESULTADOS}_{timestamp_execucao}.csv"
+    caminho_detalhe_saida = RESULTADOS_DIR / f"{PREFIXO_CSV_DETALHES}_{timestamp_execucao}.csv"
+
+    # Linhas do CSV resumo (uma por execução) desta chamada do script.
     resultados = []
 
-    total_execucoes = len(imagens) * len(NIVEIS_PROMPT) * len(modelos)
-    print(f"\nTotal de imagens: {len(imagens)} | níveis de prompt: {len(NIVEIS_PROMPT)} "
+    # Linhas do CSV detalhe (uma por nó/componente comparado, formato longo
+    # — ver avaliar_resposta_completa) desta chamada do script.
+    detalhes_resultados = []
+
+    # Acumuladores de tokens e custos para o relatório final
+    acumulado_input_tokens = 0
+    acumulado_output_tokens = 0
+    acumulado_custo_usd = 0.0
+
+    total_execucoes = len(imagens) * len(IDIOMAS_EXECUCAO) * 3 * len(modelos)
+    print(f"\nTotal de imagens: {len(imagens)} | idiomas: {IDIOMAS_EXECUCAO} | níveis de prompt: 3 "
           f"| modelos: {len(modelos)} | total de execuções: {total_execucoes}\n")
 
     indice = 0
 
     # =====================================================
-    # Loop principal: imagem x nível de prompt x modelo
+    # Loop principal: imagem x idioma x nível de prompt x modelo
     # =====================================================
     for imagem_path in imagens:
 
-        # Carrega o gabarito uma vez por imagem (não muda entre prompts/modelos)
+        # Carrega o gabarito uma vez por imagem (não muda entre idiomas/prompts/modelos)
         gabarito, gabarito_path = carregar_gabarito(imagem_path)
         if not gabarito:
             print(f"Atenção: gabarito não encontrado para {imagem_path.name} — "
                   f"todas as execuções desta imagem serão salvas com "
                   f"'gabarito_encontrado=False' e sem métricas.")
 
-        for nivel_prompt, texto_prompt in NIVEIS_PROMPT.items():
-            for modelo_cfg in modelos:
+        for idioma in IDIOMAS_EXECUCAO:
+            niveis_prompt = NIVEIS_PROMPT_POR_IDIOMA[idioma]
 
-                indice += 1
+            for nivel_prompt, texto_prompt in niveis_prompt.items():
+                for modelo_cfg in modelos:
 
-                print("=" * 50)
-                print(f"Execução {indice}/{total_execucoes}")
-                print(f"Imagem: {imagem_path.name} | Prompt: nível {nivel_prompt} | Modelo: {modelo_cfg['nome']}")
-                print("=" * 50)
+                    indice += 1
 
-                inicio = time.time()
+                    print("=" * 50)
+                    print(f"Execução {indice}/{total_execucoes}")
+                    print(f"Imagem: {imagem_path.name} | Idioma: {idioma} | Prompt: nível {nivel_prompt} | Modelo: {modelo_cfg['nome']}")
+                    print("=" * 50)
 
-                # =================================================
-                # Envia imagem para o modelo
-                # =================================================
-                resposta = modelo_cfg["analisador"].analisar_imagem(
-                    image_path=imagem_path,
-                    prompt=texto_prompt,
-                )
+                    inicio = time.time()
 
-                tempo_execucao = round(time.time() - inicio, 2)
+                    # =================================================
+                    # Envia imagem para o modelo e desempacota resposta + tokens
+                    # =================================================
+                    resposta, input_tokens, output_tokens = modelo_cfg["analisador"].analisar_imagem(
+                        image_path=imagem_path,
+                        prompt=texto_prompt,
+                    )
 
-                # Nome base único por (imagem, nível de prompt, modelo) —
-                # sem isso, execuções diferentes sobrescreveriam o mesmo
-                # arquivo JSON.
-                nome_base = f"{imagem_path.stem}_prompt{nivel_prompt}_{modelo_cfg['nome']}"
+                    tempo_execucao = round(time.time() - inicio, 2)
 
-                # =================================================
-                # Salva JSON individual da resposta
-                # =================================================
-                json_path = salvar_json(nome_base, resposta)
+                    # =================================================
+                    # Cálculo financeiro da requisição atual
+                    # =================================================
+                    custo_input = (input_tokens * PRECO_INPUT_1M) / 1_000_000
+                    custo_output = (output_tokens * PRECO_OUTPUT_1M) / 1_000_000
+                    custo_execucao_usd = custo_input + custo_output
 
-                # =================================================
-                # Avaliação automática da resposta (numérico + textual + componentes)
-                # =================================================
-                avaliacao = avaliar_resposta_completa(resposta, gabarito)
+                    # Acumula nos totais globais
+                    acumulado_input_tokens += input_tokens
+                    acumulado_output_tokens += output_tokens
+                    acumulado_custo_usd += custo_execucao_usd
 
-                # =================================================
-                # Estrutura da linha do CSV
-                # =================================================
-                linha = {
+                    # Nome base único por (imagem, idioma, nível de prompt, modelo)
+                    nome_base = f"{imagem_path.stem}_{idioma}_prompt{nivel_prompt}_{modelo_cfg['nome']}"
 
-                    "id_execucao": indice,
+                    # =================================================
+                    # Salva JSON individual da resposta
+                    # =================================================
+                    json_path = salvar_json(nome_base, resposta)
 
-                    "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                    # =================================================
+                    # Avaliação automática da resposta
+                    # =================================================
+                    avaliacao, detalhes_execucao = avaliar_resposta_completa(resposta, gabarito, indice)
 
-                    "imagem": imagem_path.name,
+                    # =================================================
+                    # Estrutura da linha do CSV (com adição das métricas de consumo)
+                    # =================================================
+                    linha = {
+                        "id_execucao": indice,
+                        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                        "imagem": imagem_path.name,
+                        "modelo": modelo_cfg["nome"],
+                        "idioma": idioma,
+                        "nivel_prompt": nivel_prompt,
+                        "tempo_execucao_s": tempo_execucao,
+                        "input_tokens": input_tokens,
+                        "output_tokens": output_tokens,
+                        "custo_usd": round(custo_execucao_usd, 6),
+                        "arquivo_json": str(json_path),
+                        "arquivo_gabarito": str(gabarito_path) if gabarito_path else "",
+                        **avaliacao
+                    }
 
-                    "modelo": modelo_cfg["nome"],
-                    "nivel_prompt": nivel_prompt,
+                    resultados.append(linha)
+                    detalhes_resultados.extend(detalhes_execucao)
 
-                    "tempo_execucao_s": tempo_execucao,
+                    # =================================================
+                    # Salva os dois CSVs IMEDIATAMENTE após esta execução, não só
+                    # no final do loop — se o processo travar, o que já rodou
+                    # nesta chamada não se perde. Cada chamada de main() começa
+                    # com uma lista vazia (sem carregar rodadas anteriores), então
+                    # isso sempre reescreve só o arquivo desta execução, criado
+                    # com o timestamp calculado no início de main().
+                    # =================================================
+                    df_final = pd.DataFrame(resultados)
+                    caminho_saida = salvar_resultados_csv(df_final, caminho_saida)
 
-                    "arquivo_json": str(json_path),
-                    "arquivo_gabarito": str(gabarito_path) if gabarito_path else "",
+                    df_detalhe_final = pd.DataFrame(detalhes_resultados)
+                    caminho_detalhe_saida = salvar_resultados_csv(df_detalhe_final, caminho_detalhe_saida)
 
-                    # Resposta bruta em texto
-                    "resposta_modelo": json.dumps(resposta, ensure_ascii=False),
-
-                    # Métricas automáticas (numérico + textual + componentes, já achatadas)
-                    **avaliacao
-                }
-
-                resultados.append(linha)
-
-                print(f"Tempo: {tempo_execucao}s")
-                print("Resposta salva com sucesso.\n")
+                    # Output detalhado no terminal
+                    print(f"⏱️ Tempo: {tempo_execucao}s")
+                    print(f"📥 Input Tokens:  {input_tokens:,}")
+                    print(f"📤 Output Tokens: {output_tokens:,}")
+                    print(f"💵 Custo estimado: ${custo_execucao_usd:.6f} USD (R$ {custo_execucao_usd * COTACAO_USD_BRL:.4f})")
+                    print(f"💾 Progresso salvo em: {caminho_saida.name} (resumo) e {caminho_detalhe_saida.name} (detalhe)\n")
 
     # =====================================================
-    # Cria DataFrame das respostas atuais
+    # RELATÓRIO FINAL DE CONSUMO E CUSTOS DA PIPELINE
     # =====================================================
-    df_novo = pd.DataFrame(resultados)
-
-    # =====================================================
-    # Se CSV já existir:
-    # adiciona novas linhas sem sobrescrever
-    # =====================================================
-    if CSV_RESULTADOS.exists():
-
-        df_antigo = carregar_resultados_csv(CSV_RESULTADOS)
-
-        if df_antigo.empty:
-            df_final = df_novo
-        else:
-            df_final = pd.concat(
-                [df_antigo, df_novo],
-                ignore_index=True,
-                sort=False
-            )
-
-    else:
-
-        df_final = df_novo
-
-    # =====================================================
-    # Salva CSV final
-    # =====================================================
-    caminho_saida = salvar_resultados_csv(df_final, CSV_RESULTADOS)
-
-    print("=" * 50)
-    print("PROCESSAMENTO FINALIZADO")
-    print("=" * 50)
-
-    print(f"Resultados salvos em:")
-    print(caminho_saida)
+    print("\n" + "=" * 55)
+    print("📊 RESUMO FINANCEIRO E DE CONSUMO DA PIPELINE")
+    print("=" * 55)
+    print(f" Execuções realizadas:        {total_execucoes}")
+    print(f" Total Input Tokens (Prompt):  {acumulado_input_tokens:,}")
+    print(f" Total Output Tokens (JSON):  {acumulado_output_tokens:,}")
+    print(f" Total Geral de Tokens:       {(acumulado_input_tokens + acumulado_output_tokens):,}")
+    print("-" * 55)
+    print(f" 💵 Custo Total Estimado (USD): ${acumulado_custo_usd:.4f}")
+    print(f" 🇧🇷 Custo Total Estimado (BRL): R$ {acumulado_custo_usd * COTACAO_USD_BRL:.2f}")
+    print("=" * 55)
+    print(f"\nResumo salvo com sucesso em: {caminho_saida}")
+    print(f"Detalhe (item a item) salvo com sucesso em: {caminho_detalhe_saida}\n")
 
 
 # =========================================================

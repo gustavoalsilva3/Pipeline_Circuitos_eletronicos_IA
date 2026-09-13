@@ -3,26 +3,25 @@
     "componentes": {
         "amplificadores_operacionais": [
             {
-                "id": "U1",
-                "modelo": "LT1057"
+                "id": "U1"
             }
         ],
         "resistores": [
             {
                 "id": "R1",
-                "valor": "2 kΩ"
+                "valor": "2 Ω"
             },
             {
                 "id": "R2",
-                "valor": "10 kΩ"
+                "valor": "10 Ω"
             },
             {
                 "id": "R3",
-                "valor": "10 kΩ"
+                "valor": "10 Ω"
             },
             {
                 "id": "R4",
-                "valor": "2 kΩ"
+                "valor": "2 Ω"
             }
         ],
         "fontes": [
@@ -40,30 +39,35 @@
             }
         ],
         "capacitores": [],
-        "diodos": []
+        "diodos": [],
+        "indutores": []
     },
     "analise_numerica": {
         "ganho_teorico": -5.0,
         "Vout_teorico_V": -75.0,
-        "Vout_real_V": -1.333,
+        "Vout_real_V": 2.1,
         "tensoes_V": {
-            "entrada_inversora": 0.0,
-            "entrada_nao_inversora": 0.0,
-            "saida_ampop": -8.0
+            "A": 12.85,
+            "B": 0.0,
+            "C": 2.1
         },
         "correntes_A": {
-            "R1": 0.0075,
-            "R2": -0.000667,
-            "R3": 0.0008
+            "R1": 1.075,
+            "R2": 0.0,
+            "R3": 1.075,
+            "R4": 1.05
         },
         "potencias_W": {
-            "R1": 0.1125,
-            "R2": 0.00444,
-            "R3": 0.0064
+            "R1": 2.31112,
+            "R2": 0.0,
+            "R3": 11.55624,
+            "R4": 2.205
         }
     },
     "analise_textual": {
-        "regiao_operacao": "Saturação negativa",
-        "terra_virtual": true
+        "regiao_operacao": {
+            "U1": "Linear"
+        },
+        "terra_virtual": false
     }
 }

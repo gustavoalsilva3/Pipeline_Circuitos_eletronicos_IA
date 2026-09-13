@@ -1,32 +1,87 @@
-AVALIAÇÃO DO MODELO
+AVALIAÇÃO DO MODELO — Pipeline TFC
+(métricas calculadas por evaluator_numerico.py, evaluator_textual.py e
+evaluator_componentes.py, consolidadas em main.py)
 │
-├── 1. ANÁLISE NUMÉRICA
+├── 1. ANÁLISE NUMÉRICA (evaluator_numerico.py)
 │   │
-│   ├── Vout
-│   ├── Tensões
-│   ├── Correntes
-│   └── Potências
-│
-│   Métricas:
-│   ├── Erro Relativo Médio
-│   ├── MAE
-│   └── RMSE
-├── 2. ANÁLISE CATEGÓRICA
+│   ├── Vout / Vout_teórico / Ganho — escalares, um valor por circuito
+│   └── Tensões / Correntes / Potências — por nó ou componente (ex: nó "A",
+│       resistor "R1"), comparados item a item
 │   │
-│   ├── Tipo de circuito
-│   ├── Região de operação
-│   └── Terra virtual
+│   ├── Comparação: tolerância de engenharia (padrão 5%, configurável em
+│   │   config.TOLERANCIA_PADRAO_PERCENTUAL), NÃO igualdade exata — uma
+│   │   resposta de IA raramente bate o valor exato do gabarito. O parser
+│   │   reconhece prefixos de engenharia (k, m, µ, M...), sinal e unidade
+│   │   junto do número (ex: "10 kΩ", "-12 V").
+│   │
+│   ├── Status por item: correto / incorreto / faltante
+│   │   (quando a referência é ≈0, erro percentual não é matematicamente
+│   │   definido — tratado à parte, ver docstring de evaluator_numerico.py)
+│   │
+│   └── Métricas agregadas por categoria (tensões/correntes/potências):
+│       ├── taxa_acerto_percentual — RECOMENDADA como métrica principal
+│       │   pra comparar prompts/modelos/famílias (nunca descarta itens)
+│       ├── ERM_percentual — erro relativo médio (exclui itens com
+│       │   referência ≈0; usar como complemento, não métrica isolada)
+│       ├── MAE — erro absoluto médio
+│       └── RMSE — erro quadrático médio (raiz)
 │
-│   Métrica:
-│   └── Hit Rate
+├── 2. ANÁLISE TEXTUAL (evaluator_textual.py)
+│   │
+│   ├── Região de operação — um dict {ID_do_componente: estado}, com uma
+│   │   entrada por diodo e por amplificador operacional do circuito
+│   │   (ex: {"D1": "Condução Direta", "U1": "Saturação Negativa"}) —
+│   │   resistor/capacitor/indutor não entram, são sempre lineares
+│   │   │
+│   │   ├── Comparação por ESTADO CANÔNICO, não string exata — a mesma
+│   │   │   condição elétrica pode ser descrita de formas bem diferentes
+│   │   │   pela IA (ex: "polarização direta (ON)" = "Condução Direta");
+│   │   │   os padrões reconhecem sinônimos em português e inglês
+│   │   ├── Status por componente: correto / incorreto / faltante (IA não
+│   │   │   opinou) / alucinado (IA citou um ID que não existe no gabarito)
+│   │   └── Métrica agregada: taxa_acerto_percentual
+│   │
+│   └── Terra virtual — booleano único pro circuito inteiro (é uma
+│       propriedade da malha de realimentação, não de um componente
+│       isolado). Métrica: acerto (comparação exata esperado x obtido).
 │
-└── 3. IDENTIFICAÇÃO DE COMPONENTES
+│   [Tipo de circuito é extraído da resposta mas NÃO é avaliado — deixado
+│    fora do escopo por ser texto livre sem correspondência exata confiável
+│    (ex: "Amplificador Inversor" vs "Amp-Op Inversor"); ver decisão
+│    registrada na conversa e docstring de response_splitter.py]
+│
+└── 3. IDENTIFICAÇÃO DE COMPONENTES (evaluator_componentes.py)
     │
-    ├── Componentes corretos
-    ├── Componentes ausentes
-    └── Componentes inventados
+    ├── Categorias avaliadas (lista fechada): amplificadores_operacionais,
+    │   resistores, fontes, diodos, capacitores, indutores — qualquer chave
+    │   fora dessa lista (erro de digitação, categoria alucinada) vira
+    │   'categorias_invalidas', não gera métrica nem coluna nova
+    │
+    ├── Identificação (por ID do componente, ex: "R1", "D2"):
+    │   ├── TP (identificado certo) / FP (alucinado) / FN (não identificado)
+    │   └── Métricas: precision, recall, f1_score
+    │
+    └── Valor do componente (só nos IDs corretamente identificados, TP):
+        ├── Mesma tolerância de engenharia do item 1, não string exata
+        │   (ex: "10 kΩ" == "10000 Ω")
+        └── Métrica agregada: valor_taxa_acerto_percentual — fica vazia
+            (não é 0%) em categorias sem campo 'valor' no schema, como
+            amplificadores_operacionais e diodos (só têm 'id')
 
-    Métricas:
-    ├── Precision
-    ├── Recall
-    └── F1-score
+
+ESTRUTURA DE SAÍDA (uma rodada de main.py gera um par de arquivos novo,
+nunca sobrescreve/acumula com rodadas anteriores):
+
+├── resultados_AAAAMMDD_HHMMSS.csv
+│     Resumo: 1 linha por execução, só as métricas agregadas acima
+│     (schema de colunas fixo, não cresce com o tamanho do dataset)
+│
+└── resultados_detalhe_AAAAMMDD_HHMMSS.csv
+      Detalhe: 1 linha por item comparado (nó de tensão, ID de componente,
+      ID de diodo/amp-op na região de operação), formato longo — status
+      correto/incorreto/faltante/alucinado/não_identificado por linha.
+      É aqui que fica a granularidade que não cabe no resumo sem explodir
+      o número de colunas (ver seção sobre isso na conversa do projeto).
+
+Análise pronta (tabelas + gráficos a partir dos dois CSVs acima):
+    python Analise_erros.py

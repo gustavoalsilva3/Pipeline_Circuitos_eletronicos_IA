@@ -1,0 +1,10 @@
+# Segredos
+.env
+
+# Ambiente Python
+.venv/
+__pycache__/
+*.pyc
+
+# Saída gerada pela pipeline (reprodutível a partir do código + gabaritos)
+resultados/

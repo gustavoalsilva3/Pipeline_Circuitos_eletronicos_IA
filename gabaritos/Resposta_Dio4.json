@@ -1,0 +1,80 @@
+{
+    "tipo_circuito": "Rede de Diodos com Divisor Resistivo (Três Fontes)",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "1 Ω"
+            },
+            {
+                "id": "R2",
+                "valor": "20 Ω"
+            },
+            {
+                "id": "R3",
+                "valor": "5 Ω"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "+3 V"
+            },
+            {
+                "id": "V2",
+                "valor": "+2 V"
+            },
+            {
+                "id": "V3",
+                "valor": "+1 V"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [
+            {
+                "id": "D1"
+            },
+            {
+                "id": "D2"
+            },
+            {
+                "id": "D3"
+            }
+        ],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": 1.0,
+        "Vout_teorico_V": 2.0,
+        "Vout_real_V": 1.99985,
+        "tensoes_V": {
+            "A": 2.99995,
+            "B": 0.999201
+        },
+        "correntes_A": {
+            "D1": 0.050005,
+            "D2": 0.150125,
+            "D3": 0.799071,
+            "R1": 0.999201,
+            "R2": 0.050005,
+            "R3": 0.20013
+        },
+        "potencias_W": {
+            "D1": 0.0,
+            "D2": 0.0,
+            "D3": 0.0,
+            "R1": 0.998403,
+            "R2": 0.05001,
+            "R3": 0.20026
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "D1": "Condução Direta",
+            "D2": "Condução Direta",
+            "D3": "Condução Direta"
+        },
+        "terra_virtual": false
+    }
+}

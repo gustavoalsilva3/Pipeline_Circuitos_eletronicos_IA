@@ -2,14 +2,32 @@
 
 Converte valores para um formato numérico comum, classifica cada comparação
 como correta, incorreta ou faltante (usando tolerância percentual de
-engenharia, não igualdade exata), calcula métricas de erro (ERM, MAE, RMSE)
-e organiza o resultado em seções para Vout, ganho, tensões, correntes e
-potências.
+engenharia, não igualdade exata), calcula métricas de erro (ERM, MAE, RMSE,
+taxa_acerto_percentual) e organiza o resultado em seções para Vout, ganho,
+tensões, correntes e potências.
+
+IMPORTANTE sobre qual métrica usar como principal em correntes/potências:
+ERM_percentual EXCLUI da média os itens com referência ~0 (ver
+'referencia_zero' em _comparar_valor), porque erro percentual não é
+definido quando o valor de referência é zero. Isso é correto item a item,
+mas tem um efeito colateral sério ao AGREGAR por categoria de circuito:
+circuitos com muitos ramos de corrente zero (comuns em amp-op saturado ou
+diodo em corte) podem ficar com ERM_percentual vazio/None mesmo quando o
+modelo errou TODOS os valores — e uma média feita ignorando esses None
+silenciosamente exclui exatamente os circuitos onde o modelo mais erra,
+inflando artificialmente o resultado agregado.
+
+Por isso, 'taxa_acerto_percentual' (baseado em status_counts, que NUNCA
+descarta nada) é a métrica recomendada como principal para comparações
+agregadas entre categorias/prompts/modelos. Use ERM_percentual como
+complementar (grandeza do erro nos casos onde ele é definido), não como
+métrica isolada de desempenho.
 """
 
 import re
 import math
 
+from config import TOLERANCIA_PADRAO_PERCENTUAL
 from response_splitter import separar_resposta
 from evaluator_textual import avaliar_textual
 
@@ -35,14 +53,13 @@ ENGINEERING_PREFIXES = {
     "G": 1e9,
 }
 
-# Tolerância padrão para classificar uma resposta como "correta".
-# Um resultado de IA raramente bate com o gabarito na precisão de ponto
-# flutuante — o critério de engenharia é estar dentro de uma faixa de erro
-# relativo aceitável.
-TOLERANCIA_PADRAO_PERCENTUAL = 5.0
-
 # Tolerância absoluta usada apenas para decidir se um valor "é zero"
-# (evita comparação exata de float quando o gabarito é 0).
+# (evita comparação exata de float quando o gabarito é 0). A tolerância
+# PERCENTUAL usada para classificar uma comparação como "correta" (padrão
+# 5%) é TOLERANCIA_PADRAO_PERCENTUAL, importada de config.py — um
+# resultado de IA raramente bate com o gabarito na precisão exata de
+# ponto flutuante, por isso o critério é uma faixa de erro relativo
+# aceitável, não igualdade exata.
 ZERO_ABS_TOL = 1e-9
 
 
@@ -106,23 +123,22 @@ def _round_if_not_none(valor, casas_decimais):
 
 
 # =========================================================
-# Comparação central de um único par (IA x referência)
+# Comparação central de um único par (IA x referência) — usada por todas
+# as funções públicas do módulo (avaliar_categoria, avaliar_escalar), para
+# que status/erro_absoluto/erro_percentual sejam sempre calculados da
+# mesma forma em um único lugar.
 #
-# Bug corrigido: a versão anterior usava math.isclose(rel_tol=1e-9,
-# abs_tol=1e-9) para decidir "correto", o que exige igualdade quase exata
-# e praticamente nunca é satisfeito por uma resposta gerada por IA. Isso
-# fazia todo item cair em "incorreto", mesmo com erro de 1-2%. Agora o
-# status usa o mesmo erro percentual reportado nos resultados, com uma
-# tolerância de engenharia configurável (padrão 5%).
-#
-# Essa função também elimina a redundância de reparsear e recalcular o
-# erro em três lugares diferentes (classificar_status, erro_absoluto,
-# erro_percentual): agora tudo é calculado uma única vez aqui e reutilizado.
+# O status usa tolerância percentual de engenharia (padrão 5%, ver
+# TOLERANCIA_PADRAO_PERCENTUAL), não igualdade exata — uma resposta gerada
+# por IA praticamente nunca bate com o gabarito na precisão exata de ponto
+# flutuante, então exigir igualdade classificaria como "incorreto" até
+# respostas com erro de 1-2%, que são aceitáveis do ponto de vista de
+# engenharia.
 # =========================================================
 def _comparar_valor(valor_ia, valor_real, tolerancia_percentual):
     """Compara um par (valor_ia, valor_real) e retorna erro absoluto, erro
     percentual e status ('correto', 'incorreto' ou 'faltante') em uma
-    única passada, evitando reparsing redundante."""
+    única passada."""
 
     valor_ia_n = parse_numeric_value(valor_ia)
     valor_real_n = parse_numeric_value(valor_real)
@@ -172,75 +188,80 @@ def _comparar_valor(valor_ia, valor_real, tolerancia_percentual):
 
 
 # =========================================================
-# Wrappers públicos mantidos para compatibilidade com o resto da pipeline
-# (main.py e outros módulos podem depender desses nomes de função)
-# =========================================================
-def classificar_status(valor_real, valor_ia, tolerancia_percentual=TOLERANCIA_PADRAO_PERCENTUAL):
-    """Classifica uma comparação como 'correto', 'incorreto' ou 'faltante'
-    usando tolerância percentual de engenharia (padrão 5%)."""
-    return _comparar_valor(valor_ia, valor_real, tolerancia_percentual)["status"]
-
-
-def erro_absoluto(valor_real, valor_ia):
-    """Calcula o erro absoluto entre o valor real e o valor inferido pela IA."""
-    return _comparar_valor(valor_ia, valor_real, TOLERANCIA_PADRAO_PERCENTUAL)["erro_absoluto"]
-
-
-def erro_percentual(valor_real, valor_ia):
-    """Calcula o erro percentual relativo ao valor de referência."""
-    return _comparar_valor(valor_ia, valor_real, TOLERANCIA_PADRAO_PERCENTUAL)["erro_percentual"]
-
-
-# =========================================================
 # MAE / RMSE / Erro Relativo Médio
+#
+# Recebem pares já numéricos (avaliar_categoria só passa aqui os itens
+# onde IA e referência foram parseados com sucesso — ver
+# 'valores_ia_validos'/'valores_real_validos'), por isso operam direto com
+# aritmética simples em vez de passar de novo por _comparar_valor.
 # =========================================================
 def calcular_mae(valores_ia, valores_reais):
-    """Calcula o Mean Absolute Error a partir dos erros absolutos disponíveis."""
-    erros = [
-        erro_absoluto(real, ia)
-        for ia, real in zip(valores_ia, valores_reais)
-    ]
-    erros = [e for e in erros if e is not None]
-    return sum(erros) / len(erros) if erros else None
+    """Calcula o Mean Absolute Error a partir de pares já numéricos."""
+    if not valores_ia:
+        return None
+    erros = [abs(ia - real) for ia, real in zip(valores_ia, valores_reais)]
+    return sum(erros) / len(erros)
 
 
 def calcular_rmse(valores_ia, valores_reais):
-    """Calcula o Root Mean Square Error usando os erros quadráticos válidos."""
-    erros_quad = [
-        e ** 2 for e in (
-            erro_absoluto(real, ia) for ia, real in zip(valores_ia, valores_reais)
-        ) if e is not None
-    ]
-    return math.sqrt(sum(erros_quad) / len(erros_quad)) if erros_quad else None
+    """Calcula o Root Mean Square Error a partir de pares já numéricos."""
+    if not valores_ia:
+        return None
+    erros_quad = [(ia - real) ** 2 for ia, real in zip(valores_ia, valores_reais)]
+    return math.sqrt(sum(erros_quad) / len(erros_quad))
 
 
 def calcular_erm(valores_ia, valores_reais):
-    """Calcula o erro relativo médio percentual considerando apenas valores válidos
-    (casos com referência zero não entram aqui — ver 'referencia_zero' em avaliar_categoria)."""
-    erros = [
-        erro_percentual(real, ia)
-        for ia, real in zip(valores_ia, valores_reais)
-    ]
-    erros = [e for e in erros if e is not None]
+    """Calcula o erro relativo médio percentual a partir de pares já
+    numéricos, excluindo pares com referência ~0 (erro percentual não é
+    definido nesse caso — mesmo critério de 'referencia_zero' usado em
+    _comparar_valor/avaliar_categoria), exceto quando a IA também previu
+    ~0, que conta como erro 0%."""
+    erros = []
+    for ia, real in zip(valores_ia, valores_reais):
+        if abs(real) < ZERO_ABS_TOL:
+            if abs(ia) < ZERO_ABS_TOL:
+                erros.append(0.0)
+            continue
+        erros.append(abs(ia - real) / abs(real) * 100)
     return sum(erros) / len(erros) if erros else None
+
+
+# =========================================================
+# Normaliza chave de nó/componente (mesma lógica de _normalizar_id em
+# evaluator_componentes) — sem isso, "a" e "A" (ou " A ") seriam tratados
+# como dois nós diferentes em vez do mesmo nó, inflando 'faltante'/
+# 'incorreto' artificialmente e, se a IA variar a caixa entre execuções,
+# criando entradas inconsistentes na comparação.
+# =========================================================
+def _normalizar_chave(chave):
+    """Normaliza a chave de um nó (tensoes_V) ou componente (correntes_A/
+    potencias_W) para maiúsculas e sem espaços nas pontas."""
+    if chave is None:
+        return ""
+    return str(chave).strip().upper()
 
 
 # =========================================================
 # Extrai pares IA x referência de um dicionário
 # =========================================================
 def extrair_pares_dicionario(valores_ia, valores_reais):
-    """Gera pares chave -> valor_IA -> valor_real para comparar categorias inteiras."""
-    chaves = sorted(set(valores_ia.keys()) | set(valores_reais.keys()))
-    return [(chave, valores_ia.get(chave), valores_reais.get(chave)) for chave in chaves]
+    """Gera pares chave -> valor_IA -> valor_real para comparar categorias
+    inteiras. As chaves são normalizadas antes da comparação (ver
+    _normalizar_chave)."""
+    ia_normalizado = {_normalizar_chave(chave): valor for chave, valor in valores_ia.items()}
+    reais_normalizado = {_normalizar_chave(chave): valor for chave, valor in valores_reais.items()}
+
+    chaves = sorted(set(ia_normalizado.keys()) | set(reais_normalizado.keys()))
+    return [(chave, ia_normalizado.get(chave), reais_normalizado.get(chave)) for chave in chaves]
 
 
 # =========================================================
 # Avalia uma categoria de grandezas (tensões, correntes, potências)
 # =========================================================
 def avaliar_categoria(valores_ia, valores_reais, tolerancia_percentual=TOLERANCIA_PADRAO_PERCENTUAL):
-    """Avalia uma categoria inteira, item a item, em uma única passada
-    (a versão anterior iterava duas vezes sobre os pares para montar o
-    mesmo resultado)."""
+    """Avalia uma categoria inteira (tensões, correntes ou potências) item
+    a item, em uma única passada sobre os pares IA x referência."""
 
     pares = extrair_pares_dicionario(valores_ia, valores_reais)
 
@@ -271,6 +292,7 @@ def avaliar_categoria(valores_ia, valores_reais, tolerancia_percentual=TOLERANCI
 
     return {
         "quantidade": len(pares),
+        "taxa_acerto_percentual": round(status_counts["correto"] / len(pares) * 100, 1) if pares else None,
         "ERM_percentual": _round_if_not_none(calcular_erm(valores_ia_validos, valores_real_validos), 4),
         "MAE": _round_if_not_none(calcular_mae(valores_ia_validos, valores_real_validos), 8),
         "RMSE": _round_if_not_none(calcular_rmse(valores_ia_validos, valores_real_validos), 8),

@@ -1,0 +1,73 @@
+{
+    "tipo_circuito": "Rede de Diodos com Divisor Resistivo",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "10 Ω"
+            },
+            {
+                "id": "R2",
+                "valor": "6 Ω"
+            },
+            {
+                "id": "R3",
+                "valor": "5 Ω"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "+2 V"
+            },
+            {
+                "id": "V2",
+                "valor": "+1 V"
+            },
+            {
+                "id": "V3",
+                "valor": "+5 V"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [
+            {
+                "id": "D1"
+            },
+            {
+                "id": "D2"
+            }
+        ],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": "null",
+        "Vout_teorico_V": 1.80428,
+        "Vout_real_V": 1.80428,
+        "tensoes_V": {
+            "A": 1.80428
+        },
+        "correntes_A": {
+            "D1": 0.0,
+            "D2": 0.319572,
+            "R1": 0.319572,
+            "R2": 0.0,
+            "R3": 0.0
+        },
+        "potencias_W": {
+            "D1": 0.0,
+            "D2": 0.0,
+            "R1": 1.02126,
+            "R2": 0.0,
+            "R3": 0.0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "D1": "Corte",
+            "D2": "Condução Direta"
+        },
+        "terra_virtual": false
+    }
+}

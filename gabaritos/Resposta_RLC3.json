@@ -1,0 +1,58 @@
+{
+    "tipo_circuito": "Divisor Resistivo com Indutor em Paralelo (Curto-Circuito em DC)",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "3 Ω"
+            },
+            {
+                "id": "R2",
+                "valor": "5 Ω"
+            },
+            {
+                "id": "R3",
+                "valor": "9 Ω"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "+15 V"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [],
+        "indutores": [
+            {
+                "id": "L1",
+                "valor": "1 H"
+            }
+        ]
+    },
+    "analise_numerica": {
+        "ganho_teorico": 0.75,
+        "Vout_teorico_V": 11.25,
+        "Vout_real_V": 11.2491,
+        "tensoes_V": {
+            "A": 11.2503
+        },
+        "correntes_A": {
+            "R1": 1.2499,
+            "R2": 0.00025,
+            "R3": 1.2499,
+            "L1": 1.24965
+        },
+        "potencias_W": {
+            "R1": 4.68675,
+            "R2": 0.0,
+            "R3": 14.06025,
+            "L1": 0.0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {},
+        "terra_virtual": false
+    }
+}

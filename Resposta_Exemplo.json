@@ -98,7 +98,7 @@
 
     "componentes": {
         "amplificadores_operacionais": [
-            {"id": "U1", "modelo": "LT1057"}
+            {"id": "U1"}
         ],
         "resistores": [
             {"id": "R1", "valor": "10 kΩ"},
@@ -111,7 +111,8 @@
             {"id": "V3", "valor": "+10 V"}
         ],
         "capacitores": [],
-        "diodos": []
+        "diodos": [],
+        "indutores": []
     },
 
     "analise_numerica": {

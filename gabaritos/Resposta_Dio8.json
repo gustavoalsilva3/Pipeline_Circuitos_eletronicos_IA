@@ -1,0 +1,86 @@
+{
+    "tipo_circuito": "Rede de Diodos em Cascata (Dois Estágios de Decisão)",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "3 Ω"
+            },
+            {
+                "id": "R2",
+                "valor": "6 Ω"
+            },
+            {
+                "id": "R3",
+                "valor": "6 Ω"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "+2 V"
+            },
+            {
+                "id": "V2",
+                "valor": "+7 V"
+            },
+            {
+                "id": "V3",
+                "valor": "+4 V"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [
+            {
+                "id": "D1"
+            },
+            {
+                "id": "D2"
+            },
+            {
+                "id": "D3"
+            },
+            {
+                "id": "D4"
+            }
+        ],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": null,
+        "Vout_teorico_V": 4.66667,
+        "Vout_real_V": 4.11685,
+        "tensoes_V": {
+            "A": 6.99931,
+            "B": 4.94089
+        },
+        "correntes_A": {
+            "D1": 0.0,
+            "D2": 0.686141,
+            "D3": 0.0,
+            "D4": 0.686172,
+            "R1": 0.686141,
+            "R2": 0.0,
+            "R3": 0.686141
+        },
+        "potencias_W": {
+            "D1": 0.0,
+            "D2": 0.0,
+            "D3": 0.0,
+            "D4": 0.0,
+            "R1": 1.412368,
+            "R2": 0.0,
+            "R3": 2.824737
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "D1": "Corte",
+            "D2": "Condução Direta",
+            "D3": "Corte",
+            "D4": "Condução Direta"
+        },
+        "terra_virtual": false
+    }
+}
