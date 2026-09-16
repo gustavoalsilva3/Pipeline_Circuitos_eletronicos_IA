@@ -1,10 +1,14 @@
 """Módulo de avaliação numérica para comparar respostas da IA com gabaritos.
 
 Converte valores para um formato numérico comum, classifica cada comparação
-como correta, incorreta ou faltante (usando tolerância percentual de
-engenharia, não igualdade exata), calcula métricas de erro (ERM, MAE, RMSE,
-taxa_acerto_percentual) e organiza o resultado em seções para Vout, ganho,
-tensões, correntes e potências.
+como correta, incorreta, faltante (existe no gabarito, a IA não informou) ou
+alucinada (a IA informou um nó/componente que não existe no gabarito) —
+usando tolerância percentual de engenharia, não igualdade exata —, calcula
+métricas de erro (ERM, MAE, RMSE, taxa_acerto_percentual) e organiza o
+resultado em seções para Vout, ganho, tensões, correntes e potências. Mesmo
+vocabulário de status usado em evaluator_componentes.py e
+evaluator_textual.py, para que o detalhe (resultados_detalhe_*.csv) seja
+consistente entre as três dimensões avaliadas.
 
 IMPORTANTE sobre qual métrica usar como principal em correntes/potências:
 ERM_percentual EXCLUI da média os itens com referência ~0 (ver
@@ -137,8 +141,8 @@ def _round_if_not_none(valor, casas_decimais):
 # =========================================================
 def _comparar_valor(valor_ia, valor_real, tolerancia_percentual):
     """Compara um par (valor_ia, valor_real) e retorna erro absoluto, erro
-    percentual e status ('correto', 'incorreto' ou 'faltante') em uma
-    única passada."""
+    percentual e status ('correto', 'incorreto', 'faltante' ou 'alucinado')
+    em uma única passada."""
 
     valor_ia_n = parse_numeric_value(valor_ia)
     valor_real_n = parse_numeric_value(valor_real)
@@ -154,13 +158,18 @@ def _comparar_valor(valor_ia, valor_real, tolerancia_percentual):
         }
 
     if valor_real_n is None:
+        # A IA informou um valor para um nó/componente que não existe no
+        # gabarito (ou o gabarito não tem valor de referência para ele) —
+        # mesmo status 'alucinado' usado em evaluator_componentes.py e
+        # evaluator_textual.py para o mesmo tipo de caso, em vez de
+        # 'incorreto' (que sugeriria haver uma referência para comparar).
         return {
             "valor_ia_n": valor_ia_n,
             "valor_real_n": None,
             "erro_absoluto": None,
             "erro_percentual": None,
             "referencia_zero": False,
-            "status": "incorreto",
+            "status": "alucinado",
         }
 
     erro_abs = abs(valor_ia_n - valor_real_n)
@@ -265,7 +274,7 @@ def avaliar_categoria(valores_ia, valores_reais, tolerancia_percentual=TOLERANCI
 
     pares = extrair_pares_dicionario(valores_ia, valores_reais)
 
-    status_counts = {"correto": 0, "incorreto": 0, "faltante": 0}
+    status_counts = {"correto": 0, "incorreto": 0, "faltante": 0, "alucinado": 0}
     valores = {}
     valores_ia_validos = []
     valores_real_validos = []
