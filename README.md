@@ -93,6 +93,17 @@ Responsável pela comunicação com a API Gemini: autenticação via `.env`, env
 da imagem, contagem de tokens, parsing do JSON de resposta e retry automático
 (3 tentativas) em caso de erro.
 
+## `lmstudio_client.py`
+
+Cliente para modelos abertos servidos pelo LM Studio (servidor local com API
+compatível com a da OpenAI), com o mesmo contrato do `gemini_client.py`. Cada
+modelo é ligado/desligado por um toggle em `config.py`
+(`USAR_MODELO_GEMINI`, `USAR_MODELO_LMSTUDIO`). A URL do servidor fica no
+`.env` (`LMSTUDIO_BASE_URL`, padrão `http://localhost:1234`);
+`MODELOS_LMSTUDIO` é uma lista, cada identificador vira um modelo separado na
+mesma rodada. Respostas cortadas por tamanho (loop de repetição) são
+reexecutadas ao fim da rodada (`REEXECUTAR_TRUNCADAS` em `config.py`).
+
 ## `response_splitter.py`
 
 Separa a resposta da IA (e o gabarito) nos blocos que os avaliadores esperam

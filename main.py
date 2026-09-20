@@ -27,10 +27,18 @@ from config import (
     PREFIXO_CSV_RESULTADOS,
     PREFIXO_CSV_DETALHES,
     MODELO_GEMINI,
+    USAR_MODELO_GEMINI,
+    MODELOS_LMSTUDIO,
+    MAX_TOKENS_SAIDA_POR_MODELO,
+    TIMEOUT_POR_MODELO_S,
+    USAR_MODELO_LMSTUDIO,
     PRECO_INPUT_1M,
     PRECO_OUTPUT_1M,
     COTACAO_USD_BRL,
     IDIOMA_PROMPT,
+    REEXECUTAR_TRUNCADAS,
+    MAX_REEXECUCOES,
+    TEMPERATURA_REEXECUCAO,
 )
 
 from prompts import (
@@ -42,6 +50,7 @@ from prompts import (
     PROMPT_ANALISE_CIRCUITO_3_EN,
 )
 from gemini_client import GeminiCircuitAnalyzer
+from lmstudio_client import LMStudioCircuitAnalyzer
 from evaluator_numerico import avaliar_resposta as avaliar_numerico_textual
 from evaluator_componentes import avaliar_componentes
 
@@ -299,17 +308,50 @@ else:
 
 # =========================================================
 # Modelos avaliados. Cada entrada precisa de um "analisador" com o método
-# analisar_imagem(image_path, prompt) -> dict, no mesmo formato do
-# GeminiCircuitAnalyzer. Hoje só o Gemini está configurado; quando o
-# segundo modelo (código aberto) estiver pronto, basta adicionar uma nova
-# entrada aqui — nenhum outro trecho do main.py precisa mudar.
+# analisar_imagem(image_path, prompt) -> (resposta, input_tokens,
+# output_tokens), no mesmo formato do GeminiCircuitAnalyzer, e de
+# "preco_input_1m"/"preco_output_1m" (USD por 1M tokens, usados só para o
+# relatório de custo — 0.0 para um modelo local/gratuito como o do LM Studio).
+#
+# Cada modelo é ligado/desligado por um toggle em config.py
+# (USAR_MODELO_GEMINI / USAR_MODELO_LMSTUDIO), mesmo
+# espírito do IDIOMA_PROMPT — permite rodar só alguns (ex: só um modelo
+# local, sem gastar a API do Gemini) sem comentar/descomentar código. O
+# LM Studio aceita uma lista de modelos (config.MODELOS_LMSTUDIO), cada um
+# vira uma entrada separada.
 # =========================================================
 def montar_modelos():
     """Instancia os analisadores de cada modelo avaliado."""
-    return [
-        {"nome": MODELO_GEMINI, "analisador": GeminiCircuitAnalyzer(model_name=MODELO_GEMINI)},
-        # {"nome": "nome-do-modelo-aberto", "analisador": OutroAnalyzer(...)},
-    ]
+    modelos = []
+
+    if USAR_MODELO_GEMINI:
+        modelos.append({
+            "nome": MODELO_GEMINI,
+            "analisador": GeminiCircuitAnalyzer(model_name=MODELO_GEMINI),
+            "preco_input_1m": PRECO_INPUT_1M,
+            "preco_output_1m": PRECO_OUTPUT_1M,
+        })
+
+    if USAR_MODELO_LMSTUDIO:
+        for modelo_id in MODELOS_LMSTUDIO:
+            modelos.append({
+                "nome": modelo_id,
+                "analisador": LMStudioCircuitAnalyzer(
+                    model_name=modelo_id,
+                    max_tokens=MAX_TOKENS_SAIDA_POR_MODELO.get(modelo_id),
+                    timeout=TIMEOUT_POR_MODELO_S.get(modelo_id),
+                ),
+                "preco_input_1m": 0.0,
+                "preco_output_1m": 0.0,
+            })
+
+    if not modelos:
+        raise ValueError(
+            "Nenhum modelo ativo — ligue pelo menos um em config.py "
+            "(USAR_MODELO_GEMINI e/ou USAR_MODELO_LMSTUDIO)."
+        )
+
+    return modelos
 
 
 # =========================================================
@@ -450,6 +492,22 @@ def carregar_gabarito(imagem_path: Path) -> tuple[dict, Path | None]:
 
 
 # =========================================================
+# Sanitiza um nome de modelo (ex: "qwen3.5:4b") para uso em nome de
+# arquivo. Caracteres como ':' são reservados no Windows/NTFS — usar um
+# nome de arquivo com ':' no meio não dá erro visível, mas o Windows trata
+# tudo depois do ':' como um Alternate Data Stream (ADS) oculto em vez de
+# parte do nome: o arquivo "...qwen3.5:4b.json" vira um arquivo vazio
+# "...qwen3.5" com o conteúdo de verdade escondido num stream "4b.json"
+# que não aparece no Explorer nem é lido por open()/pandas normalmente.
+# =========================================================
+_CARACTERES_INVALIDOS_ARQUIVO = re.compile(r'[<>:"/\\|?*]')
+
+
+def _sanitizar_nome_arquivo(texto: str) -> str:
+    return _CARACTERES_INVALIDOS_ARQUIVO.sub("-", texto)
+
+
+# =========================================================
 # Salva a resposta da IA em JSON individual
 # =========================================================
 def salvar_json(nome_arquivo, resposta):
@@ -467,6 +525,105 @@ def salvar_json(nome_arquivo, resposta):
         )
 
     return caminho
+
+
+# =========================================================
+# Linha do CSV resumo de uma execução (usada na execução normal e na
+# reexecução de respostas truncadas, para as duas terem o mesmo formato).
+# =========================================================
+def _montar_linha(id_execucao, imagem_path, idioma, nivel_prompt, modelo_cfg, tempo_execucao,
+                  input_tokens, output_tokens, custo_usd, json_path, gabarito_path, avaliacao,
+                  reexecucoes=0):
+    return {
+        "id_execucao": id_execucao,
+        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "imagem": imagem_path.name,
+        "modelo": modelo_cfg["nome"],
+        "idioma": idioma,
+        "nivel_prompt": nivel_prompt,
+        "tempo_execucao_s": tempo_execucao,
+        "input_tokens": input_tokens,
+        "output_tokens": output_tokens,
+        "custo_usd": round(custo_usd, 6),
+        "arquivo_json": str(json_path),
+        "arquivo_gabarito": str(gabarito_path) if gabarito_path else "",
+        "reexecucoes": reexecucoes,
+        **avaliacao,
+    }
+
+
+def _foi_truncada(resposta) -> bool:
+    """True se a resposta foi cortada por tamanho (limite de tokens ou loop
+    de repetição) — marcada como 'truncado_por_tamanho' pelos clientes."""
+    return isinstance(resposta, dict) and bool(resposta.get("truncado_por_tamanho"))
+
+
+# =========================================================
+# Reexecuta, ao fim da rodada, as execuções que deram resposta truncada.
+#
+# Com temperatura 0 a mesma chamada repetiria o mesmo loop, então cada
+# tentativa usa TEMPERATURA_REEXECUCAO e uma semente diferente. Se alguma
+# tentativa der certo, ela substitui a linha do resumo e as linhas do
+# detalhe daquela execução (a resposta truncada original é guardada como
+# '<nome>_falha_original.json'); se todas falharem, a falha original é
+# mantida e só a coluna 'reexecucoes' registra quantas tentativas houve.
+# Devolve (input_tokens, output_tokens, custo_usd, recuperadas) gastos.
+# =========================================================
+def reexecutar_truncadas(pendentes, resultados, detalhes_resultados):
+    gasto_in = gasto_out = 0
+    gasto_custo = 0.0
+    recuperadas = 0
+
+    print("\n" + "=" * 55)
+    print(f"🔁 Reexecutando {len(pendentes)} resposta(s) truncada(s) "
+          f"(até {MAX_REEXECUCOES} tentativa(s) cada, temperatura {TEMPERATURA_REEXECUCAO})")
+    print("=" * 55)
+
+    for p in pendentes:
+        modelo_cfg = p["modelo_cfg"]
+        resposta = None
+
+        for n in range(1, MAX_REEXECUCOES + 1):
+            print(f"Reexecução {n}/{MAX_REEXECUCOES} — execução {p['id_execucao']}: "
+                  f"{p['imagem_path'].name} | {p['idioma']} | nível {p['nivel_prompt']} | {modelo_cfg['nome']}")
+            inicio = time.time()
+            resposta, in_tok, out_tok = modelo_cfg["analisador"].analisar_imagem(
+                image_path=p["imagem_path"],
+                prompt=p["texto_prompt"],
+                temperatura=TEMPERATURA_REEXECUCAO,
+                seed=n,
+            )
+            tempo = round(time.time() - inicio, 2)
+            custo = (in_tok * modelo_cfg["preco_input_1m"] + out_tok * modelo_cfg["preco_output_1m"]) / 1_000_000
+            gasto_in += in_tok
+            gasto_out += out_tok
+            gasto_custo += custo
+
+            if not _foi_truncada(resposta):
+                break
+
+        if _foi_truncada(resposta):
+            linha = next(l for l in resultados if l["id_execucao"] == p["id_execucao"])
+            linha["reexecucoes"] = n
+            print(f"❌ Execução {p['id_execucao']}: continuou truncada após {n} reexecução(ões); falha original mantida.\n")
+            continue
+
+        recuperadas += 1
+        original = JSON_DIR / f"{p['nome_base']}.json"
+        if original.exists():
+            original.replace(JSON_DIR / f"{p['nome_base']}_falha_original.json")
+        json_path = salvar_json(p["nome_base"], resposta)
+
+        avaliacao, detalhes = avaliar_resposta_completa(resposta, p["gabarito"], p["id_execucao"])
+        nova = _montar_linha(p["id_execucao"], p["imagem_path"], p["idioma"], p["nivel_prompt"], modelo_cfg,
+                             tempo, in_tok, out_tok, custo, json_path, p["gabarito_path"], avaliacao,
+                             reexecucoes=n)
+        pos = next(i for i, l in enumerate(resultados) if l["id_execucao"] == p["id_execucao"])
+        resultados[pos] = nova
+        detalhes_resultados[:] = [d for d in detalhes_resultados if d["id_execucao"] != p["id_execucao"]] + detalhes
+        print(f"✅ Execução {p['id_execucao']}: recuperada na reexecução {n}.\n")
+
+    return gasto_in, gasto_out, gasto_custo, recuperadas
 
 
 # =========================================================
@@ -510,6 +667,9 @@ def main():
 
     indice = 0
 
+    # Execuções cuja resposta veio truncada (candidatas à reexecução no fim).
+    pendentes = []
+
     # =====================================================
     # Loop principal: imagem x idioma x nível de prompt x modelo
     # =====================================================
@@ -548,10 +708,12 @@ def main():
                     tempo_execucao = round(time.time() - inicio, 2)
 
                     # =================================================
-                    # Cálculo financeiro da requisição atual
+                    # Cálculo financeiro da requisição atual — usa o preço
+                    # do modelo desta execução, não um preço fixo (o LM Studio
+                    # é gratuito, preco_input_1m/preco_output_1m = 0.0).
                     # =================================================
-                    custo_input = (input_tokens * PRECO_INPUT_1M) / 1_000_000
-                    custo_output = (output_tokens * PRECO_OUTPUT_1M) / 1_000_000
+                    custo_input = (input_tokens * modelo_cfg["preco_input_1m"]) / 1_000_000
+                    custo_output = (output_tokens * modelo_cfg["preco_output_1m"]) / 1_000_000
                     custo_execucao_usd = custo_input + custo_output
 
                     # Acumula nos totais globais
@@ -559,8 +721,10 @@ def main():
                     acumulado_output_tokens += output_tokens
                     acumulado_custo_usd += custo_execucao_usd
 
-                    # Nome base único por (imagem, idioma, nível de prompt, modelo)
-                    nome_base = f"{imagem_path.stem}_{idioma}_prompt{nivel_prompt}_{modelo_cfg['nome']}"
+                    # Nome base único por (imagem, idioma, nível de prompt, modelo).
+                    # Nome do modelo sanitizado (ver _sanitizar_nome_arquivo) —
+                    # nomes como "qwen3.5:4b" têm ':', reservado no Windows.
+                    nome_base = f"{imagem_path.stem}_{idioma}_prompt{nivel_prompt}_{_sanitizar_nome_arquivo(modelo_cfg['nome'])}"
 
                     # =================================================
                     # Salva JSON individual da resposta
@@ -575,23 +739,18 @@ def main():
                     # =================================================
                     # Estrutura da linha do CSV (com adição das métricas de consumo)
                     # =================================================
-                    linha = {
-                        "id_execucao": indice,
-                        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                        "imagem": imagem_path.name,
-                        "modelo": modelo_cfg["nome"],
-                        "idioma": idioma,
-                        "nivel_prompt": nivel_prompt,
-                        "tempo_execucao_s": tempo_execucao,
-                        "input_tokens": input_tokens,
-                        "output_tokens": output_tokens,
-                        "custo_usd": round(custo_execucao_usd, 6),
-                        "arquivo_json": str(json_path),
-                        "arquivo_gabarito": str(gabarito_path) if gabarito_path else "",
-                        **avaliacao
-                    }
+                    linha = _montar_linha(indice, imagem_path, idioma, nivel_prompt, modelo_cfg,
+                                          tempo_execucao, input_tokens, output_tokens,
+                                          custo_execucao_usd, json_path, gabarito_path, avaliacao)
 
                     resultados.append(linha)
+                    if _foi_truncada(resposta):
+                        pendentes.append({
+                            "id_execucao": indice, "imagem_path": imagem_path, "idioma": idioma,
+                            "nivel_prompt": nivel_prompt, "texto_prompt": texto_prompt,
+                            "modelo_cfg": modelo_cfg, "gabarito": gabarito,
+                            "gabarito_path": gabarito_path, "nome_base": nome_base,
+                        })
                     detalhes_resultados.extend(detalhes_execucao)
 
                     # =================================================
@@ -614,6 +773,18 @@ def main():
                     print(f"📤 Output Tokens: {output_tokens:,}")
                     print(f"💵 Custo estimado: ${custo_execucao_usd:.6f} USD (R$ {custo_execucao_usd * COTACAO_USD_BRL:.4f})")
                     print(f"💾 Progresso salvo em: {caminho_saida.name} (resumo) e {caminho_detalhe_saida.name} (detalhe)\n")
+
+    # =====================================================
+    # Reexecução das respostas truncadas (ver reexecutar_truncadas)
+    # =====================================================
+    if REEXECUTAR_TRUNCADAS and pendentes:
+        gi, go, gc, recuperadas = reexecutar_truncadas(pendentes, resultados, detalhes_resultados)
+        acumulado_input_tokens += gi
+        acumulado_output_tokens += go
+        acumulado_custo_usd += gc
+        caminho_saida = salvar_resultados_csv(pd.DataFrame(resultados), caminho_saida)
+        caminho_detalhe_saida = salvar_resultados_csv(pd.DataFrame(detalhes_resultados), caminho_detalhe_saida)
+        print(f"🔁 Reexecuções: {recuperadas} de {len(pendentes)} truncada(s) recuperada(s).")
 
     # =====================================================
     # RELATÓRIO FINAL DE CONSUMO E CUSTOS DA PIPELINE

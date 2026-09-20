@@ -3,3 +3,4 @@ pillow
 pandas
 python-dotenv
 matplotlib
+requests

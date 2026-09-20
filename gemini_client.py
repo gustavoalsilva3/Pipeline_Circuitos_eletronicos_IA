@@ -25,7 +25,7 @@ class GeminiCircuitAnalyzer:
         self.client = genai.Client(api_key=api_key)
         self.model_name = model_name
 
-    def analisar_imagem(self, image_path, prompt: str):
+    def analisar_imagem(self, image_path, prompt: str, temperatura: float | None = None, seed: int | None = None):
         """Envia a imagem + prompt ao Gemini e retorna SEMPRE uma tupla de
         3 valores: (resposta_dict, input_tokens, output_tokens) — mesmo em
         caso de erro (ver bloco except abaixo).
@@ -51,7 +51,8 @@ class GeminiCircuitAnalyzer:
                     model=self.model_name,
                     contents=[prompt, image],
                     config=types.GenerateContentConfig(
-                        temperature=0.0,
+                        temperature=0.0 if temperatura is None else temperatura,
+                        seed=seed,
                         response_mime_type="application/json"
                     )
                 )

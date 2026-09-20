@@ -11,23 +11,28 @@ Uso:
 
 Saída (em resultados/analise/):
     tabelas/*.csv   — resumo_por_prompt, resumo_por_familia, resumo_por_idioma,
-                       piores_vout, componentes_por_categoria,
-                       componentes_por_idioma, status_geral_detalhe,
-                       status_por_categoria_detalhe, status_geral_por_idioma,
-                       status_por_categoria_por_idioma
-    graficos/*.png  — taxa_acerto_por_prompt, taxa_acerto_por_familia,
-                       taxa_acerto_por_idioma, regiao_operacao_por_prompt,
-                       regiao_operacao_por_idioma, terra_virtual_por_idioma,
-                       status_geral, status_por_categoria,
+                       resumo_por_modelo, piores_vout, componentes_por_categoria,
+                       componentes_por_idioma, componentes_por_modelo,
+                       status_geral_detalhe, status_por_categoria_detalhe,
                        status_geral_por_idioma, status_por_categoria_por_idioma,
-                       componentes_por_idioma
+                       status_geral_por_modelo, status_por_categoria_por_modelo
+    graficos/*.png  — taxa_acerto_por_prompt, taxa_acerto_por_familia,
+                       taxa_acerto_por_idioma, taxa_acerto_por_modelo,
+                       regiao_operacao_por_prompt, regiao_operacao_por_idioma,
+                       regiao_operacao_por_modelo, terra_virtual_por_idioma,
+                       terra_virtual_por_modelo, status_geral, status_por_categoria,
+                       status_geral_por_idioma, status_por_categoria_por_idioma,
+                       status_geral_por_modelo, status_por_categoria_por_modelo,
+                       componentes_por_idioma, componentes_por_modelo
 
-Tudo que termina em '_por_idioma' compara PT x EN — só é gerado se a coluna
-'idioma' estiver presente no CSV (rodadas feitas com
-config.IDIOMA_PROMPT = "ambos") e houver mais de um idioma nos dados. O
-detalhe (dfd) não tem 'idioma' própria — carregar_dados() a traz do resumo
-via id_execucao, para permitir separar por idioma também as métricas de
-'status' item a item e de identificação de componentes.
+Tudo que termina em '_por_idioma' compara PT x EN (só gerado com mais de um
+idioma nos dados, ver config.IDIOMA_PROMPT) e tudo que termina em
+'_por_modelo' compara os modelos avaliados na rodada (ex: Gemini x um
+modelo local via LM Studio — só gerado com mais de um modelo nos dados, ver
+config.USAR_MODELO_LMSTUDIO). O detalhe (dfd) não tem colunas próprias de
+'idioma'/'modelo' — carregar_dados() as traz do resumo via id_execucao,
+para permitir separar por elas também as métricas de 'status' item a item e
+de identificação de componentes.
 """
 
 import re
@@ -109,11 +114,12 @@ def carregar_dados(timestamp=None):
     df["familia"] = df["imagem"].apply(lambda nome: re.sub(r"_?\d+\.(png|jpg|jpeg|webp)$", "", str(nome), flags=re.IGNORECASE))
     df["circuito"] = df["imagem"].str.replace(r"\.(png|jpg|jpeg|webp)$", "", regex=True)
 
-    # dfd (detalhe) não tem coluna própria de idioma — traz do resumo via
-    # id_execucao, para poder separar por idioma também as métricas de
-    # status item a item e de identificação de componentes.
-    if "idioma" in df.columns and "id_execucao" in dfd.columns:
-        dfd = dfd.merge(df[["id_execucao", "idioma"]], on="id_execucao", how="left")
+    # dfd (detalhe) não tem colunas próprias de idioma/modelo — traz do
+    # resumo via id_execucao, para poder separar por elas também as
+    # métricas de status item a item e de identificação de componentes.
+    colunas_extra = [c for c in ("idioma", "modelo") if c in df.columns]
+    if colunas_extra and "id_execucao" in dfd.columns:
+        dfd = dfd.merge(df[["id_execucao", *colunas_extra]], on="id_execucao", how="left")
 
     return df, dfd
 
@@ -165,6 +171,19 @@ def gerar_tabelas(df, dfd):
             )
         tabelas["resumo_por_idioma"] = resumo_idioma
 
+    # --- Resumo por modelo (ex: Gemini x modelo local via LM Studio) ---
+    # Só existe quando a rodada avaliou mais de um modelo (ver
+    # config.USAR_MODELO_LMSTUDIO) — com um modelo só, a comparação não diz
+    # nada, a tabela nem é gerada.
+    if "modelo" in df.columns and df["modelo"].nunique() > 1:
+        resumo_modelo = df.groupby("modelo")[metricas_prompt].mean().round(3)
+        if "textual_terra_virtual_acerto" in df.columns:
+            resumo_modelo["terra_virtual_taxa_acerto_percentual"] = (
+                df.groupby("modelo")["textual_terra_virtual_acerto"]
+                .apply(lambda s: round((s == "True").sum() / s.notna().sum() * 100, 1) if s.notna().sum() else None)
+            )
+        tabelas["resumo_por_modelo"] = resumo_modelo
+
     # --- Piores casos de Vout (status incorreto) ---
     if "numerico_Vout_status" in df.columns:
         piores = df[df["numerico_Vout_status"] == "incorreto"][
@@ -213,6 +232,23 @@ def gerar_tabelas(df, dfd):
                 linhas_comp_idioma.append(linha)
         tabelas["componentes_por_idioma"] = pd.DataFrame(linhas_comp_idioma).set_index(["idioma", "categoria"])
 
+    # --- Componentes por categoria, separado por modelo ---
+    if "modelo" in df.columns and df["modelo"].nunique() > 1:
+        linhas_comp_modelo = []
+        for modelo, df_modelo in df.groupby("modelo"):
+            for cat in CATEGORIAS_COMPONENTES:
+                linha = {"modelo": modelo, "categoria": cat}
+                for metrica in ["precision", "recall", "f1_score", "valor_taxa_acerto_percentual"]:
+                    col = f"componentes_{cat}_{metrica}"
+                    if col in df_modelo.columns:
+                        valido = df_modelo[col].dropna()
+                        linha[metrica] = round(valido.mean(), 4) if len(valido) else None
+                for metrica in ["TP", "FP", "FN"]:
+                    col = f"componentes_{cat}_{metrica}"
+                    linha[f"{metrica}_total"] = int(df_modelo[col].fillna(0).sum()) if col in df_modelo.columns else 0
+                linhas_comp_modelo.append(linha)
+        tabelas["componentes_por_modelo"] = pd.DataFrame(linhas_comp_modelo).set_index(["modelo", "categoria"])
+
     # --- Status geral do detalhe (todas as comparações item a item) ---
     if "status" in dfd.columns:
         tabelas["status_geral_detalhe"] = dfd["status"].value_counts().to_frame("quantidade")
@@ -227,6 +263,15 @@ def gerar_tabelas(df, dfd):
         )
         tabelas["status_por_categoria_por_idioma"] = (
             dfd.groupby(["idioma", "categoria"])["status"].value_counts().unstack(fill_value=0)
+        )
+
+    # --- Status geral e por categoria, separado por modelo ---
+    if "modelo" in dfd.columns and dfd["modelo"].nunique() > 1:
+        tabelas["status_geral_por_modelo"] = (
+            dfd.groupby("modelo")["status"].value_counts().unstack(fill_value=0)
+        )
+        tabelas["status_por_categoria_por_modelo"] = (
+            dfd.groupby(["modelo", "categoria"])["status"].value_counts().unstack(fill_value=0)
         )
 
     for nome, tabela in tabelas.items():
@@ -309,6 +354,19 @@ def gerar_graficos(df, dfd):
             plt.close(fig)
             print(f"Gráfico salvo: {caminho}")
 
+        # --- Gráfico 2c: taxa de acerto numérica por modelo ---
+        if "modelo" in df.columns and df["modelo"].nunique() > 1:
+            resumo_modelo = df.groupby("modelo")[[c for c, _ in categorias_num]].mean()
+            fig, ax = plt.subplots(figsize=(8, 5))
+            _barras_agrupadas(ax, resumo_modelo, categorias_num, CORES_PROMPT,
+                               "Taxa de acerto numérico por modelo", "Taxa de acerto (%)", "{:.1f}%")
+            ax.set_xlabel("Modelo")
+            fig.tight_layout()
+            caminho = PASTA_GRAFICOS / "taxa_acerto_por_modelo.png"
+            fig.savefig(caminho, dpi=150)
+            plt.close(fig)
+            print(f"Gráfico salvo: {caminho}")
+
     # --- Gráfico 3: região de operação por prompt ---
     if "textual_regiao_operacao_taxa_acerto_percentual" in df.columns:
         serie = df.groupby("nivel_prompt")["textual_regiao_operacao_taxa_acerto_percentual"].mean()
@@ -345,6 +403,24 @@ def gerar_graficos(df, dfd):
             plt.close(fig)
             print(f"Gráfico salvo: {caminho}")
 
+        # --- Gráfico 3b2: região de operação por modelo ---
+        if "modelo" in df.columns and df["modelo"].nunique() > 1:
+            serie = df.groupby("modelo")["textual_regiao_operacao_taxa_acerto_percentual"].mean()
+            fig, ax = plt.subplots(figsize=(7, 5))
+            barras = ax.bar(serie.index.astype(str), serie.values, color=CORES_PROMPT[:len(serie)])
+            ax.bar_label(barras, labels=[f"{v:.1f}%" if pd.notna(v) else "n/d" for v in serie.values], fontweight="bold")
+            ax.set_title("Acerto de região de operação por modelo", fontsize=13, fontweight="bold")
+            ax.set_xlabel("Modelo")
+            ax.set_ylabel("Taxa de acerto (%)")
+            ax.set_ylim(0, 110)
+            ax.spines["top"].set_visible(False)
+            ax.spines["right"].set_visible(False)
+            fig.tight_layout()
+            caminho = PASTA_GRAFICOS / "regiao_operacao_por_modelo.png"
+            fig.savefig(caminho, dpi=150)
+            plt.close(fig)
+            print(f"Gráfico salvo: {caminho}")
+
     # --- Gráfico 3c: acerto de terra virtual por idioma (PT x EN) ---
     if "textual_terra_virtual_acerto" in df.columns and "idioma" in df.columns and df["idioma"].nunique() > 1:
         serie = (
@@ -362,6 +438,27 @@ def gerar_graficos(df, dfd):
         ax.spines["right"].set_visible(False)
         fig.tight_layout()
         caminho = PASTA_GRAFICOS / "terra_virtual_por_idioma.png"
+        fig.savefig(caminho, dpi=150)
+        plt.close(fig)
+        print(f"Gráfico salvo: {caminho}")
+
+    # --- Gráfico 3d: acerto de terra virtual por modelo ---
+    if "textual_terra_virtual_acerto" in df.columns and "modelo" in df.columns and df["modelo"].nunique() > 1:
+        serie = (
+            df.groupby("modelo")["textual_terra_virtual_acerto"]
+            .apply(lambda s: round((s == "True").sum() / s.notna().sum() * 100, 1) if s.notna().sum() else None)
+        )
+        fig, ax = plt.subplots(figsize=(7, 5))
+        barras = ax.bar(serie.index.astype(str), serie.values, color=CORES_PROMPT[:len(serie)])
+        ax.bar_label(barras, labels=[f"{v:.1f}%" if pd.notna(v) else "n/d" for v in serie.values], fontweight="bold")
+        ax.set_title("Acerto de terra virtual por modelo", fontsize=13, fontweight="bold")
+        ax.set_xlabel("Modelo")
+        ax.set_ylabel("Taxa de acerto (%)")
+        ax.set_ylim(0, 110)
+        ax.spines["top"].set_visible(False)
+        ax.spines["right"].set_visible(False)
+        fig.tight_layout()
+        caminho = PASTA_GRAFICOS / "terra_virtual_por_modelo.png"
         fig.savefig(caminho, dpi=150)
         plt.close(fig)
         print(f"Gráfico salvo: {caminho}")
@@ -460,6 +557,53 @@ def gerar_graficos(df, dfd):
             plt.close(fig)
             print(f"Gráfico salvo: {caminho}")
 
+        # --- Gráfico 6b: status geral, separado por modelo ---
+        if "modelo" in dfd.columns and dfd["modelo"].nunique() > 1:
+            tabela_modelo = dfd.groupby("modelo")["status"].value_counts().unstack(fill_value=0)
+            status_presentes_modelo = [s for s in ["correto", "incorreto", "faltante", "alucinado", "nao_identificado"] if s in tabela_modelo.columns]
+            fig, ax = plt.subplots(figsize=(9, 0.6 * len(tabela_modelo) + 1.5))
+            esquerda = pd.Series(0, index=tabela_modelo.index)
+            for status in status_presentes_modelo:
+                valores = tabela_modelo[status]
+                ax.barh(tabela_modelo.index, valores, left=esquerda, color=cores_status.get(status, "#888888"), label=status)
+                esquerda = esquerda + valores
+            ax.set_title("Status geral das comparações por modelo", fontsize=13, fontweight="bold")
+            ax.set_ylabel("Modelo")
+            ax.legend(loc="upper right", fontsize=8, ncol=len(status_presentes_modelo))
+            ax.spines["top"].set_visible(False)
+            ax.spines["right"].set_visible(False)
+            fig.tight_layout()
+            caminho = PASTA_GRAFICOS / "status_geral_por_modelo.png"
+            fig.savefig(caminho, dpi=150)
+            plt.close(fig)
+            print(f"Gráfico salvo: {caminho}")
+
+            # --- Gráfico 7b: status por categoria, separado por modelo ---
+            modelos_presentes = sorted(dfd["modelo"].dropna().unique())
+            fig, eixos = plt.subplots(1, len(modelos_presentes), figsize=(9 * len(modelos_presentes), 0.5 * dfd["categoria"].nunique() + 1.5), sharey=True)
+            if len(modelos_presentes) == 1:
+                eixos = [eixos]
+            for ax_i, modelo in zip(eixos, modelos_presentes):
+                tabela_cat_modelo = (
+                    dfd[dfd["modelo"] == modelo].groupby("categoria")["status"].value_counts().unstack(fill_value=0)
+                )
+                status_presentes_cat = [s for s in ["correto", "incorreto", "faltante", "alucinado", "nao_identificado"] if s in tabela_cat_modelo.columns]
+                esquerda = pd.Series(0, index=tabela_cat_modelo.index)
+                for status in status_presentes_cat:
+                    valores = tabela_cat_modelo[status]
+                    ax_i.barh(tabela_cat_modelo.index, valores, left=esquerda, color=cores_status.get(status, "#888888"), label=status)
+                    esquerda = esquerda + valores
+                ax_i.set_title(f"Modelo: {modelo}", fontsize=12, fontweight="bold")
+                ax_i.spines["top"].set_visible(False)
+                ax_i.spines["right"].set_visible(False)
+            eixos[-1].legend(loc="upper right", fontsize=8)
+            fig.suptitle("Status das comparações por categoria, por modelo", fontsize=13, fontweight="bold")
+            fig.tight_layout()
+            caminho = PASTA_GRAFICOS / "status_por_categoria_por_modelo.png"
+            fig.savefig(caminho, dpi=150)
+            plt.close(fig)
+            print(f"Gráfico salvo: {caminho}")
+
     # --- Gráfico 8: identificação de componentes (precision/recall/f1/valor) por idioma ---
     if "idioma" in df.columns and df["idioma"].nunique() > 1:
         # precision/recall/f1 vêm em escala 0-1 e valor_taxa_acerto_percentual
@@ -497,6 +641,40 @@ def gerar_graficos(df, dfd):
             ax.set_ylim(0, 110)
             fig.tight_layout()
             caminho = PASTA_GRAFICOS / "componentes_por_idioma.png"
+            fig.savefig(caminho, dpi=150)
+            plt.close(fig)
+            print(f"Gráfico salvo: {caminho}")
+
+    # --- Gráfico 8b: identificação de componentes (precision/recall/f1/valor) por modelo ---
+    if "modelo" in df.columns and df["modelo"].nunique() > 1:
+        metricas_comp = ["precision", "recall", "f1_score", "valor_taxa_acerto_percentual"]
+        linhas = []
+        for modelo, df_modelo in df.groupby("modelo"):
+            linha = {"modelo": modelo}
+            for metrica in metricas_comp:
+                cols = [f"componentes_{cat}_{metrica}" for cat in CATEGORIAS_COMPONENTES if f"componentes_{cat}_{metrica}" in df_modelo.columns]
+                if cols:
+                    valido = df_modelo[cols].mean(axis=1).dropna()
+                    media = valido.mean() if len(valido) else None
+                    if media is not None and metrica != "valor_taxa_acerto_percentual":
+                        media *= 100
+                    linha[metrica] = media
+            linhas.append(linha)
+        resumo_comp_modelo = pd.DataFrame(linhas).set_index("modelo")
+        rotulos_comp = {
+            "precision": "Precision (%)", "recall": "Recall (%)",
+            "f1_score": "F1-score (%)", "valor_taxa_acerto_percentual": "Valor correto (%)",
+        }
+        categorias_comp_plot = [(m, rotulos_comp[m]) for m in metricas_comp if m in resumo_comp_modelo.columns]
+        if categorias_comp_plot:
+            cores_4 = CORES_PROMPT + ["#8172B2"]
+            fig, ax = plt.subplots(figsize=(9, 5))
+            _barras_agrupadas(ax, resumo_comp_modelo, categorias_comp_plot, cores_4,
+                               "Identificação de componentes por modelo", "Percentual (%)", "{:.1f}%")
+            ax.set_xlabel("Modelo")
+            ax.set_ylim(0, 110)
+            fig.tight_layout()
+            caminho = PASTA_GRAFICOS / "componentes_por_modelo.png"
             fig.savefig(caminho, dpi=150)
             plt.close(fig)
             print(f"Gráfico salvo: {caminho}")

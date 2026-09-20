@@ -20,6 +20,34 @@ PREFIXO_CSV_RESULTADOS = "resultados"
 PREFIXO_CSV_DETALHES = "resultados_detalhe"
 
 MODELO_GEMINI = "gemini-2.5-flash"
+USAR_MODELO_GEMINI = True
+
+# =========================================================
+# Modelos servidos pelo LM Studio (servidor local, API compatível com a da
+# OpenAI) — ver lmstudio_client.py. MODELOS_LMSTUDIO é uma LISTA: cada
+# identificador vira um modelo separado na mesma rodada (útil pra comparar
+# vários modelos de uma vez). O identificador é o que aparece na aba do
+# servidor local do LM Studio (ex: "qwen/qwen3-vl-8b"); o LM Studio precisa
+# ter cada modelo listado disponível/carregado. URL padrão
+# http://localhost:1234; para outra máquina, LMSTUDIO_BASE_URL no .env.
+# =========================================================
+MODELOS_LMSTUDIO = ["qwen/qwen3-vl-8b"]
+USAR_MODELO_LMSTUDIO = True
+
+# Limite de tokens de SAÍDA por chamada ao LM Studio. Sem limite, um modelo
+# pequeno pode entrar em loop de repetição até encher o contexto sem nunca
+# fechar o JSON — visto em teste. Com limite, uma resposta em loop é cortada
+# cedo e registrada como truncada (e reexecutada ao fim da rodada). O JSON
+# completo tem ~400-700 tokens; 3000 dá folga. (A ~16 tokens/s, 3000 tokens
+# levam ~3 min, abaixo do timeout padrão de 600 s.)
+MAX_TOKENS_SAIDA_LOCAL = 3000
+
+# Exceções por modelo (identificador do LM Studio -> valor), para um modelo
+# que precise de limite de saída / timeout diferente do padrão (acima e
+# 600 s). O limite precisa caber no contexto carregado no LM Studio menos a
+# entrada (~2100 tokens), e o timeout precisa cobrir o tempo de gerá-lo.
+MAX_TOKENS_SAIDA_POR_MODELO = {}
+TIMEOUT_POR_MODELO_S = {}
 
 # =========================================================
 # Idioma dos prompts enviados à IA — "pt", "en" ou "ambos" (roda cada
@@ -29,6 +57,19 @@ MODELO_GEMINI = "gemini-2.5-flash"
 # movendo arquivos para fora de IMAGENS_DIR, como já é feito num teste com
 # poucos circuitos).
 # =========================================================
+# =========================================================
+# Reexecução automática das respostas truncadas. Ao fim da rodada, main.py
+# refaz as execuções cuja resposta foi cortada por tamanho / loop de
+# repetição (marcadas como 'truncado_por_tamanho'). Com temperatura 0 a mesma
+# chamada repetiria o mesmo loop, então a reexecução usa uma temperatura
+# maior e uma semente diferente por tentativa. As linhas reexecutadas ficam
+# marcadas na coluna 'reexecucoes' (>0) do CSV resumo, e a resposta truncada
+# original é guardada como '<nome>_falha_original.json'.
+# =========================================================
+REEXECUTAR_TRUNCADAS = True
+MAX_REEXECUCOES = 2
+TEMPERATURA_REEXECUCAO = 0.3
+
 IDIOMA_PROMPT = "ambos"  # "pt", "en" ou "ambos"
 
 # =========================================================
