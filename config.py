@@ -32,7 +32,7 @@ USAR_MODELO_GEMINI = True
 # http://localhost:1234; para outra máquina, LMSTUDIO_BASE_URL no .env.
 # =========================================================
 MODELOS_LMSTUDIO = ["qwen/qwen3-vl-8b"]
-USAR_MODELO_LMSTUDIO = True
+USAR_MODELO_LMSTUDIO = False
 
 # Limite de tokens de SAÍDA por chamada ao LM Studio. Sem limite, um modelo
 # pequeno pode entrar em loop de repetição até encher o contexto sem nunca
@@ -50,14 +50,6 @@ MAX_TOKENS_SAIDA_POR_MODELO = {}
 TIMEOUT_POR_MODELO_S = {}
 
 # =========================================================
-# Idioma dos prompts enviados à IA — "pt", "en" ou "ambos" (roda cada
-# circuito/nível de prompt uma vez em português e uma vez em inglês, no
-# mesmo par de arquivos CSV, marcando cada linha com a coluna "idioma").
-# Não filtra quais imagens são processadas (isso é feito manualmente
-# movendo arquivos para fora de IMAGENS_DIR, como já é feito num teste com
-# poucos circuitos).
-# =========================================================
-# =========================================================
 # Reexecução automática das respostas truncadas. Ao fim da rodada, main.py
 # refaz as execuções cuja resposta foi cortada por tamanho / loop de
 # repetição (marcadas como 'truncado_por_tamanho'). Com temperatura 0 a mesma
@@ -70,6 +62,14 @@ REEXECUTAR_TRUNCADAS = True
 MAX_REEXECUCOES = 2
 TEMPERATURA_REEXECUCAO = 0.3
 
+# =========================================================
+# Idioma dos prompts enviados à IA — "pt", "en" ou "ambos" (roda cada
+# circuito/nível de prompt uma vez em português e uma vez em inglês, no
+# mesmo par de arquivos CSV, marcando cada linha com a coluna "idioma").
+# Não filtra quais imagens são processadas (isso é feito manualmente
+# movendo arquivos para fora de IMAGENS_DIR, como já é feito num teste com
+# poucos circuitos).
+# =========================================================
 IDIOMA_PROMPT = "ambos"  # "pt", "en" ou "ambos"
 
 # =========================================================

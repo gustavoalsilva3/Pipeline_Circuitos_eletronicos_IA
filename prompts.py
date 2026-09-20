@@ -2,6 +2,13 @@
 (direto, guiado por passos, procedimento detalhado) para comparar se um
 prompt mais estruturado melhora a qualidade da resposta.
 
+VERSÃO DOS PROMPTS: esta é a versão usada na rodada do Qwen3-VL 8B Instruct
+salva em resultados/resultados_20260919_151822.csv (24 circuitos, PT e EN) e
+na rodada final do Gemini 2.5 Flash, para os dois modelos serem comparados
+com prompts idênticos. O JSON de exemplo usa números fictícios (não é o
+gabarito de nenhum circuito do dataset); sem o campo 'raciocinio' e sem a
+regra de unidades.
+
 Os três pedem o mesmo formato de JSON de saída. O ponto de atenção é a
 convenção de nomes em 'tensoes_V': os nós de tensão de interesse são
 marcados na IMAGEM com letras (A, B, C...) — ver os arquivos em imagens/ —
@@ -13,15 +20,6 @@ gabaritos em gabaritos/*.json e as respostas da IA usam o mesmo vocabulário
 pequeno (A/B/C), permitindo comparação direta. 'correntes_A'/'potencias_W'
 continuam usando o designador do componente exibido na imagem (R1, D1...),
 que já é naturalmente estável.
-
-Os exemplos de valor no JSON dos prompts são marcadores não numéricos
-(<...>) de propósito: em testes, os modelos copiavam números de exemplo (ex: valores de
-componentes e tensões) em vez de ler a imagem, e o "kΩ" do exemplo induzia
-erro de escala (as imagens mostram valores sem unidade, em Ω).
-
-Um campo de texto livre 'raciocinio' antes dos números foi testado e
-retirado: em modelos pequenos abriu espaço para loops de repetição, sem
-ganho visível de acerto.
 
 'regiao_operacao' (dentro de 'analise_textual') é um objeto {designador:
 estado}, uma entrada por diodo/amp-op do circuito — não uma frase única
@@ -54,14 +52,14 @@ Retorne APENAS um JSON válido no seguinte formato:
             {"id": "U1"}
         ],
         "resistores": [
-            {"id": "R1", "valor": "<valor lido na imagem, com unidade>"},
-            {"id": "R2", "valor": "<valor lido na imagem, com unidade>"},
-            {"id": "R3", "valor": "<valor lido na imagem, com unidade>"}
+            {"id": "R1", "valor": "4.7 kΩ"},
+            {"id": "R2", "valor": "22 kΩ"},
+            {"id": "R3", "valor": "680 Ω"}
         ],
         "fontes": [
-            {"id": "V1", "valor": "<valor lido na imagem, com unidade>"},
-            {"id": "V2", "valor": "<valor lido na imagem, com unidade>"},
-            {"id": "V3", "valor": "<valor lido na imagem, com unidade>"}
+            {"id": "V1", "valor": "+7.5 V"},
+            {"id": "V2", "valor": "-9.1 V"},
+            {"id": "V3", "valor": "+3.3 V"}
         ],
         "capacitores": [],
         "diodos": [],
@@ -69,31 +67,31 @@ Retorne APENAS um JSON válido no seguinte formato:
     },
 
     "analise_numerica": {
-        "ganho_teorico": "<número ou null>",
-        "Vout_teorico_V": "<número em V>",
-        "Vout_real_V": "<número em V>",
+        "ganho_teorico": -3.7,
+        "Vout_teorico_V": -8.42,
+        "Vout_real_V": -6.13,
         "tensoes_V": {
-            "A": "<número em V>",
-            "B": "<número em V>",
-            "C": "<número em V>"
+            "A": 3.21,
+            "B": -1.47,
+            "C": 9.88
         },
         "correntes_A": {
-            "R1": "<número em A>",
-            "R2": "<número em A>",
-            "R3": "<número em A>"
+            "R1": 0.00317,
+            "R2": 0.00842,
+            "R3": 0.00059
         },
         "potencias_W": {
-            "R1": "<número em W>",
-            "R2": "<número em W>",
-            "R3": "<número em W>"
+            "R1": 0.0231,
+            "R2": 0.0517,
+            "R3": 0.00174
         }
     },
 
     "analise_textual": {
         "regiao_operacao": {
-            "U1": "<estado do componente>"
+            "U1": "Saturação negativa"
         },
-        "terra_virtual": "<true ou false>"
+        "terra_virtual": true
     }
 }
 
@@ -102,7 +100,14 @@ Regras:
 - Para "correntes_A" e "potencias_W", use o designador do componente exibido na imagem (ex: "R1", "D1").
 - "regiao_operacao" é um objeto (dict), não uma frase única: inclua uma entrada para CADA diodo e CADA amplificador operacional do circuito, usando o designador exibido na imagem como chave (ex: "D1", "U1") e o estado desse componente como valor (ex: "Condução Direta", "Corte", "Saturação Positiva", "Saturação Negativa", "Linear"). Resistores, capacitores e indutores não entram nesse objeto.
 - Todos os valores numéricos devem ser números JSON válidos.
-- Valores de componentes: escreva sempre com unidade. Se a imagem mostrar o número sem unidade, use a unidade padrão do simulador (resistores em Ω, fontes em V, capacitores em F, indutores em H) e NÃO acrescente prefixos (k, m, M...) que não estejam escritos na imagem (ex: se a imagem mostra 20, escreva "20 Ω", nunca "20 kΩ"). Em "tensoes_V", "correntes_A" e "potencias_W" use números puros em V, A e W.
+- Exemplo:
+    "Vout_V": 2.75
+    "correntes_A": {
+        "R1": 0.00415
+    }
+    "potencias_W": {
+        "R1": 0.0293
+    }
 - Caso não seja possível calcular, use "não determinado" ou null para valores individuais.
 - Não escreva explicações fora do JSON.
 """
@@ -131,14 +136,14 @@ Retorne APENAS um JSON válido no seguinte formato:
             {"id": "U1"}
         ],
         "resistores": [
-            {"id": "R1", "valor": "<valor lido na imagem, com unidade>"},
-            {"id": "R2", "valor": "<valor lido na imagem, com unidade>"},
-            {"id": "R3", "valor": "<valor lido na imagem, com unidade>"}
+            {"id": "R1", "valor": "4.7 kΩ"},
+            {"id": "R2", "valor": "22 kΩ"},
+            {"id": "R3", "valor": "680 Ω"}
         ],
         "fontes": [
-            {"id": "V1", "valor": "<valor lido na imagem, com unidade>"},
-            {"id": "V2", "valor": "<valor lido na imagem, com unidade>"},
-            {"id": "V3", "valor": "<valor lido na imagem, com unidade>"}
+            {"id": "V1", "valor": "+7.5 V"},
+            {"id": "V2", "valor": "-9.1 V"},
+            {"id": "V3", "valor": "+3.3 V"}
         ],
         "capacitores": [],
         "diodos": [],
@@ -146,36 +151,35 @@ Retorne APENAS um JSON válido no seguinte formato:
     },
 
     "analise_numerica": {
-        "ganho_teorico": "<número ou null>",
-        "Vout_teorico_V": "<número em V>",
-        "Vout_real_V": "<número em V>",
+        "ganho_teorico": -3.7,
+        "Vout_teorico_V": -8.42,
+        "Vout_real_V": -6.13,
         "tensoes_V": {
-            "A": "<número em V>",
-            "B": "<número em V>",
-            "C": "<número em V>"
+            "A": 3.21,
+            "B": -1.47,
+            "C": 9.88
         },
         "correntes_A": {
-            "R1": "<número em A>",
-            "R2": "<número em A>",
-            "R3": "<número em A>"
+            "R1": 0.00317,
+            "R2": 0.00842,
+            "R3": 0.00059
         },
         "potencias_W": {
-            "R1": "<número em W>",
-            "R2": "<número em W>",
-            "R3": "<número em W>"
+            "R1": 0.0231,
+            "R2": 0.0517,
+            "R3": 0.00174
         }
     },
 
     "analise_textual": {
         "regiao_operacao": {
-            "U1": "<estado do componente>"
+            "U1": "Saturação negativa"
         },
-        "terra_virtual": "<true ou false>"
+        "terra_virtual": true
     }
 }
 - A imagem contém rótulos de nó (letras como A, B, C...) marcando os pontos onde a tensão deve ser calculada. Use EXATAMENTE esses rótulos como chaves em "tensoes_V" — não invente nomes descritivos. Para "correntes_A" e "potencias_W", use o designador do componente exibido na imagem (ex: "R1", "D1").
 - "regiao_operacao" é um objeto (dict), não uma frase única: inclua uma entrada para CADA diodo e CADA amplificador operacional do circuito, usando o designador exibido na imagem como chave (ex: "D1", "U1") e o estado desse componente como valor (ex: "Condução Direta", "Corte", "Saturação Positiva", "Saturação Negativa", "Linear"). Resistores, capacitores e indutores não entram nesse objeto.
-- Valores de componentes: escreva sempre com unidade. Se a imagem mostrar o número sem unidade, use a unidade padrão do simulador (resistores em Ω, fontes em V, capacitores em F, indutores em H) e NÃO acrescente prefixos (k, m, M...) que não estejam escritos na imagem (ex: se a imagem mostra 20, escreva "20 Ω", nunca "20 kΩ"). Em "tensoes_V", "correntes_A" e "potencias_W" use números puros em V, A e W.
 - Caso não seja possível calcular, use "não determinado" ou null para valores individuais.
 - Não escreva explicações fora do JSON.
 """
@@ -224,14 +228,14 @@ PROCEDIMENTO
             {"id": "U1"}
         ],
         "resistores": [
-            {"id": "R1", "valor": "<valor lido na imagem, com unidade>"},
-            {"id": "R2", "valor": "<valor lido na imagem, com unidade>"},
-            {"id": "R3", "valor": "<valor lido na imagem, com unidade>"}
+            {"id": "R1", "valor": "4.7 kΩ"},
+            {"id": "R2", "valor": "22 kΩ"},
+            {"id": "R3", "valor": "680 Ω"}
         ],
         "fontes": [
-            {"id": "V1", "valor": "<valor lido na imagem, com unidade>"},
-            {"id": "V2", "valor": "<valor lido na imagem, com unidade>"},
-            {"id": "V3", "valor": "<valor lido na imagem, com unidade>"}
+            {"id": "V1", "valor": "+7.5 V"},
+            {"id": "V2", "valor": "-9.1 V"},
+            {"id": "V3", "valor": "+3.3 V"}
         ],
         "capacitores": [],
         "diodos": [],
@@ -239,36 +243,35 @@ PROCEDIMENTO
     },
 
     "analise_numerica": {
-        "ganho_teorico": "<número ou null>",
-        "Vout_teorico_V": "<número em V>",
-        "Vout_real_V": "<número em V>",
+        "ganho_teorico": -3.7,
+        "Vout_teorico_V": -8.42,
+        "Vout_real_V": -6.13,
         "tensoes_V": {
-            "A": "<número em V>",
-            "B": "<número em V>",
-            "C": "<número em V>"
+            "A": 3.21,
+            "B": -1.47,
+            "C": 9.88
         },
         "correntes_A": {
-            "R1": "<número em A>",
-            "R2": "<número em A>",
-            "R3": "<número em A>"
+            "R1": 0.00317,
+            "R2": 0.00842,
+            "R3": 0.00059
         },
         "potencias_W": {
-            "R1": "<número em W>",
-            "R2": "<número em W>",
-            "R3": "<número em W>"
+            "R1": 0.0231,
+            "R2": 0.0517,
+            "R3": 0.00174
         }
     },
 
     "analise_textual": {
         "regiao_operacao": {
-            "U1": "<estado do componente>"
+            "U1": "Saturação negativa"
         },
-        "terra_virtual": "<true ou false>"
+        "terra_virtual": true
     }
 }
 - A imagem contém rótulos de nó (letras como A, B, C...) marcando os pontos onde a tensão deve ser calculada. Use EXATAMENTE esses rótulos como chaves em "tensoes_V" — não invente nomes descritivos. Para "correntes_A" e "potencias_W", use o designador do componente exibido na imagem (ex: "R1", "D1").
 - "regiao_operacao" é um objeto (dict), não uma frase única: inclua uma entrada para CADA diodo e CADA amplificador operacional do circuito, usando o designador exibido na imagem como chave (ex: "D1", "U1") e o estado desse componente como valor (ex: "Condução Direta", "Corte", "Saturação Positiva", "Saturação Negativa", "Linear"). Resistores, capacitores e indutores não entram nesse objeto.
-- Valores de componentes: escreva sempre com unidade. Se a imagem mostrar o número sem unidade, use a unidade padrão do simulador (resistores em Ω, fontes em V, capacitores em F, indutores em H) e NÃO acrescente prefixos (k, m, M...) que não estejam escritos na imagem (ex: se a imagem mostra 20, escreva "20 Ω", nunca "20 kΩ"). Em "tensoes_V", "correntes_A" e "potencias_W" use números puros em V, A e W.
 - Caso não seja possível calcular, use "não determinado" ou null para valores individuais.
 - Não escreva explicações fora do JSON.
 """
@@ -293,14 +296,14 @@ Return ONLY a valid JSON in the following format:
             {"id": "U1"}
         ],
         "resistores": [
-            {"id": "R1", "valor": "<value read from the image, with unit>"},
-            {"id": "R2", "valor": "<value read from the image, with unit>"},
-            {"id": "R3", "valor": "<value read from the image, with unit>"}
+            {"id": "R1", "valor": "4.7 kΩ"},
+            {"id": "R2", "valor": "22 kΩ"},
+            {"id": "R3", "valor": "680 Ω"}
         ],
         "fontes": [
-            {"id": "V1", "valor": "<value read from the image, with unit>"},
-            {"id": "V2", "valor": "<value read from the image, with unit>"},
-            {"id": "V3", "valor": "<value read from the image, with unit>"}
+            {"id": "V1", "valor": "+7.5 V"},
+            {"id": "V2", "valor": "-9.1 V"},
+            {"id": "V3", "valor": "+3.3 V"}
         ],
         "capacitores": [],
         "diodos": [],
@@ -308,31 +311,31 @@ Return ONLY a valid JSON in the following format:
     },
 
     "analise_numerica": {
-        "ganho_teorico": "<number or null>",
-        "Vout_teorico_V": "<number in V>",
-        "Vout_real_V": "<number in V>",
+        "ganho_teorico": -3.7,
+        "Vout_teorico_V": -8.42,
+        "Vout_real_V": -6.13,
         "tensoes_V": {
-            "A": "<number in V>",
-            "B": "<number in V>",
-            "C": "<number in V>"
+            "A": 3.21,
+            "B": -1.47,
+            "C": 9.88
         },
         "correntes_A": {
-            "R1": "<number in A>",
-            "R2": "<number in A>",
-            "R3": "<number in A>"
+            "R1": 0.00317,
+            "R2": 0.00842,
+            "R3": 0.00059
         },
         "potencias_W": {
-            "R1": "<number in W>",
-            "R2": "<number in W>",
-            "R3": "<number in W>"
+            "R1": 0.0231,
+            "R2": 0.0517,
+            "R3": 0.00174
         }
     },
 
     "analise_textual": {
         "regiao_operacao": {
-            "U1": "<component state>"
+            "U1": "Negative Saturation"
         },
-        "terra_virtual": "<true or false>"
+        "terra_virtual": true
     }
 }
 
@@ -341,7 +344,14 @@ Rules:
 - For "correntes_A" and "potencias_W", use the component designator shown in the image (e.g. "R1", "D1").
 - "regiao_operacao" is an object (dict), not a single sentence: include one entry for EACH diode and EACH operational amplifier in the circuit, using the designator shown in the image as the key (e.g. "D1", "U1") and that component's state as the value (e.g. "Forward Conduction", "Cutoff", "Positive Saturation", "Negative Saturation", "Linear"). Resistors, capacitors and inductors do not belong in this object.
 - All numeric values must be valid JSON numbers.
-- Component values: always write them with a unit. If the image shows the number without a unit, use the simulator default unit (resistors in Ω, sources in V, capacitors in F, inductors in H) and do NOT add prefixes (k, m, M...) that are not written in the image (e.g. if the image shows 20, write "20 Ω", never "20 kΩ"). In "tensoes_V", "correntes_A" and "potencias_W" use plain numbers in V, A and W.
+- Example:
+    "Vout_V": 2.75
+    "correntes_A": {
+        "R1": 0.00415
+    }
+    "potencias_W": {
+        "R1": 0.0293
+    }
 - If a value cannot be calculated, use "undetermined" or null for individual values.
 - Do not write explanations outside the JSON.
 """
@@ -370,14 +380,14 @@ Return ONLY a valid JSON in the following format:
             {"id": "U1"}
         ],
         "resistores": [
-            {"id": "R1", "valor": "<value read from the image, with unit>"},
-            {"id": "R2", "valor": "<value read from the image, with unit>"},
-            {"id": "R3", "valor": "<value read from the image, with unit>"}
+            {"id": "R1", "valor": "4.7 kΩ"},
+            {"id": "R2", "valor": "22 kΩ"},
+            {"id": "R3", "valor": "680 Ω"}
         ],
         "fontes": [
-            {"id": "V1", "valor": "<value read from the image, with unit>"},
-            {"id": "V2", "valor": "<value read from the image, with unit>"},
-            {"id": "V3", "valor": "<value read from the image, with unit>"}
+            {"id": "V1", "valor": "+7.5 V"},
+            {"id": "V2", "valor": "-9.1 V"},
+            {"id": "V3", "valor": "+3.3 V"}
         ],
         "capacitores": [],
         "diodos": [],
@@ -385,36 +395,35 @@ Return ONLY a valid JSON in the following format:
     },
 
     "analise_numerica": {
-        "ganho_teorico": "<number or null>",
-        "Vout_teorico_V": "<number in V>",
-        "Vout_real_V": "<number in V>",
+        "ganho_teorico": -3.7,
+        "Vout_teorico_V": -8.42,
+        "Vout_real_V": -6.13,
         "tensoes_V": {
-            "A": "<number in V>",
-            "B": "<number in V>",
-            "C": "<number in V>"
+            "A": 3.21,
+            "B": -1.47,
+            "C": 9.88
         },
         "correntes_A": {
-            "R1": "<number in A>",
-            "R2": "<number in A>",
-            "R3": "<number in A>"
+            "R1": 0.00317,
+            "R2": 0.00842,
+            "R3": 0.00059
         },
         "potencias_W": {
-            "R1": "<number in W>",
-            "R2": "<number in W>",
-            "R3": "<number in W>"
+            "R1": 0.0231,
+            "R2": 0.0517,
+            "R3": 0.00174
         }
     },
 
     "analise_textual": {
         "regiao_operacao": {
-            "U1": "<component state>"
+            "U1": "Negative Saturation"
         },
-        "terra_virtual": "<true or false>"
+        "terra_virtual": true
     }
 }
 - The image contains node labels (letters like A, B, C...) marking the points where the voltage must be calculated. Use EXACTLY those labels as keys in "tensoes_V" — do not invent descriptive names. For "correntes_A" and "potencias_W", use the component designator shown in the image (e.g. "R1", "D1").
 - "regiao_operacao" is an object (dict), not a single sentence: include one entry for EACH diode and EACH operational amplifier in the circuit, using the designator shown in the image as the key (e.g. "D1", "U1") and that component's state as the value (e.g. "Forward Conduction", "Cutoff", "Positive Saturation", "Negative Saturation", "Linear"). Resistors, capacitors and inductors do not belong in this object.
-- Component values: always write them with a unit. If the image shows the number without a unit, use the simulator default unit (resistors in Ω, sources in V, capacitors in F, inductors in H) and do NOT add prefixes (k, m, M...) that are not written in the image (e.g. if the image shows 20, write "20 Ω", never "20 kΩ"). In "tensoes_V", "correntes_A" and "potencias_W" use plain numbers in V, A and W.
 - If a value cannot be calculated, use "undetermined" or null for individual values.
 - Do not write explanations outside the JSON.
 """
@@ -463,14 +472,14 @@ PROCEDURE
             {"id": "U1"}
         ],
         "resistores": [
-            {"id": "R1", "valor": "<value read from the image, with unit>"},
-            {"id": "R2", "valor": "<value read from the image, with unit>"},
-            {"id": "R3", "valor": "<value read from the image, with unit>"}
+            {"id": "R1", "valor": "4.7 kΩ"},
+            {"id": "R2", "valor": "22 kΩ"},
+            {"id": "R3", "valor": "680 Ω"}
         ],
         "fontes": [
-            {"id": "V1", "valor": "<value read from the image, with unit>"},
-            {"id": "V2", "valor": "<value read from the image, with unit>"},
-            {"id": "V3", "valor": "<value read from the image, with unit>"}
+            {"id": "V1", "valor": "+7.5 V"},
+            {"id": "V2", "valor": "-9.1 V"},
+            {"id": "V3", "valor": "+3.3 V"}
         ],
         "capacitores": [],
         "diodos": [],
@@ -478,37 +487,35 @@ PROCEDURE
     },
 
     "analise_numerica": {
-        "ganho_teorico": "<number or null>",
-        "Vout_teorico_V": "<number in V>",
-        "Vout_real_V": "<number in V>",
+        "ganho_teorico": -3.7,
+        "Vout_teorico_V": -8.42,
+        "Vout_real_V": -6.13,
         "tensoes_V": {
-            "A": "<number in V>",
-            "B": "<number in V>",
-            "C": "<number in V>"
+            "A": 3.21,
+            "B": -1.47,
+            "C": 9.88
         },
         "correntes_A": {
-            "R1": "<number in A>",
-            "R2": "<number in A>",
-            "R3": "<number in A>"
+            "R1": 0.00317,
+            "R2": 0.00842,
+            "R3": 0.00059
         },
         "potencias_W": {
-            "R1": "<number in W>",
-            "R2": "<number in W>",
-            "R3": "<number in W>"
+            "R1": 0.0231,
+            "R2": 0.0517,
+            "R3": 0.00174
         }
     },
 
     "analise_textual": {
         "regiao_operacao": {
-            "U1": "<component state>"
+            "U1": "Negative Saturation"
         },
-        "terra_virtual": "<true or false>"
+        "terra_virtual": true
     }
 }
 - The image contains node labels (letters like A, B, C...) marking the points where the voltage must be calculated. Use EXACTLY those labels as keys in "tensoes_V" — do not invent descriptive names. For "correntes_A" and "potencias_W", use the component designator shown in the image (e.g. "R1", "D1").
 - "regiao_operacao" is an object (dict), not a single sentence: include one entry for EACH diode and EACH operational amplifier in the circuit, using the designator shown in the image as the key (e.g. "D1", "U1") and that component's state as the value (e.g. "Forward Conduction", "Cutoff", "Positive Saturation", "Negative Saturation", "Linear"). Resistors, capacitors and inductors do not belong in this object.
-- Component values: always write them with a unit. If the image shows the number without a unit, use the simulator default unit (resistors in Ω, sources in V, capacitors in F, inductors in H) and do NOT add prefixes (k, m, M...) that are not written in the image (e.g. if the image shows 20, write "20 Ω", never "20 kΩ"). In "tensoes_V", "correntes_A" and "potencias_W" use plain numbers in V, A and W.
 - If a value cannot be calculated, use "undetermined" or null for individual values.
 - Do not write explanations outside the JSON.
 """
-

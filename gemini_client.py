@@ -63,7 +63,13 @@ class GeminiCircuitAnalyzer:
                 # filtro de segurança, onde usage_metadata pode vir None).
                 uso = getattr(response, "usage_metadata", None)
                 input_tokens = getattr(uso, "prompt_token_count", 0) or 0
-                output_tokens = getattr(uso, "candidates_token_count", 0) or 0
+                # O Gemini 2.5 Flash "pensa" antes de responder e cobra esses
+                # tokens de raciocínio (thoughts_token_count) como saída —
+                # sem somá-los, o custo registrado ficava ~5x abaixo do real.
+                output_tokens = (
+                    (getattr(uso, "candidates_token_count", 0) or 0)
+                    + (getattr(uso, "thoughts_token_count", 0) or 0)
+                )
 
                 texto = response.text
 

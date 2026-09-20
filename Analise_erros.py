@@ -9,7 +9,12 @@ tudo manualmente a cada rodada da pipeline.
 Uso:
     python Analise_erros.py
 
-Saída (em resultados/analise/):
+Saída (em resultados/analise/): UMA pasta por modelo (ex: gemini-2.5-flash/,
+qwen-qwen3-vl-8b/), cada uma com tabelas/ e graficos/ calculados SÓ com as
+execuções daquele modelo (o nome do modelo aparece no canto de cada
+gráfico), e a pasta comparativo/ só com as tabelas e gráficos que comparam
+os modelos (_por_modelo). Sem essa separação, um CSV com dois modelos
+misturaria os dois em médias por prompt/família/idioma. Em cada pasta:
     tabelas/*.csv   — resumo_por_prompt, resumo_por_familia, resumo_por_idioma,
                        resumo_por_modelo, piores_vout, componentes_por_categoria,
                        componentes_por_idioma, componentes_por_modelo,
@@ -47,6 +52,40 @@ from config import PREFIXO_CSV_RESULTADOS, PREFIXO_CSV_DETALHES, RESULTADOS_DIR
 PASTA_ANALISE = RESULTADOS_DIR / "analise"
 PASTA_TABELAS = PASTA_ANALISE / "tabelas"
 PASTA_GRAFICOS = PASTA_ANALISE / "graficos"
+
+# Estado da análise em andamento (definido por _definir_saida, ver main): pasta
+# de saída, rótulo do modelo impresso em cada gráfico e se só as saídas
+# '_por_modelo' (comparativo entre modelos) devem ser gravadas.
+_ROTULO_MODELO = ""
+_APENAS_COMPARATIVO = False
+
+
+def _definir_saida(pasta, rotulo="", apenas_comparativo=False):
+    global PASTA_TABELAS, PASTA_GRAFICOS, _ROTULO_MODELO, _APENAS_COMPARATIVO
+    PASTA_TABELAS = pasta / "tabelas"
+    PASTA_GRAFICOS = pasta / "graficos"
+    _ROTULO_MODELO = rotulo
+    _APENAS_COMPARATIVO = apenas_comparativo
+
+
+def _nome_pasta(texto):
+    return re.sub(r'[<>:"/\\|?*]', "-", str(texto))
+
+
+def _salvar_grafico(fig, nome):
+    """Grava o gráfico marcando o modelo no canto superior esquerdo, para que a
+    imagem sozinha diga de qual modelo é. No comparativo só saem os gráficos
+    '_por_modelo'."""
+    if _APENAS_COMPARATIVO and not nome.endswith("_por_modelo.png"):
+        plt.close(fig)
+        return
+    if _ROTULO_MODELO:
+        fig.text(0.01, 0.995, _ROTULO_MODELO, ha="left", va="top", fontsize=9,
+                 fontweight="bold", color="#444444")
+    caminho = PASTA_GRAFICOS / nome
+    fig.savefig(caminho, dpi=150)
+    plt.close(fig)
+    print(f"Gráfico salvo: {caminho}")
 
 CORES_PROMPT = ["#4C72B0", "#DD8452", "#55A868"]
 CATEGORIAS_COMPONENTES = [
@@ -86,6 +125,42 @@ def _para_numerico(df, colunas):
     return df
 
 
+def _ignorar_vout_em_tensoes(df, dfd):
+    """Aplica, na ANÁLISE, a mesma regra de evaluator_numerico para rodadas
+    já salvas: a chave 'Vout' dentro de 'tensoes_V' não é um nó do gabarito
+    (a saída já é avaliada em Vout_real_V), então não conta como nó alucinado
+    em tensões. Os CSVs e JSONs originais NÃO são alterados — o filtro só age
+    nos dataframes em memória: remove essas linhas do detalhe e recalcula,
+    para as execuções afetadas, a taxa/quantidade de tensões do resumo."""
+    if "categoria" not in dfd.columns or "item" not in dfd.columns:
+        return df, dfd
+    mascara = (dfd["categoria"] == "tensoes") & (dfd["item"].astype(str).str.strip().str.upper() == "VOUT")
+    removidos = dfd[mascara]
+    if removidos.empty:
+        return df, dfd
+
+    dfd = dfd[~mascara].copy()
+    tens = dfd[dfd["categoria"] == "tensoes"]
+    total = tens.groupby("id_execucao").size()
+    corretos = tens[tens["status"] == "correto"].groupby("id_execucao").size()
+
+    for id_exec, n_rem in removidos.groupby("id_execucao").size().items():
+        linhas = df["id_execucao"] == id_exec
+        n_total = total.get(id_exec, 0)
+        taxa = round(corretos.get(id_exec, 0) / n_total * 100, 1) if n_total else float("nan")
+        df.loc[linhas, "numerico_tensoes_taxa_acerto_percentual"] = taxa
+        if "numerico_tensoes_quantidade" in df.columns:
+            df.loc[linhas, "numerico_tensoes_quantidade"] = n_total
+        for status, n in removidos[removidos["id_execucao"] == id_exec].groupby("status").size().items():
+            coluna = f"numerico_tensoes_status_counts_{status}"
+            if coluna in df.columns:
+                df.loc[linhas, coluna] = df.loc[linhas, coluna] - n
+
+    print(f"Ignorados {len(removidos)} itens 'Vout' em tensões (rótulo de saída, avaliado à parte) "
+          f"em {removidos['id_execucao'].nunique()} execuções — dados originais intactos.")
+    return df, dfd
+
+
 def carregar_dados(timestamp=None):
     """Carrega resumo e detalhe da rodada mais recente (ou de 'timestamp',
     se informado, no formato AAAAMMDD_HHMMSS), já com as colunas numéricas
@@ -120,6 +195,8 @@ def carregar_dados(timestamp=None):
     colunas_extra = [c for c in ("idioma", "modelo") if c in df.columns]
     if colunas_extra and "id_execucao" in dfd.columns:
         dfd = dfd.merge(df[["id_execucao", *colunas_extra]], on="id_execucao", how="left")
+
+    df, dfd = _ignorar_vout_em_tensoes(df, dfd)
 
     return df, dfd
 
@@ -274,6 +351,9 @@ def gerar_tabelas(df, dfd):
             dfd.groupby(["modelo", "categoria"])["status"].value_counts().unstack(fill_value=0)
         )
 
+    if _APENAS_COMPARATIVO:
+        tabelas = {k: v for k, v in tabelas.items() if k.endswith("_por_modelo")}
+
     for nome, tabela in tabelas.items():
         caminho = PASTA_TABELAS / f"{nome}.csv"
         tabela.to_csv(caminho, sep=";", decimal=",", encoding="utf-8-sig")
@@ -324,10 +404,7 @@ def gerar_graficos(df, dfd):
                            "Taxa de acerto numérico por nível de prompt", "Taxa de acerto (%)", "{:.1f}%")
         ax.set_xlabel("Nível de prompt")
         fig.tight_layout()
-        caminho = PASTA_GRAFICOS / "taxa_acerto_por_prompt.png"
-        fig.savefig(caminho, dpi=150)
-        plt.close(fig)
-        print(f"Gráfico salvo: {caminho}")
+        _salvar_grafico(fig, "taxa_acerto_por_prompt.png")
 
         # --- Gráfico 2: taxa de acerto numérica por família ---
         resumo_familia = df.groupby("familia")[[c for c, _ in categorias_num]].mean()
@@ -336,10 +413,7 @@ def gerar_graficos(df, dfd):
                            "Taxa de acerto numérico por família de circuito", "Taxa de acerto (%)", "{:.1f}%")
         ax.set_xlabel("Família")
         fig.tight_layout()
-        caminho = PASTA_GRAFICOS / "taxa_acerto_por_familia.png"
-        fig.savefig(caminho, dpi=150)
-        plt.close(fig)
-        print(f"Gráfico salvo: {caminho}")
+        _salvar_grafico(fig, "taxa_acerto_por_familia.png")
 
         # --- Gráfico 2b: taxa de acerto numérica por idioma (PT x EN) ---
         if "idioma" in df.columns and df["idioma"].nunique() > 1:
@@ -349,10 +423,7 @@ def gerar_graficos(df, dfd):
                                "Taxa de acerto numérico: português x inglês", "Taxa de acerto (%)", "{:.1f}%")
             ax.set_xlabel("Idioma do prompt")
             fig.tight_layout()
-            caminho = PASTA_GRAFICOS / "taxa_acerto_por_idioma.png"
-            fig.savefig(caminho, dpi=150)
-            plt.close(fig)
-            print(f"Gráfico salvo: {caminho}")
+            _salvar_grafico(fig, "taxa_acerto_por_idioma.png")
 
         # --- Gráfico 2c: taxa de acerto numérica por modelo ---
         if "modelo" in df.columns and df["modelo"].nunique() > 1:
@@ -362,10 +433,7 @@ def gerar_graficos(df, dfd):
                                "Taxa de acerto numérico por modelo", "Taxa de acerto (%)", "{:.1f}%")
             ax.set_xlabel("Modelo")
             fig.tight_layout()
-            caminho = PASTA_GRAFICOS / "taxa_acerto_por_modelo.png"
-            fig.savefig(caminho, dpi=150)
-            plt.close(fig)
-            print(f"Gráfico salvo: {caminho}")
+            _salvar_grafico(fig, "taxa_acerto_por_modelo.png")
 
     # --- Gráfico 3: região de operação por prompt ---
     if "textual_regiao_operacao_taxa_acerto_percentual" in df.columns:
@@ -380,10 +448,7 @@ def gerar_graficos(df, dfd):
         ax.spines["top"].set_visible(False)
         ax.spines["right"].set_visible(False)
         fig.tight_layout()
-        caminho = PASTA_GRAFICOS / "regiao_operacao_por_prompt.png"
-        fig.savefig(caminho, dpi=150)
-        plt.close(fig)
-        print(f"Gráfico salvo: {caminho}")
+        _salvar_grafico(fig, "regiao_operacao_por_prompt.png")
 
         # --- Gráfico 3b: região de operação por idioma (PT x EN) ---
         if "idioma" in df.columns and df["idioma"].nunique() > 1:
@@ -398,10 +463,7 @@ def gerar_graficos(df, dfd):
             ax.spines["top"].set_visible(False)
             ax.spines["right"].set_visible(False)
             fig.tight_layout()
-            caminho = PASTA_GRAFICOS / "regiao_operacao_por_idioma.png"
-            fig.savefig(caminho, dpi=150)
-            plt.close(fig)
-            print(f"Gráfico salvo: {caminho}")
+            _salvar_grafico(fig, "regiao_operacao_por_idioma.png")
 
         # --- Gráfico 3b2: região de operação por modelo ---
         if "modelo" in df.columns and df["modelo"].nunique() > 1:
@@ -416,10 +478,7 @@ def gerar_graficos(df, dfd):
             ax.spines["top"].set_visible(False)
             ax.spines["right"].set_visible(False)
             fig.tight_layout()
-            caminho = PASTA_GRAFICOS / "regiao_operacao_por_modelo.png"
-            fig.savefig(caminho, dpi=150)
-            plt.close(fig)
-            print(f"Gráfico salvo: {caminho}")
+            _salvar_grafico(fig, "regiao_operacao_por_modelo.png")
 
     # --- Gráfico 3c: acerto de terra virtual por idioma (PT x EN) ---
     if "textual_terra_virtual_acerto" in df.columns and "idioma" in df.columns and df["idioma"].nunique() > 1:
@@ -437,10 +496,7 @@ def gerar_graficos(df, dfd):
         ax.spines["top"].set_visible(False)
         ax.spines["right"].set_visible(False)
         fig.tight_layout()
-        caminho = PASTA_GRAFICOS / "terra_virtual_por_idioma.png"
-        fig.savefig(caminho, dpi=150)
-        plt.close(fig)
-        print(f"Gráfico salvo: {caminho}")
+        _salvar_grafico(fig, "terra_virtual_por_idioma.png")
 
     # --- Gráfico 3d: acerto de terra virtual por modelo ---
     if "textual_terra_virtual_acerto" in df.columns and "modelo" in df.columns and df["modelo"].nunique() > 1:
@@ -458,10 +514,7 @@ def gerar_graficos(df, dfd):
         ax.spines["top"].set_visible(False)
         ax.spines["right"].set_visible(False)
         fig.tight_layout()
-        caminho = PASTA_GRAFICOS / "terra_virtual_por_modelo.png"
-        fig.savefig(caminho, dpi=150)
-        plt.close(fig)
-        print(f"Gráfico salvo: {caminho}")
+        _salvar_grafico(fig, "terra_virtual_por_modelo.png")
 
     # --- Gráfico 4: distribuição geral de status (detalhe) ---
     if "status" in dfd.columns:
@@ -486,10 +539,7 @@ def gerar_graficos(df, dfd):
         for spine in ax.spines.values():
             spine.set_visible(False)
         fig.tight_layout()
-        caminho = PASTA_GRAFICOS / "status_geral.png"
-        fig.savefig(caminho, dpi=150)
-        plt.close(fig)
-        print(f"Gráfico salvo: {caminho}")
+        _salvar_grafico(fig, "status_geral.png")
 
         # --- Gráfico 5: status por categoria ---
         tabela_cat = dfd.groupby("categoria")["status"].value_counts().unstack(fill_value=0)
@@ -505,10 +555,7 @@ def gerar_graficos(df, dfd):
         ax.spines["top"].set_visible(False)
         ax.spines["right"].set_visible(False)
         fig.tight_layout()
-        caminho = PASTA_GRAFICOS / "status_por_categoria.png"
-        fig.savefig(caminho, dpi=150)
-        plt.close(fig)
-        print(f"Gráfico salvo: {caminho}")
+        _salvar_grafico(fig, "status_por_categoria.png")
 
         # --- Gráfico 6: status geral, separado por idioma (PT x EN) ---
         if "idioma" in dfd.columns and dfd["idioma"].nunique() > 1:
@@ -526,10 +573,7 @@ def gerar_graficos(df, dfd):
             ax.spines["top"].set_visible(False)
             ax.spines["right"].set_visible(False)
             fig.tight_layout()
-            caminho = PASTA_GRAFICOS / "status_geral_por_idioma.png"
-            fig.savefig(caminho, dpi=150)
-            plt.close(fig)
-            print(f"Gráfico salvo: {caminho}")
+            _salvar_grafico(fig, "status_geral_por_idioma.png")
 
             # --- Gráfico 7: status por categoria, separado por idioma (PT x EN) ---
             idiomas_presentes = sorted(dfd["idioma"].dropna().unique())
@@ -552,10 +596,7 @@ def gerar_graficos(df, dfd):
             eixos[-1].legend(loc="upper right", fontsize=8)
             fig.suptitle("Status das comparações por categoria: português x inglês", fontsize=13, fontweight="bold")
             fig.tight_layout()
-            caminho = PASTA_GRAFICOS / "status_por_categoria_por_idioma.png"
-            fig.savefig(caminho, dpi=150)
-            plt.close(fig)
-            print(f"Gráfico salvo: {caminho}")
+            _salvar_grafico(fig, "status_por_categoria_por_idioma.png")
 
         # --- Gráfico 6b: status geral, separado por modelo ---
         if "modelo" in dfd.columns and dfd["modelo"].nunique() > 1:
@@ -573,10 +614,7 @@ def gerar_graficos(df, dfd):
             ax.spines["top"].set_visible(False)
             ax.spines["right"].set_visible(False)
             fig.tight_layout()
-            caminho = PASTA_GRAFICOS / "status_geral_por_modelo.png"
-            fig.savefig(caminho, dpi=150)
-            plt.close(fig)
-            print(f"Gráfico salvo: {caminho}")
+            _salvar_grafico(fig, "status_geral_por_modelo.png")
 
             # --- Gráfico 7b: status por categoria, separado por modelo ---
             modelos_presentes = sorted(dfd["modelo"].dropna().unique())
@@ -599,10 +637,7 @@ def gerar_graficos(df, dfd):
             eixos[-1].legend(loc="upper right", fontsize=8)
             fig.suptitle("Status das comparações por categoria, por modelo", fontsize=13, fontweight="bold")
             fig.tight_layout()
-            caminho = PASTA_GRAFICOS / "status_por_categoria_por_modelo.png"
-            fig.savefig(caminho, dpi=150)
-            plt.close(fig)
-            print(f"Gráfico salvo: {caminho}")
+            _salvar_grafico(fig, "status_por_categoria_por_modelo.png")
 
     # --- Gráfico 8: identificação de componentes (precision/recall/f1/valor) por idioma ---
     if "idioma" in df.columns and df["idioma"].nunique() > 1:
@@ -640,10 +675,7 @@ def gerar_graficos(df, dfd):
             ax.set_xlabel("Idioma do prompt")
             ax.set_ylim(0, 110)
             fig.tight_layout()
-            caminho = PASTA_GRAFICOS / "componentes_por_idioma.png"
-            fig.savefig(caminho, dpi=150)
-            plt.close(fig)
-            print(f"Gráfico salvo: {caminho}")
+            _salvar_grafico(fig, "componentes_por_idioma.png")
 
     # --- Gráfico 8b: identificação de componentes (precision/recall/f1/valor) por modelo ---
     if "modelo" in df.columns and df["modelo"].nunique() > 1:
@@ -674,17 +706,36 @@ def gerar_graficos(df, dfd):
             ax.set_xlabel("Modelo")
             ax.set_ylim(0, 110)
             fig.tight_layout()
-            caminho = PASTA_GRAFICOS / "componentes_por_modelo.png"
-            fig.savefig(caminho, dpi=150)
-            plt.close(fig)
-            print(f"Gráfico salvo: {caminho}")
+            _salvar_grafico(fig, "componentes_por_modelo.png")
 
 
 def main():
     df, dfd = carregar_dados()
     print(f"\nCarregado: {len(df)} execuções (resumo), {len(dfd)} comparações (detalhe)\n")
-    gerar_tabelas(df, dfd)
-    gerar_graficos(df, dfd)
+
+    if "modelo" not in df.columns or "modelo" not in dfd.columns:
+        _definir_saida(PASTA_ANALISE)
+        gerar_tabelas(df, dfd)
+        gerar_graficos(df, dfd)
+        print(f"\nAnálise completa em: {PASTA_ANALISE}\n")
+        return
+
+    modelos = sorted(df["modelo"].dropna().unique())
+
+    # Uma análise completa por modelo — nada misturado entre modelos.
+    for modelo in modelos:
+        print(f"\n===== Modelo: {modelo} =====")
+        _definir_saida(PASTA_ANALISE / _nome_pasta(modelo), rotulo=f"Modelo: {modelo}")
+        gerar_tabelas(df[df["modelo"] == modelo].copy(), dfd[dfd["modelo"] == modelo].copy())
+        gerar_graficos(df[df["modelo"] == modelo].copy(), dfd[dfd["modelo"] == modelo].copy())
+
+    # Comparação entre os modelos (só as saídas '_por_modelo').
+    if len(modelos) > 1:
+        print("\n===== Comparativo entre modelos =====")
+        _definir_saida(PASTA_ANALISE / "comparativo", rotulo="Comparativo entre modelos", apenas_comparativo=True)
+        gerar_tabelas(df, dfd)
+        gerar_graficos(df, dfd)
+
     print(f"\nAnálise completa em: {PASTA_ANALISE}\n")
 
 

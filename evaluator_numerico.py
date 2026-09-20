@@ -353,11 +353,19 @@ def avaliar_numerico(resposta: dict, gabarito: dict, tolerancia_percentual=TOLER
     if ganho_ia is not None or ganho_real is not None:
         resultado["ganho"] = avaliar_escalar(ganho_ia, ganho_real, tolerancia_percentual)
 
-    resultado["tensoes"] = avaliar_categoria(
-        analise_ia.get("tensoes_V", {}) or {},
-        analise_real.get("tensoes_V", {}) or {},
-        tolerancia_percentual,
-    )
+    tensoes_ia = analise_ia.get("tensoes_V", {}) or {}
+    tensoes_real = analise_real.get("tensoes_V", {}) or {}
+
+    # 'Vout' é o rótulo da saída, que a imagem mostra e que já é avaliado à
+    # parte (Vout_real_V). Os nós de 'tensoes_V' são as letras (A, B, C...) do
+    # gabarito; se a IA acrescenta uma chave 'Vout' que o gabarito não tem, ela
+    # não conta como nó alucinado em tensões (o modelo só foi além do pedido,
+    # sem inventar nada). Só a resposta da IA é filtrada, e só quando o
+    # gabarito não traz 'Vout' entre os nós — nenhum dado é alterado.
+    if not any(_normalizar_chave(k) == "VOUT" for k in tensoes_real):
+        tensoes_ia = {k: v for k, v in tensoes_ia.items() if _normalizar_chave(k) != "VOUT"}
+
+    resultado["tensoes"] = avaliar_categoria(tensoes_ia, tensoes_real, tolerancia_percentual)
 
     resultado["correntes"] = avaliar_categoria(
         analise_ia.get("correntes_A", {}) or {},
