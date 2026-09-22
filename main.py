@@ -32,6 +32,8 @@ from config import (
     MAX_TOKENS_SAIDA_POR_MODELO,
     TIMEOUT_POR_MODELO_S,
     USAR_MODELO_LMSTUDIO,
+    MODELOS_OPENROUTER,
+    USAR_MODELO_OPENROUTER,
     PRECO_INPUT_1M,
     PRECO_OUTPUT_1M,
     COTACAO_USD_BRL,
@@ -51,6 +53,7 @@ from prompts import (
 )
 from gemini_client import GeminiCircuitAnalyzer
 from lmstudio_client import LMStudioCircuitAnalyzer
+from openrouter_client import OpenRouterCircuitAnalyzer
 from evaluator_numerico import avaliar_resposta as avaliar_numerico_textual
 from evaluator_componentes import avaliar_componentes
 
@@ -314,7 +317,7 @@ else:
 # relatório de custo — 0.0 para um modelo local/gratuito como o do LM Studio).
 #
 # Cada modelo é ligado/desligado por um toggle em config.py
-# (USAR_MODELO_GEMINI / USAR_MODELO_LMSTUDIO), mesmo
+# (USAR_MODELO_GEMINI / USAR_MODELO_LMSTUDIO / USAR_MODELO_OPENROUTER), mesmo
 # espírito do IDIOMA_PROMPT — permite rodar só alguns (ex: só um modelo
 # local, sem gastar a API do Gemini) sem comentar/descomentar código. O
 # LM Studio aceita uma lista de modelos (config.MODELOS_LMSTUDIO), cada um
@@ -345,10 +348,24 @@ def montar_modelos():
                 "preco_output_1m": 0.0,
             })
 
+    if USAR_MODELO_OPENROUTER:
+        for cfg in MODELOS_OPENROUTER:
+            modelos.append({
+                "nome": cfg.get("rotulo") or cfg["id"],
+                "analisador": OpenRouterCircuitAnalyzer(
+                    model_name=cfg["id"],
+                    provider=cfg.get("provider"),
+                    max_tokens=cfg.get("max_tokens"),
+                    timeout=cfg.get("timeout"),
+                ),
+                "preco_input_1m": cfg.get("preco_input_1m", 0.0),
+                "preco_output_1m": cfg.get("preco_output_1m", 0.0),
+            })
+
     if not modelos:
         raise ValueError(
             "Nenhum modelo ativo — ligue pelo menos um em config.py "
-            "(USAR_MODELO_GEMINI e/ou USAR_MODELO_LMSTUDIO)."
+            "(USAR_MODELO_GEMINI, USAR_MODELO_LMSTUDIO e/ou USAR_MODELO_OPENROUTER)."
         )
 
     return modelos

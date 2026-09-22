@@ -20,7 +20,7 @@ PREFIXO_CSV_RESULTADOS = "resultados"
 PREFIXO_CSV_DETALHES = "resultados_detalhe"
 
 MODELO_GEMINI = "gemini-2.5-flash"
-USAR_MODELO_GEMINI = True
+USAR_MODELO_GEMINI = False
 
 # =========================================================
 # Modelos servidos pelo LM Studio (servidor local, API compatível com a da
@@ -33,6 +33,43 @@ USAR_MODELO_GEMINI = True
 # =========================================================
 MODELOS_LMSTUDIO = ["qwen/qwen3-vl-8b"]
 USAR_MODELO_LMSTUDIO = False
+
+# =========================================================
+# Modelos servidos pelo OpenRouter — ver openrouter_client.py. Servem a dois
+# papéis no trabalho, ambos impossíveis na máquina local (8 GB de VRAM):
+#
+# 1. Qwen3-VL 32B: mesma família, geração e variante do modelo local de 8B,
+#    com 4x os parâmetros. Isola o efeito do PORTE, separando-o do efeito de
+#    ser aberto ou proprietário (a limitação declarada nas Conclusões).
+#    Em Q4_K_M ocuparia ~19 GB, ou seja, uma GPU de consumo de 24 GB.
+#
+# 2. Qwen3-VL 8B em bf16: o MESMO modelo da rodada local, em precisão cheia.
+#    Serve de controle para medir quanto a quantização de 4 bits custa, em
+#    vez de apenas declará-la como limitação.
+#
+# "provider" fixa o provedor (allow_fallbacks=False): sem isso o OpenRouter
+# pode rotear para backends com quantizações diferentes, e a rodada deixa de
+# ser reprodutível. "rotulo" é o nome gravado no CSV — explicita a origem,
+# para não confundir o 8B local com o 8B em nuvem na análise.
+# Preços em USD por 1M de tokens, do catálogo do provedor fixado.
+# =========================================================
+MODELOS_OPENROUTER = [
+    {
+        "id": "qwen/qwen3-vl-32b-instruct",
+        "provider": "Alibaba",
+        "rotulo": "qwen3-vl-32b (openrouter)",
+        "preco_input_1m": 0.104,
+        "preco_output_1m": 0.416,
+    },
+    {
+        "id": "qwen/qwen3-vl-8b-instruct",
+        "provider": "Parasail",
+        "rotulo": "qwen3-vl-8b-bf16 (openrouter)",
+        "preco_input_1m": 0.25,
+        "preco_output_1m": 0.75,
+    },
+]
+USAR_MODELO_OPENROUTER = True
 
 # Limite de tokens de SAÍDA por chamada ao LM Studio. Sem limite, um modelo
 # pequeno pode entrar em loop de repetição até encher o contexto sem nunca

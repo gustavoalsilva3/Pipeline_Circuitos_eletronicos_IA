@@ -72,6 +72,23 @@ def _nome_pasta(texto):
     return re.sub(r'[<>:"/\\|?*]', "-", str(texto))
 
 
+def _quebrar_rotulo(texto, largura=18):
+    """Quebra um rótulo longo em várias linhas, para que nomes de modelo
+    (ex: 'qwen3-vl-8b-bf16 (openrouter)') não se sobreponham no eixo X
+    quando há vários modelos lado a lado."""
+    palavras = str(texto).replace("/", "/ ").split()
+    linhas, atual = [], ""
+    for p in palavras:
+        if atual and len(atual) + 1 + len(p) > largura:
+            linhas.append(atual)
+            atual = p
+        else:
+            atual = f"{atual} {p}".strip()
+    if atual:
+        linhas.append(atual)
+    return "\n".join(l.replace("/ ", "/") for l in linhas)
+
+
 def _salvar_grafico(fig, nome):
     """Grava o gráfico marcando o modelo no canto superior esquerdo, para que a
     imagem sozinha diga de qual modelo é. No comparativo só saem os gráficos
@@ -204,6 +221,38 @@ def carregar_dados(timestamp=None):
 # =========================================================
 # TABELAS
 # =========================================================
+def _totais_componentes(df_sub, categorias):
+    """Soma TP, FP e FN das categorias dadas no dataframe (execuções)."""
+    tp = fp = fn = 0.0
+    for cat in categorias:
+        for nome, acumula in (("TP", 0), ("FP", 1), ("FN", 2)):
+            col = f"componentes_{cat}_{nome}"
+            if col in df_sub.columns:
+                v = float(df_sub[col].fillna(0).sum())
+                if acumula == 0:
+                    tp += v
+                elif acumula == 1:
+                    fp += v
+                else:
+                    fn += v
+    return tp, fp, fn
+
+
+def _prf_agregado(df_sub, categorias):
+    """precision/recall/F1 a partir dos TOTAIS de TP/FP/FN (métrica agregada).
+
+    A média das razões por execução distorce: execuções em que a razão é
+    indefinida (ex: sem componente da categoria no gabarito) saem da média
+    de um lado e ficam do outro, gerando F1 maior que precision e recall ao
+    mesmo tempo. Somar TP/FP/FN antes de dividir evita isso e é consistente
+    com as contagens TP_total/FP_total/FN_total das tabelas."""
+    tp, fp, fn = _totais_componentes(df_sub, categorias)
+    p = tp / (tp + fp) if tp + fp else None
+    r = tp / (tp + fn) if tp + fn else None
+    f1 = 2 * tp / (2 * tp + fp + fn) if 2 * tp + fp + fn else None
+    return p, r, f1
+
+
 def gerar_tabelas(df, dfd):
     PASTA_TABELAS.mkdir(parents=True, exist_ok=True)
     tabelas = {}
@@ -277,11 +326,13 @@ def gerar_tabelas(df, dfd):
         # (None) quando não há dado — 0% sugeriria erro real, quando na
         # verdade é "não avaliável" (ex: categoria sem campo 'valor', ou
         # que nunca apareceu em nenhum circuito desta rodada).
-        for metrica in ["precision", "recall", "f1_score", "valor_taxa_acerto_percentual"]:
-            col = f"componentes_{cat}_{metrica}"
-            if col in df.columns:
-                valido = df[col].dropna()
-                linha[metrica] = round(valido.mean(), 4) if len(valido) else None
+        p, r, f1 = _prf_agregado(df, [cat])
+        linha["precision"], linha["recall"], linha["f1_score"] = (
+            round(v, 4) if v is not None else None for v in (p, r, f1))
+        col = f"componentes_{cat}_valor_taxa_acerto_percentual"
+        if col in df.columns:
+            valido = df[col].dropna()
+            linha["valor_taxa_acerto_percentual"] = round(valido.mean(), 4) if len(valido) else None
         # Contagens (TP/FP/FN): sempre um número, mesmo 0 — "a categoria
         # nunca apareceu nesta rodada" É zero identificado/alucinado/
         # faltante, não um dado ausente. Usa .get(col, 0) porque a coluna
@@ -298,11 +349,13 @@ def gerar_tabelas(df, dfd):
         for idioma, df_idioma in df.groupby("idioma"):
             for cat in CATEGORIAS_COMPONENTES:
                 linha = {"idioma": idioma, "categoria": cat}
-                for metrica in ["precision", "recall", "f1_score", "valor_taxa_acerto_percentual"]:
-                    col = f"componentes_{cat}_{metrica}"
-                    if col in df_idioma.columns:
-                        valido = df_idioma[col].dropna()
-                        linha[metrica] = round(valido.mean(), 4) if len(valido) else None
+                p, r, f1 = _prf_agregado(df_idioma, [cat])
+                linha["precision"], linha["recall"], linha["f1_score"] = (
+                    round(v, 4) if v is not None else None for v in (p, r, f1))
+                col = f"componentes_{cat}_valor_taxa_acerto_percentual"
+                if col in df_idioma.columns:
+                    valido = df_idioma[col].dropna()
+                    linha["valor_taxa_acerto_percentual"] = round(valido.mean(), 4) if len(valido) else None
                 for metrica in ["TP", "FP", "FN"]:
                     col = f"componentes_{cat}_{metrica}"
                     linha[f"{metrica}_total"] = int(df_idioma[col].fillna(0).sum()) if col in df_idioma.columns else 0
@@ -315,11 +368,13 @@ def gerar_tabelas(df, dfd):
         for modelo, df_modelo in df.groupby("modelo"):
             for cat in CATEGORIAS_COMPONENTES:
                 linha = {"modelo": modelo, "categoria": cat}
-                for metrica in ["precision", "recall", "f1_score", "valor_taxa_acerto_percentual"]:
-                    col = f"componentes_{cat}_{metrica}"
-                    if col in df_modelo.columns:
-                        valido = df_modelo[col].dropna()
-                        linha[metrica] = round(valido.mean(), 4) if len(valido) else None
+                p, r, f1 = _prf_agregado(df_modelo, [cat])
+                linha["precision"], linha["recall"], linha["f1_score"] = (
+                    round(v, 4) if v is not None else None for v in (p, r, f1))
+                col = f"componentes_{cat}_valor_taxa_acerto_percentual"
+                if col in df_modelo.columns:
+                    valido = df_modelo[col].dropna()
+                    linha["valor_taxa_acerto_percentual"] = round(valido.mean(), 4) if len(valido) else None
                 for metrica in ["TP", "FP", "FN"]:
                     col = f"componentes_{cat}_{metrica}"
                     linha[f"{metrica}_total"] = int(df_modelo[col].fillna(0).sum()) if col in df_modelo.columns else 0
@@ -378,7 +433,7 @@ def _barras_agrupadas(ax, df_plot, categorias, cores, titulo, ylabel, fmt="{:.1f
         ax.bar_label(barras, labels=[fmt.format(v) if pd.notna(v) else "" for v in valores], fontsize=8, padding=2)
 
     ax.set_xticks(list(x))
-    ax.set_xticklabels(df_plot.index.astype(str))
+    ax.set_xticklabels([_quebrar_rotulo(r) for r in df_plot.index.astype(str)])
     ax.set_title(titulo, fontsize=13, fontweight="bold")
     ax.set_ylabel(ylabel)
     ax.legend(fontsize=8)
@@ -641,7 +696,8 @@ def gerar_graficos(df, dfd):
 
     # --- Gráfico 8: identificação de componentes (precision/recall/f1/valor) por idioma ---
     if "idioma" in df.columns and df["idioma"].nunique() > 1:
-        # precision/recall/f1 vêm em escala 0-1 e valor_taxa_acerto_percentual
+        # precision/recall/F1 (agregados sobre todas as categorias, a partir dos
+        # totais de TP/FP/FN) vêm em escala 0-1 e valor_taxa_acerto_percentual
         # em 0-100 — convertidas todas para % aqui (só para o gráfico, a
         # tabela 'componentes_por_idioma' mantém a escala original de cada
         # métrica) pra caberem no mesmo eixo sem achatar as três primeiras.
@@ -649,14 +705,13 @@ def gerar_graficos(df, dfd):
         linhas = []
         for idioma, df_idioma in df.groupby("idioma"):
             linha = {"idioma": idioma}
-            for metrica in metricas_comp:
-                cols = [f"componentes_{cat}_{metrica}" for cat in CATEGORIAS_COMPONENTES if f"componentes_{cat}_{metrica}" in df_idioma.columns]
-                if cols:
-                    valido = df_idioma[cols].mean(axis=1).dropna()
-                    media = valido.mean() if len(valido) else None
-                    if media is not None and metrica != "valor_taxa_acerto_percentual":
-                        media *= 100
-                    linha[metrica] = media
+            p, r, f1 = _prf_agregado(df_idioma, CATEGORIAS_COMPONENTES)
+            for metrica, v in (("precision", p), ("recall", r), ("f1_score", f1)):
+                linha[metrica] = v * 100 if v is not None else None
+            cols = [f"componentes_{cat}_valor_taxa_acerto_percentual" for cat in CATEGORIAS_COMPONENTES if f"componentes_{cat}_valor_taxa_acerto_percentual" in df_idioma.columns]
+            if cols:
+                valido = df_idioma[cols].mean(axis=1).dropna()
+                linha["valor_taxa_acerto_percentual"] = valido.mean() if len(valido) else None
             linhas.append(linha)
         resumo_comp_idioma = pd.DataFrame(linhas).set_index("idioma")
         rotulos_comp = {
@@ -683,14 +738,13 @@ def gerar_graficos(df, dfd):
         linhas = []
         for modelo, df_modelo in df.groupby("modelo"):
             linha = {"modelo": modelo}
-            for metrica in metricas_comp:
-                cols = [f"componentes_{cat}_{metrica}" for cat in CATEGORIAS_COMPONENTES if f"componentes_{cat}_{metrica}" in df_modelo.columns]
-                if cols:
-                    valido = df_modelo[cols].mean(axis=1).dropna()
-                    media = valido.mean() if len(valido) else None
-                    if media is not None and metrica != "valor_taxa_acerto_percentual":
-                        media *= 100
-                    linha[metrica] = media
+            p, r, f1 = _prf_agregado(df_modelo, CATEGORIAS_COMPONENTES)
+            for metrica, v in (("precision", p), ("recall", r), ("f1_score", f1)):
+                linha[metrica] = v * 100 if v is not None else None
+            cols = [f"componentes_{cat}_valor_taxa_acerto_percentual" for cat in CATEGORIAS_COMPONENTES if f"componentes_{cat}_valor_taxa_acerto_percentual" in df_modelo.columns]
+            if cols:
+                valido = df_modelo[cols].mean(axis=1).dropna()
+                linha["valor_taxa_acerto_percentual"] = valido.mean() if len(valido) else None
             linhas.append(linha)
         resumo_comp_modelo = pd.DataFrame(linhas).set_index("modelo")
         rotulos_comp = {
