@@ -64,9 +64,6 @@ Pipeline_TFC/
 ├── evaluator_componentes.py  # identificação e valor dos componentes
 │
 ├── consolidar_rodadas.py     # une sub-rodadas em um par único de CSVs
-├── refazer_falhas.py         # reexecuta execuções que falharam
-├── piloto_openrouter.py      # piloto pontuado, antes da rodada completa
-├── teste_openrouter.py       # teste de fumaça do endpoint e do custo
 │
 ├── Analise_erros.py          # tabelas (CSV) e gráficos (PNG) por modelo
 ├── gerar_tabelas_cap4.py     # tabelas LaTeX do capítulo de resultados

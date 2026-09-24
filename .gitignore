@@ -12,3 +12,9 @@ resultados/
 # Texto da monografia — repositorio proprio (TFC_Analise_de_Circuitos_eletronicos_IA),
 # com .git e .gitignore separados. Fica de fora daqui para nao virar gitlink.
 TFC/
+
+# Scripts de uso pontual, mantidos localmente mas fora do repositorio:
+# piloto e teste de fumaca do OpenRouter, e reexecucao de chamadas que falharam.
+piloto_openrouter.py
+teste_openrouter.py
+refazer_falhas.py
