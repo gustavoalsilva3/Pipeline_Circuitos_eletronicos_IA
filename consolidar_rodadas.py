@@ -31,16 +31,17 @@ from config import RESULTADOS_DIR
 
 # (resumo, detalhe) de cada rodada a reunir, na ordem em que serão numeradas
 RODADAS = [
-    ("resultados_20260920_115526.csv", "resultados_detalhe_20260920_115526.csv"),
-    ("resultados_20260922_192451.csv", "resultados_detalhe_20260922_192451.csv"),
+    ("resultados_20260924_082751.csv", "resultados_detalhe_20260924_082751.csv"),
+    ("resultados_20260924_091447.csv", "resultados_detalhe_20260924_091447.csv"),
+    ("resultados_20260924_105846.csv", "resultados_detalhe_20260924_105846.csv"),
 ]
 
 # provedor/quantização por modelo. O local é o único em que a quantização é
 # escolha do autor; os demais dependem de quem serve o modelo.
 ORIGEM = {
     "gemini-2.5-flash": ("Google (API)", "nao divulgada"),
-    "qwen/qwen3-vl-8b": ("local (LM Studio)", "Q4_K_M"),
-    "qwen3-vl-32b (openrouter)": ("Alibaba (OpenRouter)", "nao declarada"),
+    "gemma-3-27b-bf16 (openrouter)": ("Novita (OpenRouter)", "bf16"),
+        "qwen3-vl-32b (openrouter)": ("Alibaba (OpenRouter)", "nao declarada"),
     "qwen3-vl-8b-bf16 (openrouter)": ("Parasail (OpenRouter)", "bf16"),
 }
 

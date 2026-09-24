@@ -54,19 +54,32 @@ USAR_MODELO_LMSTUDIO = False
 # Preços em USD por 1M de tokens, do catálogo do provedor fixado.
 # =========================================================
 MODELOS_OPENROUTER = [
+    # Os dois Qwen ja foram executados na rodada oficial
+    # (resultados_20260924_082751.csv). Ficam comentados para que a rodada
+    # deste modelo novo nao repita 288 chamadas ja feitas; para reproduzir a
+    # rodada completa do zero, basta descomentar os dois.
+    #
+    # {"id": "qwen/qwen3-vl-32b-instruct",  "provider": "Alibaba",
+    #  "rotulo": "qwen3-vl-32b (openrouter)",
+    #  "preco_input_1m": 0.104, "preco_output_1m": 0.416},
+    #
+    # {"id": "qwen/qwen3-vl-8b-instruct",   "provider": "Parasail",
+    #  "rotulo": "qwen3-vl-8b-bf16 (openrouter)",
+    #  "preco_input_1m": 0.25,  "preco_output_1m": 0.75},
+
+    # Gemma 3 27B: segunda FAMILIA aberta, de porte proximo ao Qwen 32B
+    # (27,4B contra 32B, ambos densos). Serve para verificar se as falhas
+    # observadas nos Qwen — em especial a nao aplicacao da condicao de
+    # circuito aberto do capacitor em regime CC — sao gerais aos modelos
+    # abertos ou especificas daquela familia. A Novita e o unico provedor que
+    # o serve em bf16, mesma precisao do 8B, o que evita introduzir variacao
+    # de quantizacao na comparacao entre familias.
     {
-        "id": "qwen/qwen3-vl-32b-instruct",
-        "provider": "Alibaba",
-        "rotulo": "qwen3-vl-32b (openrouter)",
-        "preco_input_1m": 0.104,
-        "preco_output_1m": 0.416,
-    },
-    {
-        "id": "qwen/qwen3-vl-8b-instruct",
-        "provider": "Parasail",
-        "rotulo": "qwen3-vl-8b-bf16 (openrouter)",
-        "preco_input_1m": 0.25,
-        "preco_output_1m": 0.75,
+        "id": "google/gemma-3-27b-it",
+        "provider": "Novita",
+        "rotulo": "gemma-3-27b-bf16 (openrouter)",
+        "preco_input_1m": 0.10,
+        "preco_output_1m": 0.20,
     },
 ]
 USAR_MODELO_OPENROUTER = True

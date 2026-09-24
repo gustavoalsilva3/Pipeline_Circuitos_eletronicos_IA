@@ -6,7 +6,7 @@ import os
 import pandas as pd, numpy as np
 
 BASE = os.path.dirname(os.path.abspath(__file__))
-d = pd.read_csv(os.path.join(BASE, "resultados", "resultados_20260922_202645.csv"),
+d = pd.read_csv(os.path.join(BASE, "resultados", "resultados_20260924_121301.csv"),
                 sep=";", engine="python", on_bad_lines="skip", dtype=str)
 d["circ"] = d["imagem"].str.replace(r"\.\w+$", "", regex=True)
 d["fam"] = d["imagem"].str.extract(r"(Amp|Dio|RLC)", expand=False).map({"Amp": "Amplificador operacional", "Dio": "Diodo", "RLC": "RLC"})
@@ -44,7 +44,10 @@ def celula(sub, col):
     return f"{fmt(m)} [{fmt(lo)}; {fmt(hi)}]"
 
 
-modelos = [("gemini-2.5-flash", "Gemini 2.5 Flash"), ("qwen3-vl-32b (openrouter)", "Qwen3-VL 32B"), ("qwen/qwen3-vl-8b", "Qwen3-VL 8B (local, Q4\_K\_M)")]
+modelos = [("gemini-2.5-flash", "Gemini 2.5 Flash"),
+           ("qwen3-vl-32b (openrouter)", "Qwen3-VL 32B"),
+           ("gemma-3-27b-bf16 (openrouter)", "Gemma 3 27B"),
+           ("qwen3-vl-8b-bf16 (openrouter)", "Qwen3-VL 8B")]
 grupos = [("Geral", lambda x: x),
           ("Nível 1 --- Direto", lambda x: x[x.nivel_prompt.astype(str) == "1"]),
           ("Nível 2 --- Guiado", lambda x: x[x.nivel_prompt.astype(str) == "2"]),

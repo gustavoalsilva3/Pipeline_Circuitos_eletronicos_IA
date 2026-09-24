@@ -8,3 +8,7 @@ __pycache__/
 
 # Saída gerada pela pipeline (reprodutível a partir do código + gabaritos)
 resultados/
+
+# Texto da monografia — repositorio proprio (TFC_Analise_de_Circuitos_eletronicos_IA),
+# com .git e .gitignore separados. Fica de fora daqui para nao virar gitlink.
+TFC/

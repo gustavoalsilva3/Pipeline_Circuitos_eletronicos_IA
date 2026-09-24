@@ -49,14 +49,21 @@ load_dotenv()
 BASE_URL = "https://openrouter.ai/api/v1"
 LOG_CHAMADAS = Path(__file__).parent / "resultados" / "openrouter_chamadas.jsonl"
 
-# Limite de tokens de SAÍDA enviado por padrão. É necessário porque alguns
-# provedores (ex: Parasail) reservam o contexto inteiro do modelo quando
-# max_tokens não vem na requisição, e recusam a chamada por crédito
-# insuficiente (HTTP 402) mesmo que a resposta real fosse curta.
-# O valor 8000 fica acima da maior resposta observada na rodada local do
-# Qwen3-VL 8B (7.071 tokens), de modo que o limite não pode cortar nada que
-# aquela rodada, feita sem limite, tenha produzido.
-MAX_TOKENS_PADRAO = 8000
+# Limite de tokens de SAÍDA enviado por padrão. É necessário porque o
+# OpenRouter RESERVA o crédito do pior caso antes de executar: sem
+# max_tokens, alguns provedores reservam o contexto inteiro do modelo e
+# recusam a chamada com HTTP 402 ainda que a resposta real seja curta.
+#
+# O valor precisa ficar abaixo do teto de reserva da conta, que varia com o
+# saldo disponível. Em 288 execuções observadas, a resposta mais longa teve
+# ~600 tokens e a média ficou em 128, então 2000 dá folga de mais de 3x sem
+# se aproximar do teto.
+#
+# Um valor alto demais derruba a rodada inteira: com 8000, uma rodada chegou
+# a falhar em 194 de 288 execuções por HTTP 402 ("can only afford N"), ainda
+# que as respostas reais coubessem de sobra. Havendo saldo em conta, o teto
+# deixa de ser restritivo.
+MAX_TOKENS_PADRAO = 2000
 
 
 def _chave() -> str:
