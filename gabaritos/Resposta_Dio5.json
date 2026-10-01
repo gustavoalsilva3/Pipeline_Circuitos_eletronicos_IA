@@ -42,23 +42,23 @@
         "indutores": []
     },
     "analise_numerica": {
-        "ganho_teorico": "null",
-        "Vout_teorico_V": 1.80428,
-        "Vout_real_V": 1.80428,
+        "ganho_teorico": null,
+        "Vout_teorico_V": 1.0,
+        "Vout_real_V": 1.0004,
         "tensoes_V": {
-            "A": 1.80428
+            "A": 1.0004
         },
         "correntes_A": {
             "D1": 0.0,
-            "D2": 0.319572,
-            "R1": 0.319572,
+            "D2": 0.39996,
+            "R1": 0.39996,
             "R2": 0.0,
             "R3": 0.0
         },
         "potencias_W": {
             "D1": 0.0,
             "D2": 0.0,
-            "R1": 1.02126,
+            "R1": 1.59968,
             "R2": 0.0,
             "R3": 0.0
         }

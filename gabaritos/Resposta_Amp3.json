@@ -45,28 +45,28 @@
     "analise_numerica": {
         "ganho_teorico": -5.0,
         "Vout_teorico_V": -75.0,
-        "Vout_real_V": 2.1,
+        "Vout_real_V": -8.0,
         "tensoes_V": {
-            "A": 12.85,
+            "A": 11.1667,
             "B": 0.0,
-            "C": 2.1
+            "C": -8.0
         },
         "correntes_A": {
-            "R1": 1.075,
+            "R1": 1.91667,
             "R2": 0.0,
-            "R3": 1.075,
-            "R4": 1.05
+            "R3": 1.91667,
+            "R4": 4.0
         },
         "potencias_W": {
-            "R1": 2.31112,
+            "R1": 7.34722,
             "R2": 0.0,
-            "R3": 11.55624,
-            "R4": 2.205
+            "R3": 36.7361,
+            "R4": 32.0
         }
     },
     "analise_textual": {
         "regiao_operacao": {
-            "U1": "Linear"
+            "U1": "Saturação Negativa"
         },
         "terra_virtual": false
     }

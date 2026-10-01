@@ -20,7 +20,8 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 
 BASE = os.path.dirname(os.path.abspath(__file__))
-CSV = os.path.join(BASE, "resultados", "resultados_20260924_121301.csv")
+CARIMBO = "20260927_160533"
+CSV = os.path.join(BASE, "resultados", f"resultados_{CARIMBO}.csv")
 SAIDA = os.path.join(BASE, "TFC", "figuras", "comparativo")
 
 MODELOS = [

@@ -42,6 +42,11 @@ termos em inglês usados nos exemplos abaixo (saturation/conduction/cutoff).
 PROMPT_ANALISE_CIRCUITO_1 = """
 Analise o circuito eletrônico presente na imagem.
 
+Considere todos os componentes IDEAIS:
+- diodo: queda de tensão nula em condução direta, corrente nula em corte;
+- amplificador operacional: ganho infinito, corrente de saída ilimitada e saturação exatamente nas tensões de alimentação;
+- em regime permanente de corrente contínua, indutor como curto-circuito e capacitor como circuito aberto.
+
 Retorne APENAS um JSON válido no seguinte formato:
 
 {
@@ -72,8 +77,8 @@ Retorne APENAS um JSON válido no seguinte formato:
 
     "analise_numerica": {
         "ganho_teorico": <numero a preencher>,
-        "Vout_teorico_V": <numero a preencher>,
-        "Vout_real_V": <numero a preencher>,
+        "Vout_teorico_V": <tensao de saida obtida pela analise do circuito, sem aplicar o limite da alimentacao>,
+        "Vout_real_V": <tensao de saida final; igual a teorica quando nao ha saturacao>,
         "tensoes_V": {
             "<rotulo de no da imagem>": <numero a preencher>,
             "<rotulo de no da imagem>": <numero a preencher>
@@ -111,6 +116,11 @@ Regras:
 #Prompt nível 2
 PROMPT_ANALISE_CIRCUITO_2 = """
 Analise o circuito eletrônico.
+
+Considere todos os componentes IDEAIS:
+- diodo: queda de tensão nula em condução direta, corrente nula em corte;
+- amplificador operacional: ganho infinito, corrente de saída ilimitada e saturação exatamente nas tensões de alimentação;
+- em regime permanente de corrente contínua, indutor como curto-circuito e capacitor como circuito aberto.
 
 1. Identifique os componentes presentes.
 
@@ -152,8 +162,8 @@ Retorne APENAS um JSON válido no seguinte formato:
 
     "analise_numerica": {
         "ganho_teorico": <numero a preencher>,
-        "Vout_teorico_V": <numero a preencher>,
-        "Vout_real_V": <numero a preencher>,
+        "Vout_teorico_V": <tensao de saida obtida pela analise do circuito, sem aplicar o limite da alimentacao>,
+        "Vout_real_V": <tensao de saida final; igual a teorica quando nao ha saturacao>,
         "tensoes_V": {
             "<rotulo de no da imagem>": <numero a preencher>,
             "<rotulo de no da imagem>": <numero a preencher>
@@ -190,6 +200,11 @@ PROMPT_ANALISE_CIRCUITO_3 = """
 OBJETIVO
 
 Analise detalhadamente o circuito eletrônico apresentado.
+
+Considere todos os componentes IDEAIS:
+- diodo: queda de tensão nula em condução direta, corrente nula em corte;
+- amplificador operacional: ganho infinito, corrente de saída ilimitada e saturação exatamente nas tensões de alimentação;
+- em regime permanente de corrente contínua, indutor como curto-circuito e capacitor como circuito aberto.
 
 PROCEDIMENTO
 
@@ -249,8 +264,8 @@ PROCEDIMENTO
 
     "analise_numerica": {
         "ganho_teorico": <numero a preencher>,
-        "Vout_teorico_V": <numero a preencher>,
-        "Vout_real_V": <numero a preencher>,
+        "Vout_teorico_V": <tensao de saida obtida pela analise do circuito, sem aplicar o limite da alimentacao>,
+        "Vout_real_V": <tensao de saida final; igual a teorica quando nao ha saturacao>,
         "tensoes_V": {
             "<rotulo de no da imagem>": <numero a preencher>,
             "<rotulo de no da imagem>": <numero a preencher>
@@ -292,6 +307,11 @@ PROCEDIMENTO
 PROMPT_ANALISE_CIRCUITO_1_EN = """
 Analyze the electronic circuit shown in the image.
 
+Assume all components are IDEAL:
+- diode: zero forward voltage drop when conducting, zero current when off;
+- operational amplifier: infinite gain, unlimited output current, and saturation exactly at the supply voltages;
+- in DC steady state, inductor as a short circuit and capacitor as an open circuit.
+
 Return ONLY a valid JSON in the following format:
 
 {
@@ -322,8 +342,8 @@ Return ONLY a valid JSON in the following format:
 
     "analise_numerica": {
         "ganho_teorico": <number to fill in>,
-        "Vout_teorico_V": <number to fill in>,
-        "Vout_real_V": <number to fill in>,
+        "Vout_teorico_V": <output voltage from the circuit analysis, without applying the supply limit>,
+        "Vout_real_V": <final output voltage; equals the theoretical one when there is no saturation>,
         "tensoes_V": {
             "<node label from the image>": <number to fill in>,
             "<node label from the image>": <number to fill in>
@@ -361,6 +381,11 @@ Rules:
 #Prompt level 2 (English)
 PROMPT_ANALISE_CIRCUITO_2_EN = """
 Analyze the electronic circuit.
+
+Assume all components are IDEAL:
+- diode: zero forward voltage drop when conducting, zero current when off;
+- operational amplifier: infinite gain, unlimited output current, and saturation exactly at the supply voltages;
+- in DC steady state, inductor as a short circuit and capacitor as an open circuit.
 
 1. Identify the components present.
 
@@ -402,8 +427,8 @@ Return ONLY a valid JSON in the following format:
 
     "analise_numerica": {
         "ganho_teorico": <number to fill in>,
-        "Vout_teorico_V": <number to fill in>,
-        "Vout_real_V": <number to fill in>,
+        "Vout_teorico_V": <output voltage from the circuit analysis, without applying the supply limit>,
+        "Vout_real_V": <final output voltage; equals the theoretical one when there is no saturation>,
         "tensoes_V": {
             "<node label from the image>": <number to fill in>,
             "<node label from the image>": <number to fill in>
@@ -440,6 +465,11 @@ PROMPT_ANALISE_CIRCUITO_3_EN = """
 OBJECTIVE
 
 Analyze the electronic circuit shown in detail.
+
+Assume all components are IDEAL:
+- diode: zero forward voltage drop when conducting, zero current when off;
+- operational amplifier: infinite gain, unlimited output current, and saturation exactly at the supply voltages;
+- in DC steady state, inductor as a short circuit and capacitor as an open circuit.
 
 PROCEDURE
 
@@ -499,8 +529,8 @@ PROCEDURE
 
     "analise_numerica": {
         "ganho_teorico": <number to fill in>,
-        "Vout_teorico_V": <number to fill in>,
-        "Vout_real_V": <number to fill in>,
+        "Vout_teorico_V": <output voltage from the circuit analysis, without applying the supply limit>,
+        "Vout_real_V": <final output voltage; equals the theoretical one when there is no saturation>,
         "tensoes_V": {
             "<node label from the image>": <number to fill in>,
             "<node label from the image>": <number to fill in>

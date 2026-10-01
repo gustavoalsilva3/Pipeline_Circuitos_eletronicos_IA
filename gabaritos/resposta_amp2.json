@@ -41,27 +41,27 @@
     "analise_numerica": {
         "ganho_teorico": -2.0,
         "Vout_teorico_V": -6.0,
-        "Vout_real_V": 1.50003,
+        "Vout_real_V": -5.99998,
         "tensoes_V": {
-            "A": 2.50001,
+            "A": 0.0,
             "B": 0.0,
-            "C": 1.50003
+            "C": -5.99998
         },
         "correntes_A": {
-            "R1": 0.0249995,
+            "R1": 0.15,
             "R2": 0.0,
-            "R3": 0.0249995
+            "R3": 0.15
         },
         "potencias_W": {
-            "R1": 0.012499,
+            "R1": 0.449998,
             "R2": 0.0,
-            "R3": 0.024999
+            "R3": 0.899996
         }
     },
     "analise_textual": {
         "regiao_operacao": {
             "U1": "Linear"
         },
-        "terra_virtual": false
+        "terra_virtual": true
     }
 }

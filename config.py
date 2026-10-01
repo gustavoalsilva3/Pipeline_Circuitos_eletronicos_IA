@@ -20,7 +20,7 @@ PREFIXO_CSV_RESULTADOS = "resultados"
 PREFIXO_CSV_DETALHES = "resultados_detalhe"
 
 MODELO_GEMINI = "gemini-2.5-flash"
-USAR_MODELO_GEMINI = False
+USAR_MODELO_GEMINI = True
 
 # =========================================================
 # Modelos servidos pelo LM Studio (servidor local, API compatível com a da
@@ -59,13 +59,13 @@ MODELOS_OPENROUTER = [
     # deste modelo novo nao repita 288 chamadas ja feitas; para reproduzir a
     # rodada completa do zero, basta descomentar os dois.
     #
-    # {"id": "qwen/qwen3-vl-32b-instruct",  "provider": "Alibaba",
-    #  "rotulo": "qwen3-vl-32b (openrouter)",
-    #  "preco_input_1m": 0.104, "preco_output_1m": 0.416},
+    {"id": "qwen/qwen3-vl-32b-instruct",  "provider": "Alibaba",
+     "rotulo": "qwen3-vl-32b (openrouter)",
+     "preco_input_1m": 0.104, "preco_output_1m": 0.416},
     #
-    # {"id": "qwen/qwen3-vl-8b-instruct",   "provider": "Parasail",
-    #  "rotulo": "qwen3-vl-8b-bf16 (openrouter)",
-    #  "preco_input_1m": 0.25,  "preco_output_1m": 0.75},
+    {"id": "qwen/qwen3-vl-8b-instruct",   "provider": "Parasail",
+     "rotulo": "qwen3-vl-8b-bf16 (openrouter)",
+     "preco_input_1m": 0.25,  "preco_output_1m": 0.75},
 
     # Gemma 3 27B: segunda FAMILIA aberta, de porte proximo ao Qwen 32B
     # (27,4B contra 32B, ambos densos). Serve para verificar se as falhas

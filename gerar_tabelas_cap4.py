@@ -4,13 +4,17 @@ Escreve um arquivo .tex por tabela em TFC/tabelas_cap4/, de modo que o texto
 da dissertacao apenas as inclua. Assim, refazer a rodada e regerar as tabelas
 nao exige reescrever o capitulo, e nenhum numero e digitado a mao.
 """
+import json
 import os
 import numpy as np
 import pandas as pd
 
 BASE = os.path.dirname(os.path.abspath(__file__))
-CSV = os.path.join(BASE, "resultados", "resultados_20260924_121301.csv")
-DET = os.path.join(BASE, "resultados", "resultados_detalhe_20260924_121301.csv")
+# Rodada analisada. Num so lugar para que o resumo e o detalhe nao possam
+# apontar para rodadas diferentes.
+CARIMBO = "20260927_160533"
+CSV = os.path.join(BASE, "resultados", f"resultados_{CARIMBO}.csv")
+DET = os.path.join(BASE, "resultados", f"resultados_detalhe_{CARIMBO}.csv")
 SAIDA = os.path.join(BASE, "TFC", "tabelas_cap4")
 os.makedirs(SAIDA, exist_ok=True)
 
@@ -76,6 +80,8 @@ print("gerando tabelas em TFC/tabelas_cap4/:")
 # do texto, enquanto 4 modelos x (contagem + percentual) nas colunas nao cabe.
 ordem_st = [("correto", "Correto"), ("incorreto", "Incorreto"), ("faltante", "Faltante"),
             ("alucinado", "Alucinado"), ("nao_identificado", "Não ident.")]
+# Um status que nao ocorre em nenhum modelo viraria uma coluna inteira de "---".
+ordem_st = [(st, rot) for st, rot in ordem_st if (dd.status == st).any()]
 linhas = []
 for m in ORDEM:
     s = dd[dd.m == m]
@@ -87,7 +93,7 @@ for m in ORDEM:
 escreve("status_geral.tex", tabela(
     "Distribuição geral de status dos itens comparados, por modelo. Cada célula traz a contagem de itens e, entre parênteses, sua participação no total do modelo.",
     "tab:statusGeral",
-    {"spec": "l c c c c c c",
+    {"spec": "l" + " c" * (len(ordem_st) + 1),
      "cab": "Modelo & " + " & ".join(r for _, r in ordem_st) + " & Total"},
     linhas, tam="footnotesize", tabcolsep="4pt"))
 
@@ -222,6 +228,119 @@ for rot, f in [("Tempo médio por execução (s)", lambda s: v(s[NUM["tempo"]].m
 escreve("custo_tempo.tex", tabela(
     "Consumo de \\textit{tokens}, tempo e custo por modelo (144 execuções cada).", "tab:custoTempo",
     {"spec": "l c c c c", "cab": " & " + " & ".join(ORDEM)}, linhas, tabcolsep="4pt"))
+
+# ------------------------------------------------- natureza do item alucinado
+# O status 'alucinado' reune dois casos de natureza muito diferente: informar
+# uma grandeza de um componente que EXISTE no circuito e que o gabarito nao
+# cobra, e citar um item sem correspondencia alguma no esquematico. A separacao
+# usa os designadores declarados no proprio gabarito, sem lista digitada a mao.
+FAM_GAB = {"Amp_op": "Amp", "Diodo": "Dio", "RLC": "RLC"}
+PASTA_GAB = os.path.join(BASE, "gabaritos")
+_ids_cache = {}
+
+
+def ids_circuito(circ):
+    """Designadores de componente e rotulos de no declarados no gabarito."""
+    if circ not in _ids_cache:
+        familia, n = circ.rsplit("_", 1)
+        alvo = ("resposta_" + FAM_GAB[familia] + n + ".json").lower()
+        nome = next(f for f in os.listdir(PASTA_GAB) if f.lower() == alvo)
+        g = json.load(open(os.path.join(PASTA_GAB, nome), encoding="utf-8"))
+        comps = {i["id"] for grupo in g["componentes"].values() for i in grupo}
+        nos = set(g["analise_numerica"].get("tensoes_V") or {})
+        _ids_cache[circ] = (comps, nos)
+    return _ids_cache[circ]
+
+
+al = dd[dd.status == "alucinado"]
+linhas = []
+for m in ORDEM:
+    s = al[al.m == m]
+    exc = inv = 0
+    for _, x in s.iterrows():
+        comps, nos = ids_circuito(x["circ"])
+        item = str(x["item"])
+        if item in comps or (x["categoria"] == "tensoes" and item in nos):
+            exc += 1
+        else:
+            inv += 1
+    tot = exc + inv
+    linhas.append(f"{m} & {mil(exc)} & {mil(inv)} & {mil(tot)} & "
+                  + (rf"{v(100*inv/tot)}\%" if tot else "---") + r" \\")
+escreve("alucinado_natureza.tex", tabela(
+    "Natureza dos itens classificados como alucinados. \\textit{Excesso} reúne os itens "
+    "cujo designador consta do gabarito do circuito, mas cuja grandeza não é cobrada "
+    "(por exemplo, a potência de uma fonte); \\textit{invenção} reúne os itens sem "
+    "correspondência alguma no esquemático.",
+    "tab:alucinadoNatureza",
+    {"spec": "l c c c c",
+     "cab": "Modelo & Excesso & Invenção & Total & Invenção (\\%)"},
+    linhas, tabcolsep="6pt"))
+
+# ------------------------------------------------- magnitude do erro numerico
+# A taxa de acerto e binaria: cai dentro da tolerancia ou nao. Estas metricas
+# dizem QUANTO se erra. O ERM vai pela mediana porque a referencia proxima de
+# zero faz o erro relativo explodir em poucos itens; MAE e RMSE sao absolutos
+# e vao pela media.
+GRANDEZAS = [("tensoes", "Tensões", "V"), ("correntes", "Correntes", "A"),
+             ("potencias", "Potências", "W")]
+# Estas colunas nao constam de NUM e chegam como texto, com virgula decimal.
+for _g, _, _ in GRANDEZAS:
+    for _suf in ("ERM_percentual", "MAE", "RMSE"):
+        _c = f"numerico_{_g}_{_suf}"
+        d[_c] = pd.to_numeric(d[_c].astype(str).str.replace(",", "."), errors="coerce")
+linhas = []
+for g, rot, un in GRANDEZAS:
+    cel = []
+    for m in ORDEM:
+        sub = d[d.m == m]
+        erm = sub[f"numerico_{g}_ERM_percentual"].median()
+        mae = sub[f"numerico_{g}_MAE"].mean()
+        rms = sub[f"numerico_{g}_RMSE"].mean()
+        cel += [v(erm), v(mae, 2), v(rms, 2)]
+    linhas.append(f"{rot} ({un}) & " + " & ".join(cel) + r" \\")
+escreve("magnitude_erro.tex", tabela(
+    "Magnitude do erro numérico por modelo: erro relativo mediano (ERM), erro absoluto "
+    "médio (MAE) e raiz do erro quadrático médio (RMSE).",
+    "tab:magnitudeErro",
+    {"spec": "l" + " c c c" * len(ORDEM),
+     "cab": " & " + " & ".join("\\multicolumn{3}{c}{" + m + "}" for m in ORDEM)
+            + r" \\ & " + " & ".join(["ERM & MAE & RMSE"] * len(ORDEM))},
+    linhas, tam="scriptsize", tabcolsep="3pt"))
+
+# ------------------------------------------- sensibilidade a tolerancia
+# A tolerancia de 5% e uma escolha do autor. Aqui as taxas sao recalculadas
+# com 1% e 10% para mostrar o quanto dependem dela. A regra reproduz a do
+# avaliador: referencia nula exige resposta nula; nos demais, acerta quem nao
+# excede a tolerancia. Execucoes sem nenhum item de referencia na categoria
+# ficam de fora da media, como no avaliador.
+ZERO_ABS = 1e-9
+TOLS = [1, 5, 10]
+dd_t = dd.copy()
+dd_t["ia_n"] = pd.to_numeric(dd_t.valor_ia.astype(str).str.replace(",", "."), errors="coerce")
+dd_t["re_n"] = pd.to_numeric(dd_t.valor_real.astype(str).str.replace(",", "."), errors="coerce")
+linhas = []
+for g, rot, in [("tensoes", "Tensões"), ("correntes", "Correntes"), ("potencias", "Potências")]:
+    sub = dd_t[dd_t.categoria == g]
+    tem_ref = sub.groupby("id_execucao")["re_n"].apply(lambda v: v.notna().any())
+    sub = sub[sub.id_execucao.map(tem_ref)]
+    ambos = sub.ia_n.notna() & sub.re_n.notna()
+    ref_zero = sub.re_n.abs() < ZERO_ABS
+    erro = (sub.ia_n - sub.re_n).abs() / sub.re_n.abs().where(~ref_zero) * 100
+    cel = []
+    for m in ORDEM:
+        for tol in TOLS:
+            ok = ambos & ((ref_zero & (sub.ia_n.abs() < ZERO_ABS)) | (~ref_zero & (erro <= tol)))
+            taxa = (ok[sub.m == m].groupby(sub.id_execucao[sub.m == m]).mean() * 100).mean()
+            cel.append(v(taxa))
+    linhas.append(f"{rot} & " + " & ".join(cel) + r" \\")
+escreve("tolerancia.tex", tabela(
+    "Sensibilidade da taxa de acerto numérico à tolerância adotada.",
+    "tab:tolerancia",
+    {"spec": "l" + " c c c" * len(ORDEM),
+     "cab": " & " + " & ".join("\\multicolumn{3}{c}{" + m + "}" for m in ORDEM)
+            + r" \\ & " + " & ".join([r"1\% & 5\% & 10\%"] * len(ORDEM))},
+    linhas, tam="scriptsize", tabcolsep="3pt"))
 
 print("\nresumo dos numeros para o texto:")
 for m in ORDEM:

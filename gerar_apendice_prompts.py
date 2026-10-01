@@ -16,6 +16,8 @@ import prompts as P  # noqa: E402
 
 SAIDA = os.path.join(BASE, "TFC", "apendice_prompts.tex")
 MARCADOR = "[... esquema de saída em JSON, idêntico ao do Prompt Nível 1 ...]"
+MARC_IDEAL = "[... bloco de idealidade dos componentes, idêntico ao do Prompt Nível 1 ...]"
+MARC_REGRAS = "[... regras finais de preenchimento, idênticas às do Prompt Nível 1 ...]"
 
 
 def partes(txt):
@@ -27,14 +29,55 @@ def partes(txt):
     return txt[:i].rstrip("\n"), txt[j:].strip("\n")
 
 
+def bloco_idealidade(txt):
+    """O paragrafo de idealidade, do titulo ate a linha em branco seguinte."""
+    i = txt.index("Considere todos os componentes IDEAIS:")
+    j = txt.index("\n\n", i)
+    return txt[i:j]
+
+
+def elidir_idealidade(pre, ideal):
+    """Troca o bloco de idealidade por um marcador, quando presente."""
+    return pre.replace(ideal, MARC_IDEAL) if ideal in pre else pre
+
+
+def elidir_regras(pos, pos_ref):
+    """Mostra apenas as regras que diferem das do Nivel 1.
+
+    As regras finais sao uma lista de itens iniciados por '-'. As que ja
+    constam do Nivel 1 sao substituidas por um unico marcador, preservando a
+    ordem das que forem exclusivas daquele nivel.
+    """
+    ref = set(l.strip() for l in pos_ref.split("\n") if l.strip())
+    saida, pendente = [], False
+    for l in pos.split("\n"):
+        if not l.strip():
+            continue
+        if l.strip() in ref:
+            pendente = True
+            continue
+        if pendente:
+            saida.append(MARC_REGRAS)
+            pendente = False
+        saida.append(l)
+    if pendente:
+        saida.append(MARC_REGRAS)
+    return "\n".join(saida)
+
+
 def bloco(t):
     return ("\\begin{Verbatim}[fontsize=\\footnotesize,breaklines=true,"
             "breakautoindent=false]\n" + t + "\n\\end{Verbatim}\n")
 
 
 p1 = P.PROMPT_ANALISE_CIRCUITO_1.strip("\n")
+_, pos1 = partes(P.PROMPT_ANALISE_CIRCUITO_1)
+IDEAL = bloco_idealidade(p1)
+
 pre2, pos2 = partes(P.PROMPT_ANALISE_CIRCUITO_2)
 pre3, pos3 = partes(P.PROMPT_ANALISE_CIRCUITO_3)
+pre2, pre3 = elidir_idealidade(pre2, IDEAL), elidir_idealidade(pre3, IDEAL)
+pos2, pos3 = elidir_regras(pos2, pos1), elidir_regras(pos3, pos1)
 
 corpo = r"""\chapter*{APÊNDICE A --- PROMPTS UTILIZADOS NOS EXPERIMENTOS}
 \label{ch:apendice}
@@ -42,7 +85,7 @@ corpo = r"""\chapter*{APÊNDICE A --- PROMPTS UTILIZADOS NOS EXPERIMENTOS}
 
 Este apêndice apresenta o texto integral dos três níveis de \textit{prompt} em língua portuguesa, descritos na Seção~\ref{sec:prompts}. As versões em língua inglesa têm a mesma estrutura, com o texto das instruções e os marcadores traduzidos e as chaves do JSON de saída mantidas em português, de modo que o restante da \textit{pipeline} as processe sem distinção de idioma.
 
-O esquema de saída é idêntico nos três níveis e, por isso, é reproduzido por completo apenas no Nível~1; nos Níveis~2 e~3, sua posição é indicada por um marcador entre colchetes. Conforme descrito na Seção~\ref{subsec:estudoPreliminar}, todas as posições de valor do esquema são ocupadas por marcadores entre sinais de menor e maior, e não por valores preenchidos, a fim de evitar que os modelos os copiem em vez de calcular. Todos os \textit{prompts} foram enviados acompanhados da imagem do circuito.
+Os três níveis compartilham a maior parte do texto: diferem sobretudo nas instruções que antecedem o esquema de saída. O Nível~1 é, por isso, reproduzido por completo; nos Níveis~2 e~3, os trechos idênticos a ele --- o bloco de idealidade dos componentes, o esquema de saída em JSON e as regras finais de preenchimento --- são indicados por marcadores entre colchetes, e o que os distingue aparece na íntegra. O texto integral dos seis \textit{prompts} está no módulo que a \textit{pipeline} executa. Conforme descrito na Seção~\ref{sec:prompts}, todas as posições de valor do esquema são ocupadas por marcadores entre sinais de menor e maior, e não por valores preenchidos, a fim de evitar que os modelos os copiem em vez de calcular. O bloco de abertura declara a hipótese de idealidade dos componentes sob a qual as respostas são conferidas. Todos os \textit{prompts} foram enviados acompanhados da imagem do circuito.
 
 \section*{A.1 \quad Nível 1 --- Direto}
 """ + bloco(p1) + r"""

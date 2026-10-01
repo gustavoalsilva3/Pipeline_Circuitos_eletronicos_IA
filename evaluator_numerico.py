@@ -299,9 +299,16 @@ def avaliar_categoria(valores_ia, valores_reais, tolerancia_percentual=TOLERANCI
             "status": comp["status"],
         }
 
+    # Sem nenhum item no gabarito (ex: circuito sem nós de tensão rotulados),
+    # a taxa não é aplicável, mesmo que a IA tenha informado itens: eles
+    # continuam registrados como 'alucinado', mas não viram uma taxa de 0%.
+    # Sem isso, o mesmo circuito dava taxa indefinida a quem não informava
+    # nada e 0% a quem inventava rótulos, tratando os modelos de forma desigual.
+    tem_referencia = any(valor_real is not None for _, _, valor_real in pares)
+
     return {
         "quantidade": len(pares),
-        "taxa_acerto_percentual": round(status_counts["correto"] / len(pares) * 100, 1) if pares else None,
+        "taxa_acerto_percentual": round(status_counts["correto"] / len(pares) * 100, 1) if tem_referencia else None,
         "ERM_percentual": _round_if_not_none(calcular_erm(valores_ia_validos, valores_real_validos), 4),
         "MAE": _round_if_not_none(calcular_mae(valores_ia_validos, valores_real_validos), 8),
         "RMSE": _round_if_not_none(calcular_rmse(valores_ia_validos, valores_real_validos), 8),

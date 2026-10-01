@@ -105,6 +105,10 @@ def _salvar_grafico(fig, nome):
     print(f"Gráfico salvo: {caminho}")
 
 CORES_PROMPT = ["#4C72B0", "#DD8452", "#55A868"]
+# Uma cor por modelo. CORES_PROMPT tem tres entradas, pensadas para os tres
+# niveis de prompt; usada nos graficos por modelo, a quarta barra repetia a cor
+# da primeira, sugerindo relacao entre modelos distintos.
+CORES_MODELO = CORES_PROMPT + ["#8172B2"]
 CATEGORIAS_COMPONENTES = [
     "amplificadores_operacionais", "resistores", "fontes",
     "diodos", "capacitores", "indutores",
@@ -310,6 +314,42 @@ def gerar_tabelas(df, dfd):
             )
         tabelas["resumo_por_modelo"] = resumo_modelo
 
+    # --- Magnitude do erro: ERM, MAE e RMSE por grandeza ---
+    # A taxa de acerto e binaria: cai dentro da tolerancia ou nao. Estas tres
+    # metricas medem QUANTO se erra, separando quem erra por pouco de quem
+    # erra por muito. O avaliador ja as calcula por execucao; aqui elas sao
+    # apenas agregadas, o que faltava para chegarem ao texto.
+    # O ERM e reportado tambem pela mediana: a referencia proxima de zero faz
+    # o erro relativo explodir em poucos itens e a media deixa de descrever o
+    # caso tipico (ha execucao com ERM acima de 180.000%). MAE e RMSE, por
+    # serem absolutos, nao sofrem esse efeito.
+    GRANDEZAS = [("tensoes", "Tensões"), ("correntes", "Correntes"),
+                 ("potencias", "Potências")]
+    METRICAS = [("ERM_percentual", "ERM médio (%)", "mean"),
+                ("ERM_percentual", "ERM mediano (%)", "median"),
+                ("MAE", "MAE", "mean"),
+                ("RMSE", "RMSE", "mean")]
+    por_eixo = "modelo" if ("modelo" in df.columns and df["modelo"].nunique() > 1) else None
+    linhas_mag = []
+    grupos = df.groupby(por_eixo) if por_eixo else [("todos", df)]
+    for chave, sub in grupos:
+        for g, rot_g in GRANDEZAS:
+            linha = {por_eixo or "conjunto": chave, "grandeza": rot_g}
+            for suf, rot_m, como in METRICAS:
+                col = f"numerico_{g}_{suf}"
+                if col in sub.columns:
+                    v = pd.to_numeric(sub[col].astype(str).str.replace(",", "."),
+                                      errors="coerce")
+                    if v.notna().any():
+                        linha[rot_m] = round(v.median() if como == "median" else v.mean(), 4)
+            linhas_mag.append(linha)
+    if linhas_mag:
+        # O sufixo '_por_modelo' e o que faz a tabela sobreviver ao filtro da
+        # pasta comparativo (ver _APENAS_COMPARATIVO).
+        nome_mag = "magnitude_erro_por_modelo" if por_eixo else "magnitude_erro"
+        tabelas[nome_mag] = (
+            pd.DataFrame(linhas_mag).set_index([por_eixo or "conjunto", "grandeza"]))
+
     # --- Piores casos de Vout (status incorreto) ---
     if "numerico_Vout_status" in df.columns:
         piores = df[df["numerico_Vout_status"] == "incorreto"][
@@ -420,6 +460,39 @@ def gerar_tabelas(df, dfd):
 # =========================================================
 # GRÁFICOS
 # =========================================================
+# Nomes curtos dos modelos, os mesmos usados no texto e nas tabelas do TCC.
+# Os identificadores gravados no CSV ("gemma-3-27b-bf16 (openrouter)") passam
+# de 28 caracteres e se sobrepoem no eixo x dos graficos comparativos.
+ROTULO_CURTO = {
+    "gemini-2.5-flash": "Gemini 2.5 Flash",
+    "qwen3-vl-32b (openrouter)": "Qwen3-VL 32B",
+    "gemma-3-27b-bf16 (openrouter)": "Gemma 3 27B",
+    "qwen3-vl-8b-bf16 (openrouter)": "Qwen3-VL 8B",
+}
+ORDEM_MODELOS = ["Gemini 2.5 Flash", "Qwen3-VL 32B", "Gemma 3 27B", "Qwen3-VL 8B"]
+
+
+def curto(modelo):
+    """Nome curto do modelo; devolve o proprio identificador se for outro."""
+    return ROTULO_CURTO.get(str(modelo), str(modelo))
+
+
+def _modelos_no_eixo(obj, inverter=False):
+    """Encurta os nomes de modelo no indice e impoe a ordem usada no texto.
+
+    A ordem alfabetica do groupby nao e a das tabelas do capitulo de
+    resultados; sem isto, figura e tabela apresentam os mesmos modelos em
+    sequencias diferentes. 'inverter' serve para barras horizontais, em que
+    o primeiro item e desenhado embaixo.
+    """
+    obj = obj.rename(index=curto)
+    ordenados = [m for m in ORDEM_MODELOS if m in obj.index]
+    ordenados += [m for m in obj.index if m not in ordenados]
+    if inverter:
+        ordenados = ordenados[::-1]
+    return obj.reindex(ordenados)
+
+
 def _barras_agrupadas(ax, df_plot, categorias, cores, titulo, ylabel, fmt="{:.1f}"):
     n_grupos = len(df_plot)
     n_series = len(categorias)
@@ -482,8 +555,9 @@ def gerar_graficos(df, dfd):
 
         # --- Gráfico 2c: taxa de acerto numérica por modelo ---
         if "modelo" in df.columns and df["modelo"].nunique() > 1:
-            resumo_modelo = df.groupby("modelo")[[c for c, _ in categorias_num]].mean()
-            fig, ax = plt.subplots(figsize=(8, 5))
+            resumo_modelo = _modelos_no_eixo(
+                df.groupby("modelo")[[c for c, _ in categorias_num]].mean())
+            fig, ax = plt.subplots(figsize=(9, 5))
             _barras_agrupadas(ax, resumo_modelo, categorias_num, CORES_PROMPT,
                                "Taxa de acerto numérico por modelo", "Taxa de acerto (%)", "{:.1f}%")
             ax.set_xlabel("Modelo")
@@ -522,9 +596,10 @@ def gerar_graficos(df, dfd):
 
         # --- Gráfico 3b2: região de operação por modelo ---
         if "modelo" in df.columns and df["modelo"].nunique() > 1:
-            serie = df.groupby("modelo")["textual_regiao_operacao_taxa_acerto_percentual"].mean()
-            fig, ax = plt.subplots(figsize=(7, 5))
-            barras = ax.bar(serie.index.astype(str), serie.values, color=CORES_PROMPT[:len(serie)])
+            serie = _modelos_no_eixo(
+                df.groupby("modelo")["textual_regiao_operacao_taxa_acerto_percentual"].mean())
+            fig, ax = plt.subplots(figsize=(8, 5))
+            barras = ax.bar(serie.index.astype(str), serie.values, color=CORES_MODELO[:len(serie)])
             ax.bar_label(barras, labels=[f"{v:.1f}%" if pd.notna(v) else "n/d" for v in serie.values], fontweight="bold")
             ax.set_title("Acerto de região de operação por modelo", fontsize=13, fontweight="bold")
             ax.set_xlabel("Modelo")
@@ -555,12 +630,12 @@ def gerar_graficos(df, dfd):
 
     # --- Gráfico 3d: acerto de terra virtual por modelo ---
     if "textual_terra_virtual_acerto" in df.columns and "modelo" in df.columns and df["modelo"].nunique() > 1:
-        serie = (
+        serie = _modelos_no_eixo(
             df.groupby("modelo")["textual_terra_virtual_acerto"]
             .apply(lambda s: round((s == "True").sum() / s.notna().sum() * 100, 1) if s.notna().sum() else None)
         )
-        fig, ax = plt.subplots(figsize=(7, 5))
-        barras = ax.bar(serie.index.astype(str), serie.values, color=CORES_PROMPT[:len(serie)])
+        fig, ax = plt.subplots(figsize=(8, 5))
+        barras = ax.bar(serie.index.astype(str), serie.values, color=CORES_MODELO[:len(serie)])
         ax.bar_label(barras, labels=[f"{v:.1f}%" if pd.notna(v) else "n/d" for v in serie.values], fontweight="bold")
         ax.set_title("Acerto de terra virtual por modelo", fontsize=13, fontweight="bold")
         ax.set_xlabel("Modelo")
@@ -655,7 +730,8 @@ def gerar_graficos(df, dfd):
 
         # --- Gráfico 6b: status geral, separado por modelo ---
         if "modelo" in dfd.columns and dfd["modelo"].nunique() > 1:
-            tabela_modelo = dfd.groupby("modelo")["status"].value_counts().unstack(fill_value=0)
+            tabela_modelo = _modelos_no_eixo(
+                dfd.groupby("modelo")["status"].value_counts().unstack(fill_value=0), inverter=True)
             status_presentes_modelo = [s for s in ["correto", "incorreto", "faltante", "alucinado", "nao_identificado"] if s in tabela_modelo.columns]
             fig, ax = plt.subplots(figsize=(9, 0.6 * len(tabela_modelo) + 1.5))
             esquerda = pd.Series(0, index=tabela_modelo.index)
@@ -672,7 +748,10 @@ def gerar_graficos(df, dfd):
             _salvar_grafico(fig, "status_geral_por_modelo.png")
 
             # --- Gráfico 7b: status por categoria, separado por modelo ---
-            modelos_presentes = sorted(dfd["modelo"].dropna().unique())
+            modelos_presentes = sorted(
+                dfd["modelo"].dropna().unique(),
+                key=lambda m: (ORDEM_MODELOS.index(curto(m)) if curto(m) in ORDEM_MODELOS
+                               else len(ORDEM_MODELOS), str(m)))
             fig, eixos = plt.subplots(1, len(modelos_presentes), figsize=(9 * len(modelos_presentes), 0.5 * dfd["categoria"].nunique() + 1.5), sharey=True)
             if len(modelos_presentes) == 1:
                 eixos = [eixos]
@@ -686,7 +765,7 @@ def gerar_graficos(df, dfd):
                     valores = tabela_cat_modelo[status]
                     ax_i.barh(tabela_cat_modelo.index, valores, left=esquerda, color=cores_status.get(status, "#888888"), label=status)
                     esquerda = esquerda + valores
-                ax_i.set_title(f"Modelo: {modelo}", fontsize=12, fontweight="bold")
+                ax_i.set_title(f"Modelo: {curto(modelo)}", fontsize=12, fontweight="bold")
                 ax_i.spines["top"].set_visible(False)
                 ax_i.spines["right"].set_visible(False)
             eixos[-1].legend(loc="upper right", fontsize=8)
@@ -746,19 +825,24 @@ def gerar_graficos(df, dfd):
                 valido = df_modelo[cols].mean(axis=1).dropna()
                 linha["valor_taxa_acerto_percentual"] = valido.mean() if len(valido) else None
             linhas.append(linha)
-        resumo_comp_modelo = pd.DataFrame(linhas).set_index("modelo")
+        resumo_comp_modelo = _modelos_no_eixo(pd.DataFrame(linhas).set_index("modelo"))
         rotulos_comp = {
             "precision": "Precision (%)", "recall": "Recall (%)",
             "f1_score": "F1-score (%)", "valor_taxa_acerto_percentual": "Valor correto (%)",
         }
         categorias_comp_plot = [(m, rotulos_comp[m]) for m in metricas_comp if m in resumo_comp_modelo.columns]
         if categorias_comp_plot:
-            cores_4 = CORES_PROMPT + ["#8172B2"]
-            fig, ax = plt.subplots(figsize=(9, 5))
-            _barras_agrupadas(ax, resumo_comp_modelo, categorias_comp_plot, cores_4,
+            # Mais larga que as demais: sao quatro series por modelo e, com os
+            # valores proximos de 100%, as etiquetas se encostam em 9 polegadas.
+            fig, ax = plt.subplots(figsize=(11, 5.5))
+            _barras_agrupadas(ax, resumo_comp_modelo, categorias_comp_plot, CORES_MODELO,
                                "Identificação de componentes por modelo", "Percentual (%)", "{:.1f}%")
             ax.set_xlabel("Modelo")
             ax.set_ylim(0, 110)
+            # As barras ocupam toda a altura util; a legenda vai abaixo do eixo
+            # para nao cobri-las.
+            ax.legend(fontsize=8, loc="upper center", bbox_to_anchor=(0.5, -0.13),
+                      ncol=len(categorias_comp_plot), frameon=False)
             fig.tight_layout()
             _salvar_grafico(fig, "componentes_por_modelo.png")
 

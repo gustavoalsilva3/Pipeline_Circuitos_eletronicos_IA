@@ -64,6 +64,7 @@ Pipeline_TFC/
 ├── evaluator_componentes.py  # identificação e valor dos componentes
 │
 ├── consolidar_rodadas.py     # une sub-rodadas em um par único de CSVs
+├── reavaliar_rodada.py       # reavalia respostas salvas, sem chamar modelos
 │
 ├── Analise_erros.py          # tabelas (CSV) e gráficos (PNG) por modelo
 ├── gerar_tabelas_cap4.py     # tabelas LaTeX do capítulo de resultados
@@ -130,6 +131,20 @@ Necessário porque cada chamada de `main.py` numera suas execuções a partir de
 e o CSV de detalhe — que referencia `id_execucao` — passaria a apontar para a
 linha errada. O script renumera de forma contínua, preserva o id antigo em
 `id_execucao_original` e acrescenta as colunas `provedor` e `quantizacao`.
+
+### 2b. Reavaliar, se gabaritos ou avaliadores mudaram
+
+```bash
+python reavaliar_rodada.py 20260924_121301
+```
+
+Relê as respostas JSON já salvas e as avalia de novo com os gabaritos e
+avaliadores atuais, sem chamar nenhum modelo. Tempo, tokens, custo e demais
+metadados vêm da rodada indicada; o resultado é um novo par de CSVs. A rodada
+oficial final (`20260927_112248`) foi gerada assim, depois de duas correções
+de gabarito: a dos `RLC_3`/`RLC_7`, com a regra de taxa para categorias sem
+referência, e a dos circuitos com amplificador operacional e diodo, que haviam
+sido simulados com componentes não ideais (ver *Notas de implementação*).
 
 ### 3. Gerar as saídas
 
