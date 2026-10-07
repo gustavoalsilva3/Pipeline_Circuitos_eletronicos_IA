@@ -65,7 +65,7 @@ def escreve(nome, corpo):
     print(f"  {nome}")
 
 
-def tabela(caption, label, colunas, linhas, tam="small", tabcolsep=None):
+def tabela(caption, label, colunas, linhas, tam="footnotesize", tabcolsep=None):
     sep = f"\t\\setlength{{\\tabcolsep}}{{{tabcolsep}}}\n" if tabcolsep else ""
     return (f"\\begin{{table}}[H]\n\t\\centering\n\t\\caption{{{caption}}}\n\t\\{tam}\n{sep}"
             f"\t\\begin{{tabular}}{{{colunas['spec']}}}\n\t\t\\toprule\n\t\t{colunas['cab']} \\\\\n\t\t\\midrule\n"
@@ -95,7 +95,7 @@ escreve("status_geral.tex", tabela(
     "tab:statusGeral",
     {"spec": "l" + " c" * (len(ordem_st) + 1),
      "cab": "Modelo & " + " & ".join(r for _, r in ordem_st) + " & Total"},
-    linhas, tam="footnotesize", tabcolsep="4pt"))
+    linhas, tam="scriptsize", tabcolsep="4pt"))
 
 # ---------------------------------------------------------------- resumo por modelo
 linhas = []
@@ -113,7 +113,7 @@ linhas.append("Erro percentual mediano na tensão de saída (\\%) & " +
 escreve("resumo_modelos.tex", tabela(
     "Resumo do desempenho por modelo (taxa média de acerto por execução).", "tab:resumoModelos",
     {"spec": "p{5.6cm} c c c c", "cab": "Métrica & " + " & ".join(ORDEM)},
-    linhas, tam="footnotesize", tabcolsep="4pt"))
+    linhas, tam="scriptsize", tabcolsep="4pt"))
 
 # ---------------------------------------------------------------- por prompt / idioma
 for nome, chave, grupos, cap, lab in [
@@ -268,10 +268,8 @@ for m in ORDEM:
     linhas.append(f"{m} & {mil(exc)} & {mil(inv)} & {mil(tot)} & "
                   + (rf"{v(100*inv/tot)}\%" if tot else "---") + r" \\")
 escreve("alucinado_natureza.tex", tabela(
-    "Natureza dos itens classificados como alucinados. \\textit{Excesso} reúne os itens "
-    "cujo designador consta do gabarito do circuito, mas cuja grandeza não é cobrada "
-    "(por exemplo, a potência de uma fonte); \\textit{invenção} reúne os itens sem "
-    "correspondência alguma no esquemático.",
+    "Natureza dos itens classificados como alucinados, por modelo. A última coluna traz "
+    "a participação da invenção no total de itens alucinados do modelo.",
     "tab:alucinadoNatureza",
     {"spec": "l c c c c",
      "cab": "Modelo & Excesso & Invenção & Total & Invenção (\\%)"},

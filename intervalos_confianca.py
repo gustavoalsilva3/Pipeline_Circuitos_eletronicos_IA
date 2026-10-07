@@ -62,7 +62,7 @@ for mid, nome in modelos:
 tex = r"""\begin{table}[H]
 	\centering
 	\caption{Taxa média de acerto (\%) e intervalo de confiança de 95\% por \textit{bootstrap} sobre os circuitos, por modelo, no conjunto completo das execuções.}
-	\small
+	\footnotesize
 	\begin{tabular}{l c c c}
 		\toprule
 		Modelo & Tensões & Correntes & Potências \\
