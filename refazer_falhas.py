@@ -7,20 +7,20 @@ determinístico do modelo, ela se repete e nada é substituído — o que já é
 resposta para saber se vale reexecutar. Falhas de rede, ao contrário, tendem
 a não se repetir.
 
-Nada é sobrescrito sem backup: os dois CSVs são copiados para
-<nome>.bak_<timestamp> antes de qualquer alteração, e o JSON antigo vira
-<nome>_falha_original.json.
+Nada é sobrescrito sem backup: os dois CSVs são copiados para <nome>.bak
+antes de qualquer alteração, e o JSON antigo vira <nome>_falha_original.json.
+O backup é um só por arquivo, sobrescrito a cada execução, para não acumular
+cópias carimbadas na pasta.
 
 Uso:
     python refazer_falhas.py --dry-run     # só mostra o que faria
-    python refazer_falhas.py
-    python refazer_falhas.py --carimbo 20260927_122524
+    python refazer_falhas.py               # a rodada mais recente
+    python refazer_falhas.py --carimbo 20261010_144312
 """
 
 import argparse
 import json
 import shutil
-from datetime import datetime
 from pathlib import Path
 
 import pandas as pd
@@ -37,10 +37,22 @@ PROMPTS = {
     ("pt", 3): PROMPT_ANALISE_CIRCUITO_3, ("en", 1): PROMPT_ANALISE_CIRCUITO_1_EN,
     ("en", 2): PROMPT_ANALISE_CIRCUITO_2_EN, ("en", 3): PROMPT_ANALISE_CIRCUITO_3_EN,
 }
-# Carimbo da rodada a corrigir. Fica como argumento, e não cravado no código,
-# porque um valor fixo aqui deixa de existir assim que a rodada é arquivada.
-CARIMBO_PADRAO = "20260927_122524"
 CHAVES = ("tipo_circuito", "componentes", "analise_numerica", "analise_textual")
+
+
+def carimbo_mais_recente():
+    """Carimbo da rodada mais recente em resultados/, ou None.
+
+    A rodada a corrigir não fica cravada no código: um valor fixo aqui deixa
+    de existir assim que a rodada é arquivada, que foi o que aconteceu com o
+    padrão anterior.
+    """
+    carimbos = []
+    for p in RESULTADOS_DIR.glob("resultados_*.csv"):
+        c = p.stem[len("resultados_"):]
+        if not c.startswith("detalhe") and (RESULTADOS_DIR / f"resultados_detalhe_{c}.csv").exists():
+            carimbos.append(c)
+    return max(carimbos) if carimbos else None
 
 
 def cfg_por_rotulo(rotulo):
@@ -55,11 +67,21 @@ def valida(resp):
 
 
 def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--dry-run", action="store_true")
-    ap.add_argument("--carimbo", default=CARIMBO_PADRAO,
-                    help="rodada a corrigir, no formato AAAAMMDD_HHMMSS")
+    ap = argparse.ArgumentParser(
+        description="Reexecuta as execucoes que falharam numa rodada e "
+                    "substitui JSON e linhas dos CSVs se a nova resposta valer.")
+    ap.add_argument("--dry-run", action="store_true",
+                    help="lista as falhas encontradas e nao executa nada")
+    ap.add_argument("--carimbo", default=None,
+                    help="rodada a corrigir, no formato AAAAMMDD_HHMMSS "
+                         "(padrao: a mais recente de resultados/)")
     args = ap.parse_args()
+
+    if args.carimbo is None:
+        args.carimbo = carimbo_mais_recente()
+        if args.carimbo is None:
+            raise SystemExit(f"Nenhuma rodada completa em {RESULTADOS_DIR} "
+                             "— rode main.py pelo menos uma vez antes.")
 
     csv_resumo = RESULTADOS_DIR / f"resultados_{args.carimbo}.csv"
     csv_detalhe = RESULTADOS_DIR / f"resultados_detalhe_{args.carimbo}.csv"
@@ -109,10 +131,11 @@ def main():
         print("\n--dry-run: nada foi executado.")
         return
 
-    agora = datetime.now().strftime("%Y%m%d_%H%M%S")
+    # Um backup por arquivo, sobrescrito: copias carimbadas se
+    # acumulariam na pasta a cada execucao.
     for p in (csv_resumo, csv_detalhe):
-        shutil.copy(p, p.with_suffix(f".csv.bak_{agora}"))
-    print(f"\nBackup dos CSVs criado (.bak_{agora}).\n")
+        shutil.copy(p, p.with_suffix(".csv.bak"))
+    print("\nBackup dos CSVs criado (.bak).\n")
 
     trocados = 0
     for x in falhas:
