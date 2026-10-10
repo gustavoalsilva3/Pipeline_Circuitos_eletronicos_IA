@@ -14,6 +14,11 @@ evaluator_componentes.py, consolidadas em main.py)
 │   │   reconhece prefixos de engenharia (k, m, µ, M...), sinal e unidade
 │   │   junto do número (ex: "10 kΩ", "-12 V").
 │   │
+│   ├── Correntes em módulo: o gabarito registra as correntes em módulo e a
+│   │   imagem não indica o sentido de referência, então o valor da IA é
+│   │   convertido para módulo antes da comparação. Tensões e potências
+│   │   continuam comparadas com sinal.
+│   │
 │   ├── Status por item: correto / incorreto / faltante
 │   │   (quando a referência é ≈0, erro percentual não é matematicamente
 │   │   definido — tratado à parte, ver docstring de evaluator_numerico.py)

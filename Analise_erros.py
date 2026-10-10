@@ -96,6 +96,16 @@ def _salvar_grafico(fig, nome):
     if _APENAS_COMPARATIVO and not nome.endswith("_por_modelo.png"):
         plt.close(fig)
         return
+    if _APENAS_COMPARATIVO:
+        # Os gráficos do comparativo vão para a monografia, onde a legenda do
+        # LaTeX já faz o papel de título: o título interno sai para não
+        # duplicá-la. Títulos de painéis (figuras com vários eixos) ficam,
+        # porque identificam cada painel.
+        if fig._suptitle is not None:
+            fig._suptitle.set_text("")
+        if len(fig.axes) == 1:
+            fig.axes[0].set_title("")
+        fig.tight_layout()
     if _ROTULO_MODELO:
         fig.text(0.01, 0.995, _ROTULO_MODELO, ha="left", va="top", fontsize=9,
                  fontweight="bold", color="#444444")
@@ -870,7 +880,7 @@ def main():
     # Comparação entre os modelos (só as saídas '_por_modelo').
     if len(modelos) > 1:
         print("\n===== Comparativo entre modelos =====")
-        _definir_saida(PASTA_ANALISE / "comparativo", rotulo="Comparativo entre modelos", apenas_comparativo=True)
+        _definir_saida(PASTA_ANALISE / "comparativo", apenas_comparativo=True)
         gerar_tabelas(df, dfd)
         gerar_graficos(df, dfd)
 

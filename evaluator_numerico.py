@@ -121,6 +121,12 @@ def parse_numeric_value(valor):
     return valor_numerico
 
 
+def _modulo(valor):
+    """Módulo do valor numérico; valores não numéricos voltam inalterados."""
+    valor_n = parse_numeric_value(valor)
+    return valor if valor_n is None else abs(valor_n)
+
+
 def _round_if_not_none(valor, casas_decimais):
     """Arredonda valores apenas quando eles existem, preservando None para dados ausentes."""
     return None if valor is None else round(valor, casas_decimais)
@@ -374,8 +380,14 @@ def avaliar_numerico(resposta: dict, gabarito: dict, tolerancia_percentual=TOLER
 
     resultado["tensoes"] = avaliar_categoria(tensoes_ia, tensoes_real, tolerancia_percentual)
 
+    # O gabarito registra as correntes em módulo (o LTspice não define o
+    # sentido de referência que a imagem também não mostra), então um modelo
+    # que adota o sentido oposto acerta a magnitude com o sinal trocado. As
+    # correntes são comparadas em módulo: só a resposta da IA é convertida,
+    # e valores não numéricos seguem como estão (viram 'faltante').
+    correntes_ia = {k: _modulo(v) for k, v in (analise_ia.get("correntes_A", {}) or {}).items()}
     resultado["correntes"] = avaliar_categoria(
-        analise_ia.get("correntes_A", {}) or {},
+        correntes_ia,
         analise_real.get("correntes_A", {}) or {},
         tolerancia_percentual,
     )

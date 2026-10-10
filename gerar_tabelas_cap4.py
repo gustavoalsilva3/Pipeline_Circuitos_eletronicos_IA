@@ -12,7 +12,7 @@ import pandas as pd
 BASE = os.path.dirname(os.path.abspath(__file__))
 # Rodada analisada. Num so lugar para que o resumo e o detalhe nao possam
 # apontar para rodadas diferentes.
-CARIMBO = "20260927_160533"
+CARIMBO = "20261010_144312"
 CSV = os.path.join(BASE, "resultados", f"resultados_{CARIMBO}.csv")
 DET = os.path.join(BASE, "resultados", f"resultados_detalhe_{CARIMBO}.csv")
 SAIDA = os.path.join(BASE, "TFC", "tabelas_cap4")
@@ -329,7 +329,10 @@ for g, rot, in [("tensoes", "Tensões"), ("correntes", "Correntes"), ("potencias
     for m in ORDEM:
         for tol in TOLS:
             ok = ambos & ((ref_zero & (sub.ia_n.abs() < ZERO_ABS)) | (~ref_zero & (erro <= tol)))
-            taxa = (ok[sub.m == m].groupby(sub.id_execucao[sub.m == m]).mean() * 100).mean()
+            # Taxa de cada execucao arredondada a uma casa, como o avaliador
+            # grava no resumo; sem isso a coluna de 5% diverge da Tabela de
+            # resumo quando a media cai num empate de arredondamento.
+            taxa = (ok[sub.m == m].groupby(sub.id_execucao[sub.m == m]).mean() * 100).round(1).mean()
             cel.append(v(taxa))
     linhas.append(f"{rot} & " + " & ".join(cel) + r" \\")
 escreve("tolerancia.tex", tabela(

@@ -6,7 +6,7 @@ import os
 import pandas as pd, numpy as np
 
 BASE = os.path.dirname(os.path.abspath(__file__))
-CARIMBO = "20260927_160533"
+CARIMBO = "20261010_144312"
 d = pd.read_csv(os.path.join(BASE, "resultados", f"resultados_{CARIMBO}.csv"),
                 sep=";", engine="python", on_bad_lines="skip", dtype=str)
 d["circ"] = d["imagem"].str.replace(r"\.\w+$", "", regex=True)
@@ -148,7 +148,7 @@ for eixo, rot, a, b in comparacoes:
 tab_p = ("\\begin{table}[H]\n\t\\centering\n"
          "\t\\caption{Intervalos de confiança de 95\\% para a diferença entre subconjuntos, "
          "obtidos por reamostragem pareada dos mesmos circuitos. Em negrito, os intervalos que "
-         "não contêm zero.}\n\t\\scriptsize\n\t\\setlength{\\tabcolsep}{4pt}\n"
+         "não contêm zero.}\n\t\\scriptsize\n\t\\setlength{\\tabcolsep}{2pt}\n"
          "\t\\begin{tabular}{l l c c c}\n\t\t\\toprule\n"
          "\t\tEixo & Comparação & Tensões & Correntes & Potências \\\\\n\t\t\\midrule\n"
          + "\n".join("\t\t" + l for l in linhas_p)

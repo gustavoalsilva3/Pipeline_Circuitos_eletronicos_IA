@@ -141,10 +141,12 @@ python reavaliar_rodada.py 20260924_121301
 Relê as respostas JSON já salvas e as avalia de novo com os gabaritos e
 avaliadores atuais, sem chamar nenhum modelo. Tempo, tokens, custo e demais
 metadados vêm da rodada indicada; o resultado é um novo par de CSVs. A rodada
-oficial final (`20260927_112248`) foi gerada assim, depois de duas correções
-de gabarito: a dos `RLC_3`/`RLC_7`, com a regra de taxa para categorias sem
-referência, e a dos circuitos com amplificador operacional e diodo, que haviam
-sido simulados com componentes não ideais (ver *Notas de implementação*).
+oficial final (`20261010_144312`) foi gerada assim, a partir de
+`20260927_160533`, depois que as correntes passaram a ser comparadas em
+módulo; antes dela houve duas correções de gabarito: a dos `RLC_3`/`RLC_7`,
+com a regra de taxa para categorias sem referência, e a dos circuitos com
+amplificador operacional e diodo, que haviam sido simulados com componentes
+não ideais (ver *Notas de implementação*).
 
 ### 3. Gerar as saídas
 

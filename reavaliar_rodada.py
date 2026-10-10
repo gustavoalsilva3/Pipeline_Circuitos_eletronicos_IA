@@ -7,7 +7,7 @@ quantização, ids) são mantidos da rodada original, e só as colunas de
 avaliação são recalculadas a partir do JSON bruto e do gabarito atual.
 
 Uso:
-    python reavaliar_rodada.py [carimbo]    (padrão: 20260927_160533)
+    python reavaliar_rodada.py [carimbo]    (padrão: 20261010_144312)
 """
 
 import sys
@@ -25,7 +25,7 @@ METADADOS = ["id_execucao", "timestamp", "imagem", "modelo", "idioma", "nivel_pr
              "id_execucao_original", "rodada_origem", "fonte", "provedor", "quantizacao"]
 
 
-def main(carimbo="20260927_160533"):
+def main(carimbo="20261010_144312"):
     original = pd.read_csv(RESULTADOS_DIR / f"resultados_{carimbo}.csv", sep=";",
                            engine="python", on_bad_lines="skip", dtype=str)
 
