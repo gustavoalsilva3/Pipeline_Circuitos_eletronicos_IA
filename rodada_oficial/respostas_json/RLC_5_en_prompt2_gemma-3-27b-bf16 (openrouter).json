@@ -1,0 +1,86 @@
+{
+    "tipo_circuito": "Non-inverting Amplifier with Diode Clipping",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": "U1"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "5"
+            },
+            {
+                "id": "R2",
+                "valor": "5"
+            },
+            {
+                "id": "R3",
+                "valor": "10"
+            },
+            {
+                "id": "R4",
+                "valor": "5"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "20"
+            }
+        ],
+        "capacitores": [
+            {
+                "id": "C1",
+                "valor": "10m"
+            }
+        ],
+        "diodos": [
+            {
+                "id": "D1"
+            }
+        ],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": 1,
+        "Vout_teorico_V": 20,
+        "Vout_real_V": 20,
+        "tensoes_V": {
+            "A": 20,
+            "B": 0
+        },
+        "correntes_A": {
+            "R1": 4,
+            "R2": 2,
+            "R3": 2,
+            "R4": 0
+        },
+        "potencias_W": {
+            "R1": 40,
+            "R2": 20,
+            "R3": 40,
+            "R4": 0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "U1": "Linear",
+            "D1": "Cutoff"
+        },
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T15:09:48",
+        "imagem": "RLC_5.png",
+        "modelo": "google/gemma-3-27b-it",
+        "provedor": "Novita",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790532577-Du3rERgGk3gxvtFpSGYN",
+        "finish_reason": "stop",
+        "input_tokens": 1309,
+        "output_tokens": 448,
+        "erro_json": false
+    }
+}

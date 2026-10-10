@@ -1,0 +1,75 @@
+{
+    "tipo_circuito": "Inverting Amplifier with Capacitor and Resistor Feedback",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "5"
+            },
+            {
+                "id": "R2",
+                "valor": "5"
+            },
+            {
+                "id": "R3",
+                "valor": "10"
+            },
+            {
+                "id": "R4",
+                "valor": "5"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "20"
+            }
+        ],
+        "capacitores": [
+            {
+                "id": "C1",
+                "valor": "10m"
+            }
+        ],
+        "diodos": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": -1.0,
+        "Vout_teorico_V": -20.0,
+        "Vout_real_V": -20.0,
+        "tensoes_V": {
+            "A": 0.0,
+            "B": 0.0
+        },
+        "correntes_A": {
+            "R1": 4.0,
+            "R2": 4.0,
+            "R3": 2.0,
+            "R4": 4.0
+        },
+        "potencias_W": {
+            "R1": 80.0,
+            "R2": 80.0,
+            "R3": 40.0,
+            "R4": 80.0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {},
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T15:10:20",
+        "imagem": "RLC_5.png",
+        "modelo": "qwen/qwen3-vl-8b-instruct",
+        "provedor": "Parasail",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790532616-2nyflSaHbs377Qr9B3Kz",
+        "finish_reason": "stop",
+        "input_tokens": 1656,
+        "output_tokens": 378,
+        "erro_json": false
+    }
+}

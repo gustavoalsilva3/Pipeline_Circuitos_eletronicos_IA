@@ -1,0 +1,74 @@
+{
+    "tipo_circuito": "Inverting Amplifier",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": "U1"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "10k"
+            },
+            {
+                "id": "R2",
+                "valor": "10k"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "12"
+            },
+            {
+                "id": "V2",
+                "valor": "-12"
+            },
+            {
+                "id": "V3",
+                "valor": "10"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": -1,
+        "Vout_teorico_V": -10,
+        "Vout_real_V": -10,
+        "tensoes_V": {
+            "A": 0,
+            "B": 0,
+            "C": -10
+        },
+        "correntes_A": {
+            "R1": 0.001,
+            "R2": 0.001
+        },
+        "potencias_W": {
+            "R1": 0.01,
+            "R2": 0.01
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "U1": "Linear",
+            "D1": "undetermined"
+        },
+        "terra_virtual": true
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T12:29:35",
+        "imagem": "Amp_op_1.png",
+        "modelo": "qwen/qwen3-vl-8b-instruct",
+        "provedor": "Parasail",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790522970-7F1An0GUaVF0baSxMMRN",
+        "finish_reason": "stop",
+        "input_tokens": 1764,
+        "output_tokens": 376,
+        "erro_json": false
+    }
+}

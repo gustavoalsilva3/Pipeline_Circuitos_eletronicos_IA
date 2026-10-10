@@ -1,0 +1,75 @@
+{
+    "tipo_circuito": "não determinado",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "5"
+            },
+            {
+                "id": "R2",
+                "valor": "5"
+            },
+            {
+                "id": "R3",
+                "valor": "10"
+            },
+            {
+                "id": "R4",
+                "valor": "5"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "20"
+            }
+        ],
+        "capacitores": [
+            {
+                "id": "C1",
+                "valor": "10m"
+            }
+        ],
+        "diodos": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": 0,
+        "Vout_teorico_V": 0,
+        "Vout_real_V": 0,
+        "tensoes_V": {
+            "A": 0,
+            "B": 0
+        },
+        "correntes_A": {
+            "R1": 0,
+            "R2": 0,
+            "R3": 0,
+            "R4": 0
+        },
+        "potencias_W": {
+            "R1": 0,
+            "R2": 0,
+            "R3": 0,
+            "R4": 0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {},
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T15:05:41",
+        "imagem": "RLC_5.png",
+        "modelo": "qwen/qwen3-vl-8b-instruct",
+        "provedor": "Parasail",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790532336-8dFTUM6dmGijW5tOPPuD",
+        "finish_reason": "stop",
+        "input_tokens": 1668,
+        "output_tokens": 339,
+        "erro_json": false
+    }
+}

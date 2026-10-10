@@ -1,0 +1,87 @@
+{
+    "tipo_circuito": "Amplificador Operacional com Diodos e Fontes de Tensão",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": ".op"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "10"
+            },
+            {
+                "id": "R2",
+                "valor": "6"
+            },
+            {
+                "id": "R3",
+                "valor": "5"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "2"
+            },
+            {
+                "id": "V2",
+                "valor": "1"
+            },
+            {
+                "id": "V3",
+                "valor": "5"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [
+            {
+                "id": "D1"
+            },
+            {
+                "id": "D2"
+            }
+        ],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": 1,
+        "Vout_teorico_V": 0,
+        "Vout_real_V": 0,
+        "tensoes_V": {
+            "A": 0,
+            "Vout": 0
+        },
+        "correntes_A": {
+            "R1": 0,
+            "R2": 0,
+            "R3": 0
+        },
+        "potencias_W": {
+            "R1": 0,
+            "R2": 0,
+            "R3": 0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            ".op": "Saturação Negativa",
+            "D1": "Corte",
+            "D2": "Corte"
+        },
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T14:08:33",
+        "imagem": "Diodo_5.png",
+        "modelo": "qwen/qwen3-vl-8b-instruct",
+        "provedor": "Parasail",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790528895-6QO6XAJacw6T9cpmpgg5",
+        "finish_reason": "stop",
+        "input_tokens": 1481,
+        "output_tokens": 431,
+        "erro_json": false
+    }
+}

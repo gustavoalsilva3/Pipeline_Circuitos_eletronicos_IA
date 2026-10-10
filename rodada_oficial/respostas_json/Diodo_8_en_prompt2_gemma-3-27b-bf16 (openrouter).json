@@ -1,0 +1,104 @@
+{
+    "tipo_circuito": "Diode-Resistor Logic with Current Sources",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "3"
+            },
+            {
+                "id": "R2",
+                "valor": "6"
+            },
+            {
+                "id": "R3",
+                "valor": "6"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "2"
+            },
+            {
+                "id": "V2",
+                "valor": "7"
+            },
+            {
+                "id": "V3",
+                "valor": "4"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [
+            {
+                "id": "D1"
+            },
+            {
+                "id": "D2"
+            },
+            {
+                "id": "D3"
+            },
+            {
+                "id": "D4"
+            }
+        ],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": null,
+        "Vout_teorico_V": 7,
+        "Vout_real_V": 7,
+        "tensoes_V": {
+            "A": 7,
+            "B": 7
+        },
+        "correntes_A": {
+            "V1": 2,
+            "V2": 7,
+            "V3": 4,
+            "R1": 0,
+            "R2": 0,
+            "R3": 0,
+            "D1": 4,
+            "D2": 7,
+            "D3": 2,
+            "D4": 0
+        },
+        "potencias_W": {
+            "V1": 14,
+            "V2": 49,
+            "V3": 28,
+            "R1": 0,
+            "R2": 0,
+            "R3": 0,
+            "D1": 28,
+            "D2": 49,
+            "D3": 14,
+            "D4": 0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "D1": "Forward Conduction",
+            "D2": "Forward Conduction",
+            "D3": "Forward Conduction",
+            "D4": "Cutoff"
+        },
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T14:38:25",
+        "imagem": "Diodo_8.png",
+        "modelo": "google/gemma-3-27b-it",
+        "provedor": "Novita",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790530687-8hDBp0aznu327Q6cWXm0",
+        "finish_reason": "stop",
+        "input_tokens": 1309,
+        "output_tokens": 587,
+        "erro_json": false
+    }
+}

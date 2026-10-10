@@ -1,6 +1,7 @@
 google-genai
 pillow
 pandas
+numpy
 python-dotenv
 matplotlib
 requests

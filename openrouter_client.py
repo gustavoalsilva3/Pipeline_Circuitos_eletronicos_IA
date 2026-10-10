@@ -1,17 +1,13 @@
 """Cliente para modelos multimodais servidos pelo OpenRouter.
 
-Implementa o mesmo contrato de GeminiCircuitAnalyzer e de
-LMStudioCircuitAnalyzer — analisar_imagem(image_path, prompt) ->
-(resposta_dict, input_tokens, output_tokens), SEMPRE 3 valores, mesmo em
-erro —, de modo que main.py trate os três da mesma forma.
-
-O OpenRouter expõe a mesma API do LM Studio (/v1/chat/completions, padrão
-OpenAI), então a montagem da requisição é praticamente idêntica e a extração
-do JSON é reaproveitada de lmstudio_client. As diferenças que justificam um
-cliente separado são três:
+Implementa o mesmo contrato de GeminiCircuitAnalyzer —
+analisar_imagem(image_path, prompt) -> (resposta_dict, input_tokens,
+output_tokens), SEMPRE 3 valores, mesmo em erro —, de modo que main.py trate
+os modelos da mesma forma. A API segue o padrão da OpenAI
+(/v1/chat/completions). Três pontos merecem nota:
 
 1. AUTENTICAÇÃO: exige 'Authorization: Bearer <chave>'. A chave vem do .env
-   (variável 'Router', com OPENROUTER_API_KEY como alternativa) e nunca é
+   (OPENROUTER_API_KEY, com 'Router' aceito como nome alternativo) e nunca é
    impressa.
 
 2. RASTREABILIDADE DO PROVEDOR: o OpenRouter roteia a mesma requisição para
@@ -35,14 +31,13 @@ import base64
 import json
 import mimetypes
 import os
+import re
 import time
 from datetime import datetime
 from pathlib import Path
 
 import requests
 from dotenv import load_dotenv
-
-from lmstudio_client import _extrair_json
 
 load_dotenv()
 
@@ -55,9 +50,9 @@ LOG_CHAMADAS = Path(__file__).parent / "resultados" / "openrouter_chamadas.jsonl
 # recusam a chamada com HTTP 402 ainda que a resposta real seja curta.
 #
 # O valor precisa ficar abaixo do teto de reserva da conta, que varia com o
-# saldo disponível. Em 288 execuções observadas, a resposta mais longa teve
-# ~600 tokens e a média ficou em 128, então 2000 dá folga de mais de 3x sem
-# se aproximar do teto.
+# saldo disponível. Na rodada oficial, a resposta mais longa dos modelos
+# abertos teve 742 tokens, então 2000 dá folga de mais de 2,5x sem se
+# aproximar do teto.
 #
 # Um valor alto demais derruba a rodada inteira: com 8000, uma rodada chegou
 # a falhar em 194 de 288 execuções por HTTP 402 ("can only afford N"), ainda
@@ -67,13 +62,40 @@ MAX_TOKENS_PADRAO = 2000
 
 
 def _chave() -> str:
-    chave = os.getenv("Router") or os.getenv("OPENROUTER_API_KEY")
+    chave = os.getenv("OPENROUTER_API_KEY") or os.getenv("Router")
     if not chave:
         raise RuntimeError(
-            "Chave do OpenRouter nao encontrada - defina 'Router' "
-            "(ou OPENROUTER_API_KEY) no .env."
+            "Chave do OpenRouter nao encontrada - defina OPENROUTER_API_KEY "
+            "no .env (ver .env.example)."
         )
     return chave.strip()
+
+
+def _extrair_json(texto: str):
+    """Extrai o primeiro objeto JSON de um texto de modelo. Retorna o dict,
+    ou None se não houver JSON válido.
+
+    O prompt pede "APENAS um JSON válido", mas a API não força o formato:
+    tolera cercas de markdown, texto antes/depois e blocos <think>...</think>
+    de modelos de raciocínio."""
+    if not texto:
+        return None
+
+    texto = re.sub(r"<think>.*?</think>", "", texto, flags=re.DOTALL)
+    texto = re.sub(r"^```(?:json)?\s*|\s*```$", "", texto.strip())
+
+    try:
+        return json.loads(texto)
+    except json.JSONDecodeError:
+        pass
+
+    inicio, fim = texto.find("{"), texto.rfind("}")
+    if inicio != -1 and fim > inicio:
+        try:
+            return json.loads(texto[inicio:fim + 1])
+        except json.JSONDecodeError:
+            return None
+    return None
 
 
 class OpenRouterCircuitAnalyzer:

@@ -1,0 +1,85 @@
+{
+    "tipo_circuito": "Seletor de Tensão Máxima com Diodos e Divisor Resistivo",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "3"
+            },
+            {
+                "id": "R2",
+                "valor": "6"
+            },
+            {
+                "id": "R3",
+                "valor": "6"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V3",
+                "valor": "4"
+            },
+            {
+                "id": "V2",
+                "valor": "7"
+            },
+            {
+                "id": "V1",
+                "valor": "2"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [
+            {
+                "id": "D1"
+            },
+            {
+                "id": "D2"
+            },
+            {
+                "id": "D3"
+            },
+            {
+                "id": "D4"
+            }
+        ],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": null,
+        "Vout_teorico_V": 4.666666666666667,
+        "Vout_real_V": 4.666666666666667,
+        "tensoes_V": {
+            "A": 7.0,
+            "B": 4.666666666666667
+        },
+        "correntes_A": {
+            "D1": 0.0,
+            "D2": 0.7777777777777778,
+            "D3": 0.0,
+            "D4": 0.7777777777777778,
+            "R1": 0.7777777777777778,
+            "R2": 0.0,
+            "R3": 0.7777777777777778
+        },
+        "potencias_W": {
+            "R1": 1.8148148148148149,
+            "R2": 0.0,
+            "R3": 3.6296296296296298,
+            "V1": 0.0,
+            "V2": 5.444444444444445,
+            "V3": 0.0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "D1": "Corte",
+            "D2": "Condução Direta",
+            "D3": "Corte",
+            "D4": "Condução Direta"
+        },
+        "terra_virtual": false
+    }
+}

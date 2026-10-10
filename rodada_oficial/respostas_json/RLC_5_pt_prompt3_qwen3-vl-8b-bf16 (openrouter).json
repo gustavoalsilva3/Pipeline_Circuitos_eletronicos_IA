@@ -1,0 +1,81 @@
+{
+    "tipo_circuito": "Amplificador Operacional com realimentação negativa e filtro RC em malha de realimentação",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": ".op"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "5"
+            },
+            {
+                "id": "R2",
+                "valor": "5"
+            },
+            {
+                "id": "R3",
+                "valor": "10"
+            },
+            {
+                "id": "R4",
+                "valor": "5"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "20"
+            }
+        ],
+        "capacitores": [
+            {
+                "id": "C1",
+                "valor": "10m"
+            }
+        ],
+        "diodos": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": 10,
+        "Vout_teorico_V": 200,
+        "Vout_real_V": 200,
+        "tensoes_V": {
+            "A": 20,
+            "B": 0
+        },
+        "correntes_A": {
+            "R1": 4,
+            "R2": 40,
+            "R3": 20,
+            "R4": 4
+        },
+        "potencias_W": {
+            "R1": 80,
+            "R2": 800,
+            "R3": 400,
+            "R4": 80
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            ".op": "Linear"
+        },
+        "terra_virtual": true
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T15:07:34",
+        "imagem": "RLC_5.png",
+        "modelo": "qwen/qwen3-vl-8b-instruct",
+        "provedor": "Parasail",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790532447-8W2O1ghSxyvo39vp09Wc",
+        "finish_reason": "stop",
+        "input_tokens": 1827,
+        "output_tokens": 422,
+        "erro_json": false
+    }
+}

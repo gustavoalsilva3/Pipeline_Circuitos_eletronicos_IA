@@ -1,0 +1,79 @@
+{
+    "tipo_circuito": "Divisor de Tensão com Capacitores",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "3"
+            },
+            {
+                "id": "R2",
+                "valor": "3"
+            },
+            {
+                "id": "R3",
+                "valor": "2"
+            },
+            {
+                "id": "R4",
+                "valor": "4"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "24"
+            }
+        ],
+        "capacitores": [
+            {
+                "id": "C1",
+                "valor": "10m"
+            },
+            {
+                "id": "C2",
+                "valor": "10m"
+            }
+        ],
+        "diodos": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": null,
+        "Vout_teorico_V": 0.0,
+        "Vout_real_V": 0.0,
+        "tensoes_V": {
+            "A": 8.0,
+            "B": 4.0
+        },
+        "correntes_A": {
+            "R1": 8.0,
+            "R2": 4.0,
+            "R3": 2.0,
+            "R4": 0.0
+        },
+        "potencias_W": {
+            "R1": 192.0,
+            "R2": 48.0,
+            "R3": 8.0,
+            "R4": 0.0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {},
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T15:14:30",
+        "imagem": "RLC_6.png",
+        "modelo": "google/gemma-3-27b-it",
+        "provedor": "Novita",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790532860-lQO47KEthm5dY503zGDE",
+        "finish_reason": "stop",
+        "input_tokens": 1309,
+        "output_tokens": 437,
+        "erro_json": false
+    }
+}

@@ -1,0 +1,86 @@
+{
+    "tipo_circuito": "Amplificador Inversor com Regulação de Tensão",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": "U1"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "6"
+            },
+            {
+                "id": "R2",
+                "valor": "3"
+            },
+            {
+                "id": "R3",
+                "valor": "9"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "15"
+            },
+            {
+                "id": "V2",
+                "valor": "-15"
+            },
+            {
+                "id": "V3",
+                "valor": "3"
+            },
+            {
+                "id": "V4",
+                "valor": "4"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": -3,
+        "Vout_teorico_V": -9,
+        "Vout_real_V": -9,
+        "tensoes_V": {
+            "A": 4,
+            "B": 4,
+            "C": -9
+        },
+        "correntes_A": {
+            "R1": 0.16666666666666666,
+            "R2": 0.3,
+            "R3": 0.16666666666666666
+        },
+        "potencias_W": {
+            "R1": 0.10666666666666667,
+            "R2": 0.27,
+            "R3": 0.10666666666666667
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "U1": "Linear",
+            "R1": "não aplicável",
+            "R2": "não aplicável",
+            "R3": "não aplicável"
+        },
+        "terra_virtual": true
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T12:57:17",
+        "imagem": "Amp_op_5.png",
+        "modelo": "qwen/qwen3-vl-8b-instruct",
+        "provedor": "Parasail",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790524619-RyDHY51n7a4CoYQHalzf",
+        "finish_reason": "stop",
+        "input_tokens": 1643,
+        "output_tokens": 518,
+        "erro_json": false
+    }
+}

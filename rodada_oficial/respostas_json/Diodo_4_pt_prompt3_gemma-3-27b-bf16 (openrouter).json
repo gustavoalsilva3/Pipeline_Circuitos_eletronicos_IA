@@ -1,0 +1,92 @@
+{
+    "tipo_circuito": "Circuito com Diodos e Resistores",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "1"
+            },
+            {
+                "id": "R2",
+                "valor": "20"
+            },
+            {
+                "id": "R3",
+                "valor": "5"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "3"
+            },
+            {
+                "id": "V2",
+                "valor": "2"
+            },
+            {
+                "id": "V3",
+                "valor": "1"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [
+            {
+                "id": "D1"
+            },
+            {
+                "id": "D2"
+            },
+            {
+                "id": "D3"
+            }
+        ],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": null,
+        "Vout_teorico_V": 1.6666666666666667,
+        "Vout_real_V": 1.6666666666666667,
+        "tensoes_V": {
+            "A": 2.6666666666666665,
+            "B": 1.6666666666666667
+        },
+        "correntes_A": {
+            "D1": 0.16666666666666666,
+            "D2": 0.2,
+            "D3": 0.2,
+            "R1": 0.2,
+            "R2": 0.08333333333333333,
+            "R3": 0.3333333333333333
+        },
+        "potencias_W": {
+            "D1": null,
+            "D2": null,
+            "D3": null,
+            "R1": 0.2,
+            "R2": 0.16666666666666666,
+            "R3": 0.5555555555555556
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "D1": "Condução Direta",
+            "D2": "Condução Direta",
+            "D3": "Condução Direta"
+        },
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T14:01:14",
+        "imagem": "Diodo_4.png",
+        "modelo": "google/gemma-3-27b-it",
+        "provedor": "Novita",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790528388-6nWSIhtECP4k51LDwsIO",
+        "finish_reason": "stop",
+        "input_tokens": 1480,
+        "output_tokens": 658,
+        "erro_json": false
+    }
+}

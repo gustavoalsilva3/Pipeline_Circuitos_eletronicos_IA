@@ -1,0 +1,94 @@
+{
+    "tipo_circuito": "Amplificador Diferencial",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": "U1"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "5"
+            },
+            {
+                "id": "R2",
+                "valor": "5"
+            },
+            {
+                "id": "R3",
+                "valor": "2"
+            },
+            {
+                "id": "R4",
+                "valor": "8"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "10"
+            },
+            {
+                "id": "V2",
+                "valor": "20"
+            }
+        ],
+        "capacitores": [
+            {
+                "id": "C1",
+                "valor": "10m"
+            }
+        ],
+        "diodos": [],
+        "indutores": [
+            {
+                "id": "L1",
+                "valor": "1"
+            }
+        ]
+    },
+    "analise_numerica": {
+        "ganho_teorico": 1,
+        "Vout_teorico_V": 10,
+        "Vout_real_V": 10,
+        "tensoes_V": {
+            "A": 10,
+            "B": 10
+        },
+        "correntes_A": {
+            "V1": 2,
+            "V2": 4,
+            "R1": 2,
+            "R2": 4,
+            "R3": 0,
+            "R4": 0
+        },
+        "potencias_W": {
+            "V1": 20,
+            "V2": 80,
+            "R1": 20,
+            "R2": 80,
+            "R3": 0,
+            "R4": 0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "U1": "Linear"
+        },
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T15:30:31",
+        "imagem": "RLC_8.png",
+        "modelo": "google/gemma-3-27b-it",
+        "provedor": "Novita",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790533803-IFJsmXrrUEts0kVL3pcH",
+        "finish_reason": "stop",
+        "input_tokens": 1297,
+        "output_tokens": 492,
+        "erro_json": false
+    }
+}

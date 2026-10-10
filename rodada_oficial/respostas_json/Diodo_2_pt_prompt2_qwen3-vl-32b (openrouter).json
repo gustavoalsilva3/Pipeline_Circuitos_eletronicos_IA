@@ -1,0 +1,72 @@
+{
+    "tipo_circuito": "Circuito com diodos em série e resistores de carga",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "10"
+            },
+            {
+                "id": "R2",
+                "valor": "5"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "10"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [
+            {
+                "id": "D1"
+            },
+            {
+                "id": "D2"
+            }
+        ],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": 0,
+        "Vout_teorico_V": 10,
+        "Vout_real_V": 10,
+        "tensoes_V": {
+            "A": 10
+        },
+        "correntes_A": {
+            "D1": 1,
+            "D2": 1,
+            "R1": 1,
+            "R2": 2
+        },
+        "potencias_W": {
+            "D1": 10,
+            "D2": 10,
+            "R1": 10,
+            "R2": 20,
+            "V1": 10
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "D1": "Condução Direta",
+            "D2": "Condução Direta"
+        },
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T13:46:42",
+        "imagem": "Diodo_2.png",
+        "modelo": "qwen/qwen3-vl-32b-instruct",
+        "provedor": "Alibaba",
+        "quantizacao": "unknown",
+        "id_geracao": "gen-1790527595-YG5udcARGUZwYsXipzMM",
+        "finish_reason": "stop",
+        "input_tokens": 1697,
+        "output_tokens": 355,
+        "erro_json": false
+    }
+}

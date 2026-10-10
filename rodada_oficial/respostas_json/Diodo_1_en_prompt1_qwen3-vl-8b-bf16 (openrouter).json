@@ -1,0 +1,77 @@
+{
+    "tipo_circuito": "Non-inverting amplifier with diode clamp",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": ".op"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "10"
+            },
+            {
+                "id": "R2",
+                "valor": "5"
+            },
+            {
+                "id": "R3",
+                "valor": "5"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "10"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [
+            {
+                "id": "D1"
+            }
+        ],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": 1.5,
+        "Vout_teorico_V": 15,
+        "Vout_real_V": 10,
+        "tensoes_V": {
+            "A": 6.666666666666667,
+            "Vout": 10
+        },
+        "correntes_A": {
+            "R1": 0.6666666666666666,
+            "R2": 0.6666666666666666,
+            "R3": 2,
+            "D1": 0
+        },
+        "potencias_W": {
+            "R1": 4.444444444444445,
+            "R2": 2.2222222222222223,
+            "R3": 20,
+            "D1": 0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            ".op": "Negative Saturation",
+            "D1": "Cutoff"
+        },
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T13:42:35",
+        "imagem": "Diodo_1.png",
+        "modelo": "qwen/qwen3-vl-8b-instruct",
+        "provedor": "Parasail",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790527339-Qh71h8bPDZuGvWrDuZkS",
+        "finish_reason": "stop",
+        "input_tokens": 1356,
+        "output_tokens": 468,
+        "erro_json": false
+    }
+}

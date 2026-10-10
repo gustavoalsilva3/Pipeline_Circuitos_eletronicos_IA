@@ -10,11 +10,12 @@ import numpy as np
 import pandas as pd
 
 BASE = os.path.dirname(os.path.abspath(__file__))
-# Rodada analisada. Num so lugar para que o resumo e o detalhe nao possam
-# apontar para rodadas diferentes.
+# Rodada analisada: a pasta versionada, que acompanha o repositorio, para que
+# as tabelas do texto possam ser regeradas num clone limpo (resultados/ e
+# ignorada pelo git). CARIMBO registra de qual rodada esses dados sairam.
 CARIMBO = "20261010_144312"
-CSV = os.path.join(BASE, "resultados", f"resultados_{CARIMBO}.csv")
-DET = os.path.join(BASE, "resultados", f"resultados_detalhe_{CARIMBO}.csv")
+CSV = os.path.join(BASE, "rodada_oficial", "resultados.csv")
+DET = os.path.join(BASE, "rodada_oficial", "resultados_detalhe.csv")
 SAIDA = os.path.join(BASE, "TFC", "tabelas_cap4")
 os.makedirs(SAIDA, exist_ok=True)
 

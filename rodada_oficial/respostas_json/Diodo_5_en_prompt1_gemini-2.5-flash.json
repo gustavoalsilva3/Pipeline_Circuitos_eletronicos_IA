@@ -1,0 +1,74 @@
+{
+    "tipo_circuito": "Diode OR Gate and Resistive Network",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "10"
+            },
+            {
+                "id": "R2",
+                "valor": "6"
+            },
+            {
+                "id": "R3",
+                "valor": "5"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V2",
+                "valor": "1"
+            },
+            {
+                "id": "V1",
+                "valor": "2"
+            },
+            {
+                "id": "V3",
+                "valor": "5"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [
+            {
+                "id": "D2"
+            },
+            {
+                "id": "D1"
+            }
+        ],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": null,
+        "Vout_teorico_V": 2.0,
+        "Vout_real_V": 2.0,
+        "tensoes_V": {
+            "A": 2.0
+        },
+        "correntes_A": {
+            "D1": 0.03333333333333333,
+            "D2": 0.0,
+            "R1": 0.3,
+            "R2": 0.3333333333333333,
+            "R3": 0.0
+        },
+        "potencias_W": {
+            "R1": 0.9,
+            "R2": 0.6666666666666666,
+            "R3": 0.0,
+            "V1": 0.06666666666666667,
+            "V2": 0.0,
+            "V3": 1.5
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "D2": "Cutoff",
+            "D1": "Forward Conduction"
+        },
+        "terra_virtual": false
+    }
+}

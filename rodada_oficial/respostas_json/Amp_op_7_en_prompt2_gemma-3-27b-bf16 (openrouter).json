@@ -1,0 +1,97 @@
+{
+    "tipo_circuito": "Operational Amplifier Circuit",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": "U1"
+            },
+            {
+                "id": "U2"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "2"
+            },
+            {
+                "id": "R3",
+                "valor": "2"
+            },
+            {
+                "id": "R4",
+                "valor": "20"
+            },
+            {
+                "id": "R5",
+                "valor": "4"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "15"
+            },
+            {
+                "id": "V2",
+                "valor": "10"
+            },
+            {
+                "id": "V3",
+                "valor": "10"
+            },
+            {
+                "id": "V4",
+                "valor": "VCC"
+            },
+            {
+                "id": "VEE",
+                "valor": "VEE"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": -5,
+        "Vout_teorico_V": 5.0,
+        "Vout_real_V": 5.0,
+        "tensoes_V": {
+            "A": 15.0,
+            "B": 15.0,
+            "C": 5.0
+        },
+        "correntes_A": {
+            "R1": 7.5,
+            "R3": 2.5,
+            "R4": 0.75,
+            "R5": 1.25
+        },
+        "potencias_W": {
+            "R1": 112.5,
+            "R3": 12.5,
+            "R4": 11.25,
+            "R5": 6.25
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "U1": "Linear",
+            "U2": "Linear"
+        },
+        "terra_virtual": true
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T13:26:05",
+        "imagem": "Amp_op_7.png",
+        "modelo": "google/gemma-3-27b-it",
+        "provedor": "Novita",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790526308-Jrd5PFPHIkcgqUmasmNb",
+        "finish_reason": "stop",
+        "input_tokens": 1309,
+        "output_tokens": 520,
+        "erro_json": false
+    }
+}

@@ -1,0 +1,93 @@
+{
+  "tipo_circuito": "Comparator with diode clamping and resistive feedback",
+  "componentes": {
+    "amplificadores_operacionais": [
+      {
+        "id": ".op"
+      }
+    ],
+    "resistores": [
+      {
+        "id": "R1",
+        "valor": "2"
+      },
+      {
+        "id": "R2",
+        "valor": "10"
+      }
+    ],
+    "fontes": [
+      {
+        "id": "V1",
+        "valor": "3"
+      },
+      {
+        "id": "V2",
+        "valor": "8"
+      },
+      {
+        "id": "V3",
+        "valor": "5"
+      },
+      {
+        "id": "V4",
+        "valor": "6"
+      }
+    ],
+    "capacitores": [],
+    "diodos": [
+      {
+        "id": "D1"
+      },
+      {
+        "id": "D2"
+      },
+      {
+        "id": "D3"
+      },
+      {
+        "id": "D4"
+      }
+    ],
+    "indutores": []
+  },
+  "analise_numerica": {
+    "ganho_teorico": 5,
+    "Vout_teorico_V": 5,
+    "Vout_real_V": 5,
+    "tensoes_V": {
+      "A": 0,
+      "Vout": 5
+    },
+    "correntes_A": {
+      "R1": 0.5,
+      "R2": 0.5
+    },
+    "potencias_W": {
+      "R1": 1.25,
+      "R2": 1.25
+    }
+  },
+  "analise_textual": {
+    "regiao_operacao": {
+      ".op": "Linear",
+      "D1": "Cutoff",
+      "D2": "Forward Conduction",
+      "D3": "Forward Conduction",
+      "D4": "Forward Conduction"
+    },
+    "terra_virtual": true
+  },
+  "_openrouter": {
+    "timestamp": "2026-09-27T15:46:06",
+    "imagem": "Diodo_7.png",
+    "modelo": "qwen/qwen3-vl-8b-instruct",
+    "provedor": "Parasail",
+    "quantizacao": "bf16",
+    "id_geracao": "gen-1790534747-K6vcZlJrIZO9fIMytasE",
+    "finish_reason": "stop",
+    "input_tokens": 1458,
+    "output_tokens": 460,
+    "erro_json": false
+  }
+}

@@ -1,0 +1,86 @@
+{
+    "tipo_circuito": "Inverting Amplifier with Voltage Follower Configuration",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": "U1"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "2"
+            },
+            {
+                "id": "R2",
+                "valor": "10"
+            },
+            {
+                "id": "R3",
+                "valor": "10"
+            },
+            {
+                "id": "R4",
+                "valor": "2"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "10"
+            },
+            {
+                "id": "V2",
+                "valor": "8"
+            },
+            {
+                "id": "V3",
+                "valor": "15"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": -5,
+        "Vout_teorico_V": -75,
+        "Vout_real_V": -10,
+        "tensoes_V": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+        },
+        "correntes_A": {
+            "R1": 7.5,
+            "R2": 7.5,
+            "R3": 7.5,
+            "R4": 7.5
+        },
+        "potencias_W": {
+            "R1": 112.5,
+            "R2": 562.5,
+            "R3": 562.5,
+            "R4": 112.5
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "U1": "Negative Saturation",
+            "D1": "undetermined"
+        },
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T12:45:38",
+        "imagem": "Amp_op_3.png",
+        "modelo": "qwen/qwen3-vl-8b-instruct",
+        "provedor": "Parasail",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790523927-qfeSuIr4ewx2qPe0lYRF",
+        "finish_reason": "stop",
+        "input_tokens": 1538,
+        "output_tokens": 459,
+        "erro_json": false
+    }
+}

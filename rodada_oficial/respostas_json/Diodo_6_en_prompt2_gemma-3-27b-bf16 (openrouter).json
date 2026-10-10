@@ -1,0 +1,84 @@
+{
+    "tipo_circuito": "Diode-biased Op-Amp Circuit",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": ".op"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "2"
+            },
+            {
+                "id": "R2",
+                "valor": "6"
+            },
+            {
+                "id": "R3",
+                "valor": "3"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "-3"
+            },
+            {
+                "id": "V2",
+                "valor": "3"
+            },
+            {
+                "id": "V3",
+                "valor": "8"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [
+            {
+                "id": "D1"
+            },
+            {
+                "id": "D2"
+            }
+        ],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": null,
+        "Vout_teorico_V": 5,
+        "Vout_real_V": 5,
+        "tensoes_V": {
+            "A": 0
+        },
+        "correntes_A": {
+            "D1": 0,
+            "D2": 0
+        },
+        "potencias_W": {
+            "D1": 0,
+            "D2": 0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "D1": "Reverse Bias",
+            "D2": "Reverse Bias",
+            ".op": "Linear"
+        },
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T14:23:00",
+        "imagem": "Diodo_6.png",
+        "modelo": "google/gemma-3-27b-it",
+        "provedor": "Novita",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790529770-rvkwc977WRRnHO7vIMSg",
+        "finish_reason": "stop",
+        "input_tokens": 1309,
+        "output_tokens": 406,
+        "erro_json": false
+    }
+}

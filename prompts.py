@@ -2,12 +2,13 @@
 (direto, guiado por passos, procedimento detalhado) para comparar se um
 prompt mais estruturado melhora a qualidade da resposta.
 
-VERSÃO DOS PROMPTS: esta é a versão usada na rodada do Qwen3-VL 8B Instruct
-salva em resultados/resultados_20260919_151822.csv (24 circuitos, PT e EN) e
-na rodada final do Gemini 2.5 Flash, para os dois modelos serem comparados
-com prompts idênticos. O JSON de exemplo usa números fictícios (não é o
-gabarito de nenhum circuito do dataset); sem o campo 'raciocinio' e sem a
-regra de unidades.
+VERSÃO DOS PROMPTS: é exatamente o texto enviado aos quatro modelos na rodada
+oficial (rodada_oficial/), executada em 27/09/2026. Os seis prompts declaram
+a hipótese de idealidade dos componentes sob a qual o gabarito foi calculado
+e trazem o esquema de saída em JSON apenas com marcadores entre < > (ex:
+<numero a preencher>), sem valores de exemplo preenchidos, para que o modelo
+não os copie em vez de calcular. Alterar este texto muda o experimento: o
+Apêndice A do TFC é gerado daqui (gerar_apendice_prompts.py).
 
 Os três pedem o mesmo formato de JSON de saída. O ponto de atenção é a
 convenção de nomes em 'tensoes_V': os nós de tensão de interesse são
@@ -33,9 +34,9 @@ exploratório que testa se o idioma do prompt influencia o desempenho. As
 CHAVES do JSON continuam em português mesmo na versão em inglês (o código
 — response_splitter.py, evaluator_numerico.py — procura essas chaves
 literalmente: 'tensoes_V', 'correntes_A', etc.); só o texto de instrução e
-os valores de exemplo (estado de 'regiao_operacao', 'tipo_circuito') mudam
-de idioma. ESTADOS_CANONICOS em evaluator_textual.py já reconhece os
-termos em inglês usados nos exemplos abaixo (saturation/conduction/cutoff).
+o dos marcadores mudam de idioma. ESTADOS_CANONICOS em evaluator_textual.py
+reconhece os termos de estado em português e em inglês
+(saturation/conduction/cutoff).
 """
 
 #Prompt nível 1
@@ -561,3 +562,20 @@ PROCEDURE
 - If a value cannot be calculated, use "undetermined" or null for individual values.
 - Do not write explanations outside the JSON.
 """
+
+
+# Os seis prompts por idioma e nível (1 = Direto, 2 = Guiado, 3 = Estruturado).
+# As chaves do JSON de saída pedidas são sempre em português; só o texto de
+# instrução muda entre os dois idiomas.
+PROMPTS = {
+    "pt": {
+        1: PROMPT_ANALISE_CIRCUITO_1,
+        2: PROMPT_ANALISE_CIRCUITO_2,
+        3: PROMPT_ANALISE_CIRCUITO_3,
+    },
+    "en": {
+        1: PROMPT_ANALISE_CIRCUITO_1_EN,
+        2: PROMPT_ANALISE_CIRCUITO_2_EN,
+        3: PROMPT_ANALISE_CIRCUITO_3_EN,
+    },
+}

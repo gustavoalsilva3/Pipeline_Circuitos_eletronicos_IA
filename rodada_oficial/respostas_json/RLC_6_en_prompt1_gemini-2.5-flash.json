@@ -1,0 +1,72 @@
+{
+    "tipo_circuito": "Voltage Divider",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "3"
+            },
+            {
+                "id": "R2",
+                "valor": "3"
+            },
+            {
+                "id": "R3",
+                "valor": "2"
+            },
+            {
+                "id": "R4",
+                "valor": "4"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "24"
+            }
+        ],
+        "capacitores": [
+            {
+                "id": "C1",
+                "valor": "10m"
+            },
+            {
+                "id": "C2",
+                "valor": "10m"
+            }
+        ],
+        "diodos": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": 0.3333333333333333,
+        "Vout_teorico_V": 8,
+        "Vout_real_V": 8,
+        "tensoes_V": {
+            "A": 18,
+            "B": 12,
+            "Vout": 8
+        },
+        "correntes_A": {
+            "R1": 2,
+            "R2": 2,
+            "R3": 2,
+            "R4": 2,
+            "C1": 0,
+            "C2": 0,
+            "V1": 2
+        },
+        "potencias_W": {
+            "R1": 12,
+            "R2": 12,
+            "R3": 8,
+            "R4": 16,
+            "V1": -48
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {},
+        "terra_virtual": false
+    }
+}

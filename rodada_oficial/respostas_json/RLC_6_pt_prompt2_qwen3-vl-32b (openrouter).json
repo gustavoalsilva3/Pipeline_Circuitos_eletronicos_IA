@@ -1,0 +1,79 @@
+{
+    "tipo_circuito": "Circuito RC em corrente contínua (regime permanente)",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "3"
+            },
+            {
+                "id": "R2",
+                "valor": "3"
+            },
+            {
+                "id": "R3",
+                "valor": "2"
+            },
+            {
+                "id": "R4",
+                "valor": "4"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "24"
+            }
+        ],
+        "capacitores": [
+            {
+                "id": "C1",
+                "valor": "10m"
+            },
+            {
+                "id": "C2",
+                "valor": "10m"
+            }
+        ],
+        "diodos": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": 0.5,
+        "Vout_teorico_V": 6,
+        "Vout_real_V": 6,
+        "tensoes_V": {
+            "A": 12,
+            "B": 8
+        },
+        "correntes_A": {
+            "R1": 4,
+            "R2": 2,
+            "R3": 2,
+            "R4": 1.5
+        },
+        "potencias_W": {
+            "R1": 144,
+            "R2": 72,
+            "R3": 32,
+            "R4": 9
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {},
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T15:11:39",
+        "imagem": "RLC_6.png",
+        "modelo": "qwen/qwen3-vl-32b-instruct",
+        "provedor": "Alibaba",
+        "quantizacao": "unknown",
+        "id_geracao": "gen-1790532696-FKl6tuL6KyONB6u0kqfB",
+        "finish_reason": "stop",
+        "input_tokens": 1639,
+        "output_tokens": 374,
+        "erro_json": false
+    }
+}

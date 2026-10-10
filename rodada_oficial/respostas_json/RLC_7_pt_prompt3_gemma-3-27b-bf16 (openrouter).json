@@ -1,0 +1,91 @@
+{
+    "tipo_circuito": "Amplificador Operacional com Diodo de Clamp",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": ".op"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "4"
+            },
+            {
+                "id": "R2",
+                "valor": "5"
+            },
+            {
+                "id": "R3",
+                "valor": "6"
+            },
+            {
+                "id": "R4",
+                "valor": "5"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "20"
+            }
+        ],
+        "capacitores": [
+            {
+                "id": "C1",
+                "valor": "10m"
+            }
+        ],
+        "diodos": [
+            {
+                "id": "D1"
+            }
+        ],
+        "indutores": [
+            {
+                "id": "L1",
+                "valor": "1"
+            }
+        ]
+    },
+    "analise_numerica": {
+        "ganho_teorico": null,
+        "Vout_teorico_V": 15.0,
+        "Vout_real_V": 15.0,
+        "tensoes_V": {
+            "A": 20.0,
+            "B": 5.0
+        },
+        "correntes_A": {
+            "R1": 5.0,
+            "R2": 4.0,
+            "R3": 1.6666666666666667,
+            "R4": 1.0
+        },
+        "potencias_W": {
+            "R1": 100.0,
+            "R2": 80.0,
+            "R3": 16.666666666666668,
+            "R4": 5.0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "D1": "Corte",
+            ".op": "Linear"
+        },
+        "terra_virtual": true
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T15:18:57",
+        "imagem": "RLC_7.png",
+        "modelo": "google/gemma-3-27b-it",
+        "provedor": "Novita",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790533124-zrLki041PDCmeFzyrLKt",
+        "finish_reason": "stop",
+        "input_tokens": 1480,
+        "output_tokens": 516,
+        "erro_json": false
+    }
+}

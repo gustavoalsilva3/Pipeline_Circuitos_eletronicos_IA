@@ -1,0 +1,63 @@
+{
+    "tipo_circuito": "Circuito Resistivo-Indutivo em Regime Permanente DC",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "3"
+            },
+            {
+                "id": "R2",
+                "valor": "5"
+            },
+            {
+                "id": "R3",
+                "valor": "9"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "15"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [],
+        "indutores": [
+            {
+                "id": "L1",
+                "valor": "1"
+            }
+        ]
+    },
+    "analise_numerica": {
+        "ganho_teorico": 0.75,
+        "Vout_teorico_V": 11.25,
+        "Vout_real_V": 11.25,
+        "tensoes_V": {
+            "A": 11.25,
+            "Vout": 11.25
+        },
+        "correntes_A": {
+            "V1": 1.25,
+            "R1": 1.25,
+            "R2": 0.0,
+            "L1": 1.25,
+            "R3": 1.25
+        },
+        "potencias_W": {
+            "V1": 18.75,
+            "R1": 4.6875,
+            "R2": 0.0,
+            "L1": 0.0,
+            "R3": 14.0625
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "L1": "Curto-circuito"
+        },
+        "terra_virtual": false
+    }
+}

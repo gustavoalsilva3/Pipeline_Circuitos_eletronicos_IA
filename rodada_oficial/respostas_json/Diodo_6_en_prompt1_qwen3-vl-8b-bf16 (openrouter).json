@@ -1,0 +1,86 @@
+{
+    "tipo_circuito": "Non-inverting amplifier with diode clamping",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": ".op"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "2"
+            },
+            {
+                "id": "R2",
+                "valor": "6"
+            },
+            {
+                "id": "R3",
+                "valor": "3"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "-3"
+            },
+            {
+                "id": "V2",
+                "valor": "3"
+            },
+            {
+                "id": "V3",
+                "valor": "8"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [
+            {
+                "id": "D1"
+            },
+            {
+                "id": "D2"
+            }
+        ],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": 3,
+        "Vout_teorico_V": 3,
+        "Vout_real_V": 3,
+        "tensoes_V": {
+            "A": 0,
+            "Vout": 3
+        },
+        "correntes_A": {
+            "R1": 0,
+            "R2": 0.5,
+            "R3": 0.5
+        },
+        "potencias_W": {
+            "R2": 1.5,
+            "R3": 1.5
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            ".op": "Linear",
+            "D1": "Forward Conduction",
+            "D2": "Forward Conduction"
+        },
+        "terra_virtual": true
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T14:21:21",
+        "imagem": "Diodo_6.png",
+        "modelo": "qwen/qwen3-vl-8b-instruct",
+        "provedor": "Parasail",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790529670-mkcUe0MbfwJrWa3LgxTc",
+        "finish_reason": "stop",
+        "input_tokens": 1334,
+        "output_tokens": 421,
+        "erro_json": false
+    }
+}

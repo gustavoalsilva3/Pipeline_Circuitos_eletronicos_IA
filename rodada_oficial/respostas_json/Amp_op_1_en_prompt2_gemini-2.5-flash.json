@@ -1,0 +1,64 @@
+{
+    "tipo_circuito": "Comparator",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": "U1"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "10k"
+            },
+            {
+                "id": "R2",
+                "valor": "10k"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V3",
+                "valor": "10"
+            },
+            {
+                "id": "V1",
+                "valor": "12"
+            },
+            {
+                "id": "V2",
+                "valor": "-12"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": null,
+        "Vout_teorico_V": -12,
+        "Vout_real_V": -12,
+        "tensoes_V": {
+            "A": 10,
+            "B": 0,
+            "C": -12
+        },
+        "correntes_A": {
+            "R1": 0,
+            "R2": 0
+        },
+        "potencias_W": {
+            "R1": 0,
+            "R2": 0,
+            "V3": 0,
+            "V1": null,
+            "V2": null
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "U1": "Negative Saturation"
+        },
+        "terra_virtual": false
+    }
+}

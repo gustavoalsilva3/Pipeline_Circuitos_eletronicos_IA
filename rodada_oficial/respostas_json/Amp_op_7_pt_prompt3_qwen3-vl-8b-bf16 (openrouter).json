@@ -1,0 +1,95 @@
+{
+    "tipo_circuito": "Amplificador de tensão com realimentação negativa e dois amplificadores operacionais em cascata",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": "U1"
+            },
+            {
+                "id": "U2"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "2"
+            },
+            {
+                "id": "R3",
+                "valor": "2"
+            },
+            {
+                "id": "R4",
+                "valor": "20"
+            },
+            {
+                "id": "R5",
+                "valor": "4"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "15"
+            },
+            {
+                "id": "V2",
+                "valor": "10"
+            },
+            {
+                "id": "V3",
+                "valor": "10"
+            },
+            {
+                "id": "V4",
+                "valor": "6"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": 40,
+        "Vout_teorico_V": -120,
+        "Vout_real_V": -10,
+        "tensoes_V": {
+            "A": 0,
+            "B": 0,
+            "C": -10
+        },
+        "correntes_A": {
+            "R1": 7.5,
+            "R3": 0,
+            "R4": 0,
+            "R5": 0
+        },
+        "potencias_W": {
+            "R1": 112.5,
+            "R3": 0,
+            "R4": 0,
+            "R5": 0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "U1": "Saturação Negativa",
+            "U2": "Saturação Negativa",
+            "D1": "não determinado",
+            "D2": "não determinado"
+        },
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T13:19:30",
+        "imagem": "Amp_op_7.png",
+        "modelo": "qwen/qwen3-vl-8b-instruct",
+        "provedor": "Parasail",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790525962-ZXYaWKjp8p4Nqj6GcVbm",
+        "finish_reason": "stop",
+        "input_tokens": 1863,
+        "output_tokens": 468,
+        "erro_json": false
+    }
+}

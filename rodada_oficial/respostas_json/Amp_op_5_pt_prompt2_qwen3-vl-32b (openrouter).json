@@ -1,0 +1,83 @@
+{
+    "tipo_circuito": "Amplificador operacional com realimentação negativa e entrada não inversora",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": "U1"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "6"
+            },
+            {
+                "id": "R2",
+                "valor": "3"
+            },
+            {
+                "id": "R3",
+                "valor": "9"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "15"
+            },
+            {
+                "id": "V2",
+                "valor": "-15"
+            },
+            {
+                "id": "V3",
+                "valor": "3"
+            },
+            {
+                "id": "V4",
+                "valor": "4"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": 0.5,
+        "Vout_teorico_V": 1.5,
+        "Vout_real_V": 1.5,
+        "tensoes_V": {
+            "A": 3.0,
+            "B": 4.0,
+            "C": 1.5
+        },
+        "correntes_A": {
+            "R1": 0.5,
+            "R2": 0.5,
+            "R3": 0.0
+        },
+        "potencias_W": {
+            "R1": 9.0,
+            "R2": 2.25,
+            "R3": 0.0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "U1": "Linear"
+        },
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T12:59:07",
+        "imagem": "Amp_op_5.png",
+        "modelo": "qwen/qwen3-vl-32b-instruct",
+        "provedor": "Alibaba",
+        "quantizacao": "unknown",
+        "id_geracao": "gen-1790524742-Appa9deKmlQyCqvFdcmq",
+        "finish_reason": "stop",
+        "input_tokens": 1672,
+        "output_tokens": 397,
+        "erro_json": false
+    }
+}

@@ -1,0 +1,67 @@
+{
+    "tipo_circuito": "Diodo Clamp",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "10"
+            },
+            {
+                "id": "R2",
+                "valor": "5"
+            },
+            {
+                "id": "R3",
+                "valor": "5"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "10"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [
+            {
+                "id": "D1"
+            }
+        ],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": null,
+        "Vout_teorico_V": 5.0,
+        "Vout_real_V": 5.0,
+        "tensoes_V": {
+            "A": 5.0
+        },
+        "correntes_A": {
+            "D1": 1.0,
+            "R1": 0.5
+        },
+        "potencias_W": {
+            "D1": 5.0,
+            "R1": 2.5
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "D1": "Forward Conduction"
+        },
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T13:43:23",
+        "imagem": "Diodo_1.png",
+        "modelo": "google/gemma-3-27b-it",
+        "provedor": "Novita",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790527358-FSLxOPWvxBSvcqxo4Eyx",
+        "finish_reason": "stop",
+        "input_tokens": 1297,
+        "output_tokens": 350,
+        "erro_json": false
+    }
+}

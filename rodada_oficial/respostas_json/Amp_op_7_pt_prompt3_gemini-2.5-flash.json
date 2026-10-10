@@ -1,0 +1,86 @@
+{
+    "tipo_circuito": "Cascata de amplificadores operacionais",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": "U1"
+            },
+            {
+                "id": "U2"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "2"
+            },
+            {
+                "id": "R4",
+                "valor": "20"
+            },
+            {
+                "id": "R3",
+                "valor": "2"
+            },
+            {
+                "id": "R5",
+                "valor": "4"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "15"
+            },
+            {
+                "id": "V4",
+                "valor": "6"
+            },
+            {
+                "id": "V2",
+                "valor": "10"
+            },
+            {
+                "id": "V3",
+                "valor": "10"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": -10,
+        "Vout_teorico_V": 6,
+        "Vout_real_V": 6,
+        "tensoes_V": {
+            "A": 12.727,
+            "B": 6,
+            "C": 6,
+            "Vout": 6
+        },
+        "correntes_A": {
+            "R1": 1.1365,
+            "R4": -1.13635,
+            "R3": -8,
+            "R5": 0
+        },
+        "potencias_W": {
+            "R1": 2.5832,
+            "R4": 25.826,
+            "R3": 128,
+            "R5": 0,
+            "V1": 17.0475,
+            "V4": 0,
+            "V2": "não determinado",
+            "V3": "não determinado"
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "U1": "Saturação Negativa",
+            "U2": "Linear"
+        },
+        "terra_virtual": true
+    }
+}

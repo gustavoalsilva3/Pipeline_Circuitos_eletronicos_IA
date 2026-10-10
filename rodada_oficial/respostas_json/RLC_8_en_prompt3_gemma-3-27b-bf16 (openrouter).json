@@ -1,0 +1,94 @@
+{
+    "tipo_circuito": "Summing Amplifier with Inductor and Capacitor",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": "U1"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "5"
+            },
+            {
+                "id": "R2",
+                "valor": "5"
+            },
+            {
+                "id": "R3",
+                "valor": "2"
+            },
+            {
+                "id": "R4",
+                "valor": "8"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "10"
+            },
+            {
+                "id": "V2",
+                "valor": "20"
+            }
+        ],
+        "capacitores": [
+            {
+                "id": "C1",
+                "valor": "10m"
+            }
+        ],
+        "diodos": [],
+        "indutores": [
+            {
+                "id": "L1",
+                "valor": "1"
+            }
+        ]
+    },
+    "analise_numerica": {
+        "ganho_teorico": -1,
+        "Vout_teorico_V": -30,
+        "Vout_real_V": -30,
+        "tensoes_V": {
+            "A": -30,
+            "B": -30
+        },
+        "correntes_A": {
+            "V1": -2,
+            "V2": -4,
+            "R1": -2,
+            "R2": -4,
+            "R3": 10,
+            "R4": -3.75
+        },
+        "potencias_W": {
+            "V1": -20,
+            "V2": -80,
+            "R1": 20,
+            "R2": 80,
+            "R3": 300,
+            "R4": 112.5
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "U1": "Linear"
+        },
+        "terra_virtual": true
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T15:32:55",
+        "imagem": "RLC_8.png",
+        "modelo": "google/gemma-3-27b-it",
+        "provedor": "Novita",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790533961-AeGOB89O8zJw9OFMppU1",
+        "finish_reason": "stop",
+        "input_tokens": 1423,
+        "output_tokens": 507,
+        "erro_json": false
+    }
+}

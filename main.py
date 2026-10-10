@@ -28,10 +28,6 @@ from config import (
     PREFIXO_CSV_DETALHES,
     MODELO_GEMINI,
     USAR_MODELO_GEMINI,
-    MODELOS_LMSTUDIO,
-    MAX_TOKENS_SAIDA_POR_MODELO,
-    TIMEOUT_POR_MODELO_S,
-    USAR_MODELO_LMSTUDIO,
     MODELOS_OPENROUTER,
     USAR_MODELO_OPENROUTER,
     PRECO_INPUT_1M,
@@ -52,7 +48,6 @@ from prompts import (
     PROMPT_ANALISE_CIRCUITO_3_EN,
 )
 from gemini_client import GeminiCircuitAnalyzer
-from lmstudio_client import LMStudioCircuitAnalyzer
 from openrouter_client import OpenRouterCircuitAnalyzer
 from evaluator_numerico import avaliar_resposta as avaliar_numerico_textual
 from evaluator_componentes import avaliar_componentes
@@ -314,14 +309,13 @@ else:
 # analisar_imagem(image_path, prompt) -> (resposta, input_tokens,
 # output_tokens), no mesmo formato do GeminiCircuitAnalyzer, e de
 # "preco_input_1m"/"preco_output_1m" (USD por 1M tokens, usados só para o
-# relatório de custo — 0.0 para um modelo local/gratuito como o do LM Studio).
+# relatório de custo).
 #
 # Cada modelo é ligado/desligado por um toggle em config.py
-# (USAR_MODELO_GEMINI / USAR_MODELO_LMSTUDIO / USAR_MODELO_OPENROUTER), mesmo
-# espírito do IDIOMA_PROMPT — permite rodar só alguns (ex: só um modelo
-# local, sem gastar a API do Gemini) sem comentar/descomentar código. O
-# LM Studio aceita uma lista de modelos (config.MODELOS_LMSTUDIO), cada um
-# vira uma entrada separada.
+# (USAR_MODELO_GEMINI / USAR_MODELO_OPENROUTER), mesmo espírito do
+# IDIOMA_PROMPT — permite rodar só alguns, sem comentar/descomentar código.
+# O OpenRouter aceita uma lista de modelos (config.MODELOS_OPENROUTER),
+# cada um com seu provedor fixado.
 # =========================================================
 def montar_modelos():
     """Instancia os analisadores de cada modelo avaliado."""
@@ -334,19 +328,6 @@ def montar_modelos():
             "preco_input_1m": PRECO_INPUT_1M,
             "preco_output_1m": PRECO_OUTPUT_1M,
         })
-
-    if USAR_MODELO_LMSTUDIO:
-        for modelo_id in MODELOS_LMSTUDIO:
-            modelos.append({
-                "nome": modelo_id,
-                "analisador": LMStudioCircuitAnalyzer(
-                    model_name=modelo_id,
-                    max_tokens=MAX_TOKENS_SAIDA_POR_MODELO.get(modelo_id),
-                    timeout=TIMEOUT_POR_MODELO_S.get(modelo_id),
-                ),
-                "preco_input_1m": 0.0,
-                "preco_output_1m": 0.0,
-            })
 
     if USAR_MODELO_OPENROUTER:
         for cfg in MODELOS_OPENROUTER:
@@ -365,7 +346,7 @@ def montar_modelos():
     if not modelos:
         raise ValueError(
             "Nenhum modelo ativo — ligue pelo menos um em config.py "
-            "(USAR_MODELO_GEMINI, USAR_MODELO_LMSTUDIO e/ou USAR_MODELO_OPENROUTER)."
+            "(USAR_MODELO_GEMINI e/ou USAR_MODELO_OPENROUTER)."
         )
 
     return modelos
@@ -387,6 +368,10 @@ def preparar_pastas():
 # =========================================================
 def salvar_resultados_csv(df_final: pd.DataFrame, caminho: Path) -> Path:
     """Salva o DataFrame em CSV e usa um nome alternativo se o arquivo padrão estiver bloqueado."""
+    # A pasta pode não existir: num clone limpo, resultados/ é ignorada pelo
+    # git. Criar aqui cobre também quem chama esta função sem passar por main()
+    # — reavaliar_rodada.py e consolidar_rodadas.py.
+    caminho.parent.mkdir(parents=True, exist_ok=True)
     try:
         df_final.to_csv(
             caminho,
@@ -726,8 +711,8 @@ def main():
 
                     # =================================================
                     # Cálculo financeiro da requisição atual — usa o preço
-                    # do modelo desta execução, não um preço fixo (o LM Studio
-                    # é gratuito, preco_input_1m/preco_output_1m = 0.0).
+                    # do modelo desta execução, não um preço fixo: cada
+                    # provedor cobra o seu por milhão de tokens.
                     # =================================================
                     custo_input = (input_tokens * modelo_cfg["preco_input_1m"]) / 1_000_000
                     custo_output = (output_tokens * modelo_cfg["preco_output_1m"]) / 1_000_000

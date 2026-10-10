@@ -1,0 +1,84 @@
+{
+    "tipo_circuito": "Inverting Amplifier with Diode Protection",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": "U1"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "6"
+            },
+            {
+                "id": "R2",
+                "valor": "3"
+            },
+            {
+                "id": "R3",
+                "valor": "9"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "15"
+            },
+            {
+                "id": "V2",
+                "valor": "-15"
+            },
+            {
+                "id": "V3",
+                "valor": "3"
+            },
+            {
+                "id": "V4",
+                "valor": "4"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": -1.5,
+        "Vout_teorico_V": -4.5,
+        "Vout_real_V": -15,
+        "tensoes_V": {
+            "A": 4,
+            "B": 4,
+            "C": -15
+        },
+        "correntes_A": {
+            "R1": 0.16666666666666666,
+            "R2": 0.5,
+            "R3": 0.16666666666666666
+        },
+        "potencias_W": {
+            "R1": 0.1111111111111111,
+            "R2": 3.75,
+            "R3": 0.1111111111111111
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "U1": "Negative Saturation",
+            "D1": "undetermined"
+        },
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T13:01:46",
+        "imagem": "Amp_op_5.png",
+        "modelo": "qwen/qwen3-vl-8b-instruct",
+        "provedor": "Parasail",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790524888-lnqcXkHzuofMqouI2LYS",
+        "finish_reason": "stop",
+        "input_tokens": 1517,
+        "output_tokens": 495,
+        "erro_json": false
+    }
+}

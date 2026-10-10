@@ -1,0 +1,65 @@
+{
+    "tipo_circuito": "Inversor de tensão com amplificador operacional",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": ".op"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "4"
+            },
+            {
+                "id": "R2",
+                "valor": "6"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "10"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": -1.5,
+        "Vout_teorico_V": -15,
+        "Vout_real_V": -10,
+        "tensoes_V": {
+            "A": 10,
+            "B": 0,
+            "C": -15
+        },
+        "correntes_A": {
+            "R1": 1.25,
+            "R2": 2.5
+        },
+        "potencias_W": {
+            "R1": 6.25,
+            "R2": 37.5
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            ".op": "Negative Saturation"
+        },
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T14:43:41",
+        "imagem": "RLC_1.png",
+        "modelo": "qwen/qwen3-vl-8b-instruct",
+        "provedor": "Parasail",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790531015-2RukluAjZaV8C3wW98aY",
+        "finish_reason": "stop",
+        "input_tokens": 1412,
+        "output_tokens": 330,
+        "erro_json": false
+    }
+}

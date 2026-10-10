@@ -1,0 +1,75 @@
+{
+    "tipo_circuito": "Filtro passa-baixa ativo (ou filtro RC passivo com carga)",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "5"
+            },
+            {
+                "id": "R2",
+                "valor": "5"
+            },
+            {
+                "id": "R3",
+                "valor": "10"
+            },
+            {
+                "id": "R4",
+                "valor": "5"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "20"
+            }
+        ],
+        "capacitores": [
+            {
+                "id": "C1",
+                "valor": "10m"
+            }
+        ],
+        "diodos": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": 0.5,
+        "Vout_teorico_V": 10,
+        "Vout_real_V": 10,
+        "tensoes_V": {
+            "A": 10,
+            "B": 0
+        },
+        "correntes_A": {
+            "R1": 2,
+            "R2": 2,
+            "R3": 1,
+            "R4": 0
+        },
+        "potencias_W": {
+            "R1": 200,
+            "R2": 200,
+            "R3": 100,
+            "R4": 0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {},
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T15:06:32",
+        "imagem": "RLC_5.png",
+        "modelo": "qwen/qwen3-vl-32b-instruct",
+        "provedor": "Alibaba",
+        "quantizacao": "unknown",
+        "id_geracao": "gen-1790532390-wA9paIGO1zywvZRN75aa",
+        "finish_reason": "stop",
+        "input_tokens": 1697,
+        "output_tokens": 363,
+        "erro_json": false
+    }
+}

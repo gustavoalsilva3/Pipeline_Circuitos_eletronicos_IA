@@ -1,0 +1,64 @@
+{
+    "tipo_circuito": "Inverting Amplifier",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": "op"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "4"
+            },
+            {
+                "id": "R2",
+                "valor": "6"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "10"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": -1.5,
+        "Vout_teorico_V": -15,
+        "Vout_real_V": -15,
+        "tensoes_V": {
+            "A": 10,
+            "B": 0
+        },
+        "correntes_A": {
+            "R1": -2.5,
+            "R2": 2.5
+        },
+        "potencias_W": {
+            "R1": 25,
+            "R2": 37.5
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "op": "Linear"
+        },
+        "terra_virtual": true
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T14:43:59",
+        "imagem": "RLC_1.png",
+        "modelo": "google/gemma-3-27b-it",
+        "provedor": "Novita",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790531024-4CixdFBT9LxPpiVyIIqy",
+        "finish_reason": "stop",
+        "input_tokens": 1309,
+        "output_tokens": 338,
+        "erro_json": false
+    }
+}

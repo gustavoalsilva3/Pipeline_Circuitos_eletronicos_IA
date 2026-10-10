@@ -1,0 +1,95 @@
+{
+    "tipo_circuito": "Two-stage non-inverting amplifier with voltage divider input and resistive feedback",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": "U1"
+            },
+            {
+                "id": "U2"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "20"
+            },
+            {
+                "id": "R2",
+                "valor": "10"
+            },
+            {
+                "id": "R3",
+                "valor": "2"
+            },
+            {
+                "id": "R4",
+                "valor": "2"
+            },
+            {
+                "id": "R5",
+                "valor": "4"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "5"
+            },
+            {
+                "id": "V2",
+                "valor": "10"
+            },
+            {
+                "id": "V3",
+                "valor": "-10"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": 10.0,
+        "Vout_teorico_V": 10.0,
+        "Vout_real_V": 10.0,
+        "tensoes_V": {
+            "A": 0.0,
+            "B": 0.0,
+            "C": 0.0
+        },
+        "correntes_A": {
+            "R1": 0.25,
+            "R2": 0.0,
+            "R3": 0.0,
+            "R4": 0.0,
+            "R5": 0.0
+        },
+        "potencias_W": {
+            "R1": 0.0625,
+            "R2": 0.0,
+            "R3": 0.0,
+            "R4": 0.0,
+            "R5": 0.0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "U1": "Linear",
+            "U2": "Linear"
+        },
+        "terra_virtual": true
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T13:13:05",
+        "imagem": "Amp_op_6.png",
+        "modelo": "qwen/qwen3-vl-8b-instruct",
+        "provedor": "Parasail",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790525580-sQTH6fszQ086OOllq796",
+        "finish_reason": "stop",
+        "input_tokens": 1859,
+        "output_tokens": 473,
+        "erro_json": false
+    }
+}

@@ -1,0 +1,91 @@
+{
+    "tipo_circuito": "Amplificador Operacional com Retroalimentação Negativa",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": ".op"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "4"
+            },
+            {
+                "id": "R2",
+                "valor": "5"
+            },
+            {
+                "id": "R3",
+                "valor": "6"
+            },
+            {
+                "id": "R4",
+                "valor": "5"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "20"
+            }
+        ],
+        "capacitores": [
+            {
+                "id": "C1",
+                "valor": "10m"
+            }
+        ],
+        "diodos": [],
+        "indutores": [
+            {
+                "id": "L1",
+                "valor": "1"
+            }
+        ]
+    },
+    "analise_numerica": {
+        "ganho_teorico": 1,
+        "Vout_teorico_V": 20,
+        "Vout_real_V": 20,
+        "tensoes_V": {
+            "A": 20,
+            "B": 0,
+            "C": 0
+        },
+        "correntes_A": {
+            "R1": 5,
+            "R2": 4,
+            "R3": 3.333333333333333,
+            "R4": 4,
+            "L1": 0,
+            "C1": 0
+        },
+        "potencias_W": {
+            "R1": 100,
+            "R2": 80,
+            "R3": 44.44444444444444,
+            "R4": 80,
+            "L1": 0,
+            "C1": 0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            ".op": "Saturação Positiva"
+        },
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T15:17:34",
+        "imagem": "RLC_7.png",
+        "modelo": "qwen/qwen3-vl-8b-instruct",
+        "provedor": "Parasail",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790533044-gv1lc5LJN8hleSHXdwu9",
+        "finish_reason": "stop",
+        "input_tokens": 1607,
+        "output_tokens": 502,
+        "erro_json": false
+    }
+}

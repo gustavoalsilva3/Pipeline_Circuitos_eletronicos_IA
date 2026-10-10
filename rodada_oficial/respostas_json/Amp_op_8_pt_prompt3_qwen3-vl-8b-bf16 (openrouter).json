@@ -1,0 +1,96 @@
+{
+    "tipo_circuito": "Amplificador Inversor com Realimentação Negativa e Fontes de Alimentação Simétricas",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": "U1"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "20"
+            },
+            {
+                "id": "R2",
+                "valor": "10"
+            },
+            {
+                "id": "R3",
+                "valor": "2"
+            },
+            {
+                "id": "R4",
+                "valor": "2"
+            },
+            {
+                "id": "R5",
+                "valor": "4"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "5"
+            },
+            {
+                "id": "V2",
+                "valor": "10"
+            },
+            {
+                "id": "V3",
+                "valor": "10"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": -5,
+        "Vout_teorico_V": -25,
+        "Vout_real_V": -10,
+        "tensoes_V": {
+            "A": 0,
+            "B": 0,
+            "C": -10
+        },
+        "correntes_A": {
+            "R1": 0.25,
+            "R2": 0.25,
+            "R3": 0.5,
+            "R4": 0.25,
+            "R5": 0.25
+        },
+        "potencias_W": {
+            "R1": 1.25,
+            "R2": 1.25,
+            "R3": 1,
+            "R4": 0.125,
+            "R5": 1
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "U1": "Saturação Negativa",
+            "R1": "não determinado",
+            "R2": "não determinado",
+            "R3": "não determinado",
+            "R4": "não determinado",
+            "R5": "não determinado"
+        },
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T13:32:16",
+        "imagem": "Amp_op_8.png",
+        "modelo": "qwen/qwen3-vl-8b-instruct",
+        "provedor": "Parasail",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790526725-1sly18vyoBpDlaeajujv",
+        "finish_reason": "stop",
+        "input_tokens": 1641,
+        "output_tokens": 512,
+        "erro_json": false
+    }
+}

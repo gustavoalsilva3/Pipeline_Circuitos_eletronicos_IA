@@ -1,0 +1,66 @@
+{
+    "tipo_circuito": "Divisor de tensão com capacitor em paralelo",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "4"
+            },
+            {
+                "id": "R2",
+                "valor": "2"
+            },
+            {
+                "id": "R3",
+                "valor": "6"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "12"
+            }
+        ],
+        "capacitores": [
+            {
+                "id": "C1",
+                "valor": "10m"
+            }
+        ],
+        "diodos": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": 0.3333,
+        "Vout_teorico_V": 4.0,
+        "Vout_real_V": 4.0,
+        "tensoes_V": {
+            "A": 8.0
+        },
+        "correntes_A": {
+            "R1": 3.0,
+            "R2": 2.0
+        },
+        "potencias_W": {
+            "R1": 96.0,
+            "R2": 16.0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {},
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T14:46:19",
+        "imagem": "RLC_2.png",
+        "modelo": "qwen/qwen3-vl-32b-instruct",
+        "provedor": "Alibaba",
+        "quantizacao": "unknown",
+        "id_geracao": "gen-1790531175-YiuFkdOD1WYGpweADDOt",
+        "finish_reason": "stop",
+        "input_tokens": 1476,
+        "output_tokens": 313,
+        "erro_json": false
+    }
+}

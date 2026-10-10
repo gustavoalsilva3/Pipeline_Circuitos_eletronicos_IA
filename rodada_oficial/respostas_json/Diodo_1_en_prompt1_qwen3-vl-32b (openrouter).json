@@ -1,0 +1,71 @@
+{
+    "tipo_circuito": "Circuito com amplificador operacional ideal e diodo (configuração de clamping ou limitação)",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "10"
+            },
+            {
+                "id": "R2",
+                "valor": "5"
+            },
+            {
+                "id": "R3",
+                "valor": "5"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "10"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [
+            {
+                "id": "D1"
+            }
+        ],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": 0,
+        "Vout_teorico_V": 0,
+        "Vout_real_V": 0,
+        "tensoes_V": {
+            "A": 6.666666666666667
+        },
+        "correntes_A": {
+            "R1": 0.6666666666666666,
+            "R2": 0.6666666666666666,
+            "R3": 0,
+            "D1": 0
+        },
+        "potencias_W": {
+            "R1": 4.444444444444445,
+            "R2": 2.222222222222222,
+            "R3": 0,
+            "D1": 0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "D1": "Cutoff"
+        },
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T13:42:17",
+        "imagem": "Diodo_1.png",
+        "modelo": "qwen/qwen3-vl-32b-instruct",
+        "provedor": "Alibaba",
+        "quantizacao": "unknown",
+        "id_geracao": "gen-1790527332-BqFDmMDXUhLA3AEk9CRe",
+        "finish_reason": "stop",
+        "input_tokens": 1356,
+        "output_tokens": 421,
+        "erro_json": false
+    }
+}

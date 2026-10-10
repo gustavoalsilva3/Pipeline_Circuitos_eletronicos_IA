@@ -1,0 +1,81 @@
+{
+  "tipo_circuito": "Amplificador Inversor",
+  "componentes": {
+    "amplificadores_operacionais": [
+      {
+        "id": ".op"
+      }
+    ],
+    "resistores": [
+      {
+        "id": "R1",
+        "valor": "5"
+      },
+      {
+        "id": "R2",
+        "valor": "5"
+      },
+      {
+        "id": "R3",
+        "valor": "10"
+      },
+      {
+        "id": "R4",
+        "valor": "5"
+      }
+    ],
+    "fontes": [
+      {
+        "id": "V1",
+        "valor": "20"
+      }
+    ],
+    "capacitores": [
+      {
+        "id": "C1",
+        "valor": "10m"
+      }
+    ],
+    "diodos": [],
+    "indutores": []
+  },
+  "analise_numerica": {
+    "ganho_teorico": -2,
+    "Vout_teorico_V": -40,
+    "Vout_real_V": -20,
+    "tensoes_V": {
+      "A": 0,
+      "B": 0
+    },
+    "correntes_A": {
+      "R1": 4,
+      "R2": 4,
+      "R3": 4,
+      "R4": 4
+    },
+    "potencias_W": {
+      "R1": 80,
+      "R2": 80,
+      "R3": 80,
+      "R4": 80
+    }
+  },
+  "analise_textual": {
+    "regiao_operacao": {
+      ".op": "Saturação Negativa"
+    },
+    "terra_virtual": false
+  },
+  "_openrouter": {
+    "timestamp": "2026-09-27T15:48:35",
+    "imagem": "RLC_5.png",
+    "modelo": "qwen/qwen3-vl-8b-instruct",
+    "provedor": "Parasail",
+    "quantizacao": "bf16",
+    "id_geracao": "gen-1790534902-ogxyMJiuAkvg4a309i4f",
+    "finish_reason": "stop",
+    "input_tokens": 1697,
+    "output_tokens": 403,
+    "erro_json": false
+  }
+}

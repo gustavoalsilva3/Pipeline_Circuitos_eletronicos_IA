@@ -1,0 +1,85 @@
+{
+    "tipo_circuito": "Amplificador Operacional com Realimentação Negativa",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": "U1"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "2"
+            },
+            {
+                "id": "R2",
+                "valor": "10"
+            },
+            {
+                "id": "R3",
+                "valor": "10"
+            },
+            {
+                "id": "R4",
+                "valor": "2"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "10"
+            },
+            {
+                "id": "V2",
+                "valor": "-8"
+            },
+            {
+                "id": "V3",
+                "valor": "15"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": -5,
+        "Vout_teorico_V": 4.0,
+        "Vout_real_V": 4.0,
+        "tensoes_V": {
+            "A": 2.0,
+            "B": 0.0,
+            "C": 4.0
+        },
+        "correntes_A": {
+            "R1": 7.5,
+            "R2": 0.4,
+            "R3": 0.6,
+            "R4": 2.0
+        },
+        "potencias_W": {
+            "R1": 15.0,
+            "R2": 1.6,
+            "R3": 3.6,
+            "R4": 8.0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "U1": "Linear"
+        },
+        "terra_virtual": true
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T12:41:51",
+        "imagem": "Amp_op_3.png",
+        "modelo": "google/gemma-3-27b-it",
+        "provedor": "Novita",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790523695-gMY4CdL4RrS3lgx9nqIN",
+        "finish_reason": "stop",
+        "input_tokens": 1352,
+        "output_tokens": 468,
+        "erro_json": false
+    }
+}

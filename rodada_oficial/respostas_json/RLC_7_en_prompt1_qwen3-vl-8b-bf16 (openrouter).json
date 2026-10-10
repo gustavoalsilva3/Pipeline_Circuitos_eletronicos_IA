@@ -1,0 +1,86 @@
+{
+    "tipo_circuito": "non-inverting amplifier with diode protection",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": ".op"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "4"
+            },
+            {
+                "id": "R2",
+                "valor": "5"
+            },
+            {
+                "id": "R3",
+                "valor": "6"
+            },
+            {
+                "id": "R4",
+                "valor": "5"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "20"
+            }
+        ],
+        "capacitores": [
+            {
+                "id": "C1",
+                "valor": "10m"
+            }
+        ],
+        "diodos": [],
+        "indutores": [
+            {
+                "id": "L1",
+                "valor": "1"
+            }
+        ]
+    },
+    "analise_numerica": {
+        "ganho_teorico": 2.0,
+        "Vout_teorico_V": 40.0,
+        "Vout_real_V": 40.0,
+        "tensoes_V": {
+            "A": 20.0,
+            "Vout": 40.0
+        },
+        "correntes_A": {
+            "R1": 0.0,
+            "R2": 0.0,
+            "R3": 0.0,
+            "R4": 0.0
+        },
+        "potencias_W": {
+            "R1": 0.0,
+            "R2": 0.0,
+            "R3": 0.0,
+            "R4": 0.0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            ".op": "Linear"
+        },
+        "terra_virtual": true
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T15:19:43",
+        "imagem": "RLC_7.png",
+        "modelo": "qwen/qwen3-vl-8b-instruct",
+        "provedor": "Parasail",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790533174-u0YdwwqZvOLKI9WzDwNk",
+        "finish_reason": "stop",
+        "input_tokens": 1452,
+        "output_tokens": 446,
+        "erro_json": false
+    }
+}

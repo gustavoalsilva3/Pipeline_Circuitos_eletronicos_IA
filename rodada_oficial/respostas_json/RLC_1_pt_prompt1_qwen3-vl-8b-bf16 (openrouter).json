@@ -1,0 +1,65 @@
+{
+    "tipo_circuito": "Amplificador Operacional Inversor",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": ".op"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "4"
+            },
+            {
+                "id": "R2",
+                "valor": "6"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "10"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": -1.5,
+        "Vout_teorico_V": -15.0,
+        "Vout_real_V": -10.0,
+        "tensoes_V": {
+            "A": 0.0,
+            "B": 10.0
+        },
+        "correntes_A": {
+            "R1": 2.0,
+            "R2": 1.6666666666666667
+        },
+        "potencias_W": {
+            "R1": 8.0,
+            "R2": 10.0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            ".op": "Saturação Negativa",
+            "D1": "não determinado"
+        },
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T14:40:22",
+        "imagem": "RLC_1.png",
+        "modelo": "qwen/qwen3-vl-8b-instruct",
+        "provedor": "Parasail",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790530814-TGNi0UjOCbHHF1TX5njA",
+        "finish_reason": "stop",
+        "input_tokens": 1524,
+        "output_tokens": 353,
+        "erro_json": false
+    }
+}

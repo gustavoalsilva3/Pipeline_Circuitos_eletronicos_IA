@@ -1,0 +1,74 @@
+{
+    "tipo_circuito": "Op-Amp Integrator",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": "U1"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "2"
+            },
+            {
+                "id": "R2",
+                "valor": "7"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "18"
+            }
+        ],
+        "capacitores": [
+            {
+                "id": "C1",
+                "valor": "100m"
+            }
+        ],
+        "diodos": [],
+        "indutores": [
+            {
+                "id": "L1",
+                "valor": "1"
+            }
+        ]
+    },
+    "analise_numerica": {
+        "ganho_teorico": -2.5714,
+        "Vout_teorico_V": null,
+        "Vout_real_V": null,
+        "tensoes_V": {
+            "A": 18.0,
+            "B": null
+        },
+        "correntes_A": {
+            "R1": 9.0,
+            "R2": null
+        },
+        "potencias_W": {
+            "R1": 162.0,
+            "R2": null
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "U1": "Linear"
+        },
+        "terra_virtual": true
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T15:04:31",
+        "imagem": "RLC_4.png",
+        "modelo": "google/gemma-3-27b-it",
+        "provedor": "Novita",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790532259-PxUz1cfnSRPvP8ClXHkp",
+        "finish_reason": "stop",
+        "input_tokens": 1309,
+        "output_tokens": 377,
+        "erro_json": true
+    }
+}

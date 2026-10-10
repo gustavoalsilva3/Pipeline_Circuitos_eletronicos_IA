@@ -1,0 +1,76 @@
+{
+    "tipo_circuito": "Amplificador Operacional com Diodo",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": ".op"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "10"
+            },
+            {
+                "id": "R2",
+                "valor": "5"
+            },
+            {
+                "id": "R3",
+                "valor": "5"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "10"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [
+            {
+                "id": "D1"
+            }
+        ],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": 1,
+        "Vout_teorico_V": 5,
+        "Vout_real_V": 5,
+        "tensoes_V": {
+            "A": 5
+        },
+        "correntes_A": {
+            "R1": 0.5,
+            "R2": 0.5,
+            "R3": 1,
+            "D1": 1
+        },
+        "potencias_W": {
+            "R1": 2.5,
+            "R2": 1.25,
+            "R3": 2.5,
+            "D1": 0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            ".op": "Saturação Negativa",
+            "D1": "Condução Direta"
+        },
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T13:40:49",
+        "imagem": "Diodo_1.png",
+        "modelo": "qwen/qwen3-vl-8b-instruct",
+        "provedor": "Parasail",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790527246-pX3vP5BAwJqLTpFHaI8l",
+        "finish_reason": "stop",
+        "input_tokens": 1511,
+        "output_tokens": 388,
+        "erro_json": false
+    }
+}

@@ -1,0 +1,85 @@
+{
+    "tipo_circuito": "Amplificador operacional com realimentação negativa e fonte de tensão de entrada",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": "U1"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "2"
+            },
+            {
+                "id": "R2",
+                "valor": "10"
+            },
+            {
+                "id": "R3",
+                "valor": "10"
+            },
+            {
+                "id": "R4",
+                "valor": "2"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "10"
+            },
+            {
+                "id": "V2",
+                "valor": "-8"
+            },
+            {
+                "id": "V3",
+                "valor": "15"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": -5,
+        "Vout_teorico_V": -75,
+        "Vout_real_V": -8,
+        "tensoes_V": {
+            "A": 15,
+            "B": 0,
+            "C": -8
+        },
+        "correntes_A": {
+            "R1": 7.5,
+            "R2": 0.8,
+            "R3": 0.8,
+            "R4": 4
+        },
+        "potencias_W": {
+            "R1": 225,
+            "R2": 6.4,
+            "R3": 6.4,
+            "R4": 32
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "U1": "Saturação Negativa"
+        },
+        "terra_virtual": true
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T12:42:31",
+        "imagem": "Amp_op_3.png",
+        "modelo": "qwen/qwen3-vl-32b-instruct",
+        "provedor": "Alibaba",
+        "quantizacao": "unknown",
+        "id_geracao": "gen-1790523747-EemMnoO09WynlQaVGtDK",
+        "finish_reason": "stop",
+        "input_tokens": 1809,
+        "output_tokens": 412,
+        "erro_json": false
+    }
+}

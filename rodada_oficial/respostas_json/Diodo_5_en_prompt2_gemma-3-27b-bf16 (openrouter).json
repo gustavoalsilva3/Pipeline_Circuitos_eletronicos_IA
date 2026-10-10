@@ -1,0 +1,85 @@
+{
+    "tipo_circuito": "Diode Biasing with Voltage Divider",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "10"
+            },
+            {
+                "id": "R2",
+                "valor": "6"
+            },
+            {
+                "id": "R3",
+                "valor": "5"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "2"
+            },
+            {
+                "id": "V2",
+                "valor": "1"
+            },
+            {
+                "id": "V3",
+                "valor": "5"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [
+            {
+                "id": "D1"
+            },
+            {
+                "id": "D2"
+            }
+        ],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": null,
+        "Vout_teorico_V": 3.3333333333333335,
+        "Vout_real_V": 3.3333333333333335,
+        "tensoes_V": {
+            "A": 2.6666666666666665
+        },
+        "correntes_A": {
+            "D1": 0.16666666666666666,
+            "D2": 0.16666666666666666,
+            "R1": 0.3333333333333333,
+            "R2": 0.16666666666666666,
+            "R3": 0.16666666666666666
+        },
+        "potencias_W": {
+            "D1": null,
+            "D2": null,
+            "R1": 1.1111111111111112,
+            "R2": 0.16666666666666666,
+            "R3": 0.2777777777777778
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "D1": "Forward Conduction",
+            "D2": "Forward Conduction"
+        },
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T14:14:55",
+        "imagem": "Diodo_5.png",
+        "modelo": "google/gemma-3-27b-it",
+        "provedor": "Novita",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790529216-aeBmO1fPAVXe6qMNQltI",
+        "finish_reason": "stop",
+        "input_tokens": 1309,
+        "output_tokens": 633,
+        "erro_json": false
+    }
+}

@@ -1,0 +1,88 @@
+{
+    "tipo_circuito": "Non-inverting Amplifier with Diode Clamping",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": ".op"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "10"
+            },
+            {
+                "id": "R2",
+                "valor": "6"
+            },
+            {
+                "id": "R3",
+                "valor": "5"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "2"
+            },
+            {
+                "id": "V2",
+                "valor": "1"
+            },
+            {
+                "id": "V3",
+                "valor": "5"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [
+            {
+                "id": "D1"
+            },
+            {
+                "id": "D2"
+            }
+        ],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": 1.6666666666666667,
+        "Vout_teorico_V": 3.3333333333333335,
+        "Vout_real_V": 3.3333333333333335,
+        "tensoes_V": {
+            "A": 2.0,
+            "B": 0.0,
+            "C": 0.0
+        },
+        "correntes_A": {
+            "R1": 0.3333333333333333,
+            "R2": 0.3333333333333333,
+            "R3": 0.3333333333333333
+        },
+        "potencias_W": {
+            "R1": 1.1111111111111112,
+            "R2": 1.3333333333333333,
+            "R3": 0.5555555555555556
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            ".op": "Linear",
+            "D1": "Forward Conduction",
+            "D2": "Forward Conduction"
+        },
+        "terra_virtual": true
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T14:11:37",
+        "imagem": "Diodo_5.png",
+        "modelo": "qwen/qwen3-vl-8b-instruct",
+        "provedor": "Parasail",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790529087-6adNurMtU0ejq4FThDK9",
+        "finish_reason": "stop",
+        "input_tokens": 1326,
+        "output_tokens": 588,
+        "erro_json": false
+    }
+}

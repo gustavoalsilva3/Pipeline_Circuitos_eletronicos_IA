@@ -1,0 +1,79 @@
+{
+    "tipo_circuito": "Operational Amplifier Circuit",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": "U1"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "20"
+            },
+            {
+                "id": "R2",
+                "valor": "10"
+            },
+            {
+                "id": "R3",
+                "valor": "40"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "6"
+            },
+            {
+                "id": "V2",
+                "valor": "-6"
+            },
+            {
+                "id": "V3",
+                "valor": "3"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": -1,
+        "Vout_teorico_V": -3,
+        "Vout_real_V": -6,
+        "tensoes_V": {
+            "A": -3,
+            "B": 0,
+            "C": -6
+        },
+        "correntes_A": {
+            "R1": 0.15,
+            "R2": 0.6,
+            "R3": 0.15
+        },
+        "potencias_W": {
+            "R1": 0.45,
+            "R2": 3.6,
+            "R3": 0.9
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "U1": "Negative Saturation"
+        },
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T12:39:27",
+        "imagem": "Amp_op_2.png",
+        "modelo": "google/gemma-3-27b-it",
+        "provedor": "Novita",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790523555-R3CDqDz7Gbu7XI6x2kT7",
+        "finish_reason": "stop",
+        "input_tokens": 1423,
+        "output_tokens": 417,
+        "erro_json": false
+    }
+}

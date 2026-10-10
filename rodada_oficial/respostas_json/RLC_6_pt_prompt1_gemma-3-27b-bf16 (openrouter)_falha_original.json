@@ -1,0 +1,16 @@
+{
+    "erro_json": true,
+    "resposta_bruta": "```json\n{\n    \"tipo_circuito\": \"Divisor de Tensão com Capacitores\",\n\n    \"componentes\": {\n        \"amplificadores_operacionais\": [],\n        \"resistores\": [\n            {\"id\": \"R1\", \"valor\": \"3\"},\n            {\"id\": \"R2\", \"valor\": \"3\"},\n            {\"id\": \"R3\", \"valor\": \"2\"},\n            {\"id\": \"R4\", \"valor\": \"4\"}\n        ],\n        \"fontes\": [\n            {\"id\": \"V1\", \"valor\": \"24\"}\n        ],\n        \"capacitores\": [\n            {\"id\": \"C1\", \"valor\": \"10m\"},\n            {\"id\": \"C2\", \"valor\": \"10m\"}\n        ],\n        \"diodos\": [],\n        \"indutores\": []\n    },\n\n    \"analise_numerica\": {\n        \"ganho_teorico\": null,\n        \"Vout_teorico_V\": 0.0,\n        \"Vout_real_V\": 0.0,\n        \"tensoes_V\": {\n            \"A\": 24.0,\n            \"B\": 16.0\n        },\n        \"correntes_A\": {\n            \"R1\": 8.0,\n            \"R2\": 8.0/3.0,\n            \"R3\": 8.0/3.0,\n            \"R4\": 2.0\n        },\n        \"potencias_W\": {\n            \"R1\": 192.0,\n            \"R2\": 64.0/3.0,\n            \"R3\": 64.0/3.0,\n            \"R4\": 8.0\n        }\n    },\n\n    \"analise_textual\": {\n        \"regiao_operacao\": {},\n        \"terra_virtual\": false\n    }\n}\n```",
+    "_openrouter": {
+        "timestamp": "2026-09-27T15:11:16",
+        "imagem": "RLC_6.png",
+        "modelo": "google/gemma-3-27b-it",
+        "provedor": "Novita",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790532665-dutEyooq7QNsk9qNx0lE",
+        "finish_reason": "stop",
+        "input_tokens": 1328,
+        "output_tokens": 456,
+        "erro_json": true
+    }
+}

@@ -1,0 +1,64 @@
+{
+    "tipo_circuito": "Resistive Voltage Divider",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "5"
+            },
+            {
+                "id": "R2",
+                "valor": "5"
+            },
+            {
+                "id": "R3",
+                "valor": "10"
+            },
+            {
+                "id": "R4",
+                "valor": "5"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "20"
+            }
+        ],
+        "capacitores": [
+            {
+                "id": "C1",
+                "valor": "10m"
+            }
+        ],
+        "diodos": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": 0.5,
+        "Vout_teorico_V": 10,
+        "Vout_real_V": 10,
+        "tensoes_V": {
+            "A": 15,
+            "B": 0
+        },
+        "correntes_A": {
+            "R1": 1,
+            "R2": 1,
+            "R3": 1,
+            "R4": 0
+        },
+        "potencias_W": {
+            "R1": 5,
+            "R2": 5,
+            "R3": 10,
+            "R4": 0,
+            "V1": 20
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {},
+        "terra_virtual": false
+    }
+}

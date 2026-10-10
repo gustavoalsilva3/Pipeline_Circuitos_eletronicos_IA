@@ -1,0 +1,77 @@
+{
+    "tipo_circuito": "Inverting Amplifier",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": "U1"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "4"
+            },
+            {
+                "id": "R2",
+                "valor": "2"
+            },
+            {
+                "id": "R3",
+                "valor": "6"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "12"
+            }
+        ],
+        "capacitores": [
+            {
+                "id": "C1",
+                "valor": "10m"
+            }
+        ],
+        "diodos": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": -3,
+        "Vout_teorico_V": -36,
+        "Vout_real_V": -12,
+        "tensoes_V": {
+            "A": -12,
+            "Vout": -12
+        },
+        "correntes_A": {
+            "V1": -3,
+            "R1": -3,
+            "R2": 2,
+            "R3": -2
+        },
+        "potencias_W": {
+            "V1": 36,
+            "R1": 36,
+            "R2": 4,
+            "R3": 24
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "U1": "Negative Saturation"
+        },
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T14:53:54",
+        "imagem": "RLC_2.png",
+        "modelo": "google/gemma-3-27b-it",
+        "provedor": "Novita",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790531603-IRX57iTCGp22qB7GpLU3",
+        "finish_reason": "stop",
+        "input_tokens": 1309,
+        "output_tokens": 408,
+        "erro_json": false
+    }
+}

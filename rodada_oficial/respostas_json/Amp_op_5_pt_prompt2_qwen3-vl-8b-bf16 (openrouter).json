@@ -1,0 +1,83 @@
+{
+    "tipo_circuito": "Amplificador Inversor com Regulação de Tensão",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": "U1"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "6"
+            },
+            {
+                "id": "R2",
+                "valor": "3"
+            },
+            {
+                "id": "R3",
+                "valor": "9"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "15"
+            },
+            {
+                "id": "V2",
+                "valor": "-15"
+            },
+            {
+                "id": "V3",
+                "valor": "3"
+            },
+            {
+                "id": "V4",
+                "valor": "4"
+            }
+        ],
+        "diodos": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": -3,
+        "Vout_teorico_V": -9,
+        "Vout_real_V": -9,
+        "tensoes_V": {
+            "A": 4,
+            "B": 4,
+            "C": -9
+        },
+        "correntes_A": {
+            "R1": 0.16666666666666666,
+            "R2": 3,
+            "R3": 0.16666666666666666
+        },
+        "potencias_W": {
+            "R1": 0.1111111111111111,
+            "R2": 27,
+            "R3": 0.1111111111111111
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "U1": "Linear",
+            "D1": "não aplicável"
+        },
+        "terra_virtual": true
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T12:59:30",
+        "imagem": "Amp_op_5.png",
+        "modelo": "qwen/qwen3-vl-8b-instruct",
+        "provedor": "Parasail",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790524755-i1xyOTDFpRZC2JSeN67O",
+        "finish_reason": "stop",
+        "input_tokens": 1672,
+        "output_tokens": 482,
+        "erro_json": false
+    }
+}

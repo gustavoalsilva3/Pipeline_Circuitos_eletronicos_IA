@@ -1,6 +1,9 @@
 # Segredos
 .env
 
+# Configuracao pessoal do editor
+.vscode/
+
 # Ambiente Python
 .venv/
 __pycache__/
@@ -14,7 +17,7 @@ resultados/
 TFC/
 
 # Scripts de uso pontual, mantidos localmente mas fora do repositorio:
-# piloto e teste de fumaca do OpenRouter, e reexecucao de chamadas que falharam.
-piloto_openrouter.py
+# teste de fumaca do OpenRouter e reexecucao de chamadas que falharam.
 teste_openrouter.py
 refazer_falhas.py
+

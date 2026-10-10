@@ -1,0 +1,71 @@
+{
+    "tipo_circuito": "Circuito RC/RL em regime permanente CC",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "3"
+            },
+            {
+                "id": "R2",
+                "valor": "5"
+            },
+            {
+                "id": "R3",
+                "valor": "9"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "15"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [],
+        "indutores": [
+            {
+                "id": "L1",
+                "valor": "1"
+            }
+        ]
+    },
+    "analise_numerica": {
+        "ganho_teorico": 0,
+        "Vout_teorico_V": 0,
+        "Vout_real_V": 0,
+        "tensoes_V": {
+            "A": 15,
+            "Vout": 0
+        },
+        "correntes_A": {
+            "R1": 5,
+            "R2": 0,
+            "R3": 0,
+            "L1": 0
+        },
+        "potencias_W": {
+            "R1": 75,
+            "R2": 0,
+            "R3": 0,
+            "L1": 0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {},
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T14:56:08",
+        "imagem": "RLC_3.png",
+        "modelo": "qwen/qwen3-vl-32b-instruct",
+        "provedor": "Alibaba",
+        "quantizacao": "unknown",
+        "id_geracao": "gen-1790531763-LfsxKwijKELyO5hXMHS4",
+        "finish_reason": "stop",
+        "input_tokens": 1750,
+        "output_tokens": 332,
+        "erro_json": false
+    }
+}

@@ -1,0 +1,75 @@
+{
+    "tipo_circuito": "Amplificador Operacional em Configuração Não Inversora",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": "op"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "3"
+            },
+            {
+                "id": "R2",
+                "valor": "5"
+            },
+            {
+                "id": "R3",
+                "valor": "9"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "15"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [],
+        "indutores": [
+            {
+                "id": "L1",
+                "valor": "1"
+            }
+        ]
+    },
+    "analise_numerica": {
+        "ganho_teorico": 1.6666666666666667,
+        "Vout_teorico_V": 25,
+        "Vout_real_V": 25,
+        "tensoes_V": {
+            "A": 15,
+            "Vout": 25
+        },
+        "correntes_A": {
+            "R1": 5,
+            "R2": 2,
+            "R3": 1.6666666666666667
+        },
+        "potencias_W": {
+            "R1": 75,
+            "R2": 20,
+            "R3": 15
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "op": "Linear"
+        },
+        "terra_virtual": true
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T14:59:07",
+        "imagem": "RLC_3.png",
+        "modelo": "google/gemma-3-27b-it",
+        "provedor": "Novita",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790531936-spv8Co4B1yRZ7gtbd9WK",
+        "finish_reason": "stop",
+        "input_tokens": 1309,
+        "output_tokens": 426,
+        "erro_json": false
+    }
+}

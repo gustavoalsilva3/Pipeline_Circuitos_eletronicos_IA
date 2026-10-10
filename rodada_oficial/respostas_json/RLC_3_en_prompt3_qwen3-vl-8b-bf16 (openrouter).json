@@ -1,0 +1,69 @@
+{
+  "tipo_circuito": "Non-inverting amplifier with inductor and resistor in feedback",
+  "componentes": {
+    "amplificadores_operacionais": [],
+    "resistores": [
+      {
+        "id": "R1",
+        "valor": "3"
+      },
+      {
+        "id": "R2",
+        "valor": "5"
+      },
+      {
+        "id": "R3",
+        "valor": "9"
+      }
+    ],
+    "fontes": [
+      {
+        "id": "V1",
+        "valor": "15"
+      }
+    ],
+    "capacitores": [],
+    "diodos": [],
+    "indutores": [
+      {
+        "id": "L1",
+        "valor": "1"
+      }
+    ]
+  },
+  "analise_numerica": {
+    "ganho_teorico": 3,
+    "Vout_teorico_V": 15,
+    "Vout_real_V": 15,
+    "tensoes_V": {
+      "A": 5,
+      "Vout": 15
+    },
+    "correntes_A": {
+      "R1": 3.3333333333333335,
+      "R2": 0,
+      "R3": 0
+    },
+    "potencias_W": {
+      "R1": 33.33333333333333,
+      "R2": 0,
+      "R3": 0
+    }
+  },
+  "analise_textual": {
+    "regiao_operacao": {},
+    "terra_virtual": false
+  },
+  "_openrouter": {
+    "timestamp": "2026-09-27T15:47:44",
+    "imagem": "RLC_3.png",
+    "modelo": "qwen/qwen3-vl-8b-instruct",
+    "provedor": "Parasail",
+    "quantizacao": "bf16",
+    "id_geracao": "gen-1790534849-CnLUCVdtPIytWQy01z4W",
+    "finish_reason": "stop",
+    "input_tokens": 1709,
+    "output_tokens": 350,
+    "erro_json": false
+  }
+}

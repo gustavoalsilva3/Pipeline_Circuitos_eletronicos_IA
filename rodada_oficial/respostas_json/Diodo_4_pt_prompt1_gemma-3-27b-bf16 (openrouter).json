@@ -1,0 +1,86 @@
+{
+    "tipo_circuito": "Divisor de Tensão com Diodos",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "1"
+            },
+            {
+                "id": "R2",
+                "valor": "20"
+            },
+            {
+                "id": "R3",
+                "valor": "5"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "3"
+            },
+            {
+                "id": "V2",
+                "valor": "2"
+            },
+            {
+                "id": "V3",
+                "valor": "1"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [
+            {
+                "id": "D1"
+            },
+            {
+                "id": "D2"
+            },
+            {
+                "id": "D3"
+            }
+        ],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": null,
+        "Vout_teorico_V": 1.25,
+        "Vout_real_V": 1.25,
+        "tensoes_V": {
+            "A": 3,
+            "B": 1
+        },
+        "correntes_A": {
+            "R1": 1,
+            "R2": 0.15,
+            "R3": 0.25
+        },
+        "potencias_W": {
+            "R1": 1,
+            "R2": 0.45,
+            "R3": 0.125
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "D1": "Condução Direta",
+            "D2": "Condução Direta",
+            "D3": "Condução Direta"
+        },
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T13:57:50",
+        "imagem": "Diodo_4.png",
+        "modelo": "google/gemma-3-27b-it",
+        "provedor": "Novita",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790528246-qH7ktez5LEh2CilL1AcQ",
+        "finish_reason": "stop",
+        "input_tokens": 1328,
+        "output_tokens": 462,
+        "erro_json": false
+    }
+}

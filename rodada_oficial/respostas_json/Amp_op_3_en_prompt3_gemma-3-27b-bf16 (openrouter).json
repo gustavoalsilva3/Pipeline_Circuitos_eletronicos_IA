@@ -1,0 +1,85 @@
+{
+    "tipo_circuito": "Operational Amplifier Circuit",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": "U1"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "2"
+            },
+            {
+                "id": "R2",
+                "valor": "10"
+            },
+            {
+                "id": "R3",
+                "valor": "10"
+            },
+            {
+                "id": "R4",
+                "valor": "2"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "10"
+            },
+            {
+                "id": "V2",
+                "valor": "-8"
+            },
+            {
+                "id": "V3",
+                "valor": "15"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": -5,
+        "Vout_teorico_V": 40,
+        "Vout_real_V": 10,
+        "tensoes_V": {
+            "A": 10,
+            "B": 0,
+            "C": 10
+        },
+        "correntes_A": {
+            "R1": 5,
+            "R2": 3,
+            "R3": 0,
+            "R4": 5
+        },
+        "potencias_W": {
+            "R1": 50,
+            "R2": 30,
+            "R3": 0,
+            "R4": 50
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "U1": "Positive Saturation"
+        },
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T12:46:51",
+        "imagem": "Amp_op_3.png",
+        "modelo": "google/gemma-3-27b-it",
+        "provedor": "Novita",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790523999-aoHpvKoJj26YzHM750qt",
+        "finish_reason": "stop",
+        "input_tokens": 1423,
+        "output_tokens": 443,
+        "erro_json": false
+    }
+}

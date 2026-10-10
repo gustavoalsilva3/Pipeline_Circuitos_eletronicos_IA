@@ -1,0 +1,84 @@
+{
+    "tipo_circuito": "Inverting Amplifier with Diode Protection",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": "U1"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "6"
+            },
+            {
+                "id": "R2",
+                "valor": "3"
+            },
+            {
+                "id": "R3",
+                "valor": "9"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "15"
+            },
+            {
+                "id": "V2",
+                "valor": "-15"
+            },
+            {
+                "id": "V3",
+                "valor": "3"
+            },
+            {
+                "id": "V4",
+                "valor": "4"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": -3,
+        "Vout_teorico_V": -9,
+        "Vout_real_V": -15,
+        "tensoes_V": {
+            "A": 0,
+            "B": 0,
+            "C": -9
+        },
+        "correntes_A": {
+            "R1": 0.5,
+            "R2": 1.5,
+            "R3": 0.5
+        },
+        "potencias_W": {
+            "R1": 1.5,
+            "R2": 13.5,
+            "R3": 2.25
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "U1": "Negative Saturation",
+            "D1": "undetermined"
+        },
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T13:05:04",
+        "imagem": "Amp_op_5.png",
+        "modelo": "qwen/qwen3-vl-8b-instruct",
+        "provedor": "Parasail",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790525089-syzICvTVO1JK9S2M0pmx",
+        "finish_reason": "stop",
+        "input_tokens": 1631,
+        "output_tokens": 390,
+        "erro_json": false
+    }
+}

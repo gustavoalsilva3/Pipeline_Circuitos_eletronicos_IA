@@ -1,0 +1,81 @@
+{
+    "tipo_circuito": "Amplificador Operacional em Configuração Não Inversora",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": "U1"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "10k"
+            },
+            {
+                "id": "R2",
+                "valor": "10k"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V3",
+                "valor": "10"
+            },
+            {
+                "id": "V1",
+                "valor": "12"
+            },
+            {
+                "id": "V2",
+                "valor": ".op"
+            },
+            {
+                "id": "VCC",
+                "valor": "undetermined"
+            },
+            {
+                "id": "VEE",
+                "valor": "undetermined"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": 2,
+        "Vout_teorico_V": 20,
+        "Vout_real_V": 12,
+        "tensoes_V": {
+            "A": 10,
+            "B": 0,
+            "C": 12
+        },
+        "correntes_A": {
+            "R1": 0.001,
+            "R2": 0.001
+        },
+        "potencias_W": {
+            "R1": 0.01,
+            "R2": 0.01
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "U1": "Positive Saturation"
+        },
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T12:31:40",
+        "imagem": "Amp_op_1.png",
+        "modelo": "google/gemma-3-27b-it",
+        "provedor": "Novita",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790523086-ip4xUADzi3zWsR6c92td",
+        "finish_reason": "stop",
+        "input_tokens": 1423,
+        "output_tokens": 430,
+        "erro_json": false
+    }
+}

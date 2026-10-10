@@ -6,8 +6,9 @@ import os
 import pandas as pd, numpy as np
 
 BASE = os.path.dirname(os.path.abspath(__file__))
+# Mesma origem versionada de gerar_tabelas_cap4.py, pelo mesmo motivo.
 CARIMBO = "20261010_144312"
-d = pd.read_csv(os.path.join(BASE, "resultados", f"resultados_{CARIMBO}.csv"),
+d = pd.read_csv(os.path.join(BASE, "rodada_oficial", "resultados.csv"),
                 sep=";", engine="python", on_bad_lines="skip", dtype=str)
 d["circ"] = d["imagem"].str.replace(r"\.\w+$", "", regex=True)
 d["fam"] = d["imagem"].str.extract(r"(Amp|Dio|RLC)", expand=False).map({"Amp": "Amplificador operacional", "Dio": "Diodo", "RLC": "RLC"})

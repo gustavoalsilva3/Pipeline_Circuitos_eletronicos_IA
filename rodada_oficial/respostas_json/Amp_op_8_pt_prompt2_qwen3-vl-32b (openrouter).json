@@ -1,0 +1,91 @@
+{
+    "tipo_circuito": "Amplificador operacional com realimentação negativa e diodo (configuração não inversora com limitação)",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": "U1"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "20"
+            },
+            {
+                "id": "R2",
+                "valor": "10"
+            },
+            {
+                "id": "R3",
+                "valor": "2"
+            },
+            {
+                "id": "R4",
+                "valor": "2"
+            },
+            {
+                "id": "R5",
+                "valor": "4"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "5"
+            },
+            {
+                "id": "V2",
+                "valor": "10"
+            },
+            {
+                "id": "V3",
+                "valor": "-10"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": 3,
+        "Vout_teorico_V": 15,
+        "Vout_real_V": -10,
+        "tensoes_V": {
+            "A": 10,
+            "B": 1,
+            "C": -10
+        },
+        "correntes_A": {
+            "R1": 0.25,
+            "R2": 0.0,
+            "R3": 0.0,
+            "R4": 0.5,
+            "R5": 2.5
+        },
+        "potencias_W": {
+            "R1": 1.25,
+            "R2": 0.0,
+            "R3": 0.0,
+            "R4": 1.0,
+            "R5": 100.0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "U1": "Saturação Negativa"
+        },
+        "terra_virtual": true
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T13:29:50",
+        "imagem": "Amp_op_8.png",
+        "modelo": "qwen/qwen3-vl-32b-instruct",
+        "provedor": "Alibaba",
+        "quantizacao": "unknown",
+        "id_geracao": "gen-1790526585-guxV7UZGtU9vM3nTNFfb",
+        "finish_reason": "stop",
+        "input_tokens": 1511,
+        "output_tokens": 460,
+        "erro_json": false
+    }
+}

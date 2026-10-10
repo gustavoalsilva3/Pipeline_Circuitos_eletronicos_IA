@@ -1,0 +1,103 @@
+{
+    "tipo_circuito": "Amplificador Diferencial com Diodos de Polarização",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": "U1"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "3"
+            },
+            {
+                "id": "R2",
+                "valor": "6"
+            },
+            {
+                "id": "R3",
+                "valor": "6"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "2"
+            },
+            {
+                "id": "V2",
+                "valor": "7"
+            },
+            {
+                "id": "V3",
+                "valor": "4"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [
+            {
+                "id": "D1"
+            },
+            {
+                "id": "D2"
+            },
+            {
+                "id": "D3"
+            },
+            {
+                "id": "D4"
+            }
+        ],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": 1,
+        "Vout_teorico_V": 1,
+        "Vout_real_V": 1,
+        "tensoes_V": {
+            "A": 1,
+            "B": 1
+        },
+        "correntes_A": {
+            "R1": 0,
+            "R2": 0,
+            "R3": 0,
+            "D1": 0,
+            "D2": 0,
+            "D3": 0,
+            "D4": 0
+        },
+        "potencias_W": {
+            "R1": 0,
+            "R2": 0,
+            "R3": 0,
+            "D1": 0,
+            "D2": 0,
+            "D3": 0,
+            "D4": 0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "D1": "Forward Conduction",
+            "D2": "Forward Conduction",
+            "D3": "Forward Conduction",
+            "D4": "Forward Conduction",
+            "U1": "Linear"
+        },
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T14:37:16",
+        "imagem": "Diodo_8.png",
+        "modelo": "google/gemma-3-27b-it",
+        "provedor": "Novita",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790530600-94VMZ1V4UJ1DgotFkpzV",
+        "finish_reason": "stop",
+        "input_tokens": 1297,
+        "output_tokens": 552,
+        "erro_json": false
+    }
+}

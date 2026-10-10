@@ -1,0 +1,74 @@
+{
+    "tipo_circuito": "Rede resistiva com diodos ideais",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "2"
+            },
+            {
+                "id": "R3",
+                "valor": "3"
+            },
+            {
+                "id": "R2",
+                "valor": "6"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V2",
+                "valor": "3"
+            },
+            {
+                "id": "V1",
+                "valor": "-3"
+            },
+            {
+                "id": "V3",
+                "valor": "8"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [
+            {
+                "id": "D2"
+            },
+            {
+                "id": "D1"
+            }
+        ],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": null,
+        "Vout_teorico_V": 4.363636,
+        "Vout_real_V": 4.363636,
+        "tensoes_V": {
+            "A": 6.545455,
+            "Vout": 4.363636
+        },
+        "correntes_A": {
+            "R1": 0.727273,
+            "R3": 0.727273,
+            "R2": 0.727273,
+            "D1": 0.0,
+            "D2": 0.0
+        },
+        "potencias_W": {
+            "R1": 1.057851,
+            "R2": 3.173554,
+            "R3": 1.586777,
+            "D1": 0.0,
+            "D2": 0.0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "D2": "Corte",
+            "D1": "Corte"
+        },
+        "terra_virtual": false
+    }
+}

@@ -1,0 +1,95 @@
+{
+    "tipo_circuito": "Amplificador Diferencial com Diodos de Polarização",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": "U1"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "3"
+            },
+            {
+                "id": "R2",
+                "valor": "6"
+            },
+            {
+                "id": "R3",
+                "valor": "6"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "2"
+            },
+            {
+                "id": "V2",
+                "valor": "7"
+            },
+            {
+                "id": "V3",
+                "valor": "4"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [
+            {
+                "id": "D1"
+            },
+            {
+                "id": "D2"
+            },
+            {
+                "id": "D3"
+            },
+            {
+                "id": "D4"
+            }
+        ],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": 1,
+        "Vout_teorico_V": 1,
+        "Vout_real_V": 1,
+        "tensoes_V": {
+            "A": 1,
+            "B": 1
+        },
+        "correntes_A": {
+            "R1": 0,
+            "R2": 0,
+            "R3": 0
+        },
+        "potencias_W": {
+            "R1": 0,
+            "R2": 0,
+            "R3": 0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "D1": "Condução Direta",
+            "D2": "Condução Direta",
+            "D3": "Condução Direta",
+            "D4": "Condução Direta",
+            "U1": "Linear"
+        },
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T14:34:10",
+        "imagem": "Diodo_8.png",
+        "modelo": "google/gemma-3-27b-it",
+        "provedor": "Novita",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790530410-s6SCoNIJRpKUZa6BCcp9",
+        "finish_reason": "stop",
+        "input_tokens": 1352,
+        "output_tokens": 488,
+        "erro_json": false
+    }
+}

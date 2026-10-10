@@ -1,0 +1,85 @@
+{
+  "tipo_circuito": "Divisor de Tensão com Amplificador Não Inversor",
+  "componentes": {
+    "amplificadores_operacionais": [
+      {
+        "id": "U1"
+      }
+    ],
+    "resistores": [
+      {
+        "id": "R1",
+        "valor": "3"
+      },
+      {
+        "id": "R2",
+        "valor": "3"
+      },
+      {
+        "id": "R3",
+        "valor": "2"
+      },
+      {
+        "id": "R4",
+        "valor": "4"
+      }
+    ],
+    "fontes": [
+      {
+        "id": "V1",
+        "valor": "24"
+      }
+    ],
+    "capacitores": [
+      {
+        "id": "C1",
+        "valor": "10m"
+      },
+      {
+        "id": "C2",
+        "valor": "10m"
+      }
+    ],
+    "diodos": [],
+    "indutores": []
+  },
+  "analise_numerica": {
+    "ganho_teorico": 1,
+    "Vout_teorico_V": 24,
+    "Vout_real_V": 24,
+    "tensoes_V": {
+      "A": 8,
+      "B": 16
+    },
+    "correntes_A": {
+      "R1": 8,
+      "R2": 4,
+      "R3": 8,
+      "R4": 6
+    },
+    "potencias_W": {
+      "R1": 192,
+      "R2": 96,
+      "R3": 128,
+      "R4": 576
+    }
+  },
+  "analise_textual": {
+    "regiao_operacao": {
+      "U1": "Linear"
+    },
+    "terra_virtual": false
+  },
+  "_openrouter": {
+    "timestamp": "2026-09-27T15:49:12",
+    "imagem": "RLC_6.png",
+    "modelo": "google/gemma-3-27b-it",
+    "provedor": "Novita",
+    "quantizacao": "bf16",
+    "id_geracao": "gen-1790534918-79uLXxNVDq9OlZLcmoRE",
+    "finish_reason": "stop",
+    "input_tokens": 1328,
+    "output_tokens": 449,
+    "erro_json": false
+  }
+}

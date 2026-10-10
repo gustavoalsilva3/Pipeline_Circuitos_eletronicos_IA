@@ -1,0 +1,62 @@
+{
+    "tipo_circuito": "Circuito Resistivo com Diodo",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "10"
+            },
+            {
+                "id": "R2",
+                "valor": "5"
+            },
+            {
+                "id": "R3",
+                "valor": "5"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "10"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [
+            {
+                "id": "D1"
+            }
+        ],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": 0.6,
+        "Vout_teorico_V": 6.0,
+        "Vout_real_V": 6.0,
+        "tensoes_V": {
+            "A": 6.0,
+            "Vout": 6.0
+        },
+        "correntes_A": {
+            "R1": 0.4,
+            "R2": 0.8,
+            "D1": 0.0,
+            "R3": 1.2,
+            "V1": 1.2
+        },
+        "potencias_W": {
+            "R1": 1.6,
+            "R2": 3.2,
+            "D1": 0.0,
+            "R3": 7.2,
+            "V1": 12.0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "D1": "Condução Direta"
+        },
+        "terra_virtual": false
+    }
+}

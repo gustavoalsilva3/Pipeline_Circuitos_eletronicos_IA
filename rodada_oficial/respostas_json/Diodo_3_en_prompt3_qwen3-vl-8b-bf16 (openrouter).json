@@ -1,0 +1,72 @@
+{
+    "tipo_circuito": "Non-inverting amplifier with diode clamping",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "5"
+            },
+            {
+                "id": "R2",
+                "valor": "10"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "5"
+            },
+            {
+                "id": "V2",
+                "valor": "10"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [
+            {
+                "id": "D1"
+            },
+            {
+                "id": "D2"
+            }
+        ],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": 2,
+        "Vout_teorico_V": 15,
+        "Vout_real_V": 10,
+        "tensoes_V": {
+            "A": 5,
+            "Vout": 10
+        },
+        "correntes_A": {
+            "R1": 1,
+            "R2": 1
+        },
+        "potencias_W": {
+            "R1": 5,
+            "R2": 10
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "D1": "Forward Conduction",
+            "D2": "Cutoff"
+        },
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T13:56:10",
+        "imagem": "Diodo_3.png",
+        "modelo": "qwen/qwen3-vl-8b-instruct",
+        "provedor": "Parasail",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790528166-rB2d359ZmpSZuXXUSlb8",
+        "finish_reason": "stop",
+        "input_tokens": 1380,
+        "output_tokens": 324,
+        "erro_json": false
+    }
+}

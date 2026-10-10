@@ -1,0 +1,79 @@
+{
+    "tipo_circuito": "Circuito Resistivo DC",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "5"
+            },
+            {
+                "id": "R2",
+                "valor": "5"
+            },
+            {
+                "id": "R3",
+                "valor": "2"
+            },
+            {
+                "id": "R4",
+                "valor": "8"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "10"
+            },
+            {
+                "id": "V2",
+                "valor": "20"
+            }
+        ],
+        "capacitores": [
+            {
+                "id": "C1",
+                "valor": "10m"
+            }
+        ],
+        "diodos": [],
+        "indutores": [
+            {
+                "id": "L1",
+                "valor": "1"
+            }
+        ]
+    },
+    "analise_numerica": {
+        "ganho_teorico": null,
+        "Vout_teorico_V": 9.6,
+        "Vout_real_V": 9.6,
+        "tensoes_V": {
+            "A": 12.0,
+            "B": 12.0,
+            "Vout": 9.6
+        },
+        "correntes_A": {
+            "R1": -0.4,
+            "R2": 1.6,
+            "C1": 0.0,
+            "L1": 1.2,
+            "R3": 1.2,
+            "R4": 1.2
+        },
+        "potencias_W": {
+            "V1": -4.0,
+            "V2": 32.0,
+            "R1": 0.8,
+            "R2": 12.8,
+            "C1": 0.0,
+            "L1": 0.0,
+            "R3": 2.88,
+            "R4": 11.52
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {},
+        "terra_virtual": false
+    }
+}

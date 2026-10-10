@@ -1,0 +1,95 @@
+{
+    "tipo_circuito": "Operational Amplifier Circuit",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": "U1"
+            },
+            {
+                "id": "U2"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "20"
+            },
+            {
+                "id": "R2",
+                "valor": "10"
+            },
+            {
+                "id": "R3",
+                "valor": "2"
+            },
+            {
+                "id": "R4",
+                "valor": "2"
+            },
+            {
+                "id": "R5",
+                "valor": "4"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "5"
+            },
+            {
+                "id": "V2",
+                "valor": "10"
+            },
+            {
+                "id": "V3",
+                "valor": "10"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": -5,
+        "Vout_teorico_V": 50,
+        "Vout_real_V": 50,
+        "tensoes_V": {
+            "A": 5,
+            "B": 15,
+            "C": 55
+        },
+        "correntes_A": {
+            "R1": 0.25,
+            "R2": 0.5,
+            "R3": 5,
+            "R4": 10,
+            "R5": 13.75
+        },
+        "potencias_W": {
+            "R1": 1.25,
+            "R2": 2.5,
+            "R3": 50,
+            "R4": 100,
+            "R5": 550
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "U1": "Linear",
+            "U2": "Linear"
+        },
+        "terra_virtual": true
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T13:13:26",
+        "imagem": "Amp_op_6.png",
+        "modelo": "google/gemma-3-27b-it",
+        "provedor": "Novita",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790525588-oX1Am2jE8gzJSsF3PzCz",
+        "finish_reason": "stop",
+        "input_tokens": 1423,
+        "output_tokens": 509,
+        "erro_json": false
+    }
+}

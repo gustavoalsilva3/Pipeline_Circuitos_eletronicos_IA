@@ -1,0 +1,85 @@
+{
+    "tipo_circuito": "Circuito com diodos e resistores em configuração de retificador ou limitador",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "10"
+            },
+            {
+                "id": "R2",
+                "valor": "6"
+            },
+            {
+                "id": "R3",
+                "valor": "5"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "2"
+            },
+            {
+                "id": "V2",
+                "valor": "1"
+            },
+            {
+                "id": "V3",
+                "valor": "5"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [
+            {
+                "id": "D1"
+            },
+            {
+                "id": "D2"
+            }
+        ],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": null,
+        "Vout_teorico_V": 0.0,
+        "Vout_real_V": 0.0,
+        "tensoes_V": {
+            "A": 0.0
+        },
+        "correntes_A": {
+            "R1": 0.0,
+            "R2": 0.0,
+            "R3": 0.0,
+            "D1": 0.0,
+            "D2": 0.0
+        },
+        "potencias_W": {
+            "R1": 0.0,
+            "R2": 0.0,
+            "R3": 0.0,
+            "D1": 0.0,
+            "D2": 0.0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "D1": "Cutoff",
+            "D2": "Cutoff"
+        },
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T14:15:29",
+        "imagem": "Diodo_5.png",
+        "modelo": "qwen/qwen3-vl-32b-instruct",
+        "provedor": "Alibaba",
+        "quantizacao": "unknown",
+        "id_geracao": "gen-1790529325-abX0SdReKfe5uNwDIrOB",
+        "finish_reason": "stop",
+        "input_tokens": 1440,
+        "output_tokens": 421,
+        "erro_json": false
+    }
+}

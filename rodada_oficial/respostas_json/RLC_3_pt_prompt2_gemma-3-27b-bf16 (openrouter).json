@@ -1,0 +1,75 @@
+{
+    "tipo_circuito": "Divisor de Tensão com Indutor e Resistor de Feedback",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": ".op"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "3"
+            },
+            {
+                "id": "R2",
+                "valor": "5"
+            },
+            {
+                "id": "R3",
+                "valor": "9"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "15"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [],
+        "indutores": [
+            {
+                "id": "L1",
+                "valor": "1"
+            }
+        ]
+    },
+    "analise_numerica": {
+        "ganho_teorico": -1.125,
+        "Vout_teorico_V": -16.875,
+        "Vout_real_V": -16.875,
+        "tensoes_V": {
+            "A": 5,
+            "Vout": -16.875
+        },
+        "correntes_A": {
+            "R1": 5,
+            "R2": -1.125,
+            "R3": 1.875
+        },
+        "potencias_W": {
+            "R1": 75,
+            "R2": 5.625,
+            "R3": 16.875
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            ".op": "Saturação Negativa"
+        },
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T14:56:33",
+        "imagem": "RLC_3.png",
+        "modelo": "google/gemma-3-27b-it",
+        "provedor": "Novita",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790531781-uWSVyUAIV6r5W0XF0QJ9",
+        "finish_reason": "stop",
+        "input_tokens": 1352,
+        "output_tokens": 428,
+        "erro_json": false
+    }
+}

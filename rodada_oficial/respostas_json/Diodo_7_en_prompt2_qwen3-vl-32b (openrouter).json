@@ -1,0 +1,87 @@
+{
+    "tipo_circuito": "Circuit with diodes and resistors forming a voltage selector and regulator (diode OR circuit with feedback via resistor divider)",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "2"
+            },
+            {
+                "id": "R2",
+                "valor": "10"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "3"
+            },
+            {
+                "id": "V2",
+                "valor": "8"
+            },
+            {
+                "id": "V3",
+                "valor": "5"
+            },
+            {
+                "id": "V4",
+                "valor": "6"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [
+            {
+                "id": "D1"
+            },
+            {
+                "id": "D2"
+            },
+            {
+                "id": "D3"
+            },
+            {
+                "id": "D4"
+            }
+        ],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": 0,
+        "Vout_teorico_V": 6,
+        "Vout_real_V": 6,
+        "tensoes_V": {
+            "A": 8
+        },
+        "correntes_A": {
+            "R1": 0.0005,
+            "R2": 0.0006
+        },
+        "potencias_W": {
+            "R1": 5e-07,
+            "R2": 3.6e-06
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "D1": "Cutoff",
+            "D2": "Forward Conduction",
+            "D3": "Cutoff",
+            "D4": "Forward Conduction"
+        },
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T14:30:15",
+        "imagem": "Diodo_7.png",
+        "modelo": "qwen/qwen3-vl-32b-instruct",
+        "provedor": "Alibaba",
+        "quantizacao": "unknown",
+        "id_geracao": "gen-1790530206-sKyOm6mD12uP19Vj8ubM",
+        "finish_reason": "stop",
+        "input_tokens": 1358,
+        "output_tokens": 415,
+        "erro_json": false
+    }
+}

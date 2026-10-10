@@ -1,0 +1,74 @@
+{
+    "tipo_circuito": "Filtro Ativo Passa-Baixa de Primeira Ordem",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": ".op"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "2"
+            },
+            {
+                "id": "R2",
+                "valor": "7"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "18"
+            }
+        ],
+        "capacitores": [
+            {
+                "id": "C1",
+                "valor": "100m"
+            }
+        ],
+        "diodos": [],
+        "indutores": [
+            {
+                "id": "L1",
+                "valor": "1"
+            }
+        ]
+    },
+    "analise_numerica": {
+        "ganho_teorico": -1.4,
+        "Vout_teorico_V": -25.2,
+        "Vout_real_V": -25.2,
+        "tensoes_V": {
+            "A": 9,
+            "B": -16.2
+        },
+        "correntes_A": {
+            "R1": -4.5,
+            "R2": 3.6
+        },
+        "potencias_W": {
+            "R1": 40.5,
+            "R2": 51.84
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            ".op": "Linear"
+        },
+        "terra_virtual": true
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T15:01:52",
+        "imagem": "RLC_4.png",
+        "modelo": "google/gemma-3-27b-it",
+        "provedor": "Novita",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790532102-vWq8sr2CaRKQ1s2aU8qB",
+        "finish_reason": "stop",
+        "input_tokens": 1352,
+        "output_tokens": 397,
+        "erro_json": false
+    }
+}

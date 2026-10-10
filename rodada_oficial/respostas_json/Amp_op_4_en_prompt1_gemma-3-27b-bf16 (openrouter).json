@@ -1,0 +1,83 @@
+{
+    "tipo_circuito": "Amplificador Operacional Inversor",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": "U1"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "5"
+            },
+            {
+                "id": "R2",
+                "valor": "2"
+            },
+            {
+                "id": "R3",
+                "valor": "8"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "12"
+            },
+            {
+                "id": "V2",
+                "valor": "-12"
+            },
+            {
+                "id": "V3",
+                "valor": "2"
+            },
+            {
+                "id": "V4",
+                "valor": "-3"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": -2.6666666666666665,
+        "Vout_teorico_V": 1.3333333333333333,
+        "Vout_real_V": 1.3333333333333333,
+        "tensoes_V": {
+            "A": 0.6666666666666666,
+            "B": 0,
+            "C": 1.3333333333333333
+        },
+        "correntes_A": {
+            "R1": 0.13333333333333333,
+            "R2": 0.6666666666666666,
+            "R3": 0.13333333333333333
+        },
+        "potencias_W": {
+            "R1": 0.08888888888888889,
+            "R2": 0.8888888888888888,
+            "R3": 0.08888888888888889
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "U1": "Linear"
+        },
+        "terra_virtual": true
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T12:53:36",
+        "imagem": "Amp_op_4.png",
+        "modelo": "google/gemma-3-27b-it",
+        "provedor": "Novita",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790524369-NUOKsCpdhVUJq5i0S0wb",
+        "finish_reason": "stop",
+        "input_tokens": 1297,
+        "output_tokens": 609,
+        "erro_json": false
+    }
+}

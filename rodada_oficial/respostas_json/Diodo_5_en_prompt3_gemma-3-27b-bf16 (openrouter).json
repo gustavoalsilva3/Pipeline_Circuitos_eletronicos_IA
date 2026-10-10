@@ -1,0 +1,93 @@
+{
+    "tipo_circuito": "Amplificador Diferencial com Diodos",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": "op"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "10"
+            },
+            {
+                "id": "R2",
+                "valor": "6"
+            },
+            {
+                "id": "R3",
+                "valor": "5"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "2"
+            },
+            {
+                "id": "V2",
+                "valor": "1"
+            },
+            {
+                "id": "V3",
+                "valor": "5"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [
+            {
+                "id": "D1"
+            },
+            {
+                "id": "D2"
+            }
+        ],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": 0,
+        "Vout_teorico_V": 1.25,
+        "Vout_real_V": 1.25,
+        "tensoes_V": {
+            "A": 1.25,
+            "V1": 2,
+            "V2": 1,
+            "V3": 5
+        },
+        "correntes_A": {
+            "R1": 0.375,
+            "R2": 0.20833333333333334,
+            "R3": 0.25,
+            "D1": 0.125,
+            "D2": 0.125
+        },
+        "potencias_W": {
+            "R1": 1.40625,
+            "R2": 0.26041666666666663,
+            "R3": 0.3125,
+            "D1": null,
+            "D2": null
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "D1": "Forward Conduction",
+            "D2": "Forward Conduction",
+            "op": "Linear"
+        },
+        "terra_virtual": true
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T14:16:03",
+        "imagem": "Diodo_5.png",
+        "modelo": "google/gemma-3-27b-it",
+        "provedor": "Novita",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790529345-RAWVNPUVLPKlOSpGAapF",
+        "finish_reason": "stop",
+        "input_tokens": 1423,
+        "output_tokens": 560,
+        "erro_json": false
+    }
+}

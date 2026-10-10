@@ -1,0 +1,68 @@
+{
+    "tipo_circuito": "Voltage Divider with Diodes",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "10"
+            },
+            {
+                "id": "R2",
+                "valor": "5"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "10"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [
+            {
+                "id": "D1"
+            },
+            {
+                "id": "D2"
+            }
+        ],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": 0.5,
+        "Vout_teorico_V": 5,
+        "Vout_real_V": 5,
+        "tensoes_V": {
+            "A": 5,
+            "Vout": 5
+        },
+        "correntes_A": {
+            "R1": 0.5,
+            "R2": 1
+        },
+        "potencias_W": {
+            "R1": 2.5,
+            "R2": 5
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "D1": "Forward Conduction",
+            "D2": "Forward Conduction"
+        },
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T13:50:14",
+        "imagem": "Diodo_2.png",
+        "modelo": "qwen/qwen3-vl-8b-instruct",
+        "provedor": "Parasail",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790527809-HvgFomovHaTPaEz4Q6Xk",
+        "finish_reason": "stop",
+        "input_tokens": 1656,
+        "output_tokens": 309,
+        "erro_json": false
+    }
+}

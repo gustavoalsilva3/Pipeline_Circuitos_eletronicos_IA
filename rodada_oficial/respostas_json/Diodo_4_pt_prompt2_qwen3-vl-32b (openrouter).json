@@ -1,0 +1,92 @@
+{
+    "tipo_circuito": "Circuito com diodos e resistores em configuração de seleção de tensão (ou circuito de máxima tensão)",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "1"
+            },
+            {
+                "id": "R2",
+                "valor": "20"
+            },
+            {
+                "id": "R3",
+                "valor": "5"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "3"
+            },
+            {
+                "id": "V2",
+                "valor": "2"
+            },
+            {
+                "id": "V3",
+                "valor": "1"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [
+            {
+                "id": "D1"
+            },
+            {
+                "id": "D2"
+            },
+            {
+                "id": "D3"
+            }
+        ],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": null,
+        "Vout_teorico_V": 3.0,
+        "Vout_real_V": 3.0,
+        "tensoes_V": {
+            "A": 3.0,
+            "B": 1.0
+        },
+        "correntes_A": {
+            "R1": 1.0,
+            "R2": 0.1,
+            "R3": 0.4,
+            "D1": 0.1,
+            "D2": 0.0,
+            "D3": 0.0
+        },
+        "potencias_W": {
+            "R1": 1.0,
+            "R2": 0.9,
+            "R3": 2.0,
+            "V1": -0.3,
+            "V2": 0.0,
+            "V3": -1.0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "D1": "Condução Direta",
+            "D2": "Corte",
+            "D3": "Corte"
+        },
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T13:58:25",
+        "imagem": "Diodo_4.png",
+        "modelo": "qwen/qwen3-vl-32b-instruct",
+        "provedor": "Alibaba",
+        "quantizacao": "unknown",
+        "id_geracao": "gen-1790528299-kxiW4lp6hYncPSZHwjdP",
+        "finish_reason": "stop",
+        "input_tokens": 1463,
+        "output_tokens": 478,
+        "erro_json": false
+    }
+}

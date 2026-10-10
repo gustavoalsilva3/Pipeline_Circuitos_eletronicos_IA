@@ -1,0 +1,88 @@
+{
+    "tipo_circuito": "Amplificador Operacional Não Inversor com Diodo de Proteção",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": "U1"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "5"
+            },
+            {
+                "id": "R2",
+                "valor": "5"
+            },
+            {
+                "id": "R3",
+                "valor": "10"
+            },
+            {
+                "id": "R4",
+                "valor": "5"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "20"
+            }
+        ],
+        "capacitores": [
+            {
+                "id": "C1",
+                "valor": "10m"
+            }
+        ],
+        "diodos": [
+            {
+                "id": "D1"
+            }
+        ],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": 1.0,
+        "Vout_teorico_V": 20.0,
+        "Vout_real_V": 20.0,
+        "tensoes_V": {
+            "A": 20.0,
+            "B": 0.0
+        },
+        "correntes_A": {
+            "R1": 4.0,
+            "R2": 2.0,
+            "R3": 2.0,
+            "R4": 0.0,
+            "D1": 2.0
+        },
+        "potencias_W": {
+            "R1": 40.0,
+            "R2": 20.0,
+            "R3": 40.0,
+            "R4": 0.0,
+            "D1": 0.0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "U1": "Linear",
+            "D1": "Forward Conduction"
+        },
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T15:08:55",
+        "imagem": "RLC_5.png",
+        "modelo": "google/gemma-3-27b-it",
+        "provedor": "Novita",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790532523-wy8vbMmyXGdMoXCakCl3",
+        "finish_reason": "stop",
+        "input_tokens": 1297,
+        "output_tokens": 502,
+        "erro_json": false
+    }
+}

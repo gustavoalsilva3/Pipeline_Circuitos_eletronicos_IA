@@ -1,0 +1,72 @@
+{
+    "tipo_circuito": "Amplificador com diodo e fontes de tensão",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "5"
+            },
+            {
+                "id": "R2",
+                "valor": "10"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "5"
+            },
+            {
+                "id": "V2",
+                "valor": "10"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [
+            {
+                "id": "D1"
+            },
+            {
+                "id": "D2"
+            }
+        ],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": 0,
+        "Vout_teorico_V": 0,
+        "Vout_real_V": 0,
+        "tensoes_V": {
+            "A": 0,
+            "Vout": 0
+        },
+        "correntes_A": {
+            "R1": 0,
+            "R2": 0
+        },
+        "potencias_W": {
+            "R1": 0,
+            "R2": 0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "D1": "Corte",
+            "D2": "Corte"
+        },
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T13:53:30",
+        "imagem": "Diodo_3.png",
+        "modelo": "qwen/qwen3-vl-8b-instruct",
+        "provedor": "Parasail",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790528004-mao66qZb6JUoXpkBMmRi",
+        "finish_reason": "stop",
+        "input_tokens": 1551,
+        "output_tokens": 322,
+        "erro_json": false
+    }
+}

@@ -1,0 +1,92 @@
+{
+    "tipo_circuito": "Current Divider with Diodes and Resistors",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "1"
+            },
+            {
+                "id": "R2",
+                "valor": "20"
+            },
+            {
+                "id": "R3",
+                "valor": "5"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "3"
+            },
+            {
+                "id": "V2",
+                "valor": "2"
+            },
+            {
+                "id": "V3",
+                "valor": "1"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [
+            {
+                "id": "D1"
+            },
+            {
+                "id": "D2"
+            },
+            {
+                "id": "D3"
+            }
+        ],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": null,
+        "Vout_teorico_V": 1.388888888888889,
+        "Vout_real_V": 1.388888888888889,
+        "tensoes_V": {
+            "A": 1.388888888888889,
+            "B": 0
+        },
+        "correntes_A": {
+            "D1": 0.19444444444444445,
+            "D2": 0.4,
+            "D3": 0.20555555555555555,
+            "R1": 0.20555555555555555,
+            "R2": 0.06944444444444443,
+            "R3": 0.4
+        },
+        "potencias_W": {
+            "D1": 0,
+            "D2": 0,
+            "D3": 0,
+            "R1": 0.04222222222222222,
+            "R2": 0.01388888888888889,
+            "R3": 0.2
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "D1": "Forward Conduction",
+            "D2": "Forward Conduction",
+            "D3": "Forward Conduction"
+        },
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T14:02:36",
+        "imagem": "Diodo_4.png",
+        "modelo": "google/gemma-3-27b-it",
+        "provedor": "Novita",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790528520-sHT9iTfZFC7TUi6zERoQ",
+        "finish_reason": "stop",
+        "input_tokens": 1297,
+        "output_tokens": 653,
+        "erro_json": false
+    }
+}

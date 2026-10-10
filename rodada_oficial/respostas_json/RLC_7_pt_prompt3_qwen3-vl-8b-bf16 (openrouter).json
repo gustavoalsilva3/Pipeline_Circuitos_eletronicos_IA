@@ -1,0 +1,90 @@
+{
+  "tipo_circuito": "Amplificador Operacional com realimentação negativa",
+  "componentes": {
+    "amplificadores_operacionais": [
+      {
+        "id": ".op"
+      }
+    ],
+    "resistores": [
+      {
+        "id": "R1",
+        "valor": "4"
+      },
+      {
+        "id": "R2",
+        "valor": "5"
+      },
+      {
+        "id": "R3",
+        "valor": "6"
+      },
+      {
+        "id": "R4",
+        "valor": "5"
+      }
+    ],
+    "fontes": [
+      {
+        "id": "V1",
+        "valor": "20"
+      }
+    ],
+    "capacitores": [
+      {
+        "id": "C1",
+        "valor": "10m"
+      }
+    ],
+    "diodos": [],
+    "indutores": [
+      {
+        "id": "L1",
+        "valor": "1"
+      }
+    ]
+  },
+  "analise_numerica": {
+    "ganho_teorico": 1,
+    "Vout_teorico_V": 20,
+    "Vout_real_V": 20,
+    "tensoes_V": {
+      "A": 20,
+      "B": 0
+    },
+    "correntes_A": {
+      "R1": 5,
+      "R2": 4,
+      "R3": 4,
+      "R4": 4,
+      "L1": 0,
+      "C1": 0
+    },
+    "potencias_W": {
+      "R1": 100,
+      "R2": 80,
+      "R3": 96,
+      "R4": 80,
+      "L1": 0,
+      "C1": 0
+    }
+  },
+  "analise_textual": {
+    "regiao_operacao": {
+      ".op": "Linear"
+    },
+    "terra_virtual": true
+  },
+  "_openrouter": {
+    "timestamp": "2026-09-27T15:50:19",
+    "imagem": "RLC_7.png",
+    "modelo": "qwen/qwen3-vl-8b-instruct",
+    "provedor": "Parasail",
+    "quantizacao": "bf16",
+    "id_geracao": "gen-1790534991-YOThKVketUtAGjRUwRLQ",
+    "finish_reason": "stop",
+    "input_tokens": 1737,
+    "output_tokens": 458,
+    "erro_json": false
+  }
+}

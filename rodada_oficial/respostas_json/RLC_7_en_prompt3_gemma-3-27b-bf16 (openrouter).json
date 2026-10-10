@@ -1,0 +1,91 @@
+{
+    "tipo_circuito": "Op-Amp Circuit with Diode Clamp",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": "op"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "4"
+            },
+            {
+                "id": "R2",
+                "valor": "5"
+            },
+            {
+                "id": "R3",
+                "valor": "6"
+            },
+            {
+                "id": "R4",
+                "valor": "5"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "20"
+            }
+        ],
+        "capacitores": [
+            {
+                "id": "C1",
+                "valor": "10m"
+            }
+        ],
+        "diodos": [
+            {
+                "id": "D1"
+            }
+        ],
+        "indutores": [
+            {
+                "id": "L1",
+                "valor": "1"
+            }
+        ]
+    },
+    "analise_numerica": {
+        "ganho_teorico": -1,
+        "Vout_teorico_V": -20,
+        "Vout_real_V": 0,
+        "tensoes_V": {
+            "A": -20,
+            "out": 0
+        },
+        "correntes_A": {
+            "R1": -5,
+            "R2": 4,
+            "R3": -3.3333333333333335,
+            "R4": 4
+        },
+        "potencias_W": {
+            "R1": 100,
+            "R2": 80,
+            "R3": 66.66666666666667,
+            "R4": 80
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "op": "Negative Saturation",
+            "D1": "Forward Conduction"
+        },
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T15:24:46",
+        "imagem": "RLC_7.png",
+        "modelo": "google/gemma-3-27b-it",
+        "provedor": "Novita",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790533419-EgKlm722zO5H0cT3WMuo",
+        "finish_reason": "stop",
+        "input_tokens": 1423,
+        "output_tokens": 498,
+        "erro_json": false
+    }
+}

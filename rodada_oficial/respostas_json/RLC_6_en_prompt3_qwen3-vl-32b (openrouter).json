@@ -1,0 +1,79 @@
+{
+    "tipo_circuito": "Circuito RC em cascata (filtros passa-baixa em série)",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "3"
+            },
+            {
+                "id": "R2",
+                "valor": "3"
+            },
+            {
+                "id": "R3",
+                "valor": "2"
+            },
+            {
+                "id": "R4",
+                "valor": "4"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "24"
+            }
+        ],
+        "capacitores": [
+            {
+                "id": "C1",
+                "valor": "10m"
+            },
+            {
+                "id": "C2",
+                "valor": "10m"
+            }
+        ],
+        "diodos": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": 0.5,
+        "Vout_teorico_V": 12,
+        "Vout_real_V": 12,
+        "tensoes_V": {
+            "A": 12,
+            "B": 8
+        },
+        "correntes_A": {
+            "R1": 4,
+            "R2": 2.6666666666666665,
+            "R3": 2,
+            "R4": 3
+        },
+        "potencias_W": {
+            "R1": 144,
+            "R2": 21.33333333333333,
+            "R3": 32,
+            "R4": 48
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {},
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T15:14:53",
+        "imagem": "RLC_6.png",
+        "modelo": "qwen/qwen3-vl-32b-instruct",
+        "provedor": "Alibaba",
+        "quantizacao": "unknown",
+        "id_geracao": "gen-1790532887-EO7e0nqUow2iCkz5Yakh",
+        "finish_reason": "stop",
+        "input_tokens": 1598,
+        "output_tokens": 409,
+        "erro_json": false
+    }
+}

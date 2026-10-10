@@ -1,0 +1,76 @@
+{
+    "tipo_circuito": "não determinado",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "2"
+            },
+            {
+                "id": "R2",
+                "valor": "10"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "3"
+            },
+            {
+                "id": "V2",
+                "valor": "8"
+            },
+            {
+                "id": "V3",
+                "valor": "5"
+            },
+            {
+                "id": "V4",
+                "valor": "6"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [
+            {
+                "id": "D1"
+            },
+            {
+                "id": "D2"
+            },
+            {
+                "id": "D3"
+            },
+            {
+                "id": "D4"
+            }
+        ],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": 0,
+        "Vout_teorico_V": 0,
+        "Vout_real_V": 0,
+        "tensoes_V": {
+            "A": 0
+        },
+        "correntes_A": {},
+        "potencias_W": {}
+    },
+    "analise_textual": {
+        "regiao_operacao": {},
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T14:24:41",
+        "imagem": "Diodo_7.png",
+        "modelo": "qwen/qwen3-vl-8b-instruct",
+        "provedor": "Parasail",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790529874-YuOt6RAJltbDn5VwjLl4",
+        "finish_reason": "stop",
+        "input_tokens": 1470,
+        "output_tokens": 293,
+        "erro_json": false
+    }
+}

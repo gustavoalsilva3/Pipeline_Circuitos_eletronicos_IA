@@ -1,0 +1,77 @@
+{
+    "tipo_circuito": "Divisor de Tensão com Amplificador Operacional em Configuração Seguidor de Tensão",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": "op"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "4"
+            },
+            {
+                "id": "R2",
+                "valor": "2"
+            },
+            {
+                "id": "R3",
+                "valor": "6"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "12"
+            }
+        ],
+        "capacitores": [
+            {
+                "id": "C1",
+                "valor": "10m"
+            }
+        ],
+        "diodos": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": 1,
+        "Vout_teorico_V": 12,
+        "Vout_real_V": 12,
+        "tensoes_V": {
+            "A": 4,
+            "Vout": 12
+        },
+        "correntes_A": {
+            "V1": 3,
+            "R1": 3,
+            "R2": 2,
+            "R3": 2
+        },
+        "potencias_W": {
+            "V1": 36,
+            "R1": 12,
+            "R2": 4,
+            "R3": 12
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "op": "Linear"
+        },
+        "terra_virtual": true
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T14:50:13",
+        "imagem": "RLC_2.png",
+        "modelo": "google/gemma-3-27b-it",
+        "provedor": "Novita",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790531308-Lfo6yy0I99ESOX0jGFjm",
+        "finish_reason": "stop",
+        "input_tokens": 1352,
+        "output_tokens": 418,
+        "erro_json": false
+    }
+}

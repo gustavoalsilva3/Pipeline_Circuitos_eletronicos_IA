@@ -1,0 +1,71 @@
+{
+    "tipo_circuito": "Divisor de tensão com indutor e resistor em paralelo",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "3"
+            },
+            {
+                "id": "R2",
+                "valor": "5"
+            },
+            {
+                "id": "R3",
+                "valor": "9"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "15"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [],
+        "indutores": [
+            {
+                "id": "L1",
+                "valor": "1"
+            }
+        ]
+    },
+    "analise_numerica": {
+        "ganho_teorico": 1,
+        "Vout_teorico_V": 15,
+        "Vout_real_V": 15,
+        "tensoes_V": {
+            "A": 15,
+            "B": 15
+        },
+        "correntes_A": {
+            "R1": 5,
+            "R2": 1.6666666666666667,
+            "R3": 1.6666666666666667,
+            "L1": 0
+        },
+        "potencias_W": {
+            "R1": 75,
+            "R2": 25,
+            "R3": 25,
+            "L1": 0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {},
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T14:57:08",
+        "imagem": "RLC_3.png",
+        "modelo": "qwen/qwen3-vl-8b-instruct",
+        "provedor": "Parasail",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790531820-J2r8MBnqpVeVemPenwY2",
+        "finish_reason": "stop",
+        "input_tokens": 1880,
+        "output_tokens": 373,
+        "erro_json": false
+    }
+}

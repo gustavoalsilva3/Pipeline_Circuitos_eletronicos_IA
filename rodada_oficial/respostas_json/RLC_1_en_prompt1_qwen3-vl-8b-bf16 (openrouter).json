@@ -1,0 +1,65 @@
+{
+    "tipo_circuito": "Inverting Amplifier",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": ".op"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "4"
+            },
+            {
+                "id": "R2",
+                "valor": "6"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "10"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": -1.5,
+        "Vout_teorico_V": -15,
+        "Vout_real_V": -15,
+        "tensoes_V": {
+            "A": 10,
+            "B": 0,
+            "C": -15
+        },
+        "correntes_A": {
+            "R1": 2.5,
+            "R2": 2.5
+        },
+        "potencias_W": {
+            "R1": 15,
+            "R2": 15
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            ".op": "Negative Saturation"
+        },
+        "terra_virtual": true
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T14:43:01",
+        "imagem": "RLC_1.png",
+        "modelo": "qwen/qwen3-vl-8b-instruct",
+        "provedor": "Parasail",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790530972-Zg99E0cpT3UbUueQ46QU",
+        "finish_reason": "stop",
+        "input_tokens": 1398,
+        "output_tokens": 318,
+        "erro_json": false
+    }
+}

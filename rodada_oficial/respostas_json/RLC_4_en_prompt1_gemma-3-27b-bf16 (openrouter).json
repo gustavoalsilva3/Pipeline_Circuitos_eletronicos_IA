@@ -1,0 +1,74 @@
+{
+    "tipo_circuito": "Non-inverting Amplifier with Inductor and Capacitor",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": "U1"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "2"
+            },
+            {
+                "id": "R2",
+                "valor": "7"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "18"
+            }
+        ],
+        "capacitores": [
+            {
+                "id": "C1",
+                "valor": "100m"
+            }
+        ],
+        "diodos": [],
+        "indutores": [
+            {
+                "id": "L1",
+                "valor": "1"
+            }
+        ]
+    },
+    "analise_numerica": {
+        "ganho_teorico": 1.0,
+        "Vout_teorico_V": 18.0,
+        "Vout_real_V": 18.0,
+        "tensoes_V": {
+            "A": 6.0,
+            "B": 18.0
+        },
+        "correntes_A": {
+            "R1": 3.0,
+            "R2": 0.0
+        },
+        "potencias_W": {
+            "R1": 18.0,
+            "R2": 0.0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "U1": "Linear"
+        },
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T15:03:43",
+        "imagem": "RLC_4.png",
+        "modelo": "google/gemma-3-27b-it",
+        "provedor": "Novita",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790532212-jLGlYLmxDcE237WujEX1",
+        "finish_reason": "stop",
+        "input_tokens": 1297,
+        "output_tokens": 396,
+        "erro_json": false
+    }
+}

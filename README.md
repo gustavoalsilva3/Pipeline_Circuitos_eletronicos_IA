@@ -56,19 +56,18 @@ Pipeline_TFC/
 │
 ├── gemini_client.py          # API do Google
 ├── openrouter_client.py      # OpenRouter, com provedor fixado
-├── lmstudio_client.py        # servidor local (LM Studio)
+├── piloto_openrouter.py      # sonda um modelo em 6 circuitos, já pontuado
 │
 ├── response_splitter.py      # separa a resposta nos blocos dos avaliadores
 ├── evaluator_numerico.py     # tensões, correntes, potências, ganho, Vout
 ├── evaluator_textual.py      # região de operação e terra virtual
 ├── evaluator_componentes.py  # identificação e valor dos componentes
 │
-├── consolidar_rodadas.py     # une sub-rodadas em um par único de CSVs
+├── consolidar_rodadas.py     # junta rodadas parciais num par unico de CSVs
 ├── reavaliar_rodada.py       # reavalia respostas salvas, sem chamar modelos
 │
 ├── Analise_erros.py          # tabelas (CSV) e gráficos (PNG) por modelo
 ├── gerar_tabelas_cap4.py     # tabelas LaTeX do capítulo de resultados
-├── gerar_figuras_cap4.py     # figuras comparativas dos 4 modelos
 ├── intervalos_confianca.py   # intervalos por bootstrap
 ├── gerar_apendice_prompts.py # apêndice com o texto dos prompts
 │
@@ -77,7 +76,8 @@ Pipeline_TFC/
 │
 ├── imagens/                  # Amp_op_1..8, Diodo_1..8, RLC_1..8
 ├── gabaritos/                # Resposta_Amp1.json, Resposta_Dio1.json, ...
-├── resultados/               (não versionado)
+├── resultados/               (não versionado — saída de rodadas novas)
+├── rodada_oficial/           # dados da rodada final, versionados (ver Reprodução)
 └── TFC/                      # fontes LaTeX da monografia
 ```
 
@@ -94,19 +94,70 @@ Criar um `.env` na raiz com as chaves dos provedores que forem usados:
 ```text
 GEMINI_API_KEY=...      # API do Google
 Router=...              # OpenRouter (aceita OPENROUTER_API_KEY como alternativa)
-LMSTUDIO_BASE_URL=...   # opcional, padrão http://localhost:1234
 ```
+
+## Reprodução (sem chaves de API)
+
+A pasta `rodada_oficial/` é versionada e guarda os dados que sustentam os
+números do texto: o par de CSVs da rodada final e a resposta bruta de cada uma
+das 576 execuções (mais as 21 que falharam na primeira tentativa, guardadas
+com o sufixo `_falha_original`). Com ela, a análise inteira se refaz sem
+chamar nenhuma API e sem precisar de chave nenhuma:
+
+```bash
+python reavaliar_rodada.py        # reavalia as 576 respostas -> novo par de CSVs
+python gerar_tabelas_cap4.py      # tabelas LaTeX      -> TFC/tabelas_cap4/
+python intervalos_confianca.py    # bootstrap          -> TFC/tab_intervalos.tex
+python Analise_erros.py oficial   # tabelas e gráficos -> resultados/analise/
+```
+
+O primeiro comando é a verificação mais direta: ele reavalia cada resposta
+salva com os gabaritos e avaliadores do repositório e grava em `resultados/`
+um par de CSVs **idêntico byte a byte** a `rodada_oficial/resultados.csv` e
+`rodada_oficial/resultados_detalhe.csv`. Os outros três leem direto da pasta
+versionada: os dois do meio reescrevem as 15 tabelas LaTeX do texto, também
+idênticas às versionadas.
+
+As duas figuras do capítulo de resultados saem do `Analise_erros.py`, que as
+grava junto das demais em `resultados/analise/`. Levá-las ao texto é o único
+passo manual da cadeia:
+
+```bash
+cp resultados/analise/comparativo/graficos/status_geral_por_modelo.png TFC/figuras/comparativo/
+cp resultados/analise/comparativo/graficos/componentes_por_modelo.png TFC/figuras/comparativo/
+```
+
+`rodada_oficial/` é somente leitura: rodadas novas vão sempre para
+`resultados/`, que o git ignora.
 
 ## Execução
 
-### 1. Rodar a pipeline
+Esta seção é para gerar uma rodada **nova**, chamando os modelos — o que exige
+as chaves de API e não é necessário para conferir os resultados do texto.
+
+### 1. Sondar um modelo, antes de pagar a rodada completa
+
+```bash
+python piloto_openrouter.py
+python piloto_openrouter.py --modelo qwen/qwen3-vl-8b-instruct --provider Parasail
+```
+
+Roda 6 dos circuitos mais difíceis no prompt de nível 1 e imprime as mesmas
+métricas do capítulo de resultados, o que torna os números diretamente
+comparáveis aos das tabelas. Útil para decidir se vale avaliar um modelo novo
+na rodada inteira, ou para colocar dois lado a lado sem gastar as 576
+execuções. O `--provider` fixa o provedor pelo mesmo motivo da rodada oficial:
+sem isso o OpenRouter pode rotear para backends com precisões diferentes, e as
+execuções deixam de ser comparáveis entre si.
+
+### 2. Rodar a pipeline
 
 ```bash
 python main.py
 ```
 
 Antes, em `config.py`: ligar os modelos desejados
-(`USAR_MODELO_GEMINI`, `USAR_MODELO_OPENROUTER`, `USAR_MODELO_LMSTUDIO`),
+(`USAR_MODELO_GEMINI` e `USAR_MODELO_OPENROUTER`),
 definir `IDIOMA_PROMPT` (`"pt"`, `"en"` ou `"ambos"`) e, no caso do
 OpenRouter, a lista `MODELOS_OPENROUTER`. Para rodar só um subconjunto de
 circuitos, mova as demais imagens para fora de `imagens/`.
@@ -120,27 +171,38 @@ resultados/resultados_detalhe_AAAAMMDD_HHMMSS.csv  # 1 linha por item comparado
 resultados/respostas_json/                         # resposta bruta de cada execução
 ```
 
-### 2. Consolidar, se a rodada foi feita em partes
+### 3. Consolidar, se a rodada foi feita em partes
 
 ```bash
-python consolidar_rodadas.py
+python consolidar_rodadas.py                              # menu de escolha
+python consolidar_rodadas.py 20260924_082751 20260924_091447
 ```
+
+Sem argumentos, lista as rodadas que encontrou em `resultados/` — com o número
+de execuções e os modelos de cada uma — e pergunta quais juntar. É o caminho
+normal para quem avalia aos poucos: um modelo hoje, outro amanhã, ou alguns
+circuitos por vez.
 
 Necessário porque cada chamada de `main.py` numera suas execuções a partir de
 1. Unir os arquivos sem tratamento faria ids de rodadas diferentes colidirem,
 e o CSV de detalhe — que referencia `id_execucao` — passaria a apontar para a
-linha errada. O script renumera de forma contínua, preserva o id antigo em
-`id_execucao_original` e acrescenta as colunas `provedor` e `quantizacao`.
+linha errada. O script renumera de forma contínua na ordem escolhida, preserva
+o id antigo em `id_execucao_original` e acrescenta as colunas `provedor` e
+`quantizacao`. Modelos que não estiverem no dicionário `ORIGEM` são gravados
+como `nao informado`, com aviso — acrescente uma entrada ali para registrar a
+procedência dos seus.
 
-### 2b. Reavaliar, se gabaritos ou avaliadores mudaram
+### 4. Reavaliar, se gabaritos ou avaliadores mudaram
 
 ```bash
-python reavaliar_rodada.py 20260924_121301
+python reavaliar_rodada.py                   # a rodada oficial versionada (padrão)
+python reavaliar_rodada.py 20261010_144312   # uma rodada de resultados/
 ```
 
 Relê as respostas JSON já salvas e as avalia de novo com os gabaritos e
 avaliadores atuais, sem chamar nenhum modelo. Tempo, tokens, custo e demais
-metadados vêm da rodada indicada; o resultado é um novo par de CSVs. A rodada
+metadados vêm da rodada indicada; o resultado é um novo par de CSVs em
+`resultados/`. A rodada
 oficial final (`20261010_144312`) foi gerada assim, a partir de
 `20260927_160533`, depois que as correntes passaram a ser comparadas em
 módulo; antes dela houve duas correções de gabarito: a dos `RLC_3`/`RLC_7`,
@@ -148,19 +210,23 @@ com a regra de taxa para categorias sem referência, e a dos circuitos com
 amplificador operacional e diodo, que haviam sido simulados com componentes
 não ideais (ver *Notas de implementação*).
 
-### 3. Gerar as saídas
+A rodada original foi executada em partes, em 24/09, e reunida com o
+`consolidar_rodadas.py` (passo 3) — daí vêm as colunas `id_execucao_original`,
+`rodada_origem`, `provedor` e `quantizacao` dos CSVs versionados.
+
+### 5. Gerar as saídas
 
 ```bash
-python Analise_erros.py           # tabelas e gráficos por modelo, em resultados/analise/
+python Analise_erros.py           # a rodada mais recente de resultados/
+python Analise_erros.py oficial   # ou a rodada oficial versionada
 python gerar_tabelas_cap4.py      # tabelas LaTeX      -> TFC/tabelas_cap4/
-python gerar_figuras_cap4.py      # figuras dos 4 modelos -> TFC/figuras/comparativo/
 python intervalos_confianca.py    # bootstrap          -> TFC/tab_intervalos.tex
 python gerar_apendice_prompts.py  # apêndice           -> TFC/apendice_prompts.tex
 ```
 
-Os quatro últimos escrevem direto nas fontes LaTeX, de modo que **nenhum
-número da monografia é digitado à mão**: refazer a rodada e reexecutar os
-scripts atualiza tabelas, figuras e apêndice sem reescrever o texto.
+Todos escrevem direto nas fontes LaTeX ou em `resultados/analise/`, de modo
+que **nenhum número da monografia é digitado à mão**: refazer a rodada e
+reexecutar os scripts atualiza tabelas, figuras e apêndice sem tocar no texto.
 
 ## Notas de implementação
 

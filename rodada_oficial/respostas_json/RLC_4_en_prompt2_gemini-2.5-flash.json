@@ -1,0 +1,63 @@
+{
+    "tipo_circuito": "RLC Circuit (DC Steady State Analysis)",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "2"
+            },
+            {
+                "id": "R2",
+                "valor": "7"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "18"
+            }
+        ],
+        "capacitores": [
+            {
+                "id": "C1",
+                "valor": "100m"
+            }
+        ],
+        "diodos": [],
+        "indutores": [
+            {
+                "id": "L1",
+                "valor": "1"
+            }
+        ]
+    },
+    "analise_numerica": {
+        "ganho_teorico": 0.0,
+        "Vout_teorico_V": 0.0,
+        "Vout_real_V": 0.0,
+        "tensoes_V": {
+            "A": 18.0,
+            "B": 18.0,
+            "Vout": 0.0
+        },
+        "correntes_A": {
+            "R1": 0.0,
+            "L1": 0.0,
+            "C1": 0.0,
+            "R2": 0.0,
+            "V1": 0.0
+        },
+        "potencias_W": {
+            "R1": 0.0,
+            "L1": 0.0,
+            "C1": 0.0,
+            "R2": 0.0,
+            "V1": 0.0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {},
+        "terra_virtual": false
+    }
+}

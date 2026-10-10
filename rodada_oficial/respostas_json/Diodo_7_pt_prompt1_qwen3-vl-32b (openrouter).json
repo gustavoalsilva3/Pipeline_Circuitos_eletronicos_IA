@@ -1,0 +1,87 @@
+{
+    "tipo_circuito": "Circuito com diodos em paralelo e divisão de tensão",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "2"
+            },
+            {
+                "id": "R2",
+                "valor": "10"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "3"
+            },
+            {
+                "id": "V2",
+                "valor": "8"
+            },
+            {
+                "id": "V3",
+                "valor": "5"
+            },
+            {
+                "id": "V4",
+                "valor": "6"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [
+            {
+                "id": "D1"
+            },
+            {
+                "id": "D2"
+            },
+            {
+                "id": "D3"
+            },
+            {
+                "id": "D4"
+            }
+        ],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": null,
+        "Vout_teorico_V": 6.0,
+        "Vout_real_V": 6.0,
+        "tensoes_V": {
+            "A": 8.0
+        },
+        "correntes_A": {
+            "R1": 2.0,
+            "R2": 0.0
+        },
+        "potencias_W": {
+            "R1": 32.0,
+            "R2": 0.0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "D1": "Corte",
+            "D2": "Condução Direta",
+            "D3": "Corte",
+            "D4": "Condução Direta"
+        },
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T14:24:31",
+        "imagem": "Diodo_7.png",
+        "modelo": "qwen/qwen3-vl-32b-instruct",
+        "provedor": "Alibaba",
+        "quantizacao": "unknown",
+        "id_geracao": "gen-1790529865-yqlFHwK7IVxWQeEwWBcW",
+        "finish_reason": "stop",
+        "input_tokens": 1470,
+        "output_tokens": 399,
+        "erro_json": false
+    }
+}

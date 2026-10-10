@@ -1,0 +1,75 @@
+{
+    "tipo_circuito": "Circuito resistivo com diodos",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "2"
+            },
+            {
+                "id": "R3",
+                "valor": "3"
+            },
+            {
+                "id": "R2",
+                "valor": "6"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V2",
+                "valor": "3"
+            },
+            {
+                "id": "V1",
+                "valor": "-3"
+            },
+            {
+                "id": "V3",
+                "valor": "8"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [
+            {
+                "id": "D2"
+            },
+            {
+                "id": "D1"
+            }
+        ],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": null,
+        "Vout_teorico_V": 4.363636363636363,
+        "Vout_real_V": 4.363636363636363,
+        "tensoes_V": {
+            "A": 6.545454545454546,
+            "Vout": 4.363636363636363
+        },
+        "correntes_A": {
+            "R1": 0.7272727272727273,
+            "R3": 0.7272727272727273,
+            "R2": 0.7272727272727273,
+            "D2": 0.0,
+            "D1": 0.0
+        },
+        "potencias_W": {
+            "R1": 1.0578512396694215,
+            "R3": 1.5867768595041323,
+            "R2": 3.1735537190082646,
+            "V2": 0.0,
+            "V1": 0.0,
+            "V3": 5.818181818181818
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "D2": "Corte",
+            "D1": "Corte"
+        },
+        "terra_virtual": false
+    }
+}

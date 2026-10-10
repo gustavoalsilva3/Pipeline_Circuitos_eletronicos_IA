@@ -32,22 +32,24 @@ misturaria os dois em médias por prompt/família/idioma. Em cada pasta:
 
 Tudo que termina em '_por_idioma' compara PT x EN (só gerado com mais de um
 idioma nos dados, ver config.IDIOMA_PROMPT) e tudo que termina em
-'_por_modelo' compara os modelos avaliados na rodada (ex: Gemini x um
-modelo local via LM Studio — só gerado com mais de um modelo nos dados, ver
-config.USAR_MODELO_LMSTUDIO). O detalhe (dfd) não tem colunas próprias de
+'_por_modelo' compara os modelos avaliados na rodada (ex: Gemini x
+Qwen3-VL 32B) — só gerado com mais de um modelo nos dados. O detalhe (dfd) não tem colunas próprias de
 'idioma'/'modelo' — carregar_dados() as traz do resumo via id_execucao,
 para permitir separar por elas também as métricas de 'status' item a item e
 de identificação de componentes.
 """
 
 import re
+import sys
 
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import pandas as pd
 
-from config import PREFIXO_CSV_RESULTADOS, PREFIXO_CSV_DETALHES, RESULTADOS_DIR
+from config import (CSV_RODADA_OFICIAL, PREFIXO_CSV_RESULTADOS,
+                    PREFIXO_CSV_DETALHES, RESULTADOS_DIR,
+                    caminho_detalhe as _detalhe_de)
 
 PASTA_ANALISE = RESULTADOS_DIR / "analise"
 PASTA_TABELAS = PASTA_ANALISE / "tabelas"
@@ -133,14 +135,36 @@ CATEGORIAS_COMPONENTES = [
 # "resultados_detalhe_*" (que também começa com "resultados_").
 # =========================================================
 def _timestamp_mais_recente(prefixo):
+    """Carimbo da rodada mais recente em resultados/, ou None se não houver
+    nenhuma — num clone limpo a pasta nem existe, e aí a análise cai na rodada
+    oficial versionada (ver _caminhos)."""
     padrao = re.compile(rf"^{re.escape(prefixo)}_(\d{{8}}_\d{{6}})\.csv$")
     timestamps = [m.group(1) for m in (padrao.match(p.name) for p in RESULTADOS_DIR.glob("*.csv")) if m]
     if not timestamps:
-        raise FileNotFoundError(
-            f"Nenhum arquivo '{prefixo}_AAAAMMDD_HHMMSS.csv' encontrado em {RESULTADOS_DIR} "
-            "— rode main.py pelo menos uma vez antes."
-        )
+        return None
     return max(timestamps)  # formato AAAAMMDD_HHMMSS ordena cronologicamente como string
+
+
+def _caminhos(timestamp):
+    """(CSV de resumo, CSV de detalhe, rótulo) da rodada a analisar.
+
+    'oficial' é a pasta versionada, que acompanha o repositório e sustenta os
+    números do texto; é também o recurso quando resultados/ está vazia.
+    Qualquer outro valor é um carimbo AAAAMMDD_HHMMSS em resultados/."""
+    if timestamp is None:
+        timestamp = _timestamp_mais_recente(PREFIXO_CSV_RESULTADOS) or "oficial"
+
+    if timestamp == "oficial":
+        if not CSV_RODADA_OFICIAL.exists():
+            raise FileNotFoundError(
+                f"Nenhuma rodada em {RESULTADOS_DIR} e {CSV_RODADA_OFICIAL} não existe "
+                "— rode main.py, ou restaure a pasta rodada_oficial/ do repositório."
+            )
+        return CSV_RODADA_OFICIAL, _detalhe_de(CSV_RODADA_OFICIAL), "oficial (versionada)"
+
+    return (RESULTADOS_DIR / f"{PREFIXO_CSV_RESULTADOS}_{timestamp}.csv",
+            RESULTADOS_DIR / f"{PREFIXO_CSV_DETALHES}_{timestamp}.csv",
+            timestamp)
 
 
 def _carregar_csv(caminho):
@@ -193,16 +217,12 @@ def _ignorar_vout_em_tensoes(df, dfd):
 
 
 def carregar_dados(timestamp=None):
-    """Carrega resumo e detalhe da rodada mais recente (ou de 'timestamp',
-    se informado, no formato AAAAMMDD_HHMMSS), já com as colunas numéricas
-    convertidas e a coluna 'familia' derivada do nome da imagem (prefixo
-    antes do número)."""
-    if timestamp is None:
-        timestamp = _timestamp_mais_recente(PREFIXO_CSV_RESULTADOS)
-
-    caminho_resumo = RESULTADOS_DIR / f"{PREFIXO_CSV_RESULTADOS}_{timestamp}.csv"
-    caminho_detalhe = RESULTADOS_DIR / f"{PREFIXO_CSV_DETALHES}_{timestamp}.csv"
-    print(f"Analisando a rodada: {timestamp}")
+    """Carrega resumo e detalhe da rodada mais recente (ou de 'timestamp':
+    um carimbo AAAAMMDD_HHMMSS, ou 'oficial' para a rodada versionada), já
+    com as colunas numéricas convertidas e a coluna 'familia' derivada do
+    nome da imagem (prefixo antes do número)."""
+    caminho_resumo, caminho_detalhe, rotulo = _caminhos(timestamp)
+    print(f"Analisando a rodada: {rotulo}")
 
     df = _carregar_csv(caminho_resumo)
     dfd = _carregar_csv(caminho_detalhe)
@@ -311,10 +331,9 @@ def gerar_tabelas(df, dfd):
             )
         tabelas["resumo_por_idioma"] = resumo_idioma
 
-    # --- Resumo por modelo (ex: Gemini x modelo local via LM Studio) ---
-    # Só existe quando a rodada avaliou mais de um modelo (ver
-    # config.USAR_MODELO_LMSTUDIO) — com um modelo só, a comparação não diz
-    # nada, a tabela nem é gerada.
+    # --- Resumo por modelo (ex: Gemini x Qwen3-VL 32B) ---
+    # Só existe quando a rodada avaliou mais de um modelo: com um modelo só,
+    # a comparação não diz nada e a tabela nem é gerada.
     if "modelo" in df.columns and df["modelo"].nunique() > 1:
         resumo_modelo = df.groupby("modelo")[metricas_prompt].mean().round(3)
         if "textual_terra_virtual_acerto" in df.columns:
@@ -857,8 +876,8 @@ def gerar_graficos(df, dfd):
             _salvar_grafico(fig, "componentes_por_modelo.png")
 
 
-def main():
-    df, dfd = carregar_dados()
+def main(timestamp=None):
+    df, dfd = carregar_dados(timestamp)
     print(f"\nCarregado: {len(df)} execuções (resumo), {len(dfd)} comparações (detalhe)\n")
 
     if "modelo" not in df.columns or "modelo" not in dfd.columns:
@@ -888,4 +907,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main(*sys.argv[1:])

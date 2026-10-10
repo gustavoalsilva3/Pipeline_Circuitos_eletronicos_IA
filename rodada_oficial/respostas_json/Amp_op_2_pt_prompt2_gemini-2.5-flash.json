@@ -1,0 +1,71 @@
+{
+    "tipo_circuito": "Amplificador Inversor",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": "U1"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "20"
+            },
+            {
+                "id": "R2",
+                "valor": "10"
+            },
+            {
+                "id": "R3",
+                "valor": "40"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "6"
+            },
+            {
+                "id": "V2",
+                "valor": "-6"
+            },
+            {
+                "id": "V3",
+                "valor": "3"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": -2,
+        "Vout_teorico_V": -6,
+        "Vout_real_V": -6,
+        "tensoes_V": {
+            "A": 0,
+            "B": 0,
+            "C": -6,
+            "Vout": -6
+        },
+        "correntes_A": {
+            "R1": 0.15,
+            "R2": 0,
+            "R3": -0.15
+        },
+        "potencias_W": {
+            "R1": 0.45,
+            "R2": 0,
+            "R3": 0.9,
+            "V3": 0.45,
+            "V1": null,
+            "V2": null
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "U1": "Saturação Negativa"
+        },
+        "terra_virtual": true
+    }
+}

@@ -1,0 +1,77 @@
+{
+    "tipo_circuito": "Diode-Resistor Circuit with Voltage Source",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "5"
+            },
+            {
+                "id": "R2",
+                "valor": "10"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "5"
+            },
+            {
+                "id": "V2",
+                "valor": "10"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [
+            {
+                "id": "D1"
+            },
+            {
+                "id": "D2"
+            }
+        ],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": null,
+        "Vout_teorico_V": 10.0,
+        "Vout_real_V": 10.0,
+        "tensoes_V": {
+            "A": 5.0,
+            "V1": 5.0,
+            "V2": 10.0
+        },
+        "correntes_A": {
+            "R1": 1.0,
+            "R2": 0.0,
+            "D1": 1.0,
+            "D2": 0.0
+        },
+        "potencias_W": {
+            "R1": 5.0,
+            "R2": 0.0,
+            "D1": 0.0,
+            "D2": 0.0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "D1": "Forward Conduction",
+            "D2": "Cutoff"
+        },
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T13:55:32",
+        "imagem": "Diodo_3.png",
+        "modelo": "google/gemma-3-27b-it",
+        "provedor": "Novita",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790528118-kyNiW213OIOoRxVgssUp",
+        "finish_reason": "stop",
+        "input_tokens": 1309,
+        "output_tokens": 444,
+        "erro_json": false
+    }
+}

@@ -1,0 +1,58 @@
+{
+    "tipo_circuito": "Divisor de tensão resistivo",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "4"
+            },
+            {
+                "id": "R2",
+                "valor": "6"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "10"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": 0.6,
+        "Vout_teorico_V": 6.0,
+        "Vout_real_V": 6.0,
+        "tensoes_V": {
+            "A": 10.0,
+            "B": 6.0
+        },
+        "correntes_A": {
+            "R1": 1.0,
+            "R2": 1.0
+        },
+        "potencias_W": {
+            "R1": 4.0,
+            "R2": 6.0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {},
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T14:44:15",
+        "imagem": "RLC_1.png",
+        "modelo": "qwen/qwen3-vl-32b-instruct",
+        "provedor": "Alibaba",
+        "quantizacao": "unknown",
+        "id_geracao": "gen-1790531053-CICfmReai2L9jk23UyUh",
+        "finish_reason": "stop",
+        "input_tokens": 1512,
+        "output_tokens": 282,
+        "erro_json": false
+    }
+}

@@ -1,0 +1,75 @@
+{
+    "tipo_circuito": "DC Diode-Resistor Network",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "2"
+            },
+            {
+                "id": "R3",
+                "valor": "3"
+            },
+            {
+                "id": "R2",
+                "valor": "6"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V3",
+                "valor": "8"
+            },
+            {
+                "id": "V2",
+                "valor": "3"
+            },
+            {
+                "id": "V1",
+                "valor": "-3"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [
+            {
+                "id": "D2"
+            },
+            {
+                "id": "D1"
+            }
+        ],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": null,
+        "Vout_teorico_V": 4.36363636,
+        "Vout_real_V": 4.36363636,
+        "tensoes_V": {
+            "A": 6.54545455,
+            "Vout": 4.36363636
+        },
+        "correntes_A": {
+            "R1": 0.72727273,
+            "R3": 0.72727273,
+            "R2": 0.72727273,
+            "D2": 0.0,
+            "D1": 0.0
+        },
+        "potencias_W": {
+            "V3": 5.81818182,
+            "V2": 0.0,
+            "V1": 0.0,
+            "R1": 1.05785124,
+            "R3": 1.58677686,
+            "R2": 3.17355372
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "D2": "Cutoff",
+            "D1": "Cutoff"
+        },
+        "terra_virtual": false
+    }
+}

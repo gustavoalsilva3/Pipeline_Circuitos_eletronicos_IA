@@ -1,0 +1,79 @@
+{
+    "tipo_circuito": "Circuito RC em série com carga resistiva (filtros passa-baixa ou divisor de tensão ativo com capacitores)",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "3"
+            },
+            {
+                "id": "R2",
+                "valor": "3"
+            },
+            {
+                "id": "R3",
+                "valor": "2"
+            },
+            {
+                "id": "R4",
+                "valor": "4"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "24"
+            }
+        ],
+        "capacitores": [
+            {
+                "id": "C1",
+                "valor": "10m"
+            },
+            {
+                "id": "C2",
+                "valor": "10m"
+            }
+        ],
+        "diodos": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": 0.5,
+        "Vout_teorico_V": 12,
+        "Vout_real_V": 12,
+        "tensoes_V": {
+            "A": 12,
+            "B": 8
+        },
+        "correntes_A": {
+            "R1": 4,
+            "R2": 4,
+            "R3": 4,
+            "R4": 3
+        },
+        "potencias_W": {
+            "R1": 144,
+            "R2": 48,
+            "R3": 32,
+            "R4": 48
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {},
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T15:14:01",
+        "imagem": "RLC_6.png",
+        "modelo": "qwen/qwen3-vl-32b-instruct",
+        "provedor": "Alibaba",
+        "quantizacao": "unknown",
+        "id_geracao": "gen-1790532838-JNA4NUfrxDYvoG0KQOLB",
+        "finish_reason": "stop",
+        "input_tokens": 1498,
+        "output_tokens": 388,
+        "erro_json": false
+    }
+}

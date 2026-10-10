@@ -1,0 +1,93 @@
+{
+    "tipo_circuito": "Amplificador com dois estágios e diodo de proteção (ou circuito de limitação)",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": "U1"
+            },
+            {
+                "id": "U2"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "2"
+            },
+            {
+                "id": "R4",
+                "valor": "20"
+            },
+            {
+                "id": "R3",
+                "valor": "2"
+            },
+            {
+                "id": "R5",
+                "valor": "4"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "15"
+            },
+            {
+                "id": "V2",
+                "valor": "10"
+            },
+            {
+                "id": "V3",
+                "valor": "-10"
+            },
+            {
+                "id": "V4",
+                "valor": "6"
+            }
+        ],
+        "diodos": [],
+        "capacitores": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": -10,
+        "Vout_teorico_V": -150,
+        "Vout_real_V": -10,
+        "tensoes_V": {
+            "A": 15,
+            "B": 6,
+            "C": -10
+        },
+        "correntes_A": {
+            "R1": 7.5,
+            "R4": 0.75,
+            "R3": 0.75,
+            "R5": 2.5
+        },
+        "potencias_W": {
+            "R1": 112.5,
+            "R4": 11.25,
+            "R3": 11.25,
+            "R5": 100
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "U1": "Saturação Negativa",
+            "U2": "Saturação Negativa"
+        },
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T13:16:16",
+        "imagem": "Amp_op_7.png",
+        "modelo": "qwen/qwen3-vl-32b-instruct",
+        "provedor": "Alibaba",
+        "quantizacao": "unknown",
+        "id_geracao": "gen-1790525764-2zFctaOXN9bamkqE6c45",
+        "finish_reason": "stop",
+        "input_tokens": 1733,
+        "output_tokens": 463,
+        "erro_json": false
+    }
+}

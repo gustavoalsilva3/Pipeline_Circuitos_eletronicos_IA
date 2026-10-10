@@ -1,0 +1,88 @@
+{
+    "tipo_circuito": "Circuito com Amplificador Operacional e Diodos",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": ".op"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "2"
+            },
+            {
+                "id": "R2",
+                "valor": "6"
+            },
+            {
+                "id": "R3",
+                "valor": "3"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "-3"
+            },
+            {
+                "id": "V2",
+                "valor": "3"
+            },
+            {
+                "id": "V3",
+                "valor": "8"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [
+            {
+                "id": "D1"
+            },
+            {
+                "id": "D2"
+            }
+        ],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": -1,
+        "Vout_teorico_V": 1,
+        "Vout_real_V": 1,
+        "tensoes_V": {
+            "A": 0
+        },
+        "correntes_A": {
+            "D1": 0,
+            "D2": 0,
+            "R1": 4,
+            "R2": 0.16666666666666666,
+            "R3": 0
+        },
+        "potencias_W": {
+            "R1": 8,
+            "R2": 0.25,
+            "R3": 0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "D1": "Corte",
+            "D2": "Corte",
+            ".op": "Linear"
+        },
+        "terra_virtual": true
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T14:20:09",
+        "imagem": "Diodo_6.png",
+        "modelo": "google/gemma-3-27b-it",
+        "provedor": "Novita",
+        "quantizacao": "bf16",
+        "id_geracao": "gen-1790529524-Bgz990y5CYd0Y2lrOi2F",
+        "finish_reason": "stop",
+        "input_tokens": 1480,
+        "output_tokens": 467,
+        "erro_json": false
+    }
+}

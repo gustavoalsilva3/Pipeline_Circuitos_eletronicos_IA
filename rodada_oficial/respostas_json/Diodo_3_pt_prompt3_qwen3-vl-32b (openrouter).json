@@ -1,0 +1,71 @@
+{
+    "tipo_circuito": "Circuito com diodos e resistores em configuração de clamping ou limitação de tensão",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "5"
+            },
+            {
+                "id": "R2",
+                "valor": "10"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "5"
+            },
+            {
+                "id": "V2",
+                "valor": "10"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [
+            {
+                "id": "D1"
+            },
+            {
+                "id": "D2"
+            }
+        ],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": null,
+        "Vout_teorico_V": 5.0,
+        "Vout_real_V": 5.0,
+        "tensoes_V": {
+            "A": 5.0
+        },
+        "correntes_A": {
+            "R1": 1.0,
+            "R2": 0.0
+        },
+        "potencias_W": {
+            "R1": 5.0,
+            "R2": 0.0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "D1": "Condução Direta",
+            "D2": "Corte"
+        },
+        "terra_virtual": false
+    },
+    "_openrouter": {
+        "timestamp": "2026-09-27T13:53:21",
+        "imagem": "Diodo_3.png",
+        "modelo": "qwen/qwen3-vl-32b-instruct",
+        "provedor": "Alibaba",
+        "quantizacao": "unknown",
+        "id_geracao": "gen-1790527993-l0rgJKSXUjMsvz0DqsZa",
+        "finish_reason": "stop",
+        "input_tokens": 1551,
+        "output_tokens": 340,
+        "erro_json": false
+    }
+}
