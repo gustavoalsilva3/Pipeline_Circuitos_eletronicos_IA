@@ -114,6 +114,10 @@ comparacoes = [
      d[d.m == "Qwen3-VL 32B"], d[d.m == "Qwen3-VL 8B"]),
     ("Família", "Qwen3-VL 32B $-$ Gemma 3 27B",
      d[d.m == "Qwen3-VL 32B"], d[d.m == "Gemma 3 27B"]),
+    # Porte e familia variam juntos neste par: e ele que testa se o porte
+    # prediz desempenho ENTRE familias (27,4 bilhoes contra 8).
+    ("Porte entre famílias", "Gemma 3 27B $-$ Qwen3-VL 8B",
+     d[d.m == "Gemma 3 27B"], d[d.m == "Qwen3-VL 8B"]),
 ]
 for m in ORDEM_M:
     dm = d[d.m == m]

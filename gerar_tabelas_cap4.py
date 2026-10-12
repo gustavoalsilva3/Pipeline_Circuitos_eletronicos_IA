@@ -299,8 +299,8 @@ for g, rot, un in GRANDEZAS:
         cel += [v(erm), v(mae, 2), v(rms, 2)]
     linhas.append(f"{rot} ({un}) & " + " & ".join(cel) + r" \\")
 escreve("magnitude_erro.tex", tabela(
-    "Magnitude do erro numérico por modelo: erro relativo mediano (ERM), erro absoluto "
-    "médio (MAE) e raiz do erro quadrático médio (RMSE).",
+    "Magnitude do erro numérico por modelo: mediana do erro relativo médio (ERM), erro "
+    "absoluto médio (MAE) e raiz do erro quadrático médio (RMSE).",
     "tab:magnitudeErro",
     {"spec": "l" + " c c c" * len(ORDEM),
      "cab": " & " + " & ".join("\\multicolumn{3}{c}{" + m + "}" for m in ORDEM)
