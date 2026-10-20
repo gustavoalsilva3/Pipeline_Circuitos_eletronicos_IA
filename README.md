@@ -84,7 +84,7 @@ Pipeline_TFC/
 ├── gabaritos/                # Resposta_Amp1.json, Resposta_Dio1.json, ...
 ├── resultados/               (não versionado — saída de rodadas novas)
 ├── rodada_oficial/           # dados da rodada final, versionados (ver Reprodução)
-└── TFC/                      # fontes LaTeX da monografia
+└── TFC/                      # fontes LaTeX da monografia (repositório à parte)
 ```
 
 ## Esquemáticos de referência
@@ -129,6 +129,13 @@ Router=...              # OpenRouter (aceita OPENROUTER_API_KEY como alternativa
 ```
 
 ## Reprodução (sem chaves de API)
+
+> **A monografia fica em outro repositório.** O texto em LaTeX está em
+> [TFC_Analise_de_Circuitos_eletronicos_IA](https://github.com/gustavoalsilva3/TFC_Analise_de_Circuitos_eletronicos_IA),
+> e não vem neste clone. Para compilar o PDF, clone-o dentro desta pasta,
+> com o nome `TFC`. Os comandos abaixo funcionam sem ele: os geradores
+> criam `TFC/tabelas_cap4/` e `TFC/figuras/` por conta própria, de modo
+> que as tabelas e as figuras saem de qualquer jeito.
 
 A pasta `rodada_oficial/` é versionada e guarda os dados que sustentam os
 números do texto: o par de CSVs da rodada final e a resposta bruta de cada uma
