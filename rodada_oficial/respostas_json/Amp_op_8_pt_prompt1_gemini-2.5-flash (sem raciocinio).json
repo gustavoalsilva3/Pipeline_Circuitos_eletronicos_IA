@@ -1,0 +1,82 @@
+{
+    "tipo_circuito": "amplificador operacional",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": "U1"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "20"
+            },
+            {
+                "id": "R2",
+                "valor": "10"
+            },
+            {
+                "id": "R3",
+                "valor": "2"
+            },
+            {
+                "id": "R4",
+                "valor": "2"
+            },
+            {
+                "id": "R5",
+                "valor": "4"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "5"
+            },
+            {
+                "id": "V2",
+                "valor": "10"
+            },
+            {
+                "id": "V3",
+                "valor": "-10"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": null,
+        "Vout_teorico_V": 10.0,
+        "Vout_real_V": 10.0,
+        "tensoes_V": {
+            "A": 5.0,
+            "B": 0.0,
+            "C": 10.0
+        },
+        "correntes_A": {
+            "R1": 0.25,
+            "R2": 0.5,
+            "R3": 2.5,
+            "R4": 0.0,
+            "R5": 0.0
+        },
+        "potencias_W": {
+            "R1": 1.25,
+            "R2": 2.5,
+            "R3": 5.0,
+            "R4": 0.0,
+            "R5": 0.0,
+            "V1": -1.25,
+            "V2": null,
+            "V3": null
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "U1": "Saturação Positiva"
+        },
+        "terra_virtual": false
+    }
+}

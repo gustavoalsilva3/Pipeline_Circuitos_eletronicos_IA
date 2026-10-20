@@ -1,0 +1,68 @@
+{
+    "tipo_circuito": "DC Diode Circuit",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "5"
+            },
+            {
+                "id": "R2",
+                "valor": "10"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "5"
+            },
+            {
+                "id": "V2",
+                "valor": "10"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [
+            {
+                "id": "D1"
+            },
+            {
+                "id": "D2"
+            }
+        ],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": null,
+        "Vout_teorico_V": 0.0,
+        "Vout_real_V": 0.0,
+        "tensoes_V": {
+            "A": 5.0,
+            "Vout": 0.0
+        },
+        "correntes_A": {
+            "R1": 0.0,
+            "D1": 0.0,
+            "D2": 0.0,
+            "R2": 1.0,
+            "V1": 0.0,
+            "V2": 1.0
+        },
+        "potencias_W": {
+            "R1": 0.0,
+            "D1": 0.0,
+            "D2": 0.0,
+            "R2": 10.0,
+            "V1": 0.0,
+            "V2": -10.0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "D1": "Forward Conduction",
+            "D2": "Cutoff"
+        },
+        "terra_virtual": false
+    }
+}

@@ -13,7 +13,7 @@ load_dotenv()
 
 class GeminiCircuitAnalyzer:
 
-    def __init__(self, model_name: str):
+    def __init__(self, model_name: str, thinking_budget: int | None = None):
 
         api_key = os.getenv("GEMINI_API_KEY")
 
@@ -24,6 +24,9 @@ class GeminiCircuitAnalyzer:
 
         self.client = genai.Client(api_key=api_key)
         self.model_name = model_name
+        # None = padrao do modelo (orcamento dinamico), que foi o da
+        # rodada oficial. 0 desliga o raciocinio interno.
+        self.thinking_budget = thinking_budget
 
     def analisar_imagem(self, image_path, prompt: str, temperatura: float | None = None, seed: int | None = None):
         """Envia a imagem + prompt ao Gemini e retorna SEMPRE uma tupla de
@@ -47,14 +50,25 @@ class GeminiCircuitAnalyzer:
 
             try:
 
+                # O thinking_config so entra quando ha orcamento definido.
+                # Nao passar o campo deixa o modelo no padrao dinamico, que
+                # nao e equivalente a passar thinking_config com budget None
+                # — por isso a configuracao e montada condicionalmente, para
+                # que a rodada oficial continue reproduzivel byte a byte.
+                cfg = {
+                    "temperature": 0.0 if temperatura is None else temperatura,
+                    "seed": seed,
+                    "response_mime_type": "application/json",
+                }
+
+                if self.thinking_budget is not None:
+                    cfg["thinking_config"] = types.ThinkingConfig(
+                        thinking_budget=self.thinking_budget)
+
                 response = self.client.models.generate_content(
                     model=self.model_name,
                     contents=[prompt, image],
-                    config=types.GenerateContentConfig(
-                        temperature=0.0 if temperatura is None else temperatura,
-                        seed=seed,
-                        response_mime_type="application/json"
-                    )
+                    config=types.GenerateContentConfig(**cfg)
                 )
 
                 # usage_metadata traz a contagem real de tokens da chamada.

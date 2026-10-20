@@ -2,14 +2,34 @@
 """Intervalos de confiança (bootstrap por circuito) das taxas de acerto numérico.
 
 Gera TFC/tab_intervalos.tex, a tabela da seção 'Incerteza das Estimativas'."""
+import argparse
 import os
 import pandas as pd, numpy as np
 
 BASE = os.path.dirname(os.path.abspath(__file__))
-# Mesma origem versionada de gerar_tabelas_cap4.py, pelo mesmo motivo.
-CARIMBO = "20261010_144312"
-d = pd.read_csv(os.path.join(BASE, "rodada_oficial", "resultados.csv"),
-                sep=";", engine="python", on_bad_lines="skip", dtype=str)
+
+# Mesma origem versionada de gerar_tabelas_cap4.py, pelo mesmo motivo. Com
+# --carimbo le uma rodada de resultados/ e escreve com o carimbo no nome do
+# arquivo, para que tab_intervalos.tex e tab_pareado.tex do texto nao sejam
+# sobrescritos por uma rodada diferente da oficial.
+_ap = argparse.ArgumentParser(
+    description="Intervalos de confianca das taxas de acerto numerico.")
+_ap.add_argument("--carimbo", default=None,
+                 help="carimbo de uma rodada em resultados/ "
+                      "(AAAAMMDD_HHMMSS); sem isso usa a rodada oficial")
+_args = _ap.parse_args()
+
+if _args.carimbo:
+    CARIMBO = _args.carimbo
+    FONTE = os.path.join(BASE, "resultados", f"resultados_{CARIMBO}.csv")
+    SUF = f"_{CARIMBO}"
+else:
+    CARIMBO = "20261010_144312"
+    FONTE = os.path.join(BASE, "rodada_oficial", "resultados.csv")
+    SUF = ""
+
+d = pd.read_csv(FONTE, sep=";", engine="python",
+                on_bad_lines="skip", dtype=str)
 d["circ"] = d["imagem"].str.replace(r"\.\w+$", "", regex=True)
 d["fam"] = d["imagem"].str.extract(r"(Amp|Dio|RLC)", expand=False).map({"Amp": "Amplificador operacional", "Dio": "Diodo", "RLC": "RLC"})
 cols = {"Tensões": "numerico_tensoes_taxa_acerto_percentual",
@@ -46,10 +66,16 @@ def celula(sub, col):
     return f"{fmt(m)} [{fmt(lo)}; {fmt(hi)}]"
 
 
-modelos = [("gemini-2.5-flash", "Gemini 2.5 Flash"),
-           ("qwen3-vl-32b (openrouter)", "Qwen3-VL 32B"),
-           ("gemma-3-27b-bf16 (openrouter)", "Gemma 3 27B"),
-           ("qwen3-vl-8b-bf16 (openrouter)", "Qwen3-VL 8B")]
+# Ordem de referencia; os modelos ausentes da rodada caem fora na linha
+# seguinte, de modo que a rodada oficial gere exatamente a mesma tabela.
+MODELOS_BASE = [("gemini-2.5-flash", "Gemini 2.5 Flash"),
+                ("gemini-2.5-flash (sem raciocinio)",
+                 "Gemini sem raciocínio"),
+                ("qwen3-vl-32b (openrouter)", "Qwen3-VL 32B"),
+                ("gemma-3-27b-bf16 (openrouter)", "Gemma 3 27B"),
+                ("qwen3-vl-8b-bf16 (openrouter)", "Qwen3-VL 8B")]
+_presentes = set(d["modelo"].dropna())
+modelos = [(mid, nome) for mid, nome in MODELOS_BASE if mid in _presentes]
 # Uma linha por modelo, sobre o conjunto completo das execucoes. Os
 # subconjuntos por nivel de prompt, idioma e familia saem daqui: as
 # comparacoes entre eles sao feitas pela tabela pareada, que mede o intervalo
@@ -74,7 +100,8 @@ tex = r"""\begin{table}[H]
 	\label{tab:intervalos}
 \end{table}
 """
-open(os.path.join(BASE, "TFC", "tab_intervalos.tex"), "w", encoding="utf-8").write(tex)
+open(os.path.join(BASE, "TFC", f"tab_intervalos{SUF}.tex"), "w",
+     encoding="utf-8").write(tex)
 print(tex)
 
 
@@ -106,7 +133,7 @@ def ic_pareado(sub_a, sub_b, col):
 
 
 NIVEIS = {"1": "Direto", "2": "Guiado", "3": "Estruturado"}
-ORDEM_M = ["Gemini 2.5 Flash", "Qwen3-VL 32B", "Gemma 3 27B", "Qwen3-VL 8B"]
+ORDEM_M = [nome for _, nome in modelos]
 d["m"] = d["modelo"].map(dict(modelos))
 
 comparacoes = [
@@ -119,6 +146,14 @@ comparacoes = [
     ("Porte entre famílias", "Gemma 3 27B $-$ Qwen3-VL 8B",
      d[d.m == "Gemma 3 27B"], d[d.m == "Qwen3-VL 8B"]),
 ]
+
+# Raciocinio interno: so existe quando a rodada traz as duas variantes do
+# mesmo Gemini. E o unico par em que modelo, provedor e prompt sao iguais e
+# so o raciocinio muda, de modo que ele isola esse fator.
+if {"Gemini 2.5 Flash", "Gemini sem raciocínio"} <= set(ORDEM_M):
+    comparacoes.insert(0, ("Raciocínio", "Gemini com $-$ Gemini sem",
+                           d[d.m == "Gemini 2.5 Flash"],
+                           d[d.m == "Gemini sem raciocínio"]))
 for m in ORDEM_M:
     dm = d[d.m == m]
     for i, j in (("1", "2"), ("1", "3"), ("2", "3")):
@@ -154,9 +189,56 @@ tab_p = ("\\begin{table}[H]\n\t\\centering\n"
          "\t\\caption{Intervalos de confiança de 95\\% para a diferença entre subconjuntos, "
          "obtidos por reamostragem pareada dos mesmos circuitos. Em negrito, os intervalos que "
          "não contêm zero.}\n\t\\scriptsize\n\t\\setlength{\\tabcolsep}{2pt}\n"
-         "\t\\begin{tabular}{l l c c c}\n\t\t\\toprule\n"
+         "\t\\begin{tabular}{>{\\raggedright\\arraybackslash}p{3.0cm} l c c c}\n\t\t\\toprule\n"
          "\t\tEixo & Comparação & Tensões & Correntes & Potências \\\\\n\t\t\\midrule\n"
          + "\n".join("\t\t" + l for l in linhas_p)
          + "\n\t\t\\bottomrule\n\t\\end{tabular}\n\t\\label{tab:pareado}\n\\end{table}\n")
-open(os.path.join(BASE, "TFC", "tab_pareado.tex"), "w", encoding="utf-8").write(tab_p)
-print(f"gerado: TFC/tab_pareado.tex  ({n_dem} de {n_tot} intervalos excluem zero)")
+open(os.path.join(BASE, "TFC", f"tab_pareado{SUF}.tex"), "w",
+     encoding="utf-8").write(tab_p)
+print(f"gerado: TFC/tab_pareado{SUF}.tex  "
+      f"({n_dem} de {n_tot} intervalos excluem zero)")
+
+
+# =========================================================
+# Grafico dos intervalos, para o texto
+#
+# Ponto com intervalo, e nao barra: a barra sugere area a partir de zero e
+# nao tem onde mostrar a incerteza, que e o assunto da figura. Uma cor so,
+# porque o eixo ja nomeia cada configuracao e pintar cada linha de um tom
+# gastaria o canal de cor com o que o rotulo ja diz.
+# =========================================================
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+
+AZUL = "#2a78d6"
+fig, eixos = plt.subplots(1, 3, figsize=(7.1, 2.7), sharey=True, sharex=True)  # ~largura do texto,
+                                                # para a figura nao ser
+                                                # reduzida no documento
+for ax, (titulo, col) in zip(eixos, cols.items()):
+    ys = list(range(len(modelos)))[::-1]
+    for y, (mid, nome) in zip(ys, modelos):
+        m_, lo, hi = ic(d[d["modelo"] == mid], col)
+        ax.plot([lo, hi], [y, y], color=AZUL, linewidth=2, solid_capstyle="round")
+        ax.plot([m_], [y], "o", color=AZUL, markersize=7,
+                markeredgecolor="white", markeredgewidth=1.2, zorder=3)
+        ax.annotate(f"{m_:.1f}".replace(".", ","), (m_, y), fontsize=8,
+                    textcoords="offset points", xytext=(0, 8), ha="center",
+                    color="#333333")
+    ax.set_title(titulo, fontsize=11, fontweight="bold")
+    ax.set_xlim(0, 100)
+    # folga no topo: sem ela o rotulo da primeira linha encosta no titulo
+    ax.set_ylim(-0.7, len(modelos) - 1 + 0.9)
+    ax.grid(axis="x", color="#DDDDDD", linewidth=0.8)
+    ax.set_axisbelow(True)
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+    ax.set_xlabel("Taxa de acerto (%)", fontsize=9)
+eixos[0].set_yticks(list(range(len(modelos)))[::-1])
+eixos[0].set_yticklabels([nome for _, nome in modelos], fontsize=9)
+fig.tight_layout()
+dest = os.path.join(BASE, "TFC", "figuras", "comparativo", "intervalos.png")
+os.makedirs(os.path.dirname(dest), exist_ok=True)
+fig.savefig(dest, dpi=150)
+plt.close(fig)
+print(f"gerado: {dest}")

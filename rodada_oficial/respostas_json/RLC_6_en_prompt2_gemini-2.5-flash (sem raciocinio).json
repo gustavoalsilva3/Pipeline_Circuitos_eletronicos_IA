@@ -1,0 +1,71 @@
+{
+    "tipo_circuito": "RC Low-Pass Filter (2nd Order)",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "3"
+            },
+            {
+                "id": "R2",
+                "valor": "3"
+            },
+            {
+                "id": "R3",
+                "valor": "2"
+            },
+            {
+                "id": "R4",
+                "valor": "4"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "24"
+            }
+        ],
+        "capacitores": [
+            {
+                "id": "C1",
+                "valor": "10m"
+            },
+            {
+                "id": "C2",
+                "valor": "10m"
+            }
+        ],
+        "diodos": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": 0.25,
+        "Vout_teorico_V": 6.0,
+        "Vout_real_V": 6.0,
+        "tensoes_V": {
+            "A": 18.0,
+            "B": 12.0,
+            "Vout": 6.0
+        },
+        "correntes_A": {
+            "R1": 2.0,
+            "C1": 0.0,
+            "R2": 2.0,
+            "C2": 0.0,
+            "R3": 2.0,
+            "R4": 1.5
+        },
+        "potencias_W": {
+            "V1": -48.0,
+            "R1": 12.0,
+            "R2": 12.0,
+            "R3": 12.0,
+            "R4": 9.0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {},
+        "terra_virtual": false
+    }
+}

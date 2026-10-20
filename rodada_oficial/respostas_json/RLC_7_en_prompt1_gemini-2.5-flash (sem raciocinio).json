@@ -1,0 +1,72 @@
+{
+    "tipo_circuito": "DC Resistive Circuit",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "4"
+            },
+            {
+                "id": "R3",
+                "valor": "6"
+            },
+            {
+                "id": "R4",
+                "valor": "5"
+            },
+            {
+                "id": "R2",
+                "valor": "5"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "20"
+            }
+        ],
+        "capacitores": [
+            {
+                "id": "C1",
+                "valor": "10m"
+            }
+        ],
+        "diodos": [],
+        "indutores": [
+            {
+                "id": "L1",
+                "valor": "1"
+            }
+        ]
+    },
+    "analise_numerica": {
+        "ganho_teorico": null,
+        "Vout_teorico_V": 10.0,
+        "Vout_real_V": 10.0,
+        "tensoes_V": {
+            "A": 10.0
+        },
+        "correntes_A": {
+            "R1": 2.5,
+            "R3": 1.6666666666666667,
+            "L1": 1.6666666666666667,
+            "R4": 0.8333333333333334,
+            "R2": 2.0,
+            "C1": 0.0
+        },
+        "potencias_W": {
+            "V1": -50.0,
+            "R1": 25.0,
+            "R3": 16.666666666666668,
+            "L1": 0.0,
+            "R4": 3.4722222222222223,
+            "R2": 20.0,
+            "C1": 0.0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {},
+        "terra_virtual": false
+    }
+}

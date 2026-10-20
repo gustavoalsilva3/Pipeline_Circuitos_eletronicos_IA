@@ -1,0 +1,89 @@
+{
+    "tipo_circuito": "Diode Logic / Max Detector",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "3"
+            },
+            {
+                "id": "R2",
+                "valor": "6"
+            },
+            {
+                "id": "R3",
+                "valor": "6"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V3",
+                "valor": "4"
+            },
+            {
+                "id": "V2",
+                "valor": "7"
+            },
+            {
+                "id": "V1",
+                "valor": "2"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [
+            {
+                "id": "D1"
+            },
+            {
+                "id": "D2"
+            },
+            {
+                "id": "D3"
+            },
+            {
+                "id": "D4"
+            }
+        ],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": null,
+        "Vout_teorico_V": 7.0,
+        "Vout_real_V": 7.0,
+        "tensoes_V": {
+            "A": 7.0,
+            "B": 7.0,
+            "Vout": 7.0
+        },
+        "correntes_A": {
+            "D1": 0.0,
+            "D2": 1.1666666666666667,
+            "D3": 0.0,
+            "D4": 1.1666666666666667,
+            "R1": 0.0,
+            "R2": 0.0,
+            "R3": 1.1666666666666667,
+            "V1": 0.0,
+            "V2": 1.1666666666666667,
+            "V3": 0.0
+        },
+        "potencias_W": {
+            "V1": 0.0,
+            "V2": 8.166666666666666,
+            "V3": 0.0,
+            "R1": 0.0,
+            "R2": 0.0,
+            "R3": 8.166666666666666
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "D1": "Cutoff",
+            "D2": "Forward Conduction",
+            "D3": "Cutoff",
+            "D4": "Forward Conduction"
+        },
+        "terra_virtual": false
+    }
+}

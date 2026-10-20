@@ -1,0 +1,83 @@
+{
+    "tipo_circuito": "Cascaded Op-Amp Amplifier (Inverting and Non-Inverting)",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": "U1"
+            },
+            {
+                "id": "U2"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "20"
+            },
+            {
+                "id": "R2",
+                "valor": "10"
+            },
+            {
+                "id": "R3",
+                "valor": "2"
+            },
+            {
+                "id": "R4",
+                "valor": "2"
+            },
+            {
+                "id": "R5",
+                "valor": "4"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "5"
+            },
+            {
+                "id": "V2",
+                "valor": "10"
+            },
+            {
+                "id": "V3",
+                "valor": "-10"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": -1.0,
+        "Vout_teorico_V": -5.0,
+        "Vout_real_V": -5.0,
+        "tensoes_V": {
+            "A": 0.0,
+            "B": -2.5,
+            "C": 0.0
+        },
+        "correntes_A": {
+            "R1": 0.25,
+            "R2": -0.25,
+            "R3": -1.25,
+            "R4": -1.25,
+            "R5": -1.25
+        },
+        "potencias_W": {
+            "V1": -1.25,
+            "V2": null,
+            "V3": null,
+            "U1": null,
+            "U2": null
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "U1": "Linear",
+            "U2": "Linear"
+        },
+        "terra_virtual": true
+    }
+}

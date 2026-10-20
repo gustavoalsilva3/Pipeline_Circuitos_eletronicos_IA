@@ -40,6 +40,7 @@ de identificação de componentes.
 """
 
 import re
+import shutil
 import sys
 
 import matplotlib
@@ -91,6 +92,32 @@ def _quebrar_rotulo(texto, largura=18):
     return "\n".join(l.replace("/ ", "/") for l in linhas)
 
 
+def _pct(v, casas=1):
+    """Percentual com virgula decimal, como no resto do texto."""
+    if v is None or pd.isna(v):
+        return "n/d"
+    return f"{v:.{casas}f}%".replace(".", ",")
+
+
+def _barras_modelo(ax, serie):
+    """Barras de uma serie so, com UMA cor para todas.
+
+    A cor aqui nao carregaria informacao que o eixo ja nao de, e pintar cada
+    barra de um tom diferente gasta o unico canal livre com o que o rotulo ja
+    diz. Pior: com cinco modelos e uma paleta de quatro, o quinto reciclava a
+    cor do primeiro, sugerindo parentesco entre modelos distintos.
+
+    Os rotulos do eixo sao quebrados em varias linhas porque
+    "Gemini sem raciocínio" nao cabe em uma linha e se sobrepunha ao
+    rotulo vizinho.
+    """
+    barras = ax.bar([_quebrar_rotulo(r) for r in serie.index.astype(str)],
+                    serie.values, color=PALETA[0])
+    ax.bar_label(barras, labels=[_pct(v) for v in serie.values],
+                 fontweight="bold")
+    return barras
+
+
 def _salvar_grafico(fig, nome):
     """Grava o gráfico marcando o modelo no canto superior esquerdo, para que a
     imagem sozinha diga de qual modelo é. No comparativo só saem os gráficos
@@ -116,11 +143,30 @@ def _salvar_grafico(fig, nome):
     plt.close(fig)
     print(f"Gráfico salvo: {caminho}")
 
-CORES_PROMPT = ["#4C72B0", "#DD8452", "#55A868"]
-# Uma cor por modelo. CORES_PROMPT tem tres entradas, pensadas para os tres
-# niveis de prompt; usada nos graficos por modelo, a quarta barra repetia a cor
-# da primeira, sugerindo relacao entre modelos distintos.
-CORES_MODELO = CORES_PROMPT + ["#8172B2"]
+# Paleta categorica em ordem fixa, conferida no validador de paletas (checa
+# banda de luminosidade, piso de croma, separacao sob daltonismo e piso de
+# visao normal entre pares adjacentes).
+#
+# A paleta anterior reprovava em tres checagens: o azul #4C72B0 e o roxo
+# #8172B2 ficavam a dE 1,9 sob protanopia e 7,2 em visao normal, abaixo do
+# piso de 15 — ou seja, Gemini e Gemma eram dificeis de separar mesmo com
+# visao de cores normal, e o roxo ainda caia abaixo do piso de croma.
+#
+# Tres destes tons ficam abaixo de 3:1 de contraste com o fundo branco, o
+# que e aceitavel porque toda barra leva rotulo direto com o valor.
+PALETA = ["#2a78d6", "#eb6834", "#1baf7a", "#eda100",
+          "#e87ba4", "#008300", "#6250d6", "#e34948"]
+CORES_PROMPT = PALETA[:3]
+CORES_MODELO = PALETA[:5]
+
+# Nomes de exibicao das categorias, que no CSV vem em snake_case.
+NOME_CATEGORIA = {
+    "amplificadores_operacionais": "Amp. operacionais",
+    "regiao_operacao": "Região de operação", "resistores": "Resistores",
+    "capacitores": "Capacitores", "indutores": "Indutores",
+    "diodos": "Diodos", "fontes": "Fontes", "tensoes": "Tensões",
+    "correntes": "Correntes", "potencias": "Potências",
+}
 CATEGORIAS_COMPONENTES = [
     "amplificadores_operacionais", "resistores", "fontes",
     "diodos", "capacitores", "indutores",
@@ -494,11 +540,15 @@ def gerar_tabelas(df, dfd):
 # de 28 caracteres e se sobrepoem no eixo x dos graficos comparativos.
 ROTULO_CURTO = {
     "gemini-2.5-flash": "Gemini 2.5 Flash",
+    "gemini-2.5-flash (sem raciocinio)": "Gemini sem raciocínio",
     "qwen3-vl-32b (openrouter)": "Qwen3-VL 32B",
     "gemma-3-27b-bf16 (openrouter)": "Gemma 3 27B",
     "qwen3-vl-8b-bf16 (openrouter)": "Qwen3-VL 8B",
 }
-ORDEM_MODELOS = ["Gemini 2.5 Flash", "Qwen3-VL 32B", "Gemma 3 27B", "Qwen3-VL 8B"]
+# Um modelo ausente da rodada nao vira linha: _modelos_no_eixo filtra esta
+# lista pelo que existe no indice, de modo que acrescentar nomes aqui e seguro.
+ORDEM_MODELOS = ["Gemini 2.5 Flash", "Gemini sem raciocínio",
+                 "Qwen3-VL 32B", "Gemma 3 27B", "Qwen3-VL 8B"]
 
 
 def curto(modelo):
@@ -532,7 +582,9 @@ def _barras_agrupadas(ax, df_plot, categorias, cores, titulo, ylabel, fmt="{:.1f
         valores = df_plot[col].values
         posicoes = [xi + i * largura - 0.4 + largura / 2 for xi in x]
         barras = ax.bar(posicoes, valores, width=largura, label=label, color=cores[i % len(cores)])
-        ax.bar_label(barras, labels=[fmt.format(v) if pd.notna(v) else "" for v in valores], fontsize=8, padding=2)
+        ax.bar_label(barras, fontsize=8, padding=2,
+                     labels=[fmt.format(v).replace(".", ",") if pd.notna(v) else ""
+                             for v in valores])
 
     ax.set_xticks(list(x))
     ax.set_xticklabels([_quebrar_rotulo(r) for r in df_plot.index.astype(str)])
@@ -589,7 +641,7 @@ def gerar_graficos(df, dfd):
             fig, ax = plt.subplots(figsize=(9, 5))
             _barras_agrupadas(ax, resumo_modelo, categorias_num, CORES_PROMPT,
                                "Taxa de acerto numérico por modelo", "Taxa de acerto (%)", "{:.1f}%")
-            ax.set_xlabel("Modelo")
+            ax.set_xlabel("Configuração")
             fig.tight_layout()
             _salvar_grafico(fig, "taxa_acerto_por_modelo.png")
 
@@ -628,10 +680,9 @@ def gerar_graficos(df, dfd):
             serie = _modelos_no_eixo(
                 df.groupby("modelo")["textual_regiao_operacao_taxa_acerto_percentual"].mean())
             fig, ax = plt.subplots(figsize=(8, 5))
-            barras = ax.bar(serie.index.astype(str), serie.values, color=CORES_MODELO[:len(serie)])
-            ax.bar_label(barras, labels=[f"{v:.1f}%" if pd.notna(v) else "n/d" for v in serie.values], fontweight="bold")
+            _barras_modelo(ax, serie)
             ax.set_title("Acerto de região de operação por modelo", fontsize=13, fontweight="bold")
-            ax.set_xlabel("Modelo")
+            ax.set_xlabel("Configuração")
             ax.set_ylabel("Taxa de acerto (%)")
             ax.set_ylim(0, 110)
             ax.spines["top"].set_visible(False)
@@ -664,10 +715,9 @@ def gerar_graficos(df, dfd):
             .apply(lambda s: round((s == "True").sum() / s.notna().sum() * 100, 1) if s.notna().sum() else None)
         )
         fig, ax = plt.subplots(figsize=(8, 5))
-        barras = ax.bar(serie.index.astype(str), serie.values, color=CORES_MODELO[:len(serie)])
-        ax.bar_label(barras, labels=[f"{v:.1f}%" if pd.notna(v) else "n/d" for v in serie.values], fontweight="bold")
+        _barras_modelo(ax, serie)
         ax.set_title("Acerto de terra virtual por modelo", fontsize=13, fontweight="bold")
-        ax.set_xlabel("Modelo")
+        ax.set_xlabel("Configuração")
         ax.set_ylabel("Taxa de acerto (%)")
         ax.set_ylim(0, 110)
         ax.spines["top"].set_visible(False)
@@ -762,15 +812,24 @@ def gerar_graficos(df, dfd):
             tabela_modelo = _modelos_no_eixo(
                 dfd.groupby("modelo")["status"].value_counts().unstack(fill_value=0), inverter=True)
             status_presentes_modelo = [s for s in ["correto", "incorreto", "faltante", "alucinado", "nao_identificado"] if s in tabela_modelo.columns]
-            fig, ax = plt.subplots(figsize=(9, 0.6 * len(tabela_modelo) + 1.5))
+            # A figura entra na monografia a 0,8 da largura do texto: com 9
+            # polegadas e fonte 8 a legenda ficava ilegivel. Com a fonte maior,
+            # a legenda sobe para fora do eixo, onde nao cobre a barra mais longa.
+            # Largura 9: com 7 polegadas a legenda de quatro colunas em fonte 12
+            # estourava a borda e "alucinado" saia cortado como "alucina".
+            fig, ax = plt.subplots(figsize=(9, 0.6 * len(tabela_modelo) + 1.9))
             esquerda = pd.Series(0, index=tabela_modelo.index)
             for status in status_presentes_modelo:
                 valores = tabela_modelo[status]
                 ax.barh(tabela_modelo.index, valores, left=esquerda, color=cores_status.get(status, "#888888"), label=status)
                 esquerda = esquerda + valores
             ax.set_title("Status geral das comparações por modelo", fontsize=13, fontweight="bold")
-            ax.set_ylabel("Modelo")
-            ax.legend(loc="upper right", fontsize=8, ncol=len(status_presentes_modelo))
+            ax.set_xlabel("Itens", fontsize=13)
+            ax.set_ylabel("Configuração", fontsize=13)
+            ax.tick_params(labelsize=12)
+            ax.legend(loc="lower center", bbox_to_anchor=(0.5, 1.0), fontsize=11,
+                      ncol=len(status_presentes_modelo), frameon=False,
+                      columnspacing=1.4, handlelength=1.4)
             ax.spines["top"].set_visible(False)
             ax.spines["right"].set_visible(False)
             fig.tight_layout()
@@ -781,7 +840,14 @@ def gerar_graficos(df, dfd):
                 dfd["modelo"].dropna().unique(),
                 key=lambda m: (ORDEM_MODELOS.index(curto(m)) if curto(m) in ORDEM_MODELOS
                                else len(ORDEM_MODELOS), str(m)))
-            fig, eixos = plt.subplots(1, len(modelos_presentes), figsize=(9 * len(modelos_presentes), 0.5 * dfd["categoria"].nunique() + 1.5), sharey=True)
+            # 9 polegadas POR modelo davam 45 de largura com cinco modelos: o
+            # texto virava ilegivel. sharex alinha a escala dos paineis, sem o
+            # que cada um tinha um maximo diferente e a comparacao visual entre
+            # modelos, que e a razao de ser do painel, ficava invalida.
+            fig, eixos = plt.subplots(
+                1, len(modelos_presentes), sharey=True, sharex=True,
+                figsize=(2.6 * len(modelos_presentes) + 1.6,
+                         0.42 * dfd["categoria"].nunique() + 2.4))
             if len(modelos_presentes) == 1:
                 eixos = [eixos]
             for ax_i, modelo in zip(eixos, modelos_presentes):
@@ -794,10 +860,21 @@ def gerar_graficos(df, dfd):
                     valores = tabela_cat_modelo[status]
                     ax_i.barh(tabela_cat_modelo.index, valores, left=esquerda, color=cores_status.get(status, "#888888"), label=status)
                     esquerda = esquerda + valores
-                ax_i.set_title(f"Modelo: {curto(modelo)}", fontsize=12, fontweight="bold")
+                ax_i.set_title(_quebrar_rotulo(curto(modelo), 16),
+                               fontsize=10, fontweight="bold")
+                ax_i.tick_params(labelsize=9)
+                ax_i.set_xlabel("Itens", fontsize=9)
                 ax_i.spines["top"].set_visible(False)
                 ax_i.spines["right"].set_visible(False)
-            eixos[-1].legend(loc="upper right", fontsize=8)
+            eixos[0].set_yticklabels(
+                [NOME_CATEGORIA.get(t.get_text(), t.get_text())
+                 for t in eixos[0].get_yticklabels()])
+            eixos[0].set_ylabel("Categoria", fontsize=9)
+            # Legenda unica para o painel inteiro, abaixo dos eixos: dentro do
+            # ultimo painel ela ficava do tamanho de um carimbo.
+            manipuladores, nomes = eixos[0].get_legend_handles_labels()
+            fig.legend(manipuladores, nomes, loc="lower center", ncol=len(nomes),
+                       fontsize=10, frameon=False, bbox_to_anchor=(0.5, -0.02))
             fig.suptitle("Status das comparações por categoria, por modelo", fontsize=13, fontweight="bold")
             fig.tight_layout()
             _salvar_grafico(fig, "status_por_categoria_por_modelo.png")
@@ -861,17 +938,47 @@ def gerar_graficos(df, dfd):
         }
         categorias_comp_plot = [(m, rotulos_comp[m]) for m in metricas_comp if m in resumo_comp_modelo.columns]
         if categorias_comp_plot:
-            # Mais larga que as demais: sao quatro series por modelo e, com os
-            # valores proximos de 100%, as etiquetas se encostam em 9 polegadas.
-            fig, ax = plt.subplots(figsize=(11, 5.5))
-            _barras_agrupadas(ax, resumo_comp_modelo, categorias_comp_plot, CORES_MODELO,
-                               "Identificação de componentes por modelo", "Percentual (%)", "{:.1f}%")
-            ax.set_xlabel("Modelo")
-            ax.set_ylim(0, 110)
-            # As barras ocupam toda a altura util; a legenda vai abaixo do eixo
-            # para nao cobri-las.
-            ax.legend(fontsize=8, loc="upper center", bbox_to_anchor=(0.5, -0.13),
+            # Pontos, e nao barras: todos os valores ficam entre 92% e 100%, de
+            # modo que barras a partir de zero gastariam quase toda a area com
+            # espaco vazio e empilhariam vinte rotulos de "100,0%" uns sobre os
+            # outros. Encurtar o eixo resolveria o espaco, mas barra cortada
+            # mente sobre a proporcao; ponto nao tem base, entao o eixo pode
+            # comecar perto do piso dos dados sem enganar o leitor.
+            colunas_m = [c for c, _ in categorias_comp_plot]
+            fig, ax = plt.subplots(
+                figsize=(9.5, 0.95 * len(resumo_comp_modelo) + 2.2))
+            y = list(range(len(resumo_comp_modelo)))
+            # Cada serie ganha a sua propria sub-linha dentro da faixa do
+            # modelo. Sem esse deslocamento, precision, recall e F1 valem
+            # todos 100% em tres dos modelos e os tres pontos ficam um sobre
+            # o outro: so o ultimo desenhado aparece, e o leitor conclui que
+            # as outras metricas nao foram medidas.
+            n_series = len(categorias_comp_plot)
+            passo = 0.19
+            for i, (col, label) in enumerate(categorias_comp_plot):
+                yi = [v + (i - (n_series - 1) / 2) * passo for v in y]
+                ax.scatter(resumo_comp_modelo[col].values, yi, s=80, zorder=3,
+                           color=PALETA[i], label=label,
+                           edgecolors="white", linewidths=1.2)
+                for xv, yv in zip(resumo_comp_modelo[col].values, yi):
+                    if pd.notna(xv):
+                        ax.annotate(_pct(xv), (xv, yv), fontsize=8,
+                                    textcoords="offset points", xytext=(9, 0),
+                                    va="center", color="#333333")
+            ax.set_yticks(y)
+            ax.set_yticklabels(list(resumo_comp_modelo.index.astype(str)))
+            ax.invert_yaxis()
+            ax.set_xlabel("Percentual (%)")
+            ax.set_ylabel("Configuração")
+            piso = float(resumo_comp_modelo[colunas_m].min().min())
+            # Folga a direita para os rotulos dos pontos em 100%.
+            ax.set_xlim(max(0.0, piso - 2.0), 103.2)
+            ax.grid(axis="x", color="#DDDDDD", linewidth=0.8)
+            ax.set_axisbelow(True)
+            ax.legend(fontsize=9, loc="lower center", bbox_to_anchor=(0.5, 1.0),
                       ncol=len(categorias_comp_plot), frameon=False)
+            ax.spines["top"].set_visible(False)
+            ax.spines["right"].set_visible(False)
             fig.tight_layout()
             _salvar_grafico(fig, "componentes_por_modelo.png")
 
@@ -903,7 +1010,190 @@ def main(timestamp=None):
         gerar_tabelas(df, dfd)
         gerar_graficos(df, dfd)
 
+    gerar_figuras_tfc(df)
+
     print(f"\nAnálise completa em: {PASTA_ANALISE}\n")
+
+
+# =========================================================
+# Figuras do Capitulo 4
+#
+# Gravadas direto em TFC/figuras/comparativo porque entram no texto. As
+# duas de painel usam uma coluna por configuracao, com sharey e sharex: sem
+# isso cada painel ganha a sua propria escala e a comparacao visual entre
+# configuracoes, que e a razao de ser do painel, fica invalida.
+# =========================================================
+PASTA_TFC = RESULTADOS_DIR.parent / "TFC" / "figuras" / "comparativo"
+
+NOME_FAMILIA = {"Amp_op": "Amp. operacional", "Diodo": "Diodo", "RLC": "RLC"}
+NOME_NIVEL = {"1": "Direto", "2": "Guiado", "3": "Estruturado"}
+NOME_IDIOMA = {"pt": "Português", "en": "Inglês"}
+
+CATEGORIAS_NUM = [
+    ("numerico_tensoes_taxa_acerto_percentual", "Tensões"),
+    ("numerico_correntes_taxa_acerto_percentual", "Correntes"),
+    ("numerico_potencias_taxa_acerto_percentual", "Potências"),
+]
+
+
+def _salvar_tfc(fig, nome):
+    PASTA_TFC.mkdir(parents=True, exist_ok=True)
+    caminho = PASTA_TFC / nome
+    fig.savefig(caminho, dpi=150, bbox_inches="tight")
+    plt.close(fig)
+    print(f"Figura do TFC: {caminho}")
+
+
+def _painel_por_fator(df, coluna, rotulos, xlabel, nome):
+    """Grafico de pontos, um painel por grandeza.
+
+    O painel de barras anterior punha 45 valores em 16 cm: a figura
+    nascia com 39,9 cm e entrava no texto em 16, de modo que os rotulos
+    de 7 pt chegavam ao papel com 2,8. Qualquer arranjo de barras daria o
+    mesmo espaco por valor, entao a figura troca largura por altura: cada
+    par (configuracao, categoria) ganha uma linha.
+
+    As tres grandezas ficam em paineis separados, e nao deslocadas dentro
+    da mesma linha, porque ali os rotulos de valor se cobriam sempre que
+    dois pontos caiam perto. Com um ponto por linha em cada painel, a
+    distancia vertical entre rotulos e a da propria linha. O sharey
+    mantem a escala comum, que e o que permite comparar os paineis.
+    """
+    cats = [(c, l) for c, l in CATEGORIAS_NUM if c in df.columns]
+    if not cats or coluna not in df.columns:
+        return
+
+    presentes = {curto(m) for m in df["modelo"].dropna().unique()}
+    modelos = [m for m in ORDEM_MODELOS if m in presentes]
+    chaves = [k for k in rotulos if k in set(df[coluna].astype(str))]
+    if not modelos or not chaves:
+        # sem aviso, um mapa de rotulos desalinhado com os dados
+        # produzia silencio, e a figura simplesmente nao saia
+        print(f"  [aviso] {nome} nao gerada: nenhum valor de "
+              f"'{coluna}' casa com os rotulos {list(rotulos)}")
+        return
+
+    # uma linha por par; o respiro entre grupos abriga o nome da configuracao
+    PASSO, RESPIRO = 1.0, 1.15
+    linhas, grupos, y = [], [], 0.0
+    for modelo in modelos:
+        inicio = y
+        for k in chaves:
+            linhas.append((y, modelo, k))
+            y += PASSO
+        grupos.append((modelo, inicio))
+        y += RESPIRO
+    altura = y - RESPIRO
+
+    fig, eixos = plt.subplots(1, len(cats), sharey=True,
+                              figsize=(7.4, 0.215 * altura + 1.05))
+    if len(cats) == 1:
+        eixos = [eixos]
+
+    for ax, (col, rotulo) in zip(eixos, cats):
+        for i, (_, inicio) in enumerate(grupos):
+            if i % 2:
+                ax.axhspan(inicio - 0.55, inicio + len(chaves) - 0.45,
+                           color="#F2F4F7", zorder=0)
+        xs, ys = [], []
+        for pos, modelo, k in linhas:
+            sub = df[(df["modelo"].map(curto) == modelo)
+                     & (df[coluna].astype(str) == k)]
+            v = sub[col].mean()
+            if pd.notna(v):
+                xs.append(v)
+                ys.append(pos)
+        ax.plot(xs, ys, "o", color=PALETA[0], markersize=5,
+                markeredgecolor="white", markeredgewidth=0.8, zorder=3)
+        for x, yy in zip(xs, ys):
+            ax.annotate(_pct(x), (x, yy), fontsize=7.5, color="#333333",
+                        textcoords="offset points", xytext=(7, 0),
+                        va="center", zorder=4)
+        ax.set_title(rotulo, fontsize=10, fontweight="bold")
+        ax.set_xlim(0, 128)
+        ax.set_xticks([0, 50, 100])
+        ax.set_xlabel("Acerto (%)", fontsize=9)
+        ax.tick_params(labelsize=9)
+        ax.grid(axis="x", color="#DDDDDD", linewidth=0.8)
+        ax.set_axisbelow(True)
+        for lado in ("top", "right", "left"):
+            ax.spines[lado].set_visible(False)
+
+    ax0 = eixos[0]
+    ax0.set_yticks([p for p, _, _ in linhas])
+    ax0.set_yticklabels([rotulos[k] for _, _, k in linhas], fontsize=9)
+    # o nome da configuracao vai no respiro ACIMA do grupo: a esquerda ele
+    # disputava a coluna com o rotulo da categoria e os dois se encostavam
+    for modelo, inicio in grupos:
+        ax0.text(-0.46, inicio - 0.78, modelo,
+                 transform=ax0.get_yaxis_transform(), ha="left", va="center",
+                 fontsize=9, fontweight="bold")
+    ax0.set_ylim(altura + 0.5, -1.25)
+    fig.subplots_adjust(left=0.235, right=0.99, top=0.9, bottom=0.085,
+                        wspace=0.12)
+    _salvar_tfc(fig, nome)
+
+
+def _figura_terra_virtual(df):
+    """Taxa de acerto em terra virtual, com a linha do classificador trivial.
+
+    Sem essa linha a figura diz o contrario do que a secao conclui: quatro
+    das cinco barras passam de 58% e parecem bons resultados, quando so uma
+    supera o que se obteria respondendo sempre 'nao ha terra virtual'. A
+    linha vem do proprio gabarito, e nao de um numero escrito a mao.
+    """
+    col, esp = "textual_terra_virtual_acerto", "textual_terra_virtual_esperado"
+    if col not in df.columns or esp not in df.columns:
+        return
+
+    ok = df[col].astype(str).str.strip().str.lower().eq("true")
+    serie = _modelos_no_eixo(ok.groupby(df["modelo"]).mean() * 100)
+
+    positivos = df[esp].astype(str).str.strip().str.lower().eq("true").mean()
+    base = max(positivos, 1 - positivos) * 100
+
+    fig, ax = plt.subplots(figsize=(6.8, 3.7))
+    _barras_modelo(ax, serie)
+    ax.axhline(base, color="#e34948", linestyle="--", linewidth=1.6, zorder=1)
+    for texto in ax.texts:  # o rotulo de 85,4% cai em cima da linha de 87,5%
+        texto.set_zorder(5)
+        texto.set_bbox(dict(facecolor="white", edgecolor="none", pad=0.6))
+    ax.annotate(f"classificador trivial ({_pct(base)})",
+                xy=(len(serie) - 0.45, base), xytext=(0, 5),
+                textcoords="offset points", ha="right", va="bottom",
+                fontsize=9, color="#e34948", fontweight="bold")
+    ax.set_ylim(0, 108)
+    ax.set_ylabel("Execuções classificadas corretamente (%)")
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+    fig.tight_layout()
+    _salvar_tfc(fig, "terra_virtual_baseline.png")
+
+
+def gerar_figuras_tfc(df):
+    """Grava em TFC/figuras/comparativo tudo o que o Capitulo 4 usa.
+
+    O status geral e desenhado pelo comparativo acima, que o grava em
+    resultados/analise. Aqui ele e copiado, para que a cadeia "rodar os
+    scripts, compilar o TFC" nao tenha nenhum passo manual.
+    """
+    print("\n===== Figuras do Capítulo 4 =====")
+    # Toda comparativa vai junto, e nao so a que o texto usa hoje: uma
+    # figura que fica para tras numa pasta do TFC e pior do que uma que
+    # nao existe, porque parece atual.
+    pasta = PASTA_ANALISE / "comparativo" / "graficos"
+    if pasta.exists():
+        PASTA_TFC.mkdir(parents=True, exist_ok=True)
+        for origem in sorted(pasta.glob("*_por_modelo.png")):
+            shutil.copyfile(origem, PASTA_TFC / origem.name)
+            print(f"Figura do TFC: {PASTA_TFC / origem.name}")
+    _painel_por_fator(df, "familia", NOME_FAMILIA, "Família de circuito",
+                      "familia_por_modelo.png")
+    _painel_por_fator(df, "nivel_prompt", NOME_NIVEL, "Nível de prompt",
+                      "prompt_por_modelo.png")
+    _painel_por_fator(df, "idioma", NOME_IDIOMA, "Idioma do prompt",
+                      "idioma_por_modelo.png")
+    _figura_terra_virtual(df)
 
 
 if __name__ == "__main__":

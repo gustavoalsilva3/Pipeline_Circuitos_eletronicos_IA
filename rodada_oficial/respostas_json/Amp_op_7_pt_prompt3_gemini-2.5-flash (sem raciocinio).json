@@ -1,0 +1,81 @@
+{
+    "tipo_circuito": "Amplificador em cascata",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": "U1"
+            },
+            {
+                "id": "U2"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "2"
+            },
+            {
+                "id": "R4",
+                "valor": "20"
+            },
+            {
+                "id": "R3",
+                "valor": "2"
+            },
+            {
+                "id": "R5",
+                "valor": "4"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "15"
+            },
+            {
+                "id": "V4",
+                "valor": "6"
+            },
+            {
+                "id": "V2",
+                "valor": "10"
+            },
+            {
+                "id": "V3",
+                "valor": "-10"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": -10.0,
+        "Vout_teorico_V": -150.0,
+        "Vout_real_V": -10.0,
+        "tensoes_V": {
+            "A": 0.0,
+            "B": 6.0,
+            "C": -10.0
+        },
+        "correntes_A": {
+            "R1": 7.5,
+            "R4": -0.75,
+            "R3": -8.0,
+            "R5": 0.0
+        },
+        "potencias_W": {
+            "V1": -112.5,
+            "V4": 48.0,
+            "V2": null,
+            "V3": null
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "U1": "Linear",
+            "U2": "Saturação Negativa"
+        },
+        "terra_virtual": true
+    }
+}

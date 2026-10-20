@@ -1,0 +1,75 @@
+{
+    "tipo_circuito": "Circuito com diodos e resistores",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "10"
+            },
+            {
+                "id": "R2",
+                "valor": "6"
+            },
+            {
+                "id": "R3",
+                "valor": "5"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "2"
+            },
+            {
+                "id": "V2",
+                "valor": "1"
+            },
+            {
+                "id": "V3",
+                "valor": "5"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [
+            {
+                "id": "D1"
+            },
+            {
+                "id": "D2"
+            }
+        ],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": null,
+        "Vout_teorico_V": 2.5,
+        "Vout_real_V": 2.5,
+        "tensoes_V": {
+            "A": 2.5,
+            "Vout": 2.5
+        },
+        "correntes_A": {
+            "D1": 0.0,
+            "D2": 0.0,
+            "R1": 0.25,
+            "R2": 0.0,
+            "R3": 0.0
+        },
+        "potencias_W": {
+            "V1": 0.0,
+            "V2": 0.0,
+            "V3": 1.25,
+            "R1": 0.625,
+            "R2": 0.0,
+            "R3": 0.0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "D1": "Corte",
+            "D2": "Corte"
+        },
+        "terra_virtual": false
+    }
+}

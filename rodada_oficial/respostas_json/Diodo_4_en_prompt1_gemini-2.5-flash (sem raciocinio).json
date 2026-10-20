@@ -1,0 +1,80 @@
+{
+    "tipo_circuito": "Diode OR gate / Voltage Divider",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R2",
+                "valor": "20"
+            },
+            {
+                "id": "R3",
+                "valor": "5"
+            },
+            {
+                "id": "R1",
+                "valor": "1"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "3"
+            },
+            {
+                "id": "V2",
+                "valor": "2"
+            },
+            {
+                "id": "V3",
+                "valor": "1"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [
+            {
+                "id": "D1"
+            },
+            {
+                "id": "D2"
+            },
+            {
+                "id": "D3"
+            }
+        ],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": null,
+        "Vout_teorico_V": 2.0,
+        "Vout_real_V": 2.0,
+        "tensoes_V": {
+            "A": 2.0,
+            "B": 0.3333333333333333
+        },
+        "correntes_A": {
+            "D1": 0.0,
+            "D2": 0.0,
+            "D3": 0.0,
+            "R2": 0.0,
+            "R3": 0.26666666666666666,
+            "R1": 0.3333333333333333
+        },
+        "potencias_W": {
+            "V1": 0.0,
+            "V2": 0.0,
+            "V3": 0.0,
+            "R2": 0.0,
+            "R3": 0.35555555555555557,
+            "R1": 0.1111111111111111
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "D1": "Cutoff",
+            "D2": "Forward Conduction",
+            "D3": "Cutoff"
+        },
+        "terra_virtual": false
+    }
+}

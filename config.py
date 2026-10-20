@@ -59,6 +59,15 @@ def caminho_detalhe(caminho_resumo: Path) -> Path:
 MODELO_GEMINI = "gemini-2.5-flash"
 USAR_MODELO_GEMINI = True
 
+# O mesmo Gemini 2.5 Flash com o raciocinio interno desligado
+# (thinking_budget=0). Entra no CSV com rotulo proprio para ser tratado
+# como um modelo a parte: assim a rodada pode ser consolidada com a
+# oficial e comparada sem ambiguidade. Acionado por
+#     python main.py --sem-raciocinio --somente-gemini
+# Sem essa opcao, o Gemini roda no padrao dinamico da rodada oficial.
+GEMINI_SEM_RACIOCINIO_BUDGET = 0
+ROTULO_GEMINI_SEM_RACIOCINIO = f"{MODELO_GEMINI} (sem raciocinio)"
+
 MODELOS_OPENROUTER = [
     {"id": "qwen/qwen3-vl-32b-instruct", "provider": "Alibaba",
      "rotulo": "qwen3-vl-32b (openrouter)",
@@ -118,6 +127,9 @@ COTACAO_USD_BRL = 5.50
 # gravado no CSV. Usado para (re)calcular o custo a partir dos tokens.
 PRECOS_POR_MODELO = {
     MODELO_GEMINI: (PRECO_INPUT_1M, PRECO_OUTPUT_1M),
+    # Mesmo modelo e mesma tabela de precos; muda so o orcamento de
+    # raciocinio, e os tokens pensados nao sao mais cobrados.
+    ROTULO_GEMINI_SEM_RACIOCINIO: (PRECO_INPUT_1M, PRECO_OUTPUT_1M),
     **{cfg["rotulo"]: (cfg["preco_input_1m"], cfg["preco_output_1m"])
        for cfg in MODELOS_OPENROUTER},
 }

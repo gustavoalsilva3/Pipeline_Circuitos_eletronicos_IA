@@ -1,0 +1,60 @@
+{
+    "tipo_circuito": "Diode Rectifier / Voltage Divider",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R2",
+                "valor": "5"
+            },
+            {
+                "id": "R1",
+                "valor": "10"
+            },
+            {
+                "id": "R3",
+                "valor": "5"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "10"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [
+            {
+                "id": "D1"
+            }
+        ],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": null,
+        "Vout_teorico_V": 0,
+        "Vout_real_V": 0,
+        "tensoes_V": {
+            "A": 10
+        },
+        "correntes_A": {
+            "R1": 0,
+            "R2": 0,
+            "D1": 0,
+            "R3": 0
+        },
+        "potencias_W": {
+            "R1": 0,
+            "R2": 0,
+            "D1": 0,
+            "R3": 0,
+            "V1": 0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "D1": "Cutoff"
+        },
+        "terra_virtual": false
+    }
+}

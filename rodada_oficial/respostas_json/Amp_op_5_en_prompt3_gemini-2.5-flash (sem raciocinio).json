@@ -1,0 +1,76 @@
+{
+    "tipo_circuito": "Non-inverting amplifier with feedback",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": "U1"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "6"
+            },
+            {
+                "id": "R3",
+                "valor": "9"
+            },
+            {
+                "id": "R2",
+                "valor": "3"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V3",
+                "valor": "3"
+            },
+            {
+                "id": "V4",
+                "valor": "4"
+            },
+            {
+                "id": "V1",
+                "valor": "15"
+            },
+            {
+                "id": "V2",
+                "valor": "-15"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": 2.5,
+        "Vout_teorico_V": 10.0,
+        "Vout_real_V": 10.0,
+        "tensoes_V": {
+            "A": 4.0,
+            "B": 4.0,
+            "C": 10.0
+        },
+        "correntes_A": {
+            "R1": 0.16666666666666666,
+            "R3": 0.6666666666666666,
+            "R2": 3.3333333333333335
+        },
+        "potencias_W": {
+            "V3": 0.5,
+            "V4": 0.0,
+            "V1": 10.0,
+            "V2": 0.0,
+            "R1": 0.2777777777777778,
+            "R3": 4.0,
+            "R2": 33.333333333333336,
+            "U1": 10.0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "U1": "Linear"
+        },
+        "terra_virtual": false
+    }
+}

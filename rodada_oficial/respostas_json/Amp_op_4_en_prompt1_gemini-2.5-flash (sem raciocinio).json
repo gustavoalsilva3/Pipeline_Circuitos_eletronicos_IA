@@ -1,0 +1,75 @@
+{
+    "tipo_circuito": "Non-inverting amplifier with feedback",
+    "componentes": {
+        "amplificadores_operacionais": [
+            {
+                "id": "U1"
+            }
+        ],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "5"
+            },
+            {
+                "id": "R3",
+                "valor": "8"
+            },
+            {
+                "id": "R2",
+                "valor": "2"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V3",
+                "valor": "2"
+            },
+            {
+                "id": "V4",
+                "valor": "-3"
+            },
+            {
+                "id": "V1",
+                "valor": "12"
+            },
+            {
+                "id": "V2",
+                "valor": "-12"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": 1.6,
+        "Vout_teorico_V": -4.8,
+        "Vout_real_V": -4.8,
+        "tensoes_V": {
+            "A": -3.0,
+            "B": -3.0,
+            "C": -4.8
+        },
+        "correntes_A": {
+            "R1": 1.0,
+            "R3": 0.225,
+            "R2": -2.4
+        },
+        "potencias_W": {
+            "V3": -2.0,
+            "V4": 0.0,
+            "V1": null,
+            "V2": null,
+            "R1": 5.0,
+            "R3": 1.62,
+            "R2": 11.52
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "U1": "Linear"
+        },
+        "terra_virtual": false
+    }
+}

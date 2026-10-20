@@ -11,6 +11,7 @@ Este módulo coordena as etapas de:
    nó de tensão, ID de componente — ver avaliar_resposta_completa).
 """
 
+import argparse
 import json
 import re
 import time
@@ -28,6 +29,8 @@ from config import (
     PREFIXO_CSV_DETALHES,
     MODELO_GEMINI,
     USAR_MODELO_GEMINI,
+    GEMINI_SEM_RACIOCINIO_BUDGET,
+    ROTULO_GEMINI_SEM_RACIOCINIO,
     MODELOS_OPENROUTER,
     USAR_MODELO_OPENROUTER,
     PRECO_INPUT_1M,
@@ -317,19 +320,28 @@ else:
 # O OpenRouter aceita uma lista de modelos (config.MODELOS_OPENROUTER),
 # cada um com seu provedor fixado.
 # =========================================================
-def montar_modelos():
-    """Instancia os analisadores de cada modelo avaliado."""
+def montar_modelos(sem_raciocinio=False, somente_gemini=False):
+    """Instancia os analisadores de cada modelo avaliado.
+
+    Com sem_raciocinio=True o Gemini roda com thinking_budget=0 e e
+    gravado com rotulo proprio, para que a rodada possa ser consolidada
+    com a oficial e comparada como um modelo a parte.
+    """
     modelos = []
 
     if USAR_MODELO_GEMINI:
         modelos.append({
-            "nome": MODELO_GEMINI,
-            "analisador": GeminiCircuitAnalyzer(model_name=MODELO_GEMINI),
+            "nome": (ROTULO_GEMINI_SEM_RACIOCINIO if sem_raciocinio
+                     else MODELO_GEMINI),
+            "analisador": GeminiCircuitAnalyzer(
+                model_name=MODELO_GEMINI,
+                thinking_budget=(GEMINI_SEM_RACIOCINIO_BUDGET
+                                 if sem_raciocinio else None)),
             "preco_input_1m": PRECO_INPUT_1M,
             "preco_output_1m": PRECO_OUTPUT_1M,
         })
 
-    if USAR_MODELO_OPENROUTER:
+    if USAR_MODELO_OPENROUTER and not somente_gemini:
         for cfg in MODELOS_OPENROUTER:
             modelos.append({
                 "nome": cfg.get("rotulo") or cfg["id"],
@@ -632,12 +644,13 @@ def reexecutar_truncadas(pendentes, resultados, detalhes_resultados):
 # Programa principal
 # =========================================================
 
-def main():
+def main(sem_raciocinio=False, somente_gemini=False):
     """Executa o fluxo completo: análise da imagem, avaliação e exportação dos resultados."""
 
     preparar_pastas()
 
-    modelos = montar_modelos()
+    modelos = montar_modelos(sem_raciocinio=sem_raciocinio,
+                             somente_gemini=somente_gemini)
     imagens = listar_imagens()
 
     # =====================================================
@@ -809,6 +822,23 @@ def main():
 # =========================================================
 # Executa o programa
 # =========================================================
+def _argumentos():
+    """Opcoes de linha de comando. Sem nenhuma, roda a configuracao de
+    config.py, que e a da rodada oficial."""
+    p = argparse.ArgumentParser(
+        description="Submete os circuitos aos modelos e avalia as respostas.")
+    p.add_argument(
+        "--sem-raciocinio", action="store_true",
+        help="roda o Gemini com thinking_budget=0; as linhas vao para o CSV "
+             "com o rotulo 'gemini-2.5-flash (sem raciocinio)'")
+    p.add_argument(
+        "--somente-gemini", action="store_true",
+        help="roda so o Gemini, ignorando os modelos do OpenRouter")
+    return p.parse_args()
+
+
 if __name__ == "__main__":
 
-    main()
+    _args = _argumentos()
+    main(sem_raciocinio=_args.sem_raciocinio,
+         somente_gemini=_args.somente_gemini)

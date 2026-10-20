@@ -11159,3 +11159,2948 @@
 576;componentes;capacitores;C1;10m;10 mF;correto
 576;componentes;indutores;L1;1;1 H;correto
 576;textual;regiao_operacao;U1;Linear;;alucinado
+577;numerico;tensoes;A;0.0;9.9998;incorreto
+577;numerico;tensoes;B;0.0;0.0;correto
+577;numerico;tensoes;C;-10.0;-12.0;incorreto
+577;numerico;correntes;R1;0.001;0.0;incorreto
+577;numerico;correntes;R2;0.001;0.0;incorreto
+577;numerico;potencias;R1;0.01;0.0;incorreto
+577;numerico;potencias;R2;0.01;0.0;incorreto
+577;numerico;potencias;V1;;;faltante
+577;numerico;potencias;V2;;;faltante
+577;numerico;potencias;V3;-0.01;;alucinado
+577;componentes;resistores;R1;10k;10 kΩ;correto
+577;componentes;resistores;R2;10k;10 kΩ;correto
+577;componentes;fontes;V1;12;+12 V;correto
+577;componentes;fontes;V2;-12;-12 V;correto
+577;componentes;fontes;V3;10;+10 V;correto
+577;textual;regiao_operacao;U1;Linear;Saturação Negativa;incorreto
+578;numerico;tensoes;A;0.0;9.9998;incorreto
+578;numerico;tensoes;B;0.0;0.0;correto
+578;numerico;tensoes;C;-10.0;-12.0;incorreto
+578;numerico;correntes;R1;0.001;0.0;incorreto
+578;numerico;correntes;R2;0.001;0.0;incorreto
+578;numerico;potencias;R1;0.01;0.0;incorreto
+578;numerico;potencias;R2;0.01;0.0;incorreto
+578;numerico;potencias;V3;-0.01;;alucinado
+578;componentes;resistores;R1;10k;10 kΩ;correto
+578;componentes;resistores;R2;10k;10 kΩ;correto
+578;componentes;fontes;V1;12;+12 V;correto
+578;componentes;fontes;V2;-12;-12 V;correto
+578;componentes;fontes;V3;10;+10 V;correto
+578;textual;regiao_operacao;U1;Linear;Saturação Negativa;incorreto
+579;numerico;tensoes;A;0.0;9.9998;incorreto
+579;numerico;tensoes;B;0.0;0.0;correto
+579;numerico;tensoes;C;-10.0;-12.0;incorreto
+579;numerico;correntes;R1;0.001;0.0;incorreto
+579;numerico;correntes;R2;0.001;0.0;incorreto
+579;numerico;potencias;R1;0.01;0.0;incorreto
+579;numerico;potencias;R2;0.01;0.0;incorreto
+579;numerico;potencias;U1;não determinado;;faltante
+579;numerico;potencias;V1;não determinado;;faltante
+579;numerico;potencias;V2;não determinado;;faltante
+579;numerico;potencias;V3;-0.01;;alucinado
+579;componentes;resistores;R1;10k;10 kΩ;correto
+579;componentes;resistores;R2;10k;10 kΩ;correto
+579;componentes;fontes;V1;12;+12 V;correto
+579;componentes;fontes;V2;-12;-12 V;correto
+579;componentes;fontes;V3;10;+10 V;correto
+579;textual;regiao_operacao;U1;Linear;Saturação Negativa;incorreto
+580;numerico;tensoes;A;0.0;9.9998;incorreto
+580;numerico;tensoes;B;0.0;0.0;correto
+580;numerico;tensoes;C;-10.0;-12.0;incorreto
+580;numerico;correntes;R1;0.001;0.0;incorreto
+580;numerico;correntes;R2;0.001;0.0;incorreto
+580;numerico;potencias;R1;;0.0;faltante
+580;numerico;potencias;R2;;0.0;faltante
+580;numerico;potencias;U1;;;faltante
+580;numerico;potencias;V1;;;faltante
+580;numerico;potencias;V2;;;faltante
+580;numerico;potencias;V3;-0.01;;alucinado
+580;componentes;resistores;R1;10k;10 kΩ;correto
+580;componentes;resistores;R2;10k;10 kΩ;correto
+580;componentes;fontes;V1;12;+12 V;correto
+580;componentes;fontes;V2;-12;-12 V;correto
+580;componentes;fontes;V3;10;+10 V;correto
+580;textual;regiao_operacao;U1;Linear;Saturação Negativa;incorreto
+581;numerico;tensoes;A;0.0;9.9998;incorreto
+581;numerico;tensoes;B;0.0;0.0;correto
+581;numerico;tensoes;C;-10.0;-12.0;incorreto
+581;numerico;correntes;R1;0.001;0.0;incorreto
+581;numerico;correntes;R2;0.001;0.0;incorreto
+581;numerico;potencias;R1;0.01;0.0;incorreto
+581;numerico;potencias;R2;0.01;0.0;incorreto
+581;componentes;resistores;R1;10k;10 kΩ;correto
+581;componentes;resistores;R2;10k;10 kΩ;correto
+581;componentes;fontes;V1;12;+12 V;correto
+581;componentes;fontes;V2;-12;-12 V;correto
+581;componentes;fontes;V3;10;+10 V;correto
+581;textual;regiao_operacao;U1;Linear;Saturação Negativa;incorreto
+582;numerico;tensoes;A;10.0;9.9998;correto
+582;numerico;tensoes;B;0.0;0.0;correto
+582;numerico;tensoes;C;10.0;-12.0;incorreto
+582;numerico;correntes;R1;0.0;0.0;correto
+582;numerico;correntes;R2;0.0;0.0;correto
+582;numerico;correntes;U1;0.0;;alucinado
+582;numerico;potencias;R1;;0.0;faltante
+582;numerico;potencias;R2;;0.0;faltante
+582;numerico;potencias;U1;0.0;;alucinado
+582;numerico;potencias;V1;0.0;;alucinado
+582;numerico;potencias;V2;0.0;;alucinado
+582;numerico;potencias;V3;0.0;;alucinado
+582;componentes;resistores;R1;10k;10 kΩ;correto
+582;componentes;resistores;R2;10k;10 kΩ;correto
+582;componentes;fontes;V1;12;+12 V;correto
+582;componentes;fontes;V2;-12;-12 V;correto
+582;componentes;fontes;V3;10;+10 V;correto
+582;textual;regiao_operacao;U1;Linear;Saturação Negativa;incorreto
+583;numerico;tensoes;A;0.0;0.0;correto
+583;numerico;tensoes;B;0.0;0.0;correto
+583;numerico;tensoes;C;-6.0;-5.99998;correto
+583;numerico;correntes;R1;0.15;0.15;correto
+583;numerico;correntes;R2;0.6;0.0;incorreto
+583;numerico;correntes;R3;0.15;0.15;correto
+583;numerico;potencias;R1;;0.449998;faltante
+583;numerico;potencias;R2;;0.0;faltante
+583;numerico;potencias;R3;;0.899996;faltante
+583;numerico;potencias;V1;;;faltante
+583;numerico;potencias;V2;;;faltante
+583;numerico;potencias;V3;-0.45;;alucinado
+583;componentes;resistores;R1;20;20 Ω;correto
+583;componentes;resistores;R2;10;10 Ω;correto
+583;componentes;resistores;R3;40;40 Ω;correto
+583;componentes;fontes;V1;6;+6 V;correto
+583;componentes;fontes;V2;-6;-6 V;correto
+583;componentes;fontes;V3;3;+3 V;correto
+583;textual;regiao_operacao;U1;Saturação Negativa;Linear;incorreto
+584;numerico;tensoes;A;0.0;0.0;correto
+584;numerico;tensoes;B;0.0;0.0;correto
+584;numerico;tensoes;C;-6.0;-5.99998;correto
+584;numerico;correntes;R1;0.15;0.15;correto
+584;numerico;correntes;R2;0.0;0.0;correto
+584;numerico;correntes;R3;0.15;0.15;correto
+584;numerico;potencias;R1;0.45;0.449998;correto
+584;numerico;potencias;R2;0.0;0.0;correto
+584;numerico;potencias;R3;0.9;0.899996;correto
+584;componentes;resistores;R1;20;20 Ω;correto
+584;componentes;resistores;R2;10;10 Ω;correto
+584;componentes;resistores;R3;40;40 Ω;correto
+584;componentes;fontes;V1;6;+6 V;correto
+584;componentes;fontes;V2;-6;-6 V;correto
+584;componentes;fontes;V3;3;+3 V;correto
+584;textual;regiao_operacao;U1;Saturação Negativa;Linear;incorreto
+585;numerico;tensoes;A;0.0;0.0;correto
+585;numerico;tensoes;B;0.0;0.0;correto
+585;numerico;tensoes;C;6.0;-5.99998;incorreto
+585;numerico;correntes;R1;0.15;0.15;correto
+585;numerico;correntes;R2;0.0;0.0;correto
+585;numerico;correntes;R3;0.15;0.15;correto
+585;numerico;potencias;R1;0.45;0.449998;correto
+585;numerico;potencias;R2;0.0;0.0;correto
+585;numerico;potencias;R3;0.9;0.899996;correto
+585;numerico;potencias;V3;-0.45;;alucinado
+585;componentes;resistores;R1;20;20 Ω;correto
+585;componentes;resistores;R2;10;10 Ω;correto
+585;componentes;resistores;R3;40;40 Ω;correto
+585;componentes;fontes;V1;6;+6 V;correto
+585;componentes;fontes;V2;-6;-6 V;correto
+585;componentes;fontes;V3;3;+3 V;correto
+585;textual;regiao_operacao;U1;Linear;Linear;correto
+586;numerico;tensoes;A;0.0;0.0;correto
+586;numerico;tensoes;B;0.0;0.0;correto
+586;numerico;tensoes;C;-6.0;-5.99998;correto
+586;numerico;correntes;R1;0.15;0.15;correto
+586;numerico;correntes;R2;0.6;0.0;incorreto
+586;numerico;correntes;R3;0.15;0.15;correto
+586;numerico;potencias;R1;;0.449998;faltante
+586;numerico;potencias;R2;;0.0;faltante
+586;numerico;potencias;R3;;0.899996;faltante
+586;numerico;potencias;V1;;;faltante
+586;numerico;potencias;V2;;;faltante
+586;numerico;potencias;V3;-0.45;;alucinado
+586;componentes;resistores;R1;20;20 Ω;correto
+586;componentes;resistores;R2;10;10 Ω;correto
+586;componentes;resistores;R3;40;40 Ω;correto
+586;componentes;fontes;V1;6;+6 V;correto
+586;componentes;fontes;V2;-6;-6 V;correto
+586;componentes;fontes;V3;3;+3 V;correto
+586;textual;regiao_operacao;U1;Negative Saturation;Linear;incorreto
+587;numerico;tensoes;A;0.0;0.0;correto
+587;numerico;tensoes;B;0.0;0.0;correto
+587;numerico;tensoes;C;-6.0;-5.99998;correto
+587;numerico;correntes;R1;0.15;0.15;correto
+587;numerico;correntes;R2;0.6;0.0;incorreto
+587;numerico;correntes;R3;0.15;0.15;correto
+587;numerico;potencias;R1;0.45;0.449998;correto
+587;numerico;potencias;R2;3.6;0.0;incorreto
+587;numerico;potencias;R3;3.6;0.899996;incorreto
+587;componentes;resistores;R1;20;20 Ω;correto
+587;componentes;resistores;R2;10;10 Ω;correto
+587;componentes;resistores;R3;40;40 Ω;correto
+587;componentes;fontes;V1;6;+6 V;correto
+587;componentes;fontes;V2;-6;-6 V;correto
+587;componentes;fontes;V3;3;+3 V;correto
+587;textual;regiao_operacao;U1;Negative Saturation;Linear;incorreto
+588;numerico;tensoes;A;0.0;0.0;correto
+588;numerico;tensoes;B;0.0;0.0;correto
+588;numerico;tensoes;C;-6.0;-5.99998;correto
+588;numerico;correntes;R1;0.15;0.15;correto
+588;numerico;correntes;R2;0.6;0.0;incorreto
+588;numerico;correntes;R3;0.15;0.15;correto
+588;numerico;potencias;R1;0.45;0.449998;correto
+588;numerico;potencias;R2;3.6;0.0;incorreto
+588;numerico;potencias;R3;0.9;0.899996;correto
+588;numerico;potencias;U1;;;faltante
+588;numerico;potencias;V1;;;faltante
+588;numerico;potencias;V2;;;faltante
+588;numerico;potencias;V3;-0.45;;alucinado
+588;componentes;resistores;R1;20;20 Ω;correto
+588;componentes;resistores;R2;10;10 Ω;correto
+588;componentes;resistores;R3;40;40 Ω;correto
+588;componentes;fontes;V1;6;+6 V;correto
+588;componentes;fontes;V2;-6;-6 V;correto
+588;componentes;fontes;V3;3;+3 V;correto
+588;textual;regiao_operacao;U1;Negative Saturation;Linear;incorreto
+589;numerico;tensoes;A;0.0;11.1667;incorreto
+589;numerico;tensoes;B;0.0;0.0;correto
+589;numerico;tensoes;C;-8.0;-8.0;correto
+589;numerico;correntes;R1;7.5;1.91667;incorreto
+589;numerico;correntes;R2;0.0;0.0;correto
+589;numerico;correntes;R3;0.8;1.91667;incorreto
+589;numerico;correntes;R4;4.0;4.0;correto
+589;numerico;potencias;R1;112.5;7.34722;incorreto
+589;numerico;potencias;R2;0.0;0.0;correto
+589;numerico;potencias;R3;6.4;36.7361;incorreto
+589;numerico;potencias;R4;32.0;32.0;correto
+589;numerico;potencias;V1;;;faltante
+589;numerico;potencias;V2;;;faltante
+589;numerico;potencias;V3;-112.5;;alucinado
+589;componentes;resistores;R1;2;2 Ω;correto
+589;componentes;resistores;R2;10;10 Ω;correto
+589;componentes;resistores;R3;10;10 Ω;correto
+589;componentes;resistores;R4;2;2 Ω;correto
+589;componentes;fontes;V1;10;+10 V;correto
+589;componentes;fontes;V2;-8;-8 V;correto
+589;componentes;fontes;V3;15;+15 V;correto
+589;textual;regiao_operacao;U1;Saturação Negativa;Saturação Negativa;correto
+590;numerico;tensoes;A;0.0;11.1667;incorreto
+590;numerico;tensoes;B;0.0;0.0;correto
+590;numerico;tensoes;C;-8.0;-8.0;correto
+590;numerico;correntes;R1;7.5;1.91667;incorreto
+590;numerico;correntes;R2;0.0;0.0;correto
+590;numerico;correntes;R3;0.8;1.91667;incorreto
+590;numerico;correntes;R4;4.0;4.0;correto
+590;numerico;potencias;R1;112.5;7.34722;incorreto
+590;numerico;potencias;R2;0.0;0.0;correto
+590;numerico;potencias;R3;6.4;36.7361;incorreto
+590;numerico;potencias;R4;32.0;32.0;correto
+590;numerico;potencias;V3;-112.5;;alucinado
+590;componentes;resistores;R1;2;2 Ω;correto
+590;componentes;resistores;R2;10;10 Ω;correto
+590;componentes;resistores;R3;10;10 Ω;correto
+590;componentes;resistores;R4;2;2 Ω;correto
+590;componentes;fontes;V1;10;+10 V;correto
+590;componentes;fontes;V2;-8;-8 V;correto
+590;componentes;fontes;V3;15;+15 V;correto
+590;textual;regiao_operacao;U1;Saturação Negativa;Saturação Negativa;correto
+591;numerico;tensoes;A;0.0;11.1667;incorreto
+591;numerico;tensoes;B;0.0;0.0;correto
+591;numerico;tensoes;C;-10.0;-8.0;incorreto
+591;numerico;correntes;R1;7.5;1.91667;incorreto
+591;numerico;correntes;R2;0.8333333333333334;0.0;incorreto
+591;numerico;correntes;R3;1.0;1.91667;incorreto
+591;numerico;correntes;R4;5.0;4.0;incorreto
+591;numerico;potencias;R1;112.5;7.34722;incorreto
+591;numerico;potencias;R2;6.944444444444445;0.0;incorreto
+591;numerico;potencias;R3;10.0;36.7361;incorreto
+591;numerico;potencias;R4;50.0;32.0;incorreto
+591;numerico;potencias;V1;;;faltante
+591;numerico;potencias;V2;;;faltante
+591;numerico;potencias;V3;112.5;;alucinado
+591;componentes;resistores;R1;2;2 Ω;correto
+591;componentes;resistores;R2;10;10 Ω;correto
+591;componentes;resistores;R3;10;10 Ω;correto
+591;componentes;resistores;R4;2;2 Ω;correto
+591;componentes;fontes;V1;10;+10 V;correto
+591;componentes;fontes;V2;-8;-8 V;correto
+591;componentes;fontes;V3;15;+15 V;correto
+591;textual;regiao_operacao;U1;Saturação Negativa;Saturação Negativa;correto
+592;numerico;tensoes;A;0.0;11.1667;incorreto
+592;numerico;tensoes;B;0.0;0.0;correto
+592;numerico;tensoes;C;12.0;-8.0;incorreto
+592;numerico;correntes;R1;7.5;1.91667;incorreto
+592;numerico;correntes;R2;0.0;0.0;correto
+592;numerico;correntes;R3;1.2;1.91667;incorreto
+592;numerico;correntes;R4;6.0;4.0;incorreto
+592;numerico;potencias;R1;112.5;7.34722;incorreto
+592;numerico;potencias;R2;0.0;0.0;correto
+592;numerico;potencias;R3;14.4;36.7361;incorreto
+592;numerico;potencias;R4;72.0;32.0;incorreto
+592;numerico;potencias;V1;;;faltante
+592;numerico;potencias;V2;;;faltante
+592;numerico;potencias;V3;-112.5;;alucinado
+592;componentes;resistores;R1;2;2 Ω;correto
+592;componentes;resistores;R2;10;10 Ω;correto
+592;componentes;resistores;R3;10;10 Ω;correto
+592;componentes;resistores;R4;2;2 Ω;correto
+592;componentes;fontes;V1;10;+10 V;correto
+592;componentes;fontes;V2;-8;-8 V;correto
+592;componentes;fontes;V3;15;+15 V;correto
+592;textual;regiao_operacao;U1;Positive Saturation;Saturação Negativa;incorreto
+593;numerico;tensoes;A;0.0;11.1667;incorreto
+593;numerico;tensoes;B;0.0;0.0;correto
+593;numerico;tensoes;C;-8.0;-8.0;correto
+593;numerico;correntes;R1;7.5;1.91667;incorreto
+593;numerico;correntes;R2;0.0;0.0;correto
+593;numerico;correntes;R3;0.8;1.91667;incorreto
+593;numerico;correntes;R4;4.0;4.0;correto
+593;numerico;potencias;R1;112.5;7.34722;incorreto
+593;numerico;potencias;R2;0.0;0.0;correto
+593;numerico;potencias;R3;6.4;36.7361;incorreto
+593;numerico;potencias;R4;32.0;32.0;correto
+593;componentes;resistores;R1;2;2 Ω;correto
+593;componentes;resistores;R2;10;10 Ω;correto
+593;componentes;resistores;R3;10;10 Ω;correto
+593;componentes;resistores;R4;2;2 Ω;correto
+593;componentes;fontes;V1;10;+10 V;correto
+593;componentes;fontes;V2;-8;-8 V;correto
+593;componentes;fontes;V3;15;+15 V;correto
+593;textual;regiao_operacao;U1;Negative Saturation;Saturação Negativa;correto
+594;numerico;tensoes;A;0.0;11.1667;incorreto
+594;numerico;tensoes;B;0.0;0.0;correto
+594;numerico;tensoes;C;-40.0;-8.0;incorreto
+594;numerico;correntes;R1;7.5;1.91667;incorreto
+594;numerico;correntes;R2;3.2;0.0;incorreto
+594;numerico;correntes;R3;4.0;1.91667;incorreto
+594;numerico;correntes;R4;4.0;4.0;correto
+594;numerico;potencias;R1;;7.34722;faltante
+594;numerico;potencias;R2;;0.0;faltante
+594;numerico;potencias;R3;;36.7361;faltante
+594;numerico;potencias;R4;;32.0;faltante
+594;numerico;potencias;U1;;;faltante
+594;numerico;potencias;V1;;;faltante
+594;numerico;potencias;V2;;;faltante
+594;numerico;potencias;V3;112.5;;alucinado
+594;componentes;resistores;R1;2;2 Ω;correto
+594;componentes;resistores;R2;10;10 Ω;correto
+594;componentes;resistores;R3;10;10 Ω;correto
+594;componentes;resistores;R4;2;2 Ω;correto
+594;componentes;fontes;V1;10;+10 V;correto
+594;componentes;fontes;V2;-8;-8 V;correto
+594;componentes;fontes;V3;15;+15 V;correto
+594;textual;regiao_operacao;U1;Negative Saturation;Saturação Negativa;correto
+595;numerico;tensoes;A;-3.0;-2.99999;correto
+595;numerico;tensoes;B;-3.0;-3.0;correto
+595;numerico;tensoes;C;-0.2;-11.0;incorreto
+595;numerico;correntes;R1;1.0;0.999998;correto
+595;numerico;correntes;R2;0.1;0.0;incorreto
+595;numerico;correntes;R3;0.35;0.999998;incorreto
+595;numerico;potencias;R1;;4.99998;faltante
+595;numerico;potencias;R2;;0.0;faltante
+595;numerico;potencias;R3;;7.99996;faltante
+595;numerico;potencias;V1;;;faltante
+595;numerico;potencias;V2;;;faltante
+595;numerico;potencias;V3;-2.0;;alucinado
+595;numerico;potencias;V4;0.0;;alucinado
+595;componentes;resistores;R1;5;5 Ω;correto
+595;componentes;resistores;R2;2;2 Ω;correto
+595;componentes;resistores;R3;8;8 Ω;correto
+595;componentes;fontes;V1;12;+12 V;correto
+595;componentes;fontes;V2;-12;-12 V;correto
+595;componentes;fontes;V3;2;+2 V;correto
+595;componentes;fontes;V4;-3;-3 V;correto
+595;textual;regiao_operacao;U1;Linear;Linear;correto
+596;numerico;tensoes;A;-3.0;-2.99999;correto
+596;numerico;tensoes;B;-3.0;-3.0;correto
+596;numerico;tensoes;C;-0.2;-11.0;incorreto
+596;numerico;correntes;R1;1.0;0.999998;correto
+596;numerico;correntes;R2;0.1;0.0;incorreto
+596;numerico;correntes;R3;0.35;0.999998;incorreto
+596;numerico;potencias;R1;5.0;4.99998;correto
+596;numerico;potencias;R2;0.02;0.0;incorreto
+596;numerico;potencias;R3;0.98;7.99996;incorreto
+596;numerico;potencias;V1;;;faltante
+596;numerico;potencias;V2;;;faltante
+596;numerico;potencias;V3;-2.0;;alucinado
+596;numerico;potencias;V4;;;faltante
+596;componentes;resistores;R1;5;5 Ω;correto
+596;componentes;resistores;R2;2;2 Ω;correto
+596;componentes;resistores;R3;8;8 Ω;correto
+596;componentes;fontes;V1;12;+12 V;correto
+596;componentes;fontes;V2;-12;-12 V;correto
+596;componentes;fontes;V3;2;+2 V;correto
+596;componentes;fontes;V4;-3;-3 V;correto
+596;textual;regiao_operacao;U1;Linear;Linear;correto
+597;numerico;tensoes;A;-3.0;-2.99999;correto
+597;numerico;tensoes;B;-3.0;-3.0;correto
+597;numerico;tensoes;C;0.2;-11.0;incorreto
+597;numerico;correntes;R1;1.0;0.999998;correto
+597;numerico;correntes;R2;0.1;0.0;incorreto
+597;numerico;correntes;R3;0.4;0.999998;incorreto
+597;numerico;potencias;R1;5.0;4.99998;correto
+597;numerico;potencias;R2;0.02;0.0;incorreto
+597;numerico;potencias;R3;1.28;7.99996;incorreto
+597;numerico;potencias;U1;;;faltante
+597;numerico;potencias;V1;;;faltante
+597;numerico;potencias;V2;;;faltante
+597;numerico;potencias;V3;-2.0;;alucinado
+597;numerico;potencias;V4;0.0;;alucinado
+597;componentes;resistores;R1;5;5 Ω;correto
+597;componentes;resistores;R2;2;2 Ω;correto
+597;componentes;resistores;R3;8;8 Ω;correto
+597;componentes;fontes;V1;12;+12 V;correto
+597;componentes;fontes;V2;-12;-12 V;correto
+597;componentes;fontes;V3;2;+2 V;correto
+597;componentes;fontes;V4;-3;-3 V;correto
+597;textual;regiao_operacao;U1;Linear;Linear;correto
+598;numerico;tensoes;A;-3.0;-2.99999;correto
+598;numerico;tensoes;B;-3.0;-3.0;correto
+598;numerico;tensoes;C;-4.8;-11.0;incorreto
+598;numerico;correntes;R1;1.0;0.999998;correto
+598;numerico;correntes;R2;2.4;0.0;incorreto
+598;numerico;correntes;R3;0.225;0.999998;incorreto
+598;numerico;potencias;R1;5.0;4.99998;correto
+598;numerico;potencias;R2;11.52;0.0;incorreto
+598;numerico;potencias;R3;1.62;7.99996;incorreto
+598;numerico;potencias;V1;;;faltante
+598;numerico;potencias;V2;;;faltante
+598;numerico;potencias;V3;-2.0;;alucinado
+598;numerico;potencias;V4;0.0;;alucinado
+598;componentes;resistores;R1;5;5 Ω;correto
+598;componentes;resistores;R2;2;2 Ω;correto
+598;componentes;resistores;R3;8;8 Ω;correto
+598;componentes;fontes;V1;12;+12 V;correto
+598;componentes;fontes;V2;-12;-12 V;correto
+598;componentes;fontes;V3;2;+2 V;correto
+598;componentes;fontes;V4;-3;-3 V;correto
+598;textual;regiao_operacao;U1;Linear;Linear;correto
+599;numerico;tensoes;A;-3.0;-2.99999;correto
+599;numerico;tensoes;B;-3.0;-3.0;correto
+599;numerico;tensoes;C;8.0;-11.0;incorreto
+599;numerico;correntes;R1;1.0;0.999998;correto
+599;numerico;correntes;R2;2.4;0.0;incorreto
+599;numerico;correntes;R3;1.375;0.999998;incorreto
+599;numerico;potencias;R1;5.0;4.99998;correto
+599;numerico;potencias;R2;11.52;0.0;incorreto
+599;numerico;potencias;R3;15.125;7.99996;incorreto
+599;numerico;potencias;V1;;;faltante
+599;numerico;potencias;V2;;;faltante
+599;numerico;potencias;V3;-2.0;;alucinado
+599;numerico;potencias;V4;0.0;;alucinado
+599;componentes;resistores;R1;5;5 Ω;correto
+599;componentes;resistores;R2;2;2 Ω;correto
+599;componentes;resistores;R3;8;8 Ω;correto
+599;componentes;fontes;V1;12;+12 V;correto
+599;componentes;fontes;V2;-12;-12 V;correto
+599;componentes;fontes;V3;2;+2 V;correto
+599;componentes;fontes;V4;-3;-3 V;correto
+599;textual;regiao_operacao;U1;Linear;Linear;correto
+600;numerico;tensoes;A;-3.0;-2.99999;correto
+600;numerico;tensoes;B;-3.0;-3.0;correto
+600;numerico;tensoes;C;-4.875;-11.0;incorreto
+600;numerico;correntes;R1;1.0;0.999998;correto
+600;numerico;correntes;R2;2.4375;0.0;incorreto
+600;numerico;correntes;R3;0.234375;0.999998;incorreto
+600;numerico;potencias;R1;;4.99998;faltante
+600;numerico;potencias;R2;;0.0;faltante
+600;numerico;potencias;R3;;7.99996;faltante
+600;numerico;potencias;U1;0.0;;alucinado
+600;numerico;potencias;V1;0.0;;alucinado
+600;numerico;potencias;V2;0.0;;alucinado
+600;numerico;potencias;V3;-2.0;;alucinado
+600;numerico;potencias;V4;0.0;;alucinado
+600;componentes;resistores;R1;5;5 Ω;correto
+600;componentes;resistores;R2;2;2 Ω;correto
+600;componentes;resistores;R3;8;8 Ω;correto
+600;componentes;fontes;V1;12;+12 V;correto
+600;componentes;fontes;V2;-12;-12 V;correto
+600;componentes;fontes;V3;2;+2 V;correto
+600;componentes;fontes;V4;-3;-3 V;correto
+600;textual;regiao_operacao;U1;Linear;Linear;correto
+601;numerico;tensoes;A;4.0;3.99999;correto
+601;numerico;tensoes;B;4.0;4.0;correto
+601;numerico;tensoes;C;-2.0;5.49999;incorreto
+601;numerico;correntes;R1;0.16666666666666666;0.166666;correto
+601;numerico;correntes;R2;0.6666666666666666;0.0;incorreto
+601;numerico;correntes;R3;0.6666666666666666;0.166666;incorreto
+601;numerico;potencias;R1;;0.166665;faltante
+601;numerico;potencias;R2;;0.0;faltante
+601;numerico;potencias;R3;;0.249997;faltante
+601;numerico;potencias;V1;;;faltante
+601;numerico;potencias;V2;;;faltante
+601;numerico;potencias;V3;0.5;;alucinado
+601;numerico;potencias;V4;-2.6666666666666665;;alucinado
+601;componentes;resistores;R1;6;6 Ω;correto
+601;componentes;resistores;R2;3;3 Ω;correto
+601;componentes;resistores;R3;9;9 Ω;correto
+601;componentes;fontes;V1;15;+15 V;correto
+601;componentes;fontes;V2;-15;-15 V;correto
+601;componentes;fontes;V3;3;+3 V;correto
+601;componentes;fontes;V4;4;+4 V;correto
+601;textual;regiao_operacao;U1;Linear;Linear;correto
+602;numerico;tensoes;A;4.0;3.99999;correto
+602;numerico;tensoes;B;4.0;4.0;correto
+602;numerico;tensoes;C;-4.5;5.49999;incorreto
+602;numerico;correntes;R1;0.16666666666666666;0.166666;correto
+602;numerico;correntes;R2;1.5;0.0;incorreto
+602;numerico;correntes;R3;0.9444444444444444;0.166666;incorreto
+602;numerico;potencias;R1;0.16666666666666666;0.166665;correto
+602;numerico;potencias;R2;6.75;0.0;incorreto
+602;numerico;potencias;R3;12.694444444444445;0.249997;incorreto
+602;numerico;potencias;V1;;;faltante
+602;numerico;potencias;V2;;;faltante
+602;numerico;potencias;V3;-0.5;;alucinado
+602;numerico;potencias;V4;0.0;;alucinado
+602;componentes;resistores;R1;6;6 Ω;correto
+602;componentes;resistores;R2;3;3 Ω;correto
+602;componentes;resistores;R3;9;9 Ω;correto
+602;componentes;fontes;V1;15;+15 V;correto
+602;componentes;fontes;V2;-15;-15 V;correto
+602;componentes;fontes;V3;3;+3 V;correto
+602;componentes;fontes;V4;4;+4 V;correto
+602;textual;regiao_operacao;U1;Linear;Linear;correto
+603;numerico;tensoes;A;4.0;3.99999;correto
+603;numerico;tensoes;B;4.0;4.0;correto
+603;numerico;tensoes;C;-4.5;5.49999;incorreto
+603;numerico;correntes;R1;0.16666666666666666;0.166666;correto
+603;numerico;correntes;R2;1.5;0.0;incorreto
+603;numerico;correntes;R3;0.8888888888888888;0.166666;incorreto
+603;numerico;potencias;R1;0.16666666666666666;0.166665;correto
+603;numerico;potencias;R2;6.75;0.0;incorreto
+603;numerico;potencias;R3;7.111111111111111;0.249997;incorreto
+603;numerico;potencias;V1;;;faltante
+603;numerico;potencias;V2;;;faltante
+603;numerico;potencias;V3;0.5;;alucinado
+603;numerico;potencias;V4;0.0;;alucinado
+603;componentes;resistores;R1;6;6 Ω;correto
+603;componentes;resistores;R2;3;3 Ω;correto
+603;componentes;resistores;R3;9;9 Ω;correto
+603;componentes;fontes;V1;15;+15 V;correto
+603;componentes;fontes;V2;-15;-15 V;correto
+603;componentes;fontes;V3;3;+3 V;correto
+603;componentes;fontes;V4;4;+4 V;correto
+603;textual;regiao_operacao;U1;Linear;Linear;correto
+604;numerico;tensoes;A;4.0;3.99999;correto
+604;numerico;tensoes;B;4.0;4.0;correto
+604;numerico;tensoes;C;10.0;5.49999;incorreto
+604;numerico;correntes;R1;0.16666666666666666;0.166666;correto
+604;numerico;correntes;R2;3.3333333333333335;0.0;incorreto
+604;numerico;correntes;R3;0.6666666666666666;0.166666;incorreto
+604;numerico;potencias;R1;0.41666666666666663;0.166665;incorreto
+604;numerico;potencias;R2;33.333333333333336;0.0;incorreto
+604;numerico;potencias;R3;4.0;0.249997;incorreto
+604;numerico;potencias;V3;-0.5;;alucinado
+604;numerico;potencias;V4;-1.3333333333333333;;alucinado
+604;componentes;resistores;R1;6;6 Ω;correto
+604;componentes;resistores;R2;3;3 Ω;correto
+604;componentes;resistores;R3;9;9 Ω;correto
+604;componentes;fontes;V1;15;+15 V;correto
+604;componentes;fontes;V2;-15;-15 V;correto
+604;componentes;fontes;V3;3;+3 V;correto
+604;componentes;fontes;V4;4;+4 V;correto
+604;textual;regiao_operacao;U1;Linear;Linear;correto
+605;numerico;tensoes;A;4.0;3.99999;correto
+605;numerico;tensoes;B;4.0;4.0;correto
+605;numerico;tensoes;C;-2.0;5.49999;incorreto
+605;numerico;correntes;R1;0.16666666666666666;0.166666;correto
+605;numerico;correntes;R2;0.16666666666666666;0.0;incorreto
+605;numerico;correntes;R3;0.6666666666666666;0.166666;incorreto
+605;numerico;potencias;R1;0.16666666666666666;0.166665;correto
+605;numerico;potencias;R2;0.08333333333333333;0.0;incorreto
+605;numerico;potencias;R3;4.0;0.249997;incorreto
+605;componentes;resistores;R1;6;6 Ω;correto
+605;componentes;resistores;R2;3;3 Ω;correto
+605;componentes;resistores;R3;9;9 Ω;correto
+605;componentes;fontes;V1;15;+15 V;correto
+605;componentes;fontes;V2;-15;-15 V;correto
+605;componentes;fontes;V3;3;+3 V;correto
+605;componentes;fontes;V4;4;+4 V;correto
+605;textual;regiao_operacao;U1;Linear;Linear;correto
+606;numerico;tensoes;A;4.0;3.99999;correto
+606;numerico;tensoes;B;4.0;4.0;correto
+606;numerico;tensoes;C;10.0;5.49999;incorreto
+606;numerico;correntes;R1;0.16666666666666666;0.166666;correto
+606;numerico;correntes;R2;3.3333333333333335;0.0;incorreto
+606;numerico;correntes;R3;0.6666666666666666;0.166666;incorreto
+606;numerico;potencias;R1;0.2777777777777778;0.166665;incorreto
+606;numerico;potencias;R2;33.333333333333336;0.0;incorreto
+606;numerico;potencias;R3;4.0;0.249997;incorreto
+606;numerico;potencias;U1;10.0;;alucinado
+606;numerico;potencias;V1;10.0;;alucinado
+606;numerico;potencias;V2;0.0;;alucinado
+606;numerico;potencias;V3;0.5;;alucinado
+606;numerico;potencias;V4;0.0;;alucinado
+606;componentes;resistores;R1;6;6 Ω;correto
+606;componentes;resistores;R2;3;3 Ω;correto
+606;componentes;resistores;R3;9;9 Ω;correto
+606;componentes;fontes;V1;15;+15 V;correto
+606;componentes;fontes;V2;-15;-15 V;correto
+606;componentes;fontes;V3;3;+3 V;correto
+606;componentes;fontes;V4;4;+4 V;correto
+606;textual;regiao_operacao;U1;Linear;Linear;correto
+607;numerico;tensoes;A;0.0;0.0;correto
+607;numerico;tensoes;B;-2.5;-2.5;correto
+607;numerico;tensoes;C;0.0;0.0;correto
+607;numerico;correntes;R1;0.25;0.25;correto
+607;numerico;correntes;R2;0.25;0.25;correto
+607;numerico;correntes;R3;1.25;1.25;correto
+607;numerico;correntes;R4;1.25;1.25;correto
+607;numerico;correntes;R5;2.5;0.0;incorreto
+607;numerico;potencias;R1;;1.25;faltante
+607;numerico;potencias;R2;;0.624999;faltante
+607;numerico;potencias;R3;;3.12498;faltante
+607;numerico;potencias;R4;;3.12498;faltante
+607;numerico;potencias;R5;;0.0;faltante
+607;numerico;potencias;V1;-1.25;;alucinado
+607;numerico;potencias;V2;;;faltante
+607;numerico;potencias;V3;;;faltante
+607;componentes;resistores;R1;20;20 Ω;correto
+607;componentes;resistores;R2;10;10 Ω;correto
+607;componentes;resistores;R3;2;2 Ω;correto
+607;componentes;resistores;R4;2;2 Ω;correto
+607;componentes;resistores;R5;4;4 Ω;correto
+607;componentes;fontes;V1;5;+5 V;correto
+607;componentes;fontes;V2;10;+10 V;correto
+607;componentes;fontes;V3;-10;-10 V;correto
+607;textual;regiao_operacao;U1;Linear;Linear;correto
+607;textual;regiao_operacao;U2;Saturação Negativa;Linear;incorreto
+608;numerico;tensoes;A;0.0;0.0;correto
+608;numerico;tensoes;B;-2.5;-2.5;correto
+608;numerico;tensoes;C;0.0;0.0;correto
+608;numerico;correntes;R1;0.25;0.25;correto
+608;numerico;correntes;R2;0.25;0.25;correto
+608;numerico;correntes;R3;1.25;1.25;correto
+608;numerico;correntes;R4;1.25;1.25;correto
+608;numerico;correntes;R5;2.5;0.0;incorreto
+608;numerico;potencias;R1;1.25;1.25;correto
+608;numerico;potencias;R2;0.625;0.624999;correto
+608;numerico;potencias;R3;3.125;3.12498;correto
+608;numerico;potencias;R4;3.125;3.12498;correto
+608;numerico;potencias;R5;10.0;0.0;incorreto
+608;numerico;potencias;V1;-1.25;;alucinado
+608;numerico;potencias;V2;;;faltante
+608;numerico;potencias;V3;;;faltante
+608;componentes;resistores;R1;20;20 Ω;correto
+608;componentes;resistores;R2;10;10 Ω;correto
+608;componentes;resistores;R3;2;2 Ω;correto
+608;componentes;resistores;R4;2;2 Ω;correto
+608;componentes;resistores;R5;4;4 Ω;correto
+608;componentes;fontes;V1;5;+5 V;correto
+608;componentes;fontes;V2;10;+10 V;correto
+608;componentes;fontes;V3;-10;-10 V;correto
+608;textual;regiao_operacao;U1;Linear;Linear;correto
+608;textual;regiao_operacao;U2;Saturação Negativa;Linear;incorreto
+609;numerico;tensoes;A;0;0.0;correto
+609;numerico;tensoes;B;-2.5;-2.5;correto
+609;numerico;tensoes;C;0;0.0;correto
+609;numerico;correntes;R1;0.25;0.25;correto
+609;numerico;correntes;R2;0.25;0.25;correto
+609;numerico;correntes;R3;1.25;1.25;correto
+609;numerico;correntes;R4;1.25;1.25;correto
+609;numerico;correntes;R5;1.25;0.0;incorreto
+609;numerico;potencias;R1;1.25;1.25;correto
+609;numerico;potencias;R2;0.625;0.624999;correto
+609;numerico;potencias;R3;3.125;3.12498;correto
+609;numerico;potencias;R4;3.125;3.12498;correto
+609;numerico;potencias;R5;6.25;0.0;incorreto
+609;numerico;potencias;V1;-1.25;;alucinado
+609;numerico;potencias;V2;;;faltante
+609;numerico;potencias;V3;;;faltante
+609;componentes;resistores;R1;20;20 Ω;correto
+609;componentes;resistores;R2;10;10 Ω;correto
+609;componentes;resistores;R3;2;2 Ω;correto
+609;componentes;resistores;R4;2;2 Ω;correto
+609;componentes;resistores;R5;4;4 Ω;correto
+609;componentes;fontes;V1;5;+5 V;correto
+609;componentes;fontes;V2;10;+10 V;correto
+609;componentes;fontes;V3;-10;-10 V;correto
+609;textual;regiao_operacao;U1;Linear;Linear;correto
+609;textual;regiao_operacao;U2;Linear;Linear;correto
+610;numerico;tensoes;A;0;0.0;correto
+610;numerico;tensoes;B;-2.5;-2.5;correto
+610;numerico;tensoes;C;0;0.0;correto
+610;numerico;correntes;R1;0.25;0.25;correto
+610;numerico;correntes;R2;0.25;0.25;correto
+610;numerico;correntes;R3;1.25;1.25;correto
+610;numerico;correntes;R4;1.25;1.25;correto
+610;numerico;correntes;R5;1.25;0.0;incorreto
+610;numerico;potencias;R1;1.25;1.25;correto
+610;numerico;potencias;R2;0.625;0.624999;correto
+610;numerico;potencias;R3;3.125;3.12498;correto
+610;numerico;potencias;R4;3.125;3.12498;correto
+610;numerico;potencias;R5;25;0.0;incorreto
+610;componentes;resistores;R1;20;20 Ω;correto
+610;componentes;resistores;R2;10;10 Ω;correto
+610;componentes;resistores;R3;2;2 Ω;correto
+610;componentes;resistores;R4;2;2 Ω;correto
+610;componentes;resistores;R5;4;4 Ω;correto
+610;componentes;fontes;V1;5;+5 V;correto
+610;componentes;fontes;V2;10;+10 V;correto
+610;componentes;fontes;V3;-10;-10 V;correto
+610;textual;regiao_operacao;U1;Linear;Linear;correto
+610;textual;regiao_operacao;U2;Linear;Linear;correto
+611;numerico;tensoes;A;0.0;0.0;correto
+611;numerico;tensoes;B;-2.5;-2.5;correto
+611;numerico;tensoes;C;0.0;0.0;correto
+611;numerico;correntes;R1;0.25;0.25;correto
+611;numerico;correntes;R2;0.25;0.25;correto
+611;numerico;correntes;R3;1.25;1.25;correto
+611;numerico;correntes;R4;1.25;1.25;correto
+611;numerico;correntes;R5;1.25;0.0;incorreto
+611;numerico;potencias;R1;1.25;1.25;correto
+611;numerico;potencias;R2;0.625;0.624999;correto
+611;numerico;potencias;R3;3.125;3.12498;correto
+611;numerico;potencias;R4;3.125;3.12498;correto
+611;numerico;potencias;R5;6.25;0.0;incorreto
+611;numerico;potencias;V1;-1.25;;alucinado
+611;numerico;potencias;V2;;;faltante
+611;numerico;potencias;V3;;;faltante
+611;componentes;resistores;R1;20;20 Ω;correto
+611;componentes;resistores;R2;10;10 Ω;correto
+611;componentes;resistores;R3;2;2 Ω;correto
+611;componentes;resistores;R4;2;2 Ω;correto
+611;componentes;resistores;R5;4;4 Ω;correto
+611;componentes;fontes;V1;5;+5 V;correto
+611;componentes;fontes;V2;10;+10 V;correto
+611;componentes;fontes;V3;-10;-10 V;correto
+611;textual;regiao_operacao;U1;Linear;Linear;correto
+611;textual;regiao_operacao;U2;Linear;Linear;correto
+612;numerico;tensoes;A;0.0;0.0;correto
+612;numerico;tensoes;B;-2.5;-2.5;correto
+612;numerico;tensoes;C;0.0;0.0;correto
+612;numerico;correntes;R1;0.25;0.25;correto
+612;numerico;correntes;R2;0.25;0.25;correto
+612;numerico;correntes;R3;1.25;1.25;correto
+612;numerico;correntes;R4;1.25;1.25;correto
+612;numerico;correntes;R5;1.25;0.0;incorreto
+612;numerico;potencias;R1;;1.25;faltante
+612;numerico;potencias;R2;;0.624999;faltante
+612;numerico;potencias;R3;;3.12498;faltante
+612;numerico;potencias;R4;;3.12498;faltante
+612;numerico;potencias;R5;;0.0;faltante
+612;numerico;potencias;U1;;;faltante
+612;numerico;potencias;U2;;;faltante
+612;numerico;potencias;V1;-1.25;;alucinado
+612;numerico;potencias;V2;;;faltante
+612;numerico;potencias;V3;;;faltante
+612;componentes;resistores;R1;20;20 Ω;correto
+612;componentes;resistores;R2;10;10 Ω;correto
+612;componentes;resistores;R3;2;2 Ω;correto
+612;componentes;resistores;R4;2;2 Ω;correto
+612;componentes;resistores;R5;4;4 Ω;correto
+612;componentes;fontes;V1;5;+5 V;correto
+612;componentes;fontes;V2;10;+10 V;correto
+612;componentes;fontes;V3;-10;-10 V;correto
+612;textual;regiao_operacao;U1;Linear;Linear;correto
+612;textual;regiao_operacao;U2;Linear;Linear;correto
+613;numerico;tensoes;A;0.0;12.7273;incorreto
+613;numerico;tensoes;B;6.0;6.0;correto
+613;numerico;tensoes;C;10.0;-10.0;incorreto
+613;numerico;correntes;R1;7.5;1.13636;incorreto
+613;numerico;correntes;R3;2.0;0.0;incorreto
+613;numerico;correntes;R4;0.0;1.13636;incorreto
+613;numerico;correntes;R5;0.0;0.0;correto
+613;numerico;potencias;R1;;2.58264;faltante
+613;numerico;potencias;R3;;0.0;faltante
+613;numerico;potencias;R4;;25.8264;faltante
+613;numerico;potencias;R5;;0.0;faltante
+613;numerico;potencias;V1;-112.5;;alucinado
+613;numerico;potencias;V2;;;faltante
+613;numerico;potencias;V3;;;faltante
+613;numerico;potencias;V4;-12.0;;alucinado
+613;componentes;resistores;R1;2;2 Ω;correto
+613;componentes;resistores;R3;2;2 Ω;correto
+613;componentes;resistores;R4;20;20 Ω;correto
+613;componentes;resistores;R5;4;4 Ω;correto
+613;componentes;fontes;V1;15;+15 V;correto
+613;componentes;fontes;V2;10;+10 V;correto
+613;componentes;fontes;V3;-10;-10 V;correto
+613;componentes;fontes;V4;6;+6 V;correto
+613;textual;regiao_operacao;U1;Linear;Saturação Negativa;incorreto
+613;textual;regiao_operacao;U2;Saturação Positiva;Saturação Negativa;incorreto
+614;numerico;tensoes;A;0.0;12.7273;incorreto
+614;numerico;tensoes;B;6.0;6.0;correto
+614;numerico;tensoes;C;-10.0;-10.0;correto
+614;numerico;correntes;R1;7.5;1.13636;incorreto
+614;numerico;correntes;R3;8.0;0.0;incorreto
+614;numerico;correntes;R4;0.75;1.13636;incorreto
+614;numerico;correntes;R5;0.0;0.0;correto
+614;numerico;potencias;R1;112.5;2.58264;incorreto
+614;numerico;potencias;R3;128.0;0.0;incorreto
+614;numerico;potencias;R4;11.25;25.8264;incorreto
+614;numerico;potencias;R5;0.0;0.0;correto
+614;numerico;potencias;V1;-112.5;;alucinado
+614;numerico;potencias;V2;;;faltante
+614;numerico;potencias;V3;;;faltante
+614;numerico;potencias;V4;-48.0;;alucinado
+614;componentes;resistores;R1;2;2 Ω;correto
+614;componentes;resistores;R3;2;2 Ω;correto
+614;componentes;resistores;R4;20;20 Ω;correto
+614;componentes;resistores;R5;4;4 Ω;correto
+614;componentes;fontes;V1;15;+15 V;correto
+614;componentes;fontes;V2;10;+10 V;correto
+614;componentes;fontes;V3;-10;-10 V;correto
+614;componentes;fontes;V4;6;+6 V;correto
+614;textual;regiao_operacao;U1;Linear;Saturação Negativa;incorreto
+614;textual;regiao_operacao;U2;Saturação Negativa;Saturação Negativa;correto
+615;numerico;tensoes;A;0.0;12.7273;incorreto
+615;numerico;tensoes;B;6.0;6.0;correto
+615;numerico;tensoes;C;-10.0;-10.0;correto
+615;numerico;correntes;R1;7.5;1.13636;incorreto
+615;numerico;correntes;R3;8.0;0.0;incorreto
+615;numerico;correntes;R4;0.75;1.13636;incorreto
+615;numerico;correntes;R5;0.0;0.0;correto
+615;numerico;potencias;R1;;2.58264;faltante
+615;numerico;potencias;R3;;0.0;faltante
+615;numerico;potencias;R4;;25.8264;faltante
+615;numerico;potencias;R5;;0.0;faltante
+615;numerico;potencias;V1;-112.5;;alucinado
+615;numerico;potencias;V2;;;faltante
+615;numerico;potencias;V3;;;faltante
+615;numerico;potencias;V4;48.0;;alucinado
+615;componentes;resistores;R1;2;2 Ω;correto
+615;componentes;resistores;R3;2;2 Ω;correto
+615;componentes;resistores;R4;20;20 Ω;correto
+615;componentes;resistores;R5;4;4 Ω;correto
+615;componentes;fontes;V1;15;+15 V;correto
+615;componentes;fontes;V2;10;+10 V;correto
+615;componentes;fontes;V3;-10;-10 V;correto
+615;componentes;fontes;V4;6;+6 V;correto
+615;textual;regiao_operacao;U1;Linear;Saturação Negativa;incorreto
+615;textual;regiao_operacao;U2;Saturação Negativa;Saturação Negativa;correto
+616;numerico;tensoes;A;0.0;12.7273;incorreto
+616;numerico;tensoes;B;6.0;6.0;correto
+616;numerico;tensoes;C;-10.0;-10.0;correto
+616;numerico;correntes;R1;7.5;1.13636;incorreto
+616;numerico;correntes;R3;8.0;0.0;incorreto
+616;numerico;correntes;R4;0.75;1.13636;incorreto
+616;numerico;correntes;R5;2.5;0.0;incorreto
+616;numerico;potencias;R1;;2.58264;faltante
+616;numerico;potencias;R3;;0.0;faltante
+616;numerico;potencias;R4;;25.8264;faltante
+616;numerico;potencias;R5;;0.0;faltante
+616;numerico;potencias;V1;-112.5;;alucinado
+616;numerico;potencias;V2;;;faltante
+616;numerico;potencias;V3;;;faltante
+616;numerico;potencias;V4;-48.0;;alucinado
+616;componentes;resistores;R1;2;2 Ω;correto
+616;componentes;resistores;R3;2;2 Ω;correto
+616;componentes;resistores;R4;20;20 Ω;correto
+616;componentes;resistores;R5;4;4 Ω;correto
+616;componentes;fontes;V1;15;+15 V;correto
+616;componentes;fontes;V2;10;+10 V;correto
+616;componentes;fontes;V3;-10;-10 V;correto
+616;componentes;fontes;V4;6;+6 V;correto
+616;textual;regiao_operacao;U1;Linear;Saturação Negativa;incorreto
+616;textual;regiao_operacao;U2;Negative Saturation;Saturação Negativa;correto
+617;numerico;tensoes;A;0.0;12.7273;incorreto
+617;numerico;tensoes;B;6.0;6.0;correto
+617;numerico;tensoes;C;-10.0;-10.0;correto
+617;numerico;correntes;R1;7.5;1.13636;incorreto
+617;numerico;correntes;R3;8.0;0.0;incorreto
+617;numerico;correntes;R4;0.75;1.13636;incorreto
+617;numerico;correntes;R5;0.0;0.0;correto
+617;numerico;potencias;R1;;2.58264;faltante
+617;numerico;potencias;R3;;0.0;faltante
+617;numerico;potencias;R4;;25.8264;faltante
+617;numerico;potencias;R5;;0.0;faltante
+617;numerico;potencias;V1;-112.5;;alucinado
+617;numerico;potencias;V2;;;faltante
+617;numerico;potencias;V3;;;faltante
+617;numerico;potencias;V4;-48.0;;alucinado
+617;componentes;resistores;R1;2;2 Ω;correto
+617;componentes;resistores;R3;2;2 Ω;correto
+617;componentes;resistores;R4;20;20 Ω;correto
+617;componentes;resistores;R5;4;4 Ω;correto
+617;componentes;fontes;V1;15;+15 V;correto
+617;componentes;fontes;V2;10;+10 V;correto
+617;componentes;fontes;V3;-10;-10 V;correto
+617;componentes;fontes;V4;6;+6 V;correto
+617;textual;regiao_operacao;U1;Linear;Saturação Negativa;incorreto
+617;textual;regiao_operacao;U2;Negative Saturation;Saturação Negativa;correto
+618;numerico;tensoes;A;0.0;12.7273;incorreto
+618;numerico;tensoes;B;6.0;6.0;correto
+618;numerico;tensoes;C;10.0;-10.0;incorreto
+618;numerico;correntes;R1;7.5;1.13636;incorreto
+618;numerico;correntes;R3;2.0;0.0;incorreto
+618;numerico;correntes;R4;0.0;1.13636;incorreto
+618;numerico;correntes;R5;0.0;0.0;correto
+618;numerico;potencias;R1;;2.58264;faltante
+618;numerico;potencias;R3;;0.0;faltante
+618;numerico;potencias;R4;;25.8264;faltante
+618;numerico;potencias;R5;;0.0;faltante
+618;numerico;potencias;U1;undetermined;;faltante
+618;numerico;potencias;U2;undetermined;;faltante
+618;numerico;potencias;V1;-112.5;;alucinado
+618;numerico;potencias;V2;undetermined;;faltante
+618;numerico;potencias;V3;undetermined;;faltante
+618;numerico;potencias;V4;-12.0;;alucinado
+618;componentes;resistores;R1;2;2 Ω;correto
+618;componentes;resistores;R3;2;2 Ω;correto
+618;componentes;resistores;R4;20;20 Ω;correto
+618;componentes;resistores;R5;4;4 Ω;correto
+618;componentes;fontes;V1;15;+15 V;correto
+618;componentes;fontes;V2;10;+10 V;correto
+618;componentes;fontes;V3;-10;-10 V;correto
+618;componentes;fontes;V4;6;+6 V;correto
+618;textual;regiao_operacao;U1;Linear;Saturação Negativa;incorreto
+618;textual;regiao_operacao;U2;Positive Saturation;Saturação Negativa;incorreto
+619;numerico;tensoes;A;5.0;-2.5;incorreto
+619;numerico;tensoes;B;0.0;0.0;correto
+619;numerico;tensoes;C;10.0;-3.0;incorreto
+619;numerico;correntes;R1;0.25;0.25;correto
+619;numerico;correntes;R2;0.5;0.25;incorreto
+619;numerico;correntes;R3;2.5;0.25;incorreto
+619;numerico;correntes;R4;0.0;0.0;correto
+619;numerico;correntes;R5;0.0;0.0;correto
+619;numerico;potencias;R1;1.25;1.25;correto
+619;numerico;potencias;R2;2.5;0.624999;incorreto
+619;numerico;potencias;R3;5.0;0.125;incorreto
+619;numerico;potencias;R4;0.0;0.0;correto
+619;numerico;potencias;R5;0.0;0.0;correto
+619;numerico;potencias;V1;-1.25;;alucinado
+619;numerico;potencias;V2;;;faltante
+619;numerico;potencias;V3;;;faltante
+619;componentes;resistores;R1;20;20 Ω;correto
+619;componentes;resistores;R2;10;10 Ω;correto
+619;componentes;resistores;R3;2;2 Ω;correto
+619;componentes;resistores;R4;2;2 Ω;correto
+619;componentes;resistores;R5;4;4 Ω;correto
+619;componentes;fontes;V1;5;+5 V;correto
+619;componentes;fontes;V2;10;+10 V;correto
+619;componentes;fontes;V3;-10;-10 V;correto
+619;textual;regiao_operacao;U1;Saturação Positiva;Linear;incorreto
+620;numerico;tensoes;A;-0.5;-2.5;incorreto
+620;numerico;tensoes;B;0.0;0.0;correto
+620;numerico;tensoes;C;-0.5;-3.0;incorreto
+620;numerico;correntes;R1;0.25;0.25;correto
+620;numerico;correntes;R2;0.05;0.25;incorreto
+620;numerico;correntes;R3;0.25;0.25;correto
+620;numerico;correntes;R4;0.0;0.0;correto
+620;numerico;correntes;R5;0.125;0.0;incorreto
+620;numerico;potencias;R1;1.25;1.25;correto
+620;numerico;potencias;R2;0.025;0.624999;incorreto
+620;numerico;potencias;R3;0.125;0.125;correto
+620;numerico;potencias;R4;0.0;0.0;correto
+620;numerico;potencias;R5;0.0625;0.0;incorreto
+620;numerico;potencias;V1;-1.25;;alucinado
+620;numerico;potencias;V2;;;faltante
+620;numerico;potencias;V3;;;faltante
+620;componentes;resistores;R1;20;20 Ω;correto
+620;componentes;resistores;R2;10;10 Ω;correto
+620;componentes;resistores;R3;2;2 Ω;correto
+620;componentes;resistores;R4;2;2 Ω;correto
+620;componentes;resistores;R5;4;4 Ω;correto
+620;componentes;fontes;V1;5;+5 V;correto
+620;componentes;fontes;V2;10;+10 V;correto
+620;componentes;fontes;V3;-10;-10 V;correto
+620;textual;regiao_operacao;U1;Linear;Linear;correto
+621;numerico;tensoes;A;10.0;-2.5;incorreto
+621;numerico;tensoes;B;0.0;0.0;correto
+621;numerico;tensoes;C;10.0;-3.0;incorreto
+621;numerico;correntes;R1;0.25;0.25;correto
+621;numerico;correntes;R2;0.0;0.25;incorreto
+621;numerico;correntes;R3;0.0;0.25;incorreto
+621;numerico;correntes;R4;0.0;0.0;correto
+621;numerico;correntes;R5;0.0;0.0;correto
+621;numerico;potencias;R1;1.25;1.25;correto
+621;numerico;potencias;R2;0.0;0.624999;incorreto
+621;numerico;potencias;R3;0.0;0.125;incorreto
+621;numerico;potencias;R4;0.0;0.0;correto
+621;numerico;potencias;R5;0.0;0.0;correto
+621;numerico;potencias;V1;-1.25;;alucinado
+621;numerico;potencias;V2;0.0;;alucinado
+621;numerico;potencias;V3;0.0;;alucinado
+621;componentes;resistores;R1;20;20 Ω;correto
+621;componentes;resistores;R2;10;10 Ω;correto
+621;componentes;resistores;R3;2;2 Ω;correto
+621;componentes;resistores;R4;2;2 Ω;correto
+621;componentes;resistores;R5;4;4 Ω;correto
+621;componentes;fontes;V1;5;+5 V;correto
+621;componentes;fontes;V2;10;+10 V;correto
+621;componentes;fontes;V3;-10;-10 V;correto
+621;textual;regiao_operacao;U1;Linear;Linear;correto
+622;numerico;tensoes;A;25;-2.5;incorreto
+622;numerico;tensoes;B;5;0.0;incorreto
+622;numerico;tensoes;C;10;-3.0;incorreto
+622;numerico;correntes;R1;0.0;0.25;incorreto
+622;numerico;correntes;R2;0.5;0.25;incorreto
+622;numerico;correntes;R3;2.5;0.25;incorreto
+622;numerico;correntes;R4;2.5;0.0;incorreto
+622;numerico;correntes;R5;0.0;0.0;correto
+622;numerico;potencias;R1;0;1.25;incorreto
+622;numerico;potencias;R2;2.5;0.624999;incorreto
+622;numerico;potencias;R3;5;0.125;incorreto
+622;numerico;potencias;R4;12.5;0.0;incorreto
+622;numerico;potencias;R5;0;0.0;correto
+622;numerico;potencias;V1;0;;alucinado
+622;numerico;potencias;V2;;;faltante
+622;numerico;potencias;V3;;;faltante
+622;componentes;resistores;R1;20;20 Ω;correto
+622;componentes;resistores;R2;10;10 Ω;correto
+622;componentes;resistores;R3;2;2 Ω;correto
+622;componentes;resistores;R4;2;2 Ω;correto
+622;componentes;resistores;R5;4;4 Ω;correto
+622;componentes;fontes;V1;5;+5 V;correto
+622;componentes;fontes;V2;10;+10 V;correto
+622;componentes;fontes;V3;-10;-10 V;correto
+622;textual;regiao_operacao;U1;Positive Saturation;Linear;incorreto
+623;numerico;tensoes;A;25.0;-2.5;incorreto
+623;numerico;tensoes;B;5.0;0.0;incorreto
+623;numerico;tensoes;C;10.0;-3.0;incorreto
+623;numerico;correntes;R1;0.0;0.25;incorreto
+623;numerico;correntes;R2;2.5;0.25;incorreto
+623;numerico;correntes;R3;2.5;0.25;incorreto
+623;numerico;correntes;R4;2.5;0.0;incorreto
+623;numerico;correntes;R5;0.0;0.0;correto
+623;numerico;potencias;R1;0.0;1.25;incorreto
+623;numerico;potencias;R2;62.5;0.624999;incorreto
+623;numerico;potencias;R3;12.5;0.125;incorreto
+623;numerico;potencias;R4;12.5;0.0;incorreto
+623;numerico;potencias;R5;0.0;0.0;correto
+623;numerico;potencias;V1;0.0;;alucinado
+623;numerico;potencias;V2;-25.0;;alucinado
+623;numerico;potencias;V3;0.0;;alucinado
+623;componentes;resistores;R1;20;20 Ω;correto
+623;componentes;resistores;R2;10;10 Ω;correto
+623;componentes;resistores;R3;2;2 Ω;correto
+623;componentes;resistores;R4;2;2 Ω;correto
+623;componentes;resistores;R5;4;4 Ω;correto
+623;componentes;fontes;V1;5;+5 V;correto
+623;componentes;fontes;V2;10;+10 V;correto
+623;componentes;fontes;V3;-10;-10 V;correto
+623;textual;regiao_operacao;U1;Positive Saturation;Linear;incorreto
+624;numerico;tensoes;A;5.0;-2.5;incorreto
+624;numerico;tensoes;B;5.0;0.0;incorreto
+624;numerico;tensoes;C;6.0;-3.0;incorreto
+624;numerico;correntes;R1;0.0;0.25;incorreto
+624;numerico;correntes;R2;0.0;0.25;incorreto
+624;numerico;correntes;R3;0.0;0.25;incorreto
+624;numerico;correntes;R4;2.5;0.0;incorreto
+624;numerico;correntes;R5;0.0;0.0;correto
+624;numerico;potencias;R1;;1.25;faltante
+624;numerico;potencias;R2;;0.624999;faltante
+624;numerico;potencias;R3;;0.125;faltante
+624;numerico;potencias;R4;;0.0;faltante
+624;numerico;potencias;R5;;0.0;faltante
+624;numerico;potencias;U1;;;faltante
+624;numerico;potencias;V1;0.0;;alucinado
+624;numerico;potencias;V2;;;faltante
+624;numerico;potencias;V3;;;faltante
+624;componentes;resistores;R1;20;20 Ω;correto
+624;componentes;resistores;R2;10;10 Ω;correto
+624;componentes;resistores;R3;2;2 Ω;correto
+624;componentes;resistores;R4;2;2 Ω;correto
+624;componentes;resistores;R5;4;4 Ω;correto
+624;componentes;fontes;V1;5;+5 V;correto
+624;componentes;fontes;V2;10;+10 V;correto
+624;componentes;fontes;V3;-10;-10 V;correto
+624;textual;regiao_operacao;U1;Linear;Linear;correto
+625;numerico;tensoes;A;6.666666666666667;6.00048;incorreto
+625;numerico;correntes;D1;0.0;1.19986;incorreto
+625;numerico;correntes;R1;0.3333333333333333;0.399952;incorreto
+625;numerico;correntes;R2;0.6666666666666666;0.799904;incorreto
+625;numerico;correntes;R3;0.0;1.19986;incorreto
+625;numerico;potencias;D1;0.0;0.0;correto
+625;numerico;potencias;R1;3.3333333333333335;1.599616;incorreto
+625;numerico;potencias;R2;4.444444444444445;3.199232;incorreto
+625;numerico;potencias;R3;0.0;7.19832;incorreto
+625;numerico;potencias;V1;-10.0;;alucinado
+625;componentes;resistores;R1;10;10 Ω;correto
+625;componentes;resistores;R2;5;5 Ω;correto
+625;componentes;resistores;R3;5;5 Ω;correto
+625;componentes;fontes;V1;10;+10 V;correto
+625;textual;regiao_operacao;D1;Corte;Condução Direta;incorreto
+626;numerico;tensoes;A;10.0;6.00048;incorreto
+626;numerico;correntes;D1;0.0;1.19986;incorreto
+626;numerico;correntes;R1;0.0;0.399952;incorreto
+626;numerico;correntes;R2;0.0;0.799904;incorreto
+626;numerico;correntes;R3;0.0;1.19986;incorreto
+626;numerico;potencias;D1;;0.0;faltante
+626;numerico;potencias;R1;0.0;1.599616;incorreto
+626;numerico;potencias;R2;0.0;3.199232;incorreto
+626;numerico;potencias;R3;0.0;7.19832;incorreto
+626;componentes;resistores;R1;10;10 Ω;correto
+626;componentes;resistores;R2;5;5 Ω;correto
+626;componentes;resistores;R3;5;5 Ω;correto
+626;componentes;fontes;V1;10;+10 V;correto
+626;textual;regiao_operacao;D1;Corte;Condução Direta;incorreto
+627;numerico;tensoes;A;6.666666666666667;6.00048;incorreto
+627;numerico;correntes;D1;0.6666666666666666;1.19986;incorreto
+627;numerico;correntes;R1;0.3333333333333333;0.399952;incorreto
+627;numerico;correntes;R2;0.6666666666666666;0.799904;incorreto
+627;numerico;correntes;R3;0.6666666666666666;1.19986;incorreto
+627;numerico;potencias;D1;;0.0;faltante
+627;numerico;potencias;R1;3.3333333333333335;1.599616;incorreto
+627;numerico;potencias;R2;4.444444444444445;3.199232;incorreto
+627;numerico;potencias;R3;2.2222222222222223;7.19832;incorreto
+627;numerico;potencias;V1;-10.0;;alucinado
+627;componentes;resistores;R1;10;10 Ω;correto
+627;componentes;resistores;R2;5;5 Ω;correto
+627;componentes;resistores;R3;5;5 Ω;correto
+627;componentes;fontes;V1;10;+10 V;correto
+627;textual;regiao_operacao;D1;Condução Direta;Condução Direta;correto
+628;numerico;tensoes;A;10;6.00048;incorreto
+628;numerico;correntes;D1;0.0;1.19986;incorreto
+628;numerico;correntes;R1;0.0;0.399952;incorreto
+628;numerico;correntes;R2;0.0;0.799904;incorreto
+628;numerico;correntes;R3;0.0;1.19986;incorreto
+628;numerico;potencias;D1;0;0.0;correto
+628;numerico;potencias;R1;0;1.599616;incorreto
+628;numerico;potencias;R2;0;3.199232;incorreto
+628;numerico;potencias;R3;0;7.19832;incorreto
+628;numerico;potencias;V1;0;;alucinado
+628;componentes;resistores;R1;10;10 Ω;correto
+628;componentes;resistores;R2;5;5 Ω;correto
+628;componentes;resistores;R3;5;5 Ω;correto
+628;componentes;fontes;V1;10;+10 V;correto
+628;textual;regiao_operacao;D1;Cutoff;Condução Direta;incorreto
+629;numerico;tensoes;A;6.666666666666667;6.00048;incorreto
+629;numerico;correntes;D1;0.6666666666666666;1.19986;incorreto
+629;numerico;correntes;R1;0.3333333333333333;0.399952;incorreto
+629;numerico;correntes;R2;0.6666666666666666;0.799904;incorreto
+629;numerico;correntes;R3;0.6666666666666666;1.19986;incorreto
+629;numerico;potencias;D1;;0.0;faltante
+629;numerico;potencias;R1;3.3333333333333335;1.599616;incorreto
+629;numerico;potencias;R2;4.444444444444445;3.199232;incorreto
+629;numerico;potencias;R3;2.2222222222222223;7.19832;incorreto
+629;numerico;potencias;V1;-10.0;;alucinado
+629;componentes;resistores;R1;10;10 Ω;correto
+629;componentes;resistores;R2;5;5 Ω;correto
+629;componentes;resistores;R3;5;5 Ω;correto
+629;componentes;fontes;V1;10;+10 V;correto
+629;textual;regiao_operacao;D1;Forward Conduction;Condução Direta;correto
+630;numerico;tensoes;A;10.0;6.00048;incorreto
+630;numerico;correntes;D1;0.0;1.19986;incorreto
+630;numerico;correntes;R1;0.0;0.399952;incorreto
+630;numerico;correntes;R2;0.0;0.799904;incorreto
+630;numerico;correntes;R3;0.0;1.19986;incorreto
+630;numerico;potencias;D1;0.0;0.0;correto
+630;numerico;potencias;R1;0.0;1.599616;incorreto
+630;numerico;potencias;R2;0.0;3.199232;incorreto
+630;numerico;potencias;R3;0.0;7.19832;incorreto
+630;numerico;potencias;V1;0.0;;alucinado
+630;componentes;resistores;R1;10;10 Ω;correto
+630;componentes;resistores;R2;5;5 Ω;correto
+630;componentes;resistores;R3;5;5 Ω;correto
+630;componentes;fontes;V1;10;+10 V;correto
+630;textual;regiao_operacao;D1;Cutoff;Condução Direta;incorreto
+631;numerico;tensoes;A;0.0;9.997;incorreto
+631;numerico;correntes;D1;0.0;2.9987;incorreto
+631;numerico;correntes;D2;0.0;1.999;incorreto
+631;numerico;correntes;R1;0.0;0.9997;incorreto
+631;numerico;correntes;R2;0.0;1.999;incorreto
+631;numerico;correntes;V1;0.0;;alucinado
+631;numerico;potencias;D1;0.0;0.009;incorreto
+631;numerico;potencias;D2;0.0;0.004;incorreto
+631;numerico;potencias;R1;0.0;9.994;incorreto
+631;numerico;potencias;R2;0.0;19.98;incorreto
+631;numerico;potencias;V1;0.0;;alucinado
+631;componentes;resistores;R1;10;10 Ω;correto
+631;componentes;resistores;R2;5;5 Ω;correto
+631;componentes;fontes;V1;10;+10 V;correto
+631;textual;regiao_operacao;D1;Corte;Condução Direta;incorreto
+631;textual;regiao_operacao;D2;Corte;Condução Direta;incorreto
+632;numerico;tensoes;A;0.0;9.997;incorreto
+632;numerico;correntes;D1;0.0;2.9987;incorreto
+632;numerico;correntes;D2;0.0;1.999;incorreto
+632;numerico;correntes;R1;0.0;0.9997;incorreto
+632;numerico;correntes;R2;0.0;1.999;incorreto
+632;numerico;correntes;V1;0.0;;alucinado
+632;numerico;potencias;D1;0.0;0.009;incorreto
+632;numerico;potencias;D2;0.0;0.004;incorreto
+632;numerico;potencias;R1;0.0;9.994;incorreto
+632;numerico;potencias;R2;0.0;19.98;incorreto
+632;numerico;potencias;V1;0.0;;alucinado
+632;componentes;resistores;R1;10;10 Ω;correto
+632;componentes;resistores;R2;5;5 Ω;correto
+632;componentes;fontes;V1;10;+10 V;correto
+632;textual;regiao_operacao;D1;Corte;Condução Direta;incorreto
+632;textual;regiao_operacao;D2;Corte;Condução Direta;incorreto
+633;numerico;tensoes;A;0.0;9.997;incorreto
+633;numerico;correntes;D1;0.0;2.9987;incorreto
+633;numerico;correntes;D2;0.0;1.999;incorreto
+633;numerico;correntes;R1;0.0;0.9997;incorreto
+633;numerico;correntes;R2;0.0;1.999;incorreto
+633;numerico;correntes;V1;0.0;;alucinado
+633;numerico;potencias;D1;0.0;0.009;incorreto
+633;numerico;potencias;D2;0.0;0.004;incorreto
+633;numerico;potencias;R1;0.0;9.994;incorreto
+633;numerico;potencias;R2;0.0;19.98;incorreto
+633;numerico;potencias;V1;0.0;;alucinado
+633;componentes;resistores;R1;10;10 Ω;correto
+633;componentes;resistores;R2;5;5 Ω;correto
+633;componentes;fontes;V1;10;+10 V;correto
+633;textual;regiao_operacao;D1;Corte;Condução Direta;incorreto
+633;textual;regiao_operacao;D2;Corte;Condução Direta;incorreto
+634;numerico;tensoes;A;0;9.997;incorreto
+634;numerico;correntes;D1;1.0;2.9987;incorreto
+634;numerico;correntes;D2;1.0;1.999;incorreto
+634;numerico;correntes;R1;0.0;0.9997;incorreto
+634;numerico;correntes;R2;0.0;1.999;incorreto
+634;numerico;potencias;D1;;0.009;faltante
+634;numerico;potencias;D2;;0.004;faltante
+634;numerico;potencias;R1;0;9.994;incorreto
+634;numerico;potencias;R2;0;19.98;incorreto
+634;numerico;potencias;V1;-10;;alucinado
+634;componentes;resistores;R1;10;10 Ω;correto
+634;componentes;resistores;R2;5;5 Ω;correto
+634;componentes;fontes;V1;10;+10 V;correto
+634;textual;regiao_operacao;D1;Forward Conduction;Condução Direta;correto
+634;textual;regiao_operacao;D2;Forward Conduction;Condução Direta;correto
+635;numerico;tensoes;A;0.0;9.997;incorreto
+635;numerico;correntes;D1;0.0;2.9987;incorreto
+635;numerico;correntes;D2;0.0;1.999;incorreto
+635;numerico;correntes;R1;0.0;0.9997;incorreto
+635;numerico;correntes;R2;0.0;1.999;incorreto
+635;numerico;correntes;V1;0.0;;alucinado
+635;numerico;potencias;D1;0.0;0.009;incorreto
+635;numerico;potencias;D2;0.0;0.004;incorreto
+635;numerico;potencias;R1;0.0;9.994;incorreto
+635;numerico;potencias;R2;0.0;19.98;incorreto
+635;numerico;potencias;V1;0.0;;alucinado
+635;componentes;resistores;R1;10;10 Ω;correto
+635;componentes;resistores;R2;5;5 Ω;correto
+635;componentes;fontes;V1;10;+10 V;correto
+635;textual;regiao_operacao;D1;Cutoff;Condução Direta;incorreto
+635;textual;regiao_operacao;D2;Cutoff;Condução Direta;incorreto
+636;numerico;tensoes;A;0.0;9.997;incorreto
+636;numerico;correntes;D1;1.0;2.9987;incorreto
+636;numerico;correntes;D2;0.0;1.999;incorreto
+636;numerico;correntes;R1;0.0;0.9997;incorreto
+636;numerico;correntes;R2;0.0;1.999;incorreto
+636;numerico;correntes;V1;1.0;;alucinado
+636;numerico;potencias;D1;0.0;0.009;incorreto
+636;numerico;potencias;D2;0.0;0.004;incorreto
+636;numerico;potencias;R1;0.0;9.994;incorreto
+636;numerico;potencias;R2;0.0;19.98;incorreto
+636;numerico;potencias;V1;-10.0;;alucinado
+636;componentes;resistores;R1;10;10 Ω;correto
+636;componentes;resistores;R2;5;5 Ω;correto
+636;componentes;fontes;V1;10;+10 V;correto
+636;textual;regiao_operacao;D1;Forward Conduction;Condução Direta;correto
+636;textual;regiao_operacao;D2;Cutoff;Condução Direta;incorreto
+637;numerico;tensoes;A;0.0;6.66656;incorreto
+637;numerico;correntes;D1;1.0;0.0;incorreto
+637;numerico;correntes;D2;0.0;0.333311;incorreto
+637;numerico;correntes;R1;1.0;0.333311;incorreto
+637;numerico;correntes;R2;0.0;0.333311;incorreto
+637;numerico;potencias;D1;0.0;0.0;correto
+637;numerico;potencias;D2;0.0;0.0;correto
+637;numerico;potencias;R1;5.0;0.555484;incorreto
+637;numerico;potencias;R2;0.0;1.110962;incorreto
+637;numerico;potencias;V1;-5.0;;alucinado
+637;numerico;potencias;V2;0.0;;alucinado
+637;componentes;resistores;R1;5;5 Ω;correto
+637;componentes;resistores;R2;10;10 Ω;correto
+637;componentes;fontes;V1;5;+5 V;correto
+637;componentes;fontes;V2;10;+10 V;correto
+637;textual;regiao_operacao;D1;Condução Direta;Corte;incorreto
+637;textual;regiao_operacao;D2;Corte;Condução Direta;incorreto
+638;numerico;tensoes;A;0.0;6.66656;incorreto
+638;numerico;correntes;D1;1.0;0.0;incorreto
+638;numerico;correntes;D2;0.0;0.333311;incorreto
+638;numerico;correntes;R1;1.0;0.333311;incorreto
+638;numerico;correntes;R2;1.0;0.333311;incorreto
+638;numerico;potencias;D1;0.0;0.0;correto
+638;numerico;potencias;D2;0.0;0.0;correto
+638;numerico;potencias;R1;5.0;0.555484;incorreto
+638;numerico;potencias;R2;10.0;1.110962;incorreto
+638;numerico;potencias;V1;-5.0;;alucinado
+638;numerico;potencias;V2;-10.0;;alucinado
+638;componentes;resistores;R1;5;5 Ω;correto
+638;componentes;resistores;R2;10;10 Ω;correto
+638;componentes;fontes;V1;5;+5 V;correto
+638;componentes;fontes;V2;10;+10 V;correto
+638;textual;regiao_operacao;D1;Condução Direta;Corte;incorreto
+638;textual;regiao_operacao;D2;Corte;Condução Direta;incorreto
+639;numerico;tensoes;A;0.0;6.66656;incorreto
+639;numerico;correntes;D1;1.0;0.0;incorreto
+639;numerico;correntes;D2;0.0;0.333311;incorreto
+639;numerico;correntes;R1;1.0;0.333311;incorreto
+639;numerico;correntes;R2;1.0;0.333311;incorreto
+639;numerico;correntes;V1;1.0;;alucinado
+639;numerico;correntes;V2;1.0;;alucinado
+639;numerico;potencias;D1;0.0;0.0;correto
+639;numerico;potencias;D2;0.0;0.0;correto
+639;numerico;potencias;R1;5.0;0.555484;incorreto
+639;numerico;potencias;R2;10.0;1.110962;incorreto
+639;numerico;potencias;V1;-5.0;;alucinado
+639;numerico;potencias;V2;-10.0;;alucinado
+639;componentes;resistores;R1;5;5 Ω;correto
+639;componentes;resistores;R2;10;10 Ω;correto
+639;componentes;fontes;V1;5;+5 V;correto
+639;componentes;fontes;V2;10;+10 V;correto
+639;textual;regiao_operacao;D1;Condução Direta;Corte;incorreto
+639;textual;regiao_operacao;D2;Corte;Condução Direta;incorreto
+640;numerico;tensoes;A;5;6.66656;incorreto
+640;numerico;correntes;D1;0.0;0.0;correto
+640;numerico;correntes;D2;0.0;0.333311;incorreto
+640;numerico;correntes;R1;0.0;0.333311;incorreto
+640;numerico;correntes;R2;1.0;0.333311;incorreto
+640;numerico;potencias;D1;0;0.0;correto
+640;numerico;potencias;D2;0;0.0;correto
+640;numerico;potencias;R1;0;0.555484;incorreto
+640;numerico;potencias;R2;10;1.110962;incorreto
+640;numerico;potencias;V1;0;;alucinado
+640;numerico;potencias;V2;-10;;alucinado
+640;componentes;resistores;R1;5;5 Ω;correto
+640;componentes;resistores;R2;10;10 Ω;correto
+640;componentes;fontes;V1;5;+5 V;correto
+640;componentes;fontes;V2;10;+10 V;correto
+640;textual;regiao_operacao;D1;Cutoff;Corte;correto
+640;textual;regiao_operacao;D2;Forward Conduction;Condução Direta;correto
+641;numerico;tensoes;A;5.0;6.66656;incorreto
+641;numerico;correntes;D1;0.0;0.0;correto
+641;numerico;correntes;D2;0.0;0.333311;incorreto
+641;numerico;correntes;R1;0.0;0.333311;incorreto
+641;numerico;correntes;R2;1.0;0.333311;incorreto
+641;numerico;correntes;V1;0.0;;alucinado
+641;numerico;correntes;V2;1.0;;alucinado
+641;numerico;potencias;D1;0.0;0.0;correto
+641;numerico;potencias;D2;0.0;0.0;correto
+641;numerico;potencias;R1;0.0;0.555484;incorreto
+641;numerico;potencias;R2;10.0;1.110962;incorreto
+641;numerico;potencias;V1;0.0;;alucinado
+641;numerico;potencias;V2;-10.0;;alucinado
+641;componentes;resistores;R1;5;5 Ω;correto
+641;componentes;resistores;R2;10;10 Ω;correto
+641;componentes;fontes;V1;5;+5 V;correto
+641;componentes;fontes;V2;10;+10 V;correto
+641;textual;regiao_operacao;D1;Forward Conduction;Corte;incorreto
+641;textual;regiao_operacao;D2;Cutoff;Condução Direta;incorreto
+642;numerico;tensoes;A;5.0;6.66656;incorreto
+642;numerico;correntes;D1;0.0;0.0;correto
+642;numerico;correntes;D2;0.0;0.333311;incorreto
+642;numerico;correntes;R1;0.0;0.333311;incorreto
+642;numerico;correntes;R2;0.5;0.333311;incorreto
+642;numerico;correntes;V1;0.0;;alucinado
+642;numerico;correntes;V2;0.5;;alucinado
+642;numerico;potencias;D1;0.0;0.0;correto
+642;numerico;potencias;D2;0.0;0.0;correto
+642;numerico;potencias;R1;0.0;0.555484;incorreto
+642;numerico;potencias;R2;2.5;1.110962;incorreto
+642;numerico;potencias;V1;0.0;;alucinado
+642;numerico;potencias;V2;5.0;;alucinado
+642;componentes;resistores;R1;5;5 Ω;correto
+642;componentes;resistores;R2;10;10 Ω;correto
+642;componentes;fontes;V1;5;+5 V;correto
+642;componentes;fontes;V2;10;+10 V;correto
+642;textual;regiao_operacao;D1;Forward Conduction;Corte;incorreto
+642;textual;regiao_operacao;D2;Cutoff;Condução Direta;incorreto
+643;numerico;tensoes;A;2.0;2.99995;incorreto
+643;numerico;tensoes;B;1.0;0.999201;correto
+643;numerico;correntes;D1;0.0;0.050005;incorreto
+643;numerico;correntes;D2;0.0;0.150125;incorreto
+643;numerico;correntes;D3;1.0;0.799071;incorreto
+643;numerico;correntes;R1;1.0;0.999201;correto
+643;numerico;correntes;R2;0.0;0.050005;incorreto
+643;numerico;correntes;R3;0.0;0.20013;incorreto
+643;numerico;potencias;D1;;0.0;faltante
+643;numerico;potencias;D2;;0.0;faltante
+643;numerico;potencias;D3;;0.0;faltante
+643;numerico;potencias;R1;1.0;0.998403;correto
+643;numerico;potencias;R2;0.0;0.05001;incorreto
+643;numerico;potencias;R3;0.0;0.20026;incorreto
+643;numerico;potencias;V1;0.0;;alucinado
+643;numerico;potencias;V2;0.0;;alucinado
+643;numerico;potencias;V3;1.0;;alucinado
+643;componentes;resistores;R1;1;1 Ω;correto
+643;componentes;resistores;R2;20;20 Ω;correto
+643;componentes;resistores;R3;5;5 Ω;correto
+643;componentes;fontes;V1;3;+3 V;correto
+643;componentes;fontes;V2;2;+2 V;correto
+643;componentes;fontes;V3;1;+1 V;correto
+643;textual;regiao_operacao;D1;Corte;Condução Direta;incorreto
+643;textual;regiao_operacao;D2;Corte;Condução Direta;incorreto
+643;textual;regiao_operacao;D3;Condução Direta;Condução Direta;correto
+644;numerico;tensoes;A;2.0;2.99995;incorreto
+644;numerico;tensoes;B;1.0;0.999201;correto
+644;numerico;correntes;D1;0.0;0.050005;incorreto
+644;numerico;correntes;D2;0.0;0.150125;incorreto
+644;numerico;correntes;D3;0.0;0.799071;incorreto
+644;numerico;correntes;R1;1.0;0.999201;correto
+644;numerico;correntes;R2;0.0;0.050005;incorreto
+644;numerico;correntes;R3;0.0;0.20013;incorreto
+644;numerico;potencias;D1;;0.0;faltante
+644;numerico;potencias;D2;;0.0;faltante
+644;numerico;potencias;D3;;0.0;faltante
+644;numerico;potencias;R1;1.0;0.998403;correto
+644;numerico;potencias;R2;0.0;0.05001;incorreto
+644;numerico;potencias;R3;0.0;0.20026;incorreto
+644;numerico;potencias;V1;0.0;;alucinado
+644;numerico;potencias;V2;0.0;;alucinado
+644;numerico;potencias;V3;1.0;;alucinado
+644;componentes;resistores;R1;1;1 Ω;correto
+644;componentes;resistores;R2;20;20 Ω;correto
+644;componentes;resistores;R3;5;5 Ω;correto
+644;componentes;fontes;V1;3;+3 V;correto
+644;componentes;fontes;V2;2;+2 V;correto
+644;componentes;fontes;V3;1;+1 V;correto
+644;textual;regiao_operacao;D1;Corte;Condução Direta;incorreto
+644;textual;regiao_operacao;D2;Corte;Condução Direta;incorreto
+644;textual;regiao_operacao;D3;Condução Direta;Condução Direta;correto
+645;numerico;tensoes;A;2.0;2.99995;incorreto
+645;numerico;tensoes;B;1.0;0.999201;correto
+645;numerico;correntes;D1;0.0;0.050005;incorreto
+645;numerico;correntes;D2;0.0;0.150125;incorreto
+645;numerico;correntes;D3;0.0;0.799071;incorreto
+645;numerico;correntes;R1;0.0;0.999201;incorreto
+645;numerico;correntes;R2;0.0;0.050005;incorreto
+645;numerico;correntes;R3;0.0;0.20013;incorreto
+645;numerico;potencias;D1;;0.0;faltante
+645;numerico;potencias;D2;;0.0;faltante
+645;numerico;potencias;D3;;0.0;faltante
+645;numerico;potencias;R1;0.0;0.998403;incorreto
+645;numerico;potencias;R2;0.0;0.05001;incorreto
+645;numerico;potencias;R3;0.0;0.20026;incorreto
+645;numerico;potencias;V1;0.0;;alucinado
+645;numerico;potencias;V2;0.0;;alucinado
+645;numerico;potencias;V3;0.0;;alucinado
+645;componentes;resistores;R1;1;1 Ω;correto
+645;componentes;resistores;R2;20;20 Ω;correto
+645;componentes;resistores;R3;5;5 Ω;correto
+645;componentes;fontes;V1;3;+3 V;correto
+645;componentes;fontes;V2;2;+2 V;correto
+645;componentes;fontes;V3;1;+1 V;correto
+645;textual;regiao_operacao;D1;Corte;Condução Direta;incorreto
+645;textual;regiao_operacao;D2;Corte;Condução Direta;incorreto
+645;textual;regiao_operacao;D3;Corte;Condução Direta;incorreto
+646;numerico;tensoes;A;2.0;2.99995;incorreto
+646;numerico;tensoes;B;0.3333333333333333;0.999201;incorreto
+646;numerico;correntes;D1;0.0;0.050005;incorreto
+646;numerico;correntes;D2;0.0;0.150125;incorreto
+646;numerico;correntes;D3;0.0;0.799071;incorreto
+646;numerico;correntes;R1;0.3333333333333333;0.999201;incorreto
+646;numerico;correntes;R2;0.0;0.050005;incorreto
+646;numerico;correntes;R3;0.26666666666666666;0.20013;incorreto
+646;numerico;potencias;D1;;0.0;faltante
+646;numerico;potencias;D2;;0.0;faltante
+646;numerico;potencias;D3;;0.0;faltante
+646;numerico;potencias;R1;0.1111111111111111;0.998403;incorreto
+646;numerico;potencias;R2;0.0;0.05001;incorreto
+646;numerico;potencias;R3;0.35555555555555557;0.20026;incorreto
+646;numerico;potencias;V1;0.0;;alucinado
+646;numerico;potencias;V2;0.0;;alucinado
+646;numerico;potencias;V3;0.0;;alucinado
+646;componentes;resistores;R1;1;1 Ω;correto
+646;componentes;resistores;R2;20;20 Ω;correto
+646;componentes;resistores;R3;5;5 Ω;correto
+646;componentes;fontes;V1;3;+3 V;correto
+646;componentes;fontes;V2;2;+2 V;correto
+646;componentes;fontes;V3;1;+1 V;correto
+646;textual;regiao_operacao;D1;Cutoff;Condução Direta;incorreto
+646;textual;regiao_operacao;D2;Forward Conduction;Condução Direta;correto
+646;textual;regiao_operacao;D3;Cutoff;Condução Direta;incorreto
+647;numerico;tensoes;A;2.0;2.99995;incorreto
+647;numerico;tensoes;B;1.0;0.999201;correto
+647;numerico;correntes;D1;0.0;0.050005;incorreto
+647;numerico;correntes;D2;0.05;0.150125;incorreto
+647;numerico;correntes;D3;0.0;0.799071;incorreto
+647;numerico;correntes;R1;1.0;0.999201;correto
+647;numerico;correntes;R2;0.0;0.050005;incorreto
+647;numerico;correntes;R3;0.2;0.20013;correto
+647;numerico;potencias;D1;;0.0;faltante
+647;numerico;potencias;D2;;0.0;faltante
+647;numerico;potencias;D3;;0.0;faltante
+647;numerico;potencias;R1;1.0;0.998403;correto
+647;numerico;potencias;R2;0.0;0.05001;incorreto
+647;numerico;potencias;R3;0.2;0.20026;correto
+647;numerico;potencias;V1;0.0;;alucinado
+647;numerico;potencias;V2;0.1;;alucinado
+647;numerico;potencias;V3;0.0;;alucinado
+647;componentes;resistores;R1;1;1 Ω;correto
+647;componentes;resistores;R2;20;20 Ω;correto
+647;componentes;resistores;R3;5;5 Ω;correto
+647;componentes;fontes;V1;3;+3 V;correto
+647;componentes;fontes;V2;2;+2 V;correto
+647;componentes;fontes;V3;1;+1 V;correto
+647;textual;regiao_operacao;D1;Cutoff;Condução Direta;incorreto
+647;textual;regiao_operacao;D2;Forward Conduction;Condução Direta;correto
+647;textual;regiao_operacao;D3;Cutoff;Condução Direta;incorreto
+648;numerico;tensoes;A;3.0;2.99995;correto
+648;numerico;tensoes;B;1.0;0.999201;correto
+648;numerico;correntes;D1;0.0;0.050005;incorreto
+648;numerico;correntes;D2;0.0;0.150125;incorreto
+648;numerico;correntes;D3;0.0;0.799071;incorreto
+648;numerico;correntes;R1;0.0;0.999201;incorreto
+648;numerico;correntes;R2;0.0;0.050005;incorreto
+648;numerico;correntes;R3;0.0;0.20013;incorreto
+648;numerico;potencias;D1;;0.0;faltante
+648;numerico;potencias;D2;;0.0;faltante
+648;numerico;potencias;D3;;0.0;faltante
+648;numerico;potencias;R1;0.0;0.998403;incorreto
+648;numerico;potencias;R2;0.0;0.05001;incorreto
+648;numerico;potencias;R3;0.0;0.20026;incorreto
+648;numerico;potencias;V1;0.0;;alucinado
+648;numerico;potencias;V2;0.0;;alucinado
+648;numerico;potencias;V3;0.0;;alucinado
+648;componentes;resistores;R1;1;1 Ω;correto
+648;componentes;resistores;R2;20;20 Ω;correto
+648;componentes;resistores;R3;5;5 Ω;correto
+648;componentes;fontes;V1;3;+3 V;correto
+648;componentes;fontes;V2;2;+2 V;correto
+648;componentes;fontes;V3;1;+1 V;correto
+648;textual;regiao_operacao;D1;Cutoff;Condução Direta;incorreto
+648;textual;regiao_operacao;D2;Forward Conduction;Condução Direta;correto
+648;textual;regiao_operacao;D3;Cutoff;Condução Direta;incorreto
+649;numerico;tensoes;A;2.0;1.0004;incorreto
+649;numerico;correntes;D1;0.0;0.0;correto
+649;numerico;correntes;D2;0.0;0.39996;incorreto
+649;numerico;correntes;R1;0.3;0.39996;incorreto
+649;numerico;correntes;R2;0.0;0.0;correto
+649;numerico;correntes;R3;0.0;0.0;correto
+649;numerico;potencias;D1;;0.0;faltante
+649;numerico;potencias;D2;;0.0;faltante
+649;numerico;potencias;R1;0.9;1.59968;incorreto
+649;numerico;potencias;R2;0.0;0.0;correto
+649;numerico;potencias;R3;0.0;0.0;correto
+649;numerico;potencias;V1;0.0;;alucinado
+649;numerico;potencias;V2;0.0;;alucinado
+649;numerico;potencias;V3;1.5;;alucinado
+649;componentes;resistores;R1;10;10 Ω;correto
+649;componentes;resistores;R2;6;6 Ω;correto
+649;componentes;resistores;R3;5;5 Ω;correto
+649;componentes;fontes;V1;2;+2 V;correto
+649;componentes;fontes;V2;1;+1 V;correto
+649;componentes;fontes;V3;5;+5 V;correto
+649;textual;regiao_operacao;D1;Corte;Corte;correto
+649;textual;regiao_operacao;D2;Corte;Condução Direta;incorreto
+650;numerico;tensoes;A;2.5;1.0004;incorreto
+650;numerico;correntes;D1;0.0;0.0;correto
+650;numerico;correntes;D2;0.0;0.39996;incorreto
+650;numerico;correntes;R1;0.25;0.39996;incorreto
+650;numerico;correntes;R2;0.0;0.0;correto
+650;numerico;correntes;R3;0.0;0.0;correto
+650;numerico;potencias;D1;;0.0;faltante
+650;numerico;potencias;D2;;0.0;faltante
+650;numerico;potencias;R1;0.625;1.59968;incorreto
+650;numerico;potencias;R2;0.0;0.0;correto
+650;numerico;potencias;R3;0.0;0.0;correto
+650;numerico;potencias;V1;0.0;;alucinado
+650;numerico;potencias;V2;0.0;;alucinado
+650;numerico;potencias;V3;1.25;;alucinado
+650;componentes;resistores;R1;10;10 Ω;correto
+650;componentes;resistores;R2;6;6 Ω;correto
+650;componentes;resistores;R3;5;5 Ω;correto
+650;componentes;fontes;V1;2;+2 V;correto
+650;componentes;fontes;V2;1;+1 V;correto
+650;componentes;fontes;V3;5;+5 V;correto
+650;textual;regiao_operacao;D1;Corte;Corte;correto
+650;textual;regiao_operacao;D2;Corte;Condução Direta;incorreto
+651;numerico;tensoes;A;2.0;1.0004;incorreto
+651;numerico;correntes;D1;0.0;0.0;correto
+651;numerico;correntes;D2;0.0;0.39996;incorreto
+651;numerico;correntes;R1;0.3;0.39996;incorreto
+651;numerico;correntes;R2;0.0;0.0;correto
+651;numerico;correntes;R3;0.0;0.0;correto
+651;numerico;potencias;D1;;0.0;faltante
+651;numerico;potencias;D2;;0.0;faltante
+651;numerico;potencias;R1;0.9;1.59968;incorreto
+651;numerico;potencias;R2;0.0;0.0;correto
+651;numerico;potencias;R3;0.0;0.0;correto
+651;numerico;potencias;V1;0.0;;alucinado
+651;numerico;potencias;V2;0.0;;alucinado
+651;numerico;potencias;V3;1.5;;alucinado
+651;componentes;resistores;R1;10;10 Ω;correto
+651;componentes;resistores;R2;6;6 Ω;correto
+651;componentes;resistores;R3;5;5 Ω;correto
+651;componentes;fontes;V1;2;+2 V;correto
+651;componentes;fontes;V2;1;+1 V;correto
+651;componentes;fontes;V3;5;+5 V;correto
+651;textual;regiao_operacao;D1;Corte;Corte;correto
+651;textual;regiao_operacao;D2;Corte;Condução Direta;incorreto
+652;numerico;tensoes;A;1.0;1.0004;correto
+652;numerico;correntes;D1;0.0;0.0;correto
+652;numerico;correntes;D2;0.0;0.39996;incorreto
+652;numerico;correntes;R1;0.4;0.39996;correto
+652;numerico;correntes;R2;0.0;0.0;correto
+652;numerico;correntes;R3;0.2;0.0;incorreto
+652;numerico;potencias;D1;;0.0;faltante
+652;numerico;potencias;D2;;0.0;faltante
+652;numerico;potencias;R1;1.6;1.59968;correto
+652;numerico;potencias;R2;0.0;0.0;correto
+652;numerico;potencias;R3;0.2;0.0;incorreto
+652;numerico;potencias;V1;0.0;;alucinado
+652;numerico;potencias;V2;0.0;;alucinado
+652;numerico;potencias;V3;-2.0;;alucinado
+652;componentes;resistores;R1;10;10 Ω;correto
+652;componentes;resistores;R2;6;6 Ω;correto
+652;componentes;resistores;R3;5;5 Ω;correto
+652;componentes;fontes;V1;2;+2 V;correto
+652;componentes;fontes;V2;1;+1 V;correto
+652;componentes;fontes;V3;5;+5 V;correto
+652;textual;regiao_operacao;D1;Cutoff;Corte;correto
+652;textual;regiao_operacao;D2;Forward Conduction;Condução Direta;correto
+653;numerico;tensoes;A;2.0;1.0004;incorreto
+653;numerico;correntes;D1;0.0;0.0;correto
+653;numerico;correntes;D2;0.0;0.39996;incorreto
+653;numerico;correntes;R1;0.3;0.39996;incorreto
+653;numerico;correntes;R2;0.0;0.0;correto
+653;numerico;correntes;R3;0.1;0.0;incorreto
+653;numerico;potencias;D1;;0.0;faltante
+653;numerico;potencias;D2;;0.0;faltante
+653;numerico;potencias;R1;0.9;1.59968;incorreto
+653;numerico;potencias;R2;0.0;0.0;correto
+653;numerico;potencias;R3;0.25;0.0;incorreto
+653;numerico;potencias;V1;0.0;;alucinado
+653;numerico;potencias;V2;0.0;;alucinado
+653;numerico;potencias;V3;-1.5;;alucinado
+653;componentes;resistores;R1;10;10 Ω;correto
+653;componentes;resistores;R2;6;6 Ω;correto
+653;componentes;resistores;R3;5;5 Ω;correto
+653;componentes;fontes;V1;2;+2 V;correto
+653;componentes;fontes;V2;1;+1 V;correto
+653;componentes;fontes;V3;5;+5 V;correto
+653;textual;regiao_operacao;D1;Forward Conduction;Corte;incorreto
+653;textual;regiao_operacao;D2;Reverse Bias;Condução Direta;incorreto
+654;numerico;tensoes;A;1.25;1.0004;incorreto
+654;numerico;correntes;D1;0.0;0.0;correto
+654;numerico;correntes;D2;0.25;0.39996;incorreto
+654;numerico;correntes;R1;0.375;0.39996;incorreto
+654;numerico;correntes;R2;0.0;0.0;correto
+654;numerico;correntes;R3;0.25;0.0;incorreto
+654;numerico;potencias;D1;;0.0;faltante
+654;numerico;potencias;D2;;0.0;faltante
+654;numerico;potencias;R1;1.40625;1.59968;incorreto
+654;numerico;potencias;R2;0.0;0.0;correto
+654;numerico;potencias;R3;0.3125;0.0;incorreto
+654;numerico;potencias;V1;0.0;;alucinado
+654;numerico;potencias;V2;-0.25;;alucinado
+654;numerico;potencias;V3;-1.875;;alucinado
+654;componentes;resistores;R1;10;10 Ω;correto
+654;componentes;resistores;R2;6;6 Ω;correto
+654;componentes;resistores;R3;5;5 Ω;correto
+654;componentes;fontes;V1;2;+2 V;correto
+654;componentes;fontes;V2;1;+1 V;correto
+654;componentes;fontes;V3;5;+5 V;correto
+654;textual;regiao_operacao;D1;Cutoff;Corte;correto
+654;textual;regiao_operacao;D2;Forward Conduction;Condução Direta;correto
+655;numerico;tensoes;A;4.0;3.00217;incorreto
+655;numerico;correntes;D1;0.0;0.0;correto
+655;numerico;correntes;D2;1.0;2.16534;incorreto
+655;numerico;correntes;R1;2.0;2.49892;incorreto
+655;numerico;correntes;R2;0.6666666666666666;0.333574;incorreto
+655;numerico;correntes;R3;0.0;0.333574;incorreto
+655;numerico;potencias;D1;;0.0;faltante
+655;numerico;potencias;D2;;0.0;faltante
+655;numerico;potencias;R1;8.0;12.4892;incorreto
+655;numerico;potencias;R2;2.6666666666666665;0.667629;incorreto
+655;numerico;potencias;R3;0.0;0.333815;incorreto
+655;numerico;potencias;V1;0.0;;alucinado
+655;numerico;potencias;V2;3.0;;alucinado
+655;numerico;potencias;V3;16.0;;alucinado
+655;componentes;resistores;R1;2;2 Ω;correto
+655;componentes;resistores;R2;6;6 Ω;correto
+655;componentes;resistores;R3;3;3 Ω;correto
+655;componentes;fontes;V1;-3;-3 V;correto
+655;componentes;fontes;V2;3;+3 V;correto
+655;componentes;fontes;V3;8;+8 V;correto
+655;textual;regiao_operacao;D1;Corte;Corte;correto
+655;textual;regiao_operacao;D2;Condução Direta;Condução Direta;correto
+656;numerico;tensoes;A;6.0;3.00217;incorreto
+656;numerico;correntes;D1;0.0;0.0;correto
+656;numerico;correntes;D2;3.0;2.16534;incorreto
+656;numerico;correntes;R1;1.0;2.49892;incorreto
+656;numerico;correntes;R2;0.3333333333333333;0.333574;correto
+656;numerico;correntes;R3;0.6666666666666666;0.333574;incorreto
+656;numerico;potencias;D1;;0.0;faltante
+656;numerico;potencias;D2;;0.0;faltante
+656;numerico;potencias;R1;2.0;12.4892;incorreto
+656;numerico;potencias;R2;0.6666666666666666;0.667629;correto
+656;numerico;potencias;R3;2.6666666666666665;0.333815;incorreto
+656;numerico;potencias;V1;0.0;;alucinado
+656;numerico;potencias;V2;9.0;;alucinado
+656;numerico;potencias;V3;8.0;;alucinado
+656;componentes;resistores;R1;2;2 Ω;correto
+656;componentes;resistores;R2;6;6 Ω;correto
+656;componentes;resistores;R3;3;3 Ω;correto
+656;componentes;fontes;V1;-3;-3 V;correto
+656;componentes;fontes;V2;3;+3 V;correto
+656;componentes;fontes;V3;8;+8 V;correto
+656;textual;regiao_operacao;D1;Corte;Corte;correto
+656;textual;regiao_operacao;D2;Condução Direta;Condução Direta;correto
+657;numerico;tensoes;A;2.0;3.00217;incorreto
+657;numerico;correntes;D1;0.0;0.0;correto
+657;numerico;correntes;D2;0.0;2.16534;incorreto
+657;numerico;correntes;R1;3.0;2.49892;incorreto
+657;numerico;correntes;R2;0.3333333333333333;0.333574;correto
+657;numerico;correntes;R3;0.0;0.333574;incorreto
+657;numerico;potencias;D1;;0.0;faltante
+657;numerico;potencias;D2;;0.0;faltante
+657;numerico;potencias;R1;18.0;12.4892;incorreto
+657;numerico;potencias;R2;0.6666666666666666;0.667629;correto
+657;numerico;potencias;R3;0.0;0.333815;incorreto
+657;numerico;potencias;V1;0.0;;alucinado
+657;numerico;potencias;V2;0.0;;alucinado
+657;numerico;potencias;V3;-24.0;;alucinado
+657;componentes;resistores;R1;2;2 Ω;correto
+657;componentes;resistores;R2;6;6 Ω;correto
+657;componentes;resistores;R3;3;3 Ω;correto
+657;componentes;fontes;V1;-3;-3 V;correto
+657;componentes;fontes;V2;3;+3 V;correto
+657;componentes;fontes;V3;8;+8 V;correto
+657;textual;regiao_operacao;D1;Corte;Corte;correto
+657;textual;regiao_operacao;D2;Corte;Condução Direta;incorreto
+658;numerico;tensoes;A;3.0;3.00217;correto
+658;numerico;correntes;D1;0.0;0.0;correto
+658;numerico;correntes;D2;0.0;2.16534;incorreto
+658;numerico;correntes;R1;2.5;2.49892;correto
+658;numerico;correntes;R2;0.3333333333333333;0.333574;correto
+658;numerico;correntes;R3;0.6666666666666666;0.333574;incorreto
+658;numerico;potencias;D1;;0.0;faltante
+658;numerico;potencias;D2;;0.0;faltante
+658;numerico;potencias;R1;12.5;12.4892;correto
+658;numerico;potencias;R2;0.6666666666666666;0.667629;correto
+658;numerico;potencias;R3;1.3333333333333333;0.333815;incorreto
+658;numerico;potencias;V1;0.0;;alucinado
+658;numerico;potencias;V2;0.0;;alucinado
+658;numerico;potencias;V3;-20.0;;alucinado
+658;componentes;resistores;R1;2;2 Ω;correto
+658;componentes;resistores;R2;6;6 Ω;correto
+658;componentes;resistores;R3;3;3 Ω;correto
+658;componentes;fontes;V1;-3;-3 V;correto
+658;componentes;fontes;V2;3;+3 V;correto
+658;componentes;fontes;V3;8;+8 V;correto
+658;textual;regiao_operacao;D1;Cutoff;Corte;correto
+658;textual;regiao_operacao;D2;Cutoff;Condução Direta;incorreto
+659;numerico;tensoes;A;2.0;3.00217;incorreto
+659;numerico;correntes;D1;0.0;0.0;correto
+659;numerico;correntes;D2;0.0;2.16534;incorreto
+659;numerico;correntes;R1;3.0;2.49892;incorreto
+659;numerico;correntes;R2;0.3333333333333333;0.333574;correto
+659;numerico;correntes;R3;0.0;0.333574;incorreto
+659;numerico;potencias;D1;;0.0;faltante
+659;numerico;potencias;D2;;0.0;faltante
+659;numerico;potencias;R1;18.0;12.4892;incorreto
+659;numerico;potencias;R2;0.6666666666666666;0.667629;correto
+659;numerico;potencias;R3;0.0;0.333815;incorreto
+659;numerico;potencias;V1;0.0;;alucinado
+659;numerico;potencias;V2;0.0;;alucinado
+659;numerico;potencias;V3;-24.0;;alucinado
+659;componentes;resistores;R1;2;2 Ω;correto
+659;componentes;resistores;R2;6;6 Ω;correto
+659;componentes;resistores;R3;3;3 Ω;correto
+659;componentes;fontes;V1;-3;-3 V;correto
+659;componentes;fontes;V2;3;+3 V;correto
+659;componentes;fontes;V3;8;+8 V;correto
+659;textual;regiao_operacao;D1;Cutoff;Corte;correto
+659;textual;regiao_operacao;D2;Cutoff;Condução Direta;incorreto
+660;numerico;tensoes;A;6.0;3.00217;incorreto
+660;numerico;correntes;D1;0.0;0.0;correto
+660;numerico;correntes;D2;1.5;2.16534;incorreto
+660;numerico;correntes;R1;1.0;2.49892;incorreto
+660;numerico;correntes;R2;0.3333333333333333;0.333574;correto
+660;numerico;correntes;R3;0.6666666666666666;0.333574;incorreto
+660;numerico;potencias;D1;;0.0;faltante
+660;numerico;potencias;D2;;0.0;faltante
+660;numerico;potencias;R1;2.0;12.4892;incorreto
+660;numerico;potencias;R2;0.6666666666666666;0.667629;correto
+660;numerico;potencias;R3;1.3333333333333333;0.333815;incorreto
+660;numerico;potencias;V1;0.0;;alucinado
+660;numerico;potencias;V2;4.5;;alucinado
+660;numerico;potencias;V3;8.0;;alucinado
+660;componentes;resistores;R1;2;2 Ω;correto
+660;componentes;resistores;R2;6;6 Ω;correto
+660;componentes;resistores;R3;3;3 Ω;correto
+660;componentes;fontes;V1;-3;-3 V;correto
+660;componentes;fontes;V2;3;+3 V;correto
+660;componentes;fontes;V3;8;+8 V;correto
+660;textual;regiao_operacao;D1;Reverse Bias;Corte;correto
+660;textual;regiao_operacao;D2;Forward Conduction;Condução Direta;correto
+661;numerico;tensoes;A;8.0;7.999;correto
+661;numerico;correntes;D1;0.0;0.0;correto
+661;numerico;correntes;D2;0.6666666666666666;0.999301;incorreto
+661;numerico;correntes;D3;0.0;0.0;correto
+661;numerico;correntes;D4;0.0;0.399261;incorreto
+661;numerico;correntes;R1;0.6666666666666666;0.999301;incorreto
+661;numerico;correntes;R2;0.6666666666666666;0.60004;incorreto
+661;numerico;potencias;D1;;0.0;faltante
+661;numerico;potencias;D2;;0.0;faltante
+661;numerico;potencias;D3;;0.0;faltante
+661;numerico;potencias;D4;;0.0;faltante
+661;numerico;potencias;R1;0.8888888888888888;1.9972;incorreto
+661;numerico;potencias;R2;4.444444444444445;3.60048;incorreto
+661;numerico;potencias;V1;0.0;;alucinado
+661;numerico;potencias;V2;5.333333333333333;;alucinado
+661;numerico;potencias;V3;0.0;;alucinado
+661;numerico;potencias;V4;0.0;;alucinado
+661;componentes;resistores;R1;2;2 Ω;correto
+661;componentes;resistores;R2;10;10 Ω;correto
+661;componentes;fontes;V1;3;+5 V;incorreto
+661;componentes;fontes;V2;8;+8 V;correto
+661;componentes;fontes;V3;5;+3 V;incorreto
+661;componentes;fontes;V4;6;+6 V;correto
+661;textual;regiao_operacao;D1;Corte;Corte;correto
+661;textual;regiao_operacao;D2;Condução Direta;Condução Direta;correto
+661;textual;regiao_operacao;D3;Corte;Corte;correto
+661;textual;regiao_operacao;D4;Corte;Condução Direta;incorreto
+662;numerico;tensoes;A;8.0;7.999;correto
+662;numerico;correntes;D1;0.0;0.0;correto
+662;numerico;correntes;D2;0.6666666666666666;0.999301;incorreto
+662;numerico;correntes;D3;0.0;0.0;correto
+662;numerico;correntes;D4;0.0;0.399261;incorreto
+662;numerico;correntes;R1;0.6666666666666666;0.999301;incorreto
+662;numerico;correntes;R2;0.6666666666666666;0.60004;incorreto
+662;numerico;potencias;D1;;0.0;faltante
+662;numerico;potencias;D2;;0.0;faltante
+662;numerico;potencias;D3;;0.0;faltante
+662;numerico;potencias;D4;;0.0;faltante
+662;numerico;potencias;R1;0.8888888888888888;1.9972;incorreto
+662;numerico;potencias;R2;4.444444444444445;3.60048;incorreto
+662;numerico;potencias;V1;0.0;;alucinado
+662;numerico;potencias;V2;5.333333333333333;;alucinado
+662;numerico;potencias;V3;0.0;;alucinado
+662;numerico;potencias;V4;0.0;;alucinado
+662;componentes;resistores;R1;2;2 Ω;correto
+662;componentes;resistores;R2;10;10 Ω;correto
+662;componentes;fontes;V1;3;+5 V;incorreto
+662;componentes;fontes;V2;8;+8 V;correto
+662;componentes;fontes;V3;5;+3 V;incorreto
+662;componentes;fontes;V4;6;+6 V;correto
+662;textual;regiao_operacao;D1;Corte;Corte;correto
+662;textual;regiao_operacao;D2;Condução Direta;Condução Direta;correto
+662;textual;regiao_operacao;D3;Corte;Corte;correto
+662;textual;regiao_operacao;D4;Corte;Condução Direta;incorreto
+663;numerico;tensoes;A;8.0;7.999;correto
+663;numerico;correntes;D1;0.0;0.0;correto
+663;numerico;correntes;D2;0.6666666666666666;0.999301;incorreto
+663;numerico;correntes;D3;0.0;0.0;correto
+663;numerico;correntes;D4;0.0;0.399261;incorreto
+663;numerico;correntes;R1;0.6666666666666666;0.999301;incorreto
+663;numerico;correntes;R2;0.6666666666666666;0.60004;incorreto
+663;numerico;potencias;D1;;0.0;faltante
+663;numerico;potencias;D2;;0.0;faltante
+663;numerico;potencias;D3;;0.0;faltante
+663;numerico;potencias;D4;;0.0;faltante
+663;numerico;potencias;R1;0.8888888888888888;1.9972;incorreto
+663;numerico;potencias;R2;4.444444444444445;3.60048;incorreto
+663;numerico;potencias;V1;0.0;;alucinado
+663;numerico;potencias;V2;5.333333333333333;;alucinado
+663;numerico;potencias;V3;0.0;;alucinado
+663;numerico;potencias;V4;0.0;;alucinado
+663;componentes;resistores;R1;2;2 Ω;correto
+663;componentes;resistores;R2;10;10 Ω;correto
+663;componentes;fontes;V1;3;+5 V;incorreto
+663;componentes;fontes;V2;8;+8 V;correto
+663;componentes;fontes;V3;5;+3 V;incorreto
+663;componentes;fontes;V4;6;+6 V;correto
+663;textual;regiao_operacao;D1;Corte;Corte;correto
+663;textual;regiao_operacao;D2;Condução Direta;Condução Direta;correto
+663;textual;regiao_operacao;D3;Corte;Corte;correto
+663;textual;regiao_operacao;D4;Corte;Condução Direta;incorreto
+664;numerico;tensoes;A;8.0;7.999;correto
+664;numerico;correntes;D1;0.0;0.0;correto
+664;numerico;correntes;D2;0.6666666666666666;0.999301;incorreto
+664;numerico;correntes;D3;0.0;0.0;correto
+664;numerico;correntes;D4;0.4;0.399261;correto
+664;numerico;correntes;R1;1.0;0.999301;correto
+664;numerico;correntes;R2;0.6;0.60004;correto
+664;numerico;potencias;D1;0.0;0.0;correto
+664;numerico;potencias;D2;0.0;0.0;correto
+664;numerico;potencias;D3;0.0;0.0;correto
+664;numerico;potencias;D4;0.0;0.0;correto
+664;numerico;potencias;R1;2.0;1.9972;correto
+664;numerico;potencias;R2;3.6;3.60048;correto
+664;numerico;potencias;V1;0.0;;alucinado
+664;numerico;potencias;V2;5.333333333333333;;alucinado
+664;numerico;potencias;V3;0.0;;alucinado
+664;numerico;potencias;V4;2.4;;alucinado
+664;componentes;resistores;R1;2;2 Ω;correto
+664;componentes;resistores;R2;10;10 Ω;correto
+664;componentes;fontes;V1;3;+5 V;incorreto
+664;componentes;fontes;V2;8;+8 V;correto
+664;componentes;fontes;V3;5;+3 V;incorreto
+664;componentes;fontes;V4;6;+6 V;correto
+664;textual;regiao_operacao;D1;Cutoff;Corte;correto
+664;textual;regiao_operacao;D2;Forward Conduction;Condução Direta;correto
+664;textual;regiao_operacao;D3;Cutoff;Corte;correto
+664;textual;regiao_operacao;D4;Forward Conduction;Condução Direta;correto
+665;numerico;tensoes;A;8.0;7.999;correto
+665;numerico;correntes;D1;0.0;0.0;correto
+665;numerico;correntes;D2;0.6666666666666666;0.999301;incorreto
+665;numerico;correntes;D3;0.0;0.0;correto
+665;numerico;correntes;D4;0.0;0.399261;incorreto
+665;numerico;correntes;R1;0.6666666666666666;0.999301;incorreto
+665;numerico;correntes;R2;0.6666666666666666;0.60004;incorreto
+665;numerico;potencias;D1;;0.0;faltante
+665;numerico;potencias;D2;;0.0;faltante
+665;numerico;potencias;D3;;0.0;faltante
+665;numerico;potencias;D4;;0.0;faltante
+665;numerico;potencias;R1;0.8888888888888888;1.9972;incorreto
+665;numerico;potencias;R2;4.444444444444445;3.60048;incorreto
+665;numerico;potencias;V1;0.0;;alucinado
+665;numerico;potencias;V2;5.333333333333333;;alucinado
+665;numerico;potencias;V3;0.0;;alucinado
+665;numerico;potencias;V4;0.0;;alucinado
+665;componentes;resistores;R1;2;2 Ω;correto
+665;componentes;resistores;R2;10;10 Ω;correto
+665;componentes;fontes;V1;3;+5 V;incorreto
+665;componentes;fontes;V2;8;+8 V;correto
+665;componentes;fontes;V3;5;+3 V;incorreto
+665;componentes;fontes;V4;6;+6 V;correto
+665;textual;regiao_operacao;D1;Cutoff;Corte;correto
+665;textual;regiao_operacao;D2;Forward Conduction;Condução Direta;correto
+665;textual;regiao_operacao;D3;Cutoff;Corte;correto
+665;textual;regiao_operacao;D4;Cutoff;Condução Direta;incorreto
+666;numerico;tensoes;A;8.0;7.999;correto
+666;numerico;correntes;D1;0.0;0.0;correto
+666;numerico;correntes;D2;0.0;0.999301;incorreto
+666;numerico;correntes;D3;0.0;0.0;correto
+666;numerico;correntes;D4;0.05555555555555555;0.399261;incorreto
+666;numerico;correntes;R1;0.16666666666666666;0.999301;incorreto
+666;numerico;correntes;R2;0.6;0.60004;correto
+666;numerico;potencias;D1;;0.0;faltante
+666;numerico;potencias;D2;;0.0;faltante
+666;numerico;potencias;D3;;0.0;faltante
+666;numerico;potencias;D4;;0.0;faltante
+666;numerico;potencias;R1;;1.9972;faltante
+666;numerico;potencias;R2;;3.60048;faltante
+666;numerico;potencias;V1;0.0;;alucinado
+666;numerico;potencias;V2;0.0;;alucinado
+666;numerico;potencias;V3;0.0;;alucinado
+666;numerico;potencias;V4;0.3333333333333333;;alucinado
+666;componentes;resistores;R1;2;2 Ω;correto
+666;componentes;resistores;R2;10;10 Ω;correto
+666;componentes;fontes;V1;3;+5 V;incorreto
+666;componentes;fontes;V2;8;+8 V;correto
+666;componentes;fontes;V3;5;+3 V;incorreto
+666;componentes;fontes;V4;6;+6 V;correto
+666;textual;regiao_operacao;D1;Cutoff;Corte;correto
+666;textual;regiao_operacao;D2;Forward Conduction;Condução Direta;correto
+666;textual;regiao_operacao;D3;Cutoff;Corte;correto
+666;textual;regiao_operacao;D4;Forward Conduction;Condução Direta;correto
+667;numerico;tensoes;A;7.0;6.99922;correto
+667;numerico;tensoes;B;3.0;4.66641;incorreto
+667;numerico;correntes;D1;0.0;0.0;correto
+667;numerico;correntes;D2;1.3333333333333333;0.777605;incorreto
+667;numerico;correntes;D3;0.0;0.0;correto
+667;numerico;correntes;D4;0.5;0.777605;incorreto
+667;numerico;correntes;R1;1.3333333333333333;0.777605;incorreto
+667;numerico;correntes;R2;0.0;0.0;correto
+667;numerico;correntes;R3;0.5;0.777605;incorreto
+667;numerico;potencias;D1;0.0;0.0;correto
+667;numerico;potencias;D2;0.0;0.0;correto
+667;numerico;potencias;D3;0.0;0.0;correto
+667;numerico;potencias;D4;0.0;0.0;correto
+667;numerico;potencias;R1;5.333333333333333;1.81401;incorreto
+667;numerico;potencias;R2;0.0;0.0;correto
+667;numerico;potencias;R3;1.5;3.62802;incorreto
+667;numerico;potencias;V1;0.0;;alucinado
+667;numerico;potencias;V2;9.333333333333334;;alucinado
+667;numerico;potencias;V3;0.0;;alucinado
+667;componentes;resistores;R1;3;3 Ω;correto
+667;componentes;resistores;R2;6;6 Ω;correto
+667;componentes;resistores;R3;6;6 Ω;correto
+667;componentes;fontes;V1;2;+2 V;correto
+667;componentes;fontes;V2;7;+7 V;correto
+667;componentes;fontes;V3;4;+4 V;correto
+667;textual;regiao_operacao;D1;Corte;Corte;correto
+667;textual;regiao_operacao;D2;Condução Direta;Condução Direta;correto
+667;textual;regiao_operacao;D3;Corte;Corte;correto
+667;textual;regiao_operacao;D4;Condução Direta;Condução Direta;correto
+668;numerico;tensoes;A;7.0;6.99922;correto
+668;numerico;tensoes;B;6.0;4.66641;incorreto
+668;numerico;correntes;D1;0.0;0.0;correto
+668;numerico;correntes;D2;0.0;0.777605;incorreto
+668;numerico;correntes;D3;0.0;0.0;correto
+668;numerico;correntes;D4;0.5;0.777605;incorreto
+668;numerico;correntes;R1;0.3333333333333333;0.777605;incorreto
+668;numerico;correntes;R2;0.6666666666666666;0.0;incorreto
+668;numerico;correntes;R3;0.5;0.777605;incorreto
+668;numerico;potencias;D1;;0.0;faltante
+668;numerico;potencias;D2;;0.0;faltante
+668;numerico;potencias;D3;;0.0;faltante
+668;numerico;potencias;D4;;0.0;faltante
+668;numerico;potencias;R1;0.3333333333333333;1.81401;incorreto
+668;numerico;potencias;R2;2.6666666666666665;0.0;incorreto
+668;numerico;potencias;R3;1.5;3.62802;incorreto
+668;numerico;potencias;V1;0.0;;alucinado
+668;numerico;potencias;V2;0.0;;alucinado
+668;numerico;potencias;V3;0.0;;alucinado
+668;componentes;resistores;R1;3;3 Ω;correto
+668;componentes;resistores;R2;6;6 Ω;correto
+668;componentes;resistores;R3;6;6 Ω;correto
+668;componentes;fontes;V1;2;+2 V;correto
+668;componentes;fontes;V2;7;+7 V;correto
+668;componentes;fontes;V3;4;+4 V;correto
+668;textual;regiao_operacao;D1;Corte;Corte;correto
+668;textual;regiao_operacao;D2;Condução Direta;Condução Direta;correto
+668;textual;regiao_operacao;D3;Corte;Corte;correto
+668;textual;regiao_operacao;D4;Condução Direta;Condução Direta;correto
+669;numerico;tensoes;A;7.0;6.99922;correto
+669;numerico;tensoes;B;7.0;4.66641;incorreto
+669;numerico;correntes;D1;0.0;0.0;correto
+669;numerico;correntes;D2;0.0;0.777605;incorreto
+669;numerico;correntes;D3;0.0;0.0;correto
+669;numerico;correntes;D4;0.0;0.777605;incorreto
+669;numerico;correntes;R1;0.0;0.777605;incorreto
+669;numerico;correntes;R2;0.0;0.0;correto
+669;numerico;correntes;R3;1.1666666666666667;0.777605;incorreto
+669;numerico;potencias;D1;;0.0;faltante
+669;numerico;potencias;D2;;0.0;faltante
+669;numerico;potencias;D3;;0.0;faltante
+669;numerico;potencias;D4;;0.0;faltante
+669;numerico;potencias;R1;0.0;1.81401;incorreto
+669;numerico;potencias;R2;0.0;0.0;correto
+669;numerico;potencias;R3;8.166666666666666;3.62802;incorreto
+669;numerico;potencias;V1;0.0;;alucinado
+669;numerico;potencias;V2;0.0;;alucinado
+669;numerico;potencias;V3;0.0;;alucinado
+669;componentes;resistores;R1;3;3 Ω;correto
+669;componentes;resistores;R2;6;6 Ω;correto
+669;componentes;resistores;R3;6;6 Ω;correto
+669;componentes;fontes;V1;2;+2 V;correto
+669;componentes;fontes;V2;7;+7 V;correto
+669;componentes;fontes;V3;4;+4 V;correto
+669;textual;regiao_operacao;D1;Corte;Corte;correto
+669;textual;regiao_operacao;D2;Condução Direta;Condução Direta;correto
+669;textual;regiao_operacao;D3;Corte;Corte;correto
+669;textual;regiao_operacao;D4;Condução Direta;Condução Direta;correto
+670;numerico;tensoes;A;4.0;6.99922;incorreto
+670;numerico;tensoes;B;0.0;4.66641;incorreto
+670;numerico;correntes;D1;0.0;0.0;correto
+670;numerico;correntes;D2;0.0;0.777605;incorreto
+670;numerico;correntes;D3;0.0;0.0;correto
+670;numerico;correntes;D4;0.0;0.777605;incorreto
+670;numerico;correntes;R1;0.0;0.777605;incorreto
+670;numerico;correntes;R2;0.0;0.0;correto
+670;numerico;correntes;R3;0.0;0.777605;incorreto
+670;numerico;potencias;D1;;0.0;faltante
+670;numerico;potencias;D2;;0.0;faltante
+670;numerico;potencias;D3;;0.0;faltante
+670;numerico;potencias;D4;;0.0;faltante
+670;numerico;potencias;R1;0.0;1.81401;incorreto
+670;numerico;potencias;R2;0.0;0.0;correto
+670;numerico;potencias;R3;0.0;3.62802;incorreto
+670;numerico;potencias;V1;0.0;;alucinado
+670;numerico;potencias;V2;0.0;;alucinado
+670;numerico;potencias;V3;0.0;;alucinado
+670;componentes;resistores;R1;3;3 Ω;correto
+670;componentes;resistores;R2;6;6 Ω;correto
+670;componentes;resistores;R3;6;6 Ω;correto
+670;componentes;fontes;V1;2;+2 V;correto
+670;componentes;fontes;V2;7;+7 V;correto
+670;componentes;fontes;V3;4;+4 V;correto
+670;textual;regiao_operacao;D1;Forward Conduction;Corte;incorreto
+670;textual;regiao_operacao;D2;Cutoff;Condução Direta;incorreto
+670;textual;regiao_operacao;D3;Cutoff;Corte;correto
+670;textual;regiao_operacao;D4;Cutoff;Condução Direta;incorreto
+671;numerico;tensoes;A;7.0;6.99922;correto
+671;numerico;tensoes;B;7.0;4.66641;incorreto
+671;numerico;correntes;D1;0.0;0.0;correto
+671;numerico;correntes;D2;1.1666666666666667;0.777605;incorreto
+671;numerico;correntes;D3;0.0;0.0;correto
+671;numerico;correntes;D4;1.1666666666666667;0.777605;incorreto
+671;numerico;correntes;R1;0.0;0.777605;incorreto
+671;numerico;correntes;R2;0.0;0.0;correto
+671;numerico;correntes;R3;1.1666666666666667;0.777605;incorreto
+671;numerico;correntes;V1;0.0;;alucinado
+671;numerico;correntes;V2;1.1666666666666667;;alucinado
+671;numerico;correntes;V3;0.0;;alucinado
+671;numerico;potencias;D1;;0.0;faltante
+671;numerico;potencias;D2;;0.0;faltante
+671;numerico;potencias;D3;;0.0;faltante
+671;numerico;potencias;D4;;0.0;faltante
+671;numerico;potencias;R1;0.0;1.81401;incorreto
+671;numerico;potencias;R2;0.0;0.0;correto
+671;numerico;potencias;R3;8.166666666666666;3.62802;incorreto
+671;numerico;potencias;V1;0.0;;alucinado
+671;numerico;potencias;V2;8.166666666666666;;alucinado
+671;numerico;potencias;V3;0.0;;alucinado
+671;componentes;resistores;R1;3;3 Ω;correto
+671;componentes;resistores;R2;6;6 Ω;correto
+671;componentes;resistores;R3;6;6 Ω;correto
+671;componentes;fontes;V1;2;+2 V;correto
+671;componentes;fontes;V2;7;+7 V;correto
+671;componentes;fontes;V3;4;+4 V;correto
+671;textual;regiao_operacao;D1;Cutoff;Corte;correto
+671;textual;regiao_operacao;D2;Forward Conduction;Condução Direta;correto
+671;textual;regiao_operacao;D3;Cutoff;Corte;correto
+671;textual;regiao_operacao;D4;Forward Conduction;Condução Direta;correto
+672;numerico;tensoes;A;7.0;6.99922;correto
+672;numerico;tensoes;B;4.0;4.66641;incorreto
+672;numerico;correntes;D1;0.0;0.0;correto
+672;numerico;correntes;D2;1.0;0.777605;incorreto
+672;numerico;correntes;D3;0.0;0.0;correto
+672;numerico;correntes;D4;0.6666666666666666;0.777605;incorreto
+672;numerico;correntes;R1;1.0;0.777605;incorreto
+672;numerico;correntes;R2;0.3333333333333333;0.0;incorreto
+672;numerico;correntes;R3;0.3333333333333333;0.777605;incorreto
+672;numerico;potencias;D1;;0.0;faltante
+672;numerico;potencias;D2;;0.0;faltante
+672;numerico;potencias;D3;;0.0;faltante
+672;numerico;potencias;D4;;0.0;faltante
+672;numerico;potencias;R1;3.0;1.81401;incorreto
+672;numerico;potencias;R2;1.3333333333333333;0.0;incorreto
+672;numerico;potencias;R3;0.6666666666666666;3.62802;incorreto
+672;numerico;potencias;V1;0.0;;alucinado
+672;numerico;potencias;V2;7.0;;alucinado
+672;numerico;potencias;V3;0.0;;alucinado
+672;componentes;resistores;R1;3;3 Ω;correto
+672;componentes;resistores;R2;6;6 Ω;correto
+672;componentes;resistores;R3;6;6 Ω;correto
+672;componentes;fontes;V1;2;+2 V;correto
+672;componentes;fontes;V2;7;+7 V;correto
+672;componentes;fontes;V3;4;+4 V;correto
+672;textual;regiao_operacao;D1;Cutoff;Corte;correto
+672;textual;regiao_operacao;D2;Forward Conduction;Condução Direta;correto
+672;textual;regiao_operacao;D3;Cutoff;Corte;correto
+672;textual;regiao_operacao;D4;Forward Conduction;Condução Direta;correto
+673;numerico;correntes;R1;1.0;1.0;correto
+673;numerico;correntes;R2;1.0;1.0;correto
+673;numerico;correntes;V1;1.0;;alucinado
+673;numerico;potencias;R1;4.0;4.0;correto
+673;numerico;potencias;R2;6.0;6.0;correto
+673;numerico;potencias;V1;-10.0;;alucinado
+673;componentes;resistores;R1;4;4 Ω;correto
+673;componentes;resistores;R2;6;6 Ω;correto
+673;componentes;fontes;V1;10;+10 V;correto
+674;numerico;correntes;R1;1.0;1.0;correto
+674;numerico;correntes;R2;1.0;1.0;correto
+674;numerico;correntes;V1;1.0;;alucinado
+674;numerico;potencias;R1;4.0;4.0;correto
+674;numerico;potencias;R2;6.0;6.0;correto
+674;numerico;potencias;V1;-10.0;;alucinado
+674;componentes;resistores;R1;4;4 Ω;correto
+674;componentes;resistores;R2;6;6 Ω;correto
+674;componentes;fontes;V1;10;+10 V;correto
+675;numerico;correntes;R1;1.0;1.0;correto
+675;numerico;correntes;R2;1.0;1.0;correto
+675;numerico;correntes;V1;1.0;;alucinado
+675;numerico;potencias;R1;4.0;4.0;correto
+675;numerico;potencias;R2;6.0;6.0;correto
+675;numerico;potencias;V1;-10.0;;alucinado
+675;componentes;resistores;R1;4;4 Ω;correto
+675;componentes;resistores;R2;6;6 Ω;correto
+675;componentes;fontes;V1;10;+10 V;correto
+676;numerico;correntes;R1;1.0;1.0;correto
+676;numerico;correntes;R2;1.0;1.0;correto
+676;numerico;correntes;V1;1.0;;alucinado
+676;numerico;potencias;R1;4.0;4.0;correto
+676;numerico;potencias;R2;6.0;6.0;correto
+676;numerico;potencias;V1;-10.0;;alucinado
+676;componentes;resistores;R1;4;4 Ω;correto
+676;componentes;resistores;R2;6;6 Ω;correto
+676;componentes;fontes;V1;10;+10 V;correto
+677;numerico;correntes;R1;1.0;1.0;correto
+677;numerico;correntes;R2;1.0;1.0;correto
+677;numerico;correntes;V1;1.0;;alucinado
+677;numerico;potencias;R1;4.0;4.0;correto
+677;numerico;potencias;R2;6.0;6.0;correto
+677;numerico;potencias;V1;-10.0;;alucinado
+677;componentes;resistores;R1;4;4 Ω;correto
+677;componentes;resistores;R2;6;6 Ω;correto
+677;componentes;fontes;V1;10;+10 V;correto
+678;numerico;correntes;R1;1.0;1.0;correto
+678;numerico;correntes;R2;1.0;1.0;correto
+678;numerico;correntes;V1;1.0;;alucinado
+678;numerico;potencias;R1;4.0;4.0;correto
+678;numerico;potencias;R2;6.0;6.0;correto
+678;numerico;potencias;V1;-10.0;;alucinado
+678;componentes;resistores;R1;4;4 Ω;correto
+678;componentes;resistores;R2;6;6 Ω;correto
+678;componentes;fontes;V1;10;+10 V;correto
+679;numerico;tensoes;A;4.5;8.0;incorreto
+679;numerico;correntes;C1;0.0;0.0;correto
+679;numerico;correntes;R1;1.875;1.0;incorreto
+679;numerico;correntes;R2;0.75;1.0;incorreto
+679;numerico;correntes;R3;0.75;1.0;incorreto
+679;numerico;potencias;C1;0.0;0.0;correto
+679;numerico;potencias;R1;14.0625;4.0;incorreto
+679;numerico;potencias;R2;1.125;2.0;incorreto
+679;numerico;potencias;R3;3.375;6.0;incorreto
+679;numerico;potencias;V1;-22.5;;alucinado
+679;componentes;resistores;R1;4;4 Ω;correto
+679;componentes;resistores;R2;2;2 Ω;correto
+679;componentes;resistores;R3;6;6 Ω;correto
+679;componentes;fontes;V1;12;+12 V;correto
+679;componentes;capacitores;C1;10m;10 mF;correto
+680;numerico;tensoes;A;9.0;8.0;incorreto
+680;numerico;correntes;C1;0.0;0.0;correto
+680;numerico;correntes;R1;0.75;1.0;incorreto
+680;numerico;correntes;R2;2.25;1.0;incorreto
+680;numerico;correntes;R3;0.75;1.0;incorreto
+680;numerico;potencias;C1;;0.0;faltante
+680;numerico;potencias;R1;2.25;4.0;incorreto
+680;numerico;potencias;R2;10.125;2.0;incorreto
+680;numerico;potencias;R3;3.375;6.0;incorreto
+680;numerico;potencias;V1;-9.0;;alucinado
+680;componentes;resistores;R1;4;4 Ω;correto
+680;componentes;resistores;R2;2;2 Ω;correto
+680;componentes;resistores;R3;6;6 Ω;correto
+680;componentes;fontes;V1;12;+12 V;correto
+680;componentes;capacitores;C1;10m;10 mF;correto
+681;numerico;tensoes;A;6.0;8.0;incorreto
+681;numerico;correntes;C1;0.0;0.0;correto
+681;numerico;correntes;R1;1.5;1.0;incorreto
+681;numerico;correntes;R2;0.5;1.0;incorreto
+681;numerico;correntes;R3;0.5;1.0;incorreto
+681;numerico;correntes;V1;1.5;;alucinado
+681;numerico;potencias;C1;;0.0;faltante
+681;numerico;potencias;R1;9.0;4.0;incorreto
+681;numerico;potencias;R2;0.5;2.0;incorreto
+681;numerico;potencias;R3;1.5;6.0;incorreto
+681;numerico;potencias;V1;-18.0;;alucinado
+681;componentes;resistores;R1;4;4 Ω;correto
+681;componentes;resistores;R2;2;2 Ω;correto
+681;componentes;resistores;R3;6;6 Ω;correto
+681;componentes;fontes;V1;12;+12 V;correto
+681;componentes;capacitores;C1;10m;10 mF;correto
+682;numerico;tensoes;A;9.0;8.0;incorreto
+682;numerico;correntes;C1;0.0;0.0;correto
+682;numerico;correntes;R1;0.75;1.0;incorreto
+682;numerico;correntes;R2;0.75;1.0;incorreto
+682;numerico;correntes;R3;0.75;1.0;incorreto
+682;numerico;potencias;C1;;0.0;faltante
+682;numerico;potencias;R1;2.25;4.0;incorreto
+682;numerico;potencias;R2;1.125;2.0;incorreto
+682;numerico;potencias;R3;3.375;6.0;incorreto
+682;numerico;potencias;V1;-9.0;;alucinado
+682;componentes;resistores;R1;4;4 Ω;correto
+682;componentes;resistores;R2;2;2 Ω;correto
+682;componentes;resistores;R3;6;6 Ω;correto
+682;componentes;fontes;V1;12;+12 V;correto
+682;componentes;capacitores;C1;10m;10 mF;correto
+683;numerico;tensoes;A;9.0;8.0;incorreto
+683;numerico;correntes;C1;0.0;0.0;correto
+683;numerico;correntes;R1;0.75;1.0;incorreto
+683;numerico;correntes;R2;0.75;1.0;incorreto
+683;numerico;correntes;R3;0.75;1.0;incorreto
+683;numerico;potencias;C1;;0.0;faltante
+683;numerico;potencias;R1;2.25;4.0;incorreto
+683;numerico;potencias;R2;1.125;2.0;incorreto
+683;numerico;potencias;R3;3.375;6.0;incorreto
+683;numerico;potencias;V1;-9.0;;alucinado
+683;componentes;resistores;R1;4;4 Ω;correto
+683;componentes;resistores;R2;2;2 Ω;correto
+683;componentes;resistores;R3;6;6 Ω;correto
+683;componentes;fontes;V1;12;+12 V;correto
+683;componentes;capacitores;C1;10m;10 mF;correto
+684;numerico;tensoes;A;6.0;8.0;incorreto
+684;numerico;correntes;C1;0.0;0.0;correto
+684;numerico;correntes;R1;1.5;1.0;incorreto
+684;numerico;correntes;R2;1.5;1.0;incorreto
+684;numerico;correntes;R3;0.5;1.0;incorreto
+684;numerico;potencias;C1;0.0;0.0;correto
+684;numerico;potencias;R1;9.0;4.0;incorreto
+684;numerico;potencias;R2;4.5;2.0;incorreto
+684;numerico;potencias;R3;1.5;6.0;incorreto
+684;numerico;potencias;V1;-18.0;;alucinado
+684;componentes;resistores;R1;4;4 Ω;correto
+684;componentes;resistores;R2;2;2 Ω;correto
+684;componentes;resistores;R3;6;6 Ω;correto
+684;componentes;fontes;V1;12;+12 V;correto
+684;componentes;capacitores;C1;10m;10 mF;correto
+685;numerico;tensoes;A;12.0;11.2503;incorreto
+685;numerico;correntes;L1;0.6666666666666666;1.24965;incorreto
+685;numerico;correntes;R1;1.0;1.2499;incorreto
+685;numerico;correntes;R2;0.3333333333333333;0.0;incorreto
+685;numerico;correntes;R3;1.0;1.2499;incorreto
+685;numerico;potencias;L1;0.0;0.0;correto
+685;numerico;potencias;R1;3.0;4.68675;incorreto
+685;numerico;potencias;R2;1.6666666666666665;0.0;incorreto
+685;numerico;potencias;R3;9.0;14.06025;incorreto
+685;numerico;potencias;V1;-15.0;;alucinado
+685;componentes;resistores;R1;3;3 Ω;correto
+685;componentes;resistores;R2;5;5 Ω;correto
+685;componentes;resistores;R3;9;9 Ω;correto
+685;componentes;fontes;V1;15;+15 V;correto
+685;componentes;indutores;L1;1;1 H;correto
+686;numerico;tensoes;A;15.0;11.2503;incorreto
+686;numerico;correntes;L1;0.2;1.24965;incorreto
+686;numerico;correntes;R1;2.0;1.2499;incorreto
+686;numerico;correntes;R2;1.8;0.0;incorreto
+686;numerico;correntes;R3;1.0;1.2499;incorreto
+686;numerico;potencias;L1;0.0;0.0;correto
+686;numerico;potencias;R1;12.0;4.68675;incorreto
+686;numerico;potencias;R2;16.2;0.0;incorreto
+686;numerico;potencias;R3;9.0;14.06025;incorreto
+686;numerico;potencias;V1;-30.0;;alucinado
+686;componentes;resistores;R1;3;3 Ω;correto
+686;componentes;resistores;R2;5;5 Ω;correto
+686;componentes;resistores;R3;9;9 Ω;correto
+686;componentes;fontes;V1;15;+15 V;correto
+686;componentes;indutores;L1;1;1 H;correto
+687;numerico;tensoes;A;15.0;11.2503;incorreto
+687;numerico;correntes;L1;0.2;1.24965;incorreto
+687;numerico;correntes;R1;2.0;1.2499;incorreto
+687;numerico;correntes;R2;1.8;0.0;incorreto
+687;numerico;correntes;R3;1.0;1.2499;incorreto
+687;numerico;potencias;L1;0.0;0.0;correto
+687;numerico;potencias;R1;12.0;4.68675;incorreto
+687;numerico;potencias;R2;9.0;0.0;incorreto
+687;numerico;potencias;R3;9.0;14.06025;incorreto
+687;numerico;potencias;V1;30.0;;alucinado
+687;componentes;resistores;R1;3;3 Ω;correto
+687;componentes;resistores;R2;5;5 Ω;correto
+687;componentes;resistores;R3;9;9 Ω;correto
+687;componentes;fontes;V1;15;+15 V;correto
+687;componentes;indutores;L1;1;1 H;correto
+688;numerico;tensoes;A;12.0;11.2503;incorreto
+688;numerico;correntes;L1;0.4;1.24965;incorreto
+688;numerico;correntes;R1;1.0;1.2499;incorreto
+688;numerico;correntes;R2;0.6;0.0;incorreto
+688;numerico;correntes;R3;1.0;1.2499;incorreto
+688;numerico;potencias;L1;0.0;0.0;correto
+688;numerico;potencias;R1;3.0;4.68675;incorreto
+688;numerico;potencias;R2;1.8;0.0;incorreto
+688;numerico;potencias;R3;8.1;14.06025;incorreto
+688;numerico;potencias;V1;-15.0;;alucinado
+688;componentes;resistores;R1;3;3 Ω;correto
+688;componentes;resistores;R2;5;5 Ω;correto
+688;componentes;resistores;R3;9;9 Ω;correto
+688;componentes;fontes;V1;15;+15 V;correto
+688;componentes;indutores;L1;1;1 H;correto
+689;numerico;tensoes;A;12.0;11.2503;incorreto
+689;numerico;correntes;L1;0.0;1.24965;incorreto
+689;numerico;correntes;R1;1.0;1.2499;incorreto
+689;numerico;correntes;R2;1.0;0.0;incorreto
+689;numerico;correntes;R3;1.0;1.2499;incorreto
+689;numerico;correntes;V1;1.0;;alucinado
+689;numerico;potencias;L1;;0.0;faltante
+689;numerico;potencias;R1;3.0;4.68675;incorreto
+689;numerico;potencias;R2;5.0;0.0;incorreto
+689;numerico;potencias;R3;9.0;14.06025;incorreto
+689;numerico;potencias;V1;-15.0;;alucinado
+689;componentes;resistores;R1;3;3 Ω;correto
+689;componentes;resistores;R2;5;5 Ω;correto
+689;componentes;resistores;R3;9;9 Ω;correto
+689;componentes;fontes;V1;15;+15 V;correto
+689;componentes;indutores;L1;1;1 H;correto
+690;numerico;tensoes;A;12.0;11.2503;incorreto
+690;numerico;correntes;L1;0.0;1.24965;incorreto
+690;numerico;correntes;R1;1.0;1.2499;incorreto
+690;numerico;correntes;R2;1.0;0.0;incorreto
+690;numerico;correntes;R3;1.0;1.2499;incorreto
+690;numerico;correntes;V1;1.0;;alucinado
+690;numerico;potencias;L1;0.0;0.0;correto
+690;numerico;potencias;R1;3.0;4.68675;incorreto
+690;numerico;potencias;R2;5.0;0.0;incorreto
+690;numerico;potencias;R3;9.0;14.06025;incorreto
+690;numerico;potencias;V1;-15.0;;alucinado
+690;componentes;resistores;R1;3;3 Ω;correto
+690;componentes;resistores;R2;5;5 Ω;correto
+690;componentes;resistores;R3;9;9 Ω;correto
+690;componentes;fontes;V1;15;+15 V;correto
+690;componentes;indutores;L1;1;1 H;correto
+691;numerico;tensoes;A;18.0;18.0;correto
+691;numerico;tensoes;B;18.0;18.0;correto
+691;numerico;correntes;C1;0.0;0.0;correto
+691;numerico;correntes;L1;0.0;0.0;correto
+691;numerico;correntes;R1;0.0;0.0;correto
+691;numerico;correntes;R2;0.0;0.0;correto
+691;numerico;correntes;V1;0.0;;alucinado
+691;numerico;potencias;C1;0.0;0.0;correto
+691;numerico;potencias;L1;0.0;0.0;correto
+691;numerico;potencias;R1;0.0;0.0;correto
+691;numerico;potencias;R2;0.0;0.0;correto
+691;numerico;potencias;V1;0.0;;alucinado
+691;componentes;resistores;R1;2;2 Ω;correto
+691;componentes;resistores;R2;7;7 Ω;correto
+691;componentes;fontes;V1;18;+18 V;correto
+691;componentes;capacitores;C1;100m;100 mF;correto
+691;componentes;indutores;L1;1;1 H;correto
+692;numerico;tensoes;A;14.0;18.0;incorreto
+692;numerico;tensoes;B;14.0;18.0;incorreto
+692;numerico;correntes;C1;0.0;0.0;correto
+692;numerico;correntes;L1;2.0;0.0;incorreto
+692;numerico;correntes;R1;2.0;0.0;incorreto
+692;numerico;correntes;R2;2.0;0.0;incorreto
+692;numerico;correntes;V1;2.0;;alucinado
+692;numerico;potencias;C1;0.0;0.0;correto
+692;numerico;potencias;L1;0.0;0.0;correto
+692;numerico;potencias;R1;8.0;0.0;incorreto
+692;numerico;potencias;R2;28.0;0.0;incorreto
+692;numerico;potencias;V1;-36.0;;alucinado
+692;componentes;resistores;R1;2;2 Ω;correto
+692;componentes;resistores;R2;7;7 Ω;correto
+692;componentes;fontes;V1;18;+18 V;correto
+692;componentes;capacitores;C1;100m;100 mF;correto
+692;componentes;indutores;L1;1;1 H;correto
+693;numerico;tensoes;A;18;18.0;correto
+693;numerico;tensoes;B;18;18.0;correto
+693;numerico;correntes;C1;0.0;0.0;correto
+693;numerico;correntes;L1;0.0;0.0;correto
+693;numerico;correntes;R1;0.0;0.0;correto
+693;numerico;correntes;R2;0.0;0.0;correto
+693;numerico;correntes;V1;0.0;;alucinado
+693;numerico;potencias;C1;0;0.0;correto
+693;numerico;potencias;L1;0;0.0;correto
+693;numerico;potencias;R1;0;0.0;correto
+693;numerico;potencias;R2;0;0.0;correto
+693;numerico;potencias;V1;0;;alucinado
+693;componentes;resistores;R1;2;2 Ω;correto
+693;componentes;resistores;R2;7;7 Ω;correto
+693;componentes;fontes;V1;18;+18 V;correto
+693;componentes;capacitores;C1;100m;100 mF;correto
+693;componentes;indutores;L1;1;1 H;correto
+694;numerico;tensoes;A;18;18.0;correto
+694;numerico;tensoes;B;18;18.0;correto
+694;numerico;correntes;C1;0.0;0.0;correto
+694;numerico;correntes;L1;0.0;0.0;correto
+694;numerico;correntes;R1;0.0;0.0;correto
+694;numerico;correntes;R2;0.0;0.0;correto
+694;numerico;potencias;C1;0;0.0;correto
+694;numerico;potencias;L1;0;0.0;correto
+694;numerico;potencias;R1;0;0.0;correto
+694;numerico;potencias;R2;0;0.0;correto
+694;numerico;potencias;V1;0;;alucinado
+694;componentes;resistores;R1;2;2 Ω;correto
+694;componentes;resistores;R2;7;7 Ω;correto
+694;componentes;fontes;V1;18;+18 V;correto
+694;componentes;capacitores;C1;100m;100 mF;correto
+694;componentes;indutores;L1;1;1 H;correto
+695;numerico;tensoes;A;18.0;18.0;correto
+695;numerico;tensoes;B;18.0;18.0;correto
+695;numerico;correntes;C1;0.0;0.0;correto
+695;numerico;correntes;L1;0.0;0.0;correto
+695;numerico;correntes;R1;0.0;0.0;correto
+695;numerico;correntes;R2;0.0;0.0;correto
+695;numerico;potencias;C1;0.0;0.0;correto
+695;numerico;potencias;L1;0.0;0.0;correto
+695;numerico;potencias;R1;0.0;0.0;correto
+695;numerico;potencias;R2;0.0;0.0;correto
+695;numerico;potencias;V1;0.0;;alucinado
+695;componentes;resistores;R1;2;2 Ω;correto
+695;componentes;resistores;R2;7;7 Ω;correto
+695;componentes;fontes;V1;18;+18 V;correto
+695;componentes;capacitores;C1;100m;100 mF;correto
+695;componentes;indutores;L1;1;1 H;correto
+696;numerico;tensoes;A;18.0;18.0;correto
+696;numerico;tensoes;B;18.0;18.0;correto
+696;numerico;correntes;C1;0.0;0.0;correto
+696;numerico;correntes;L1;0.0;0.0;correto
+696;numerico;correntes;R1;0.0;0.0;correto
+696;numerico;correntes;R2;0.0;0.0;correto
+696;numerico;potencias;C1;0.0;0.0;correto
+696;numerico;potencias;L1;0.0;0.0;correto
+696;numerico;potencias;R1;0.0;0.0;correto
+696;numerico;potencias;R2;0.0;0.0;correto
+696;numerico;potencias;V1;0.0;;alucinado
+696;componentes;resistores;R1;2;2 Ω;correto
+696;componentes;resistores;R2;7;7 Ω;correto
+696;componentes;fontes;V1;18;+18 V;correto
+696;componentes;capacitores;C1;100m;100 mF;correto
+696;componentes;indutores;L1;1;1 H;correto
+697;numerico;tensoes;A;10.0;15.0;incorreto
+697;numerico;tensoes;B;0.0;0.0;correto
+697;numerico;correntes;C1;0.0;0.0;correto
+697;numerico;correntes;R1;2.0;1.0;incorreto
+697;numerico;correntes;R2;1.0;1.0;correto
+697;numerico;correntes;R3;1.0;1.0;correto
+697;numerico;correntes;R4;0.0;0.0;correto
+697;numerico;potencias;C1;;0.0;faltante
+697;numerico;potencias;R1;20.0;5.0;incorreto
+697;numerico;potencias;R2;5.0;5.0;correto
+697;numerico;potencias;R3;10.0;10.0;correto
+697;numerico;potencias;R4;0.0;0.0;correto
+697;numerico;potencias;V1;-40.0;;alucinado
+697;componentes;resistores;R1;5;5 Ω;correto
+697;componentes;resistores;R2;5;5 Ω;correto
+697;componentes;resistores;R3;10;10 Ω;correto
+697;componentes;resistores;R4;5;5 Ω;correto
+697;componentes;fontes;V1;20;+20 V;correto
+697;componentes;capacitores;C1;10m;10 mF;correto
+698;numerico;tensoes;A;10.0;15.0;incorreto
+698;numerico;tensoes;B;10.0;0.0;incorreto
+698;numerico;correntes;C1;0.0;0.0;correto
+698;numerico;correntes;R1;2.0;1.0;incorreto
+698;numerico;correntes;R2;0.0;1.0;incorreto
+698;numerico;correntes;R3;1.0;1.0;correto
+698;numerico;correntes;R4;2.0;0.0;incorreto
+698;numerico;potencias;C1;;0.0;faltante
+698;numerico;potencias;R1;20.0;5.0;incorreto
+698;numerico;potencias;R2;0.0;5.0;incorreto
+698;numerico;potencias;R3;10.0;10.0;correto
+698;numerico;potencias;R4;20.0;0.0;incorreto
+698;numerico;potencias;V1;-40.0;;alucinado
+698;componentes;resistores;R1;5;5 Ω;correto
+698;componentes;resistores;R2;5;5 Ω;correto
+698;componentes;resistores;R3;10;10 Ω;correto
+698;componentes;resistores;R4;5;5 Ω;correto
+698;componentes;fontes;V1;20;+20 V;correto
+698;componentes;capacitores;C1;10m;10 mF;correto
+699;numerico;tensoes;A;10.0;15.0;incorreto
+699;numerico;tensoes;B;0.0;0.0;correto
+699;numerico;correntes;C1;0.0;0.0;correto
+699;numerico;correntes;R1;2.0;1.0;incorreto
+699;numerico;correntes;R2;1.0;1.0;correto
+699;numerico;correntes;R3;1.0;1.0;correto
+699;numerico;correntes;R4;0.0;0.0;correto
+699;numerico;potencias;C1;;0.0;faltante
+699;numerico;potencias;R1;20.0;5.0;incorreto
+699;numerico;potencias;R2;5.0;5.0;correto
+699;numerico;potencias;R3;10.0;10.0;correto
+699;numerico;potencias;R4;0.0;0.0;correto
+699;numerico;potencias;V1;-40.0;;alucinado
+699;componentes;resistores;R1;5;5 Ω;correto
+699;componentes;resistores;R2;5;5 Ω;correto
+699;componentes;resistores;R3;10;10 Ω;correto
+699;componentes;resistores;R4;5;5 Ω;correto
+699;componentes;fontes;V1;20;+20 V;correto
+699;componentes;capacitores;C1;10m;10 mF;correto
+700;numerico;tensoes;A;10.0;15.0;incorreto
+700;numerico;tensoes;B;0.0;0.0;correto
+700;numerico;correntes;C1;0.0;0.0;correto
+700;numerico;correntes;R1;2.0;1.0;incorreto
+700;numerico;correntes;R2;1.0;1.0;correto
+700;numerico;correntes;R3;1.0;1.0;correto
+700;numerico;correntes;R4;0.0;0.0;correto
+700;numerico;potencias;C1;;0.0;faltante
+700;numerico;potencias;R1;20.0;5.0;incorreto
+700;numerico;potencias;R2;5.0;5.0;correto
+700;numerico;potencias;R3;10.0;10.0;correto
+700;numerico;potencias;R4;0.0;0.0;correto
+700;numerico;potencias;V1;-40.0;;alucinado
+700;componentes;resistores;R1;5;5 Ω;correto
+700;componentes;resistores;R2;5;5 Ω;correto
+700;componentes;resistores;R3;10;10 Ω;correto
+700;componentes;resistores;R4;5;5 Ω;correto
+700;componentes;fontes;V1;20;+20 V;correto
+700;componentes;capacitores;C1;10m;10 mF;correto
+701;numerico;tensoes;A;10.0;15.0;incorreto
+701;numerico;tensoes;B;10.0;0.0;incorreto
+701;numerico;correntes;C1;0.0;0.0;correto
+701;numerico;correntes;R1;2.0;1.0;incorreto
+701;numerico;correntes;R2;0.0;1.0;incorreto
+701;numerico;correntes;R3;1.0;1.0;correto
+701;numerico;correntes;R4;2.0;0.0;incorreto
+701;numerico;potencias;C1;;0.0;faltante
+701;numerico;potencias;R1;20.0;5.0;incorreto
+701;numerico;potencias;R2;0.0;5.0;incorreto
+701;numerico;potencias;R3;10.0;10.0;correto
+701;numerico;potencias;R4;20.0;0.0;incorreto
+701;numerico;potencias;V1;-40.0;;alucinado
+701;componentes;resistores;R1;5;5 Ω;correto
+701;componentes;resistores;R2;5;5 Ω;correto
+701;componentes;resistores;R3;10;10 Ω;correto
+701;componentes;resistores;R4;5;5 Ω;correto
+701;componentes;fontes;V1;20;+20 V;correto
+701;componentes;capacitores;C1;10m;10 mF;correto
+702;numerico;tensoes;A;10.0;15.0;incorreto
+702;numerico;tensoes;B;0.0;0.0;correto
+702;numerico;correntes;C1;0.0;0.0;correto
+702;numerico;correntes;R1;2.0;1.0;incorreto
+702;numerico;correntes;R2;1.0;1.0;correto
+702;numerico;correntes;R3;1.0;1.0;correto
+702;numerico;correntes;R4;0.0;0.0;correto
+702;numerico;potencias;C1;;0.0;faltante
+702;numerico;potencias;R1;20.0;5.0;incorreto
+702;numerico;potencias;R2;5.0;5.0;correto
+702;numerico;potencias;R3;10.0;10.0;correto
+702;numerico;potencias;R4;0.0;0.0;correto
+702;numerico;potencias;V1;-40.0;;alucinado
+702;componentes;resistores;R1;5;5 Ω;correto
+702;componentes;resistores;R2;5;5 Ω;correto
+702;componentes;resistores;R3;10;10 Ω;correto
+702;componentes;resistores;R4;5;5 Ω;correto
+702;componentes;fontes;V1;20;+20 V;correto
+702;componentes;capacitores;C1;10m;10 mF;correto
+703;numerico;tensoes;A;0;18.0;incorreto
+703;numerico;tensoes;B;0;12.0;incorreto
+703;numerico;correntes;C1;0.0;0.0;correto
+703;numerico;correntes;C2;0.0;0.0;correto
+703;numerico;correntes;R1;0.0;2.0;incorreto
+703;numerico;correntes;R2;0.0;2.0;incorreto
+703;numerico;correntes;R3;0.0;2.0;incorreto
+703;numerico;correntes;R4;0.0;2.0;incorreto
+703;numerico;correntes;V1;0.0;;alucinado
+703;numerico;potencias;C1;0;0.0;correto
+703;numerico;potencias;C2;0;0.0;correto
+703;numerico;potencias;R1;0;12.0;incorreto
+703;numerico;potencias;R2;0;12.0;incorreto
+703;numerico;potencias;R3;0;8.0;incorreto
+703;numerico;potencias;R4;0;16.0;incorreto
+703;numerico;potencias;V1;0;;alucinado
+703;componentes;resistores;R1;3;3 Ω;correto
+703;componentes;resistores;R2;3;3 Ω;correto
+703;componentes;resistores;R3;2;2 Ω;correto
+703;componentes;resistores;R4;4;4 Ω;correto
+703;componentes;fontes;V1;24;+24 V;correto
+703;componentes;capacitores;C1;10m;10 mF;correto
+703;componentes;capacitores;C2;10m;10 mF;correto
+704;numerico;tensoes;A;16.0;18.0;incorreto
+704;numerico;tensoes;B;12.0;12.0;correto
+704;numerico;correntes;C1;0.0;0.0;correto
+704;numerico;correntes;C2;0.0;0.0;correto
+704;numerico;correntes;R1;2.6666666666666665;2.0;incorreto
+704;numerico;correntes;R2;1.3333333333333333;2.0;incorreto
+704;numerico;correntes;R3;2.0;2.0;correto
+704;numerico;correntes;R4;2.0;2.0;correto
+704;numerico;potencias;C1;;0.0;faltante
+704;numerico;potencias;C2;;0.0;faltante
+704;numerico;potencias;R1;42.666666666666664;12.0;incorreto
+704;numerico;potencias;R2;5.333333333333333;12.0;incorreto
+704;numerico;potencias;R3;8.0;8.0;correto
+704;numerico;potencias;R4;16.0;16.0;correto
+704;numerico;potencias;V1;-64.0;;alucinado
+704;componentes;resistores;R1;3;3 Ω;correto
+704;componentes;resistores;R2;3;3 Ω;correto
+704;componentes;resistores;R3;2;2 Ω;correto
+704;componentes;resistores;R4;4;4 Ω;correto
+704;componentes;fontes;V1;24;+24 V;correto
+704;componentes;capacitores;C1;10m;10 mF;correto
+704;componentes;capacitores;C2;10m;10 mF;correto
+705;numerico;tensoes;A;18.0;18.0;correto
+705;numerico;tensoes;B;14.0;12.0;incorreto
+705;numerico;correntes;C1;0.0;0.0;correto
+705;numerico;correntes;C2;0.0;0.0;correto
+705;numerico;correntes;R1;2.0;2.0;correto
+705;numerico;correntes;R2;2.0;2.0;correto
+705;numerico;correntes;R3;2.0;2.0;correto
+705;numerico;correntes;R4;3.0;2.0;incorreto
+705;numerico;correntes;V1;2.0;;alucinado
+705;numerico;potencias;C1;;0.0;faltante
+705;numerico;potencias;C2;;0.0;faltante
+705;numerico;potencias;R1;12.0;12.0;correto
+705;numerico;potencias;R2;12.0;12.0;correto
+705;numerico;potencias;R3;8.0;8.0;correto
+705;numerico;potencias;R4;36.0;16.0;incorreto
+705;numerico;potencias;V1;-48.0;;alucinado
+705;componentes;resistores;R1;3;3 Ω;correto
+705;componentes;resistores;R2;3;3 Ω;correto
+705;componentes;resistores;R3;2;2 Ω;correto
+705;componentes;resistores;R4;4;4 Ω;correto
+705;componentes;fontes;V1;24;+24 V;correto
+705;componentes;capacitores;C1;10m;10 mF;correto
+705;componentes;capacitores;C2;10m;10 mF;correto
+706;numerico;tensoes;A;18.0;18.0;correto
+706;numerico;tensoes;B;12.0;12.0;correto
+706;numerico;correntes;C1;0.0;0.0;correto
+706;numerico;correntes;C2;0.0;0.0;correto
+706;numerico;correntes;R1;2.0;2.0;correto
+706;numerico;correntes;R2;2.0;2.0;correto
+706;numerico;correntes;R3;2.0;2.0;correto
+706;numerico;correntes;R4;1.5;2.0;incorreto
+706;numerico;potencias;C1;;0.0;faltante
+706;numerico;potencias;C2;;0.0;faltante
+706;numerico;potencias;R1;12.0;12.0;correto
+706;numerico;potencias;R2;12.0;12.0;correto
+706;numerico;potencias;R3;8.0;8.0;correto
+706;numerico;potencias;R4;9.0;16.0;incorreto
+706;numerico;potencias;V1;-48.0;;alucinado
+706;componentes;resistores;R1;3;3 Ω;correto
+706;componentes;resistores;R2;3;3 Ω;correto
+706;componentes;resistores;R3;2;2 Ω;correto
+706;componentes;resistores;R4;4;4 Ω;correto
+706;componentes;fontes;V1;24;+24 V;correto
+706;componentes;capacitores;C1;10m;10 mF;correto
+706;componentes;capacitores;C2;10m;10 mF;correto
+707;numerico;tensoes;A;18.0;18.0;correto
+707;numerico;tensoes;B;12.0;12.0;correto
+707;numerico;correntes;C1;0.0;0.0;correto
+707;numerico;correntes;C2;0.0;0.0;correto
+707;numerico;correntes;R1;2.0;2.0;correto
+707;numerico;correntes;R2;2.0;2.0;correto
+707;numerico;correntes;R3;2.0;2.0;correto
+707;numerico;correntes;R4;1.5;2.0;incorreto
+707;numerico;potencias;C1;;0.0;faltante
+707;numerico;potencias;C2;;0.0;faltante
+707;numerico;potencias;R1;12.0;12.0;correto
+707;numerico;potencias;R2;12.0;12.0;correto
+707;numerico;potencias;R3;12.0;8.0;incorreto
+707;numerico;potencias;R4;9.0;16.0;incorreto
+707;numerico;potencias;V1;-48.0;;alucinado
+707;componentes;resistores;R1;3;3 Ω;correto
+707;componentes;resistores;R2;3;3 Ω;correto
+707;componentes;resistores;R3;2;2 Ω;correto
+707;componentes;resistores;R4;4;4 Ω;correto
+707;componentes;fontes;V1;24;+24 V;correto
+707;componentes;capacitores;C1;10m;10 mF;correto
+707;componentes;capacitores;C2;10m;10 mF;correto
+708;numerico;tensoes;A;16.0;18.0;incorreto
+708;numerico;tensoes;B;8.0;12.0;incorreto
+708;numerico;correntes;C1;0.0;0.0;correto
+708;numerico;correntes;C2;0.0;0.0;correto
+708;numerico;correntes;R1;2.6666666666666665;2.0;incorreto
+708;numerico;correntes;R2;2.6666666666666665;2.0;incorreto
+708;numerico;correntes;R3;2.0;2.0;correto
+708;numerico;correntes;R4;1.0;2.0;incorreto
+708;numerico;correntes;V1;2.6666666666666665;;alucinado
+708;numerico;potencias;C1;0.0;0.0;correto
+708;numerico;potencias;C2;0.0;0.0;correto
+708;numerico;potencias;R1;21.333333333333332;12.0;incorreto
+708;numerico;potencias;R2;21.333333333333332;12.0;incorreto
+708;numerico;potencias;R3;8.0;8.0;correto
+708;numerico;potencias;R4;4.0;16.0;incorreto
+708;numerico;potencias;V1;-64.0;;alucinado
+708;componentes;resistores;R1;3;3 Ω;correto
+708;componentes;resistores;R2;3;3 Ω;correto
+708;componentes;resistores;R3;2;2 Ω;correto
+708;componentes;resistores;R4;4;4 Ω;correto
+708;componentes;fontes;V1;24;+24 V;correto
+708;componentes;capacitores;C1;10m;10 mF;correto
+708;componentes;capacitores;C2;10m;10 mF;correto
+709;numerico;tensoes;A;12.0;0.0;incorreto
+709;numerico;correntes;C1;0.0;0.0;correto
+709;numerico;correntes;L1;2.0;6.99639;incorreto
+709;numerico;correntes;R1;2.0;4.99825;incorreto
+709;numerico;correntes;R2;2.0;1.9993;correto
+709;numerico;correntes;R3;2.0;0.0;incorreto
+709;numerico;correntes;R4;2.0;1.9993;correto
+709;numerico;potencias;C1;0.0;0.0;correto
+709;numerico;potencias;L1;0.0;0.0;correto
+709;numerico;potencias;R1;16.0;99.930012;incorreto
+709;numerico;potencias;R2;20.0;19.986002;correto
+709;numerico;potencias;R3;24.0;0.0;incorreto
+709;numerico;potencias;R4;20.0;19.986002;correto
+709;numerico;potencias;V1;-40.0;;alucinado
+709;componentes;resistores;R1;4;4 Ω;correto
+709;componentes;resistores;R2;5;5 Ω;correto
+709;componentes;resistores;R3;6;6 Ω;correto
+709;componentes;resistores;R4;5;5 Ω;correto
+709;componentes;fontes;V1;20;+20 V;correto
+709;componentes;capacitores;C1;10m;10 mF;correto
+709;componentes;indutores;L1;1;1 H;correto
+710;numerico;tensoes;A;10.0;0.0;incorreto
+710;numerico;correntes;C1;0.0;0.0;correto
+710;numerico;correntes;L1;1.6666666666666667;6.99639;incorreto
+710;numerico;correntes;R1;2.5;4.99825;incorreto
+710;numerico;correntes;R2;2.0;1.9993;correto
+710;numerico;correntes;R3;1.6666666666666667;0.0;incorreto
+710;numerico;correntes;R4;0.0;1.9993;incorreto
+710;numerico;potencias;C1;0.0;0.0;correto
+710;numerico;potencias;L1;0.0;0.0;correto
+710;numerico;potencias;R1;25.0;99.930012;incorreto
+710;numerico;potencias;R2;20.0;19.986002;correto
+710;numerico;potencias;R3;16.666666666666668;0.0;incorreto
+710;numerico;potencias;R4;0.0;19.986002;incorreto
+710;numerico;potencias;V1;50.0;;alucinado
+710;componentes;resistores;R1;4;4 Ω;correto
+710;componentes;resistores;R2;5;5 Ω;correto
+710;componentes;resistores;R3;6;6 Ω;correto
+710;componentes;resistores;R4;5;5 Ω;correto
+710;componentes;fontes;V1;20;+20 V;correto
+710;componentes;capacitores;C1;10m;10 mF;correto
+710;componentes;indutores;L1;1;1 H;correto
+711;numerico;tensoes;A;10.0;0.0;incorreto
+711;numerico;correntes;C1;0.0;0.0;correto
+711;numerico;correntes;L1;1.6666666666666667;6.99639;incorreto
+711;numerico;correntes;R1;2.5;4.99825;incorreto
+711;numerico;correntes;R2;2.0;1.9993;correto
+711;numerico;correntes;R3;1.6666666666666667;0.0;incorreto
+711;numerico;correntes;R4;0.0;1.9993;incorreto
+711;numerico;correntes;V1;4.5;;alucinado
+711;numerico;potencias;C1;0.0;0.0;correto
+711;numerico;potencias;L1;0.0;0.0;correto
+711;numerico;potencias;R1;25.0;99.930012;incorreto
+711;numerico;potencias;R2;20.0;19.986002;correto
+711;numerico;potencias;R3;16.666666666666668;0.0;incorreto
+711;numerico;potencias;R4;0.0;19.986002;incorreto
+711;numerico;potencias;V1;-90.0;;alucinado
+711;componentes;resistores;R1;4;4 Ω;correto
+711;componentes;resistores;R2;5;5 Ω;correto
+711;componentes;resistores;R3;6;6 Ω;correto
+711;componentes;resistores;R4;5;5 Ω;correto
+711;componentes;fontes;V1;20;+20 V;correto
+711;componentes;capacitores;C1;10m;10 mF;correto
+711;componentes;indutores;L1;1;1 H;correto
+712;numerico;tensoes;A;10.0;0.0;incorreto
+712;numerico;correntes;C1;0.0;0.0;correto
+712;numerico;correntes;L1;1.6666666666666667;6.99639;incorreto
+712;numerico;correntes;R1;2.5;4.99825;incorreto
+712;numerico;correntes;R2;2.0;1.9993;correto
+712;numerico;correntes;R3;1.6666666666666667;0.0;incorreto
+712;numerico;correntes;R4;0.8333333333333334;1.9993;incorreto
+712;numerico;potencias;C1;0.0;0.0;correto
+712;numerico;potencias;L1;0.0;0.0;correto
+712;numerico;potencias;R1;25.0;99.930012;incorreto
+712;numerico;potencias;R2;20.0;19.986002;correto
+712;numerico;potencias;R3;16.666666666666668;0.0;incorreto
+712;numerico;potencias;R4;3.4722222222222223;19.986002;incorreto
+712;numerico;potencias;V1;-50.0;;alucinado
+712;componentes;resistores;R1;4;4 Ω;correto
+712;componentes;resistores;R2;5;5 Ω;correto
+712;componentes;resistores;R3;6;6 Ω;correto
+712;componentes;resistores;R4;5;5 Ω;correto
+712;componentes;fontes;V1;20;+20 V;correto
+712;componentes;capacitores;C1;10m;10 mF;correto
+712;componentes;indutores;L1;1;1 H;correto
+713;numerico;tensoes;A;15.0;0.0;incorreto
+713;numerico;correntes;C1;0.0;0.0;correto
+713;numerico;correntes;L1;2.5;6.99639;incorreto
+713;numerico;correntes;R1;1.25;4.99825;incorreto
+713;numerico;correntes;R2;2.0;1.9993;correto
+713;numerico;correntes;R3;2.5;0.0;incorreto
+713;numerico;correntes;R4;1.0;1.9993;incorreto
+713;numerico;potencias;C1;0.0;0.0;correto
+713;numerico;potencias;L1;0.0;0.0;correto
+713;numerico;potencias;R1;6.25;99.930012;incorreto
+713;numerico;potencias;R2;20.0;19.986002;correto
+713;numerico;potencias;R3;15.0;0.0;incorreto
+713;numerico;potencias;R4;5.0;19.986002;incorreto
+713;numerico;potencias;V1;-50.0;;alucinado
+713;componentes;resistores;R1;4;4 Ω;correto
+713;componentes;resistores;R2;5;5 Ω;correto
+713;componentes;resistores;R3;6;6 Ω;correto
+713;componentes;resistores;R4;5;5 Ω;correto
+713;componentes;fontes;V1;20;+20 V;correto
+713;componentes;capacitores;C1;10m;10 mF;correto
+713;componentes;indutores;L1;1;1 H;correto
+714;numerico;tensoes;A;15.0;0.0;incorreto
+714;numerico;correntes;C1;0.0;0.0;correto
+714;numerico;correntes;L1;2.5;6.99639;incorreto
+714;numerico;correntes;R1;1.25;4.99825;incorreto
+714;numerico;correntes;R2;2.0;1.9993;correto
+714;numerico;correntes;R3;2.5;0.0;incorreto
+714;numerico;correntes;R4;1.0;1.9993;incorreto
+714;numerico;correntes;V1;3.25;;alucinado
+714;numerico;potencias;C1;0.0;0.0;correto
+714;numerico;potencias;L1;0.0;0.0;correto
+714;numerico;potencias;R1;6.25;99.930012;incorreto
+714;numerico;potencias;R2;20.0;19.986002;correto
+714;numerico;potencias;R3;37.5;0.0;incorreto
+714;numerico;potencias;R4;5.0;19.986002;incorreto
+714;numerico;potencias;V1;65.0;;alucinado
+714;componentes;resistores;R1;4;4 Ω;correto
+714;componentes;resistores;R2;5;5 Ω;correto
+714;componentes;resistores;R3;6;6 Ω;correto
+714;componentes;resistores;R4;5;5 Ω;correto
+714;componentes;fontes;V1;20;+20 V;correto
+714;componentes;capacitores;C1;10m;10 mF;correto
+714;componentes;indutores;L1;1;1 H;correto
+715;numerico;tensoes;A;15.0;12.0002;incorreto
+715;numerico;tensoes;B;12.0;11.999;correto
+715;numerico;correntes;C1;0.0;0.0;correto
+715;numerico;correntes;L1;1.5;1.1999;incorreto
+715;numerico;correntes;R1;1.0;0.400048;incorreto
+715;numerico;correntes;R2;1.0;1.59995;incorreto
+715;numerico;correntes;R3;1.5;1.1999;incorreto
+715;numerico;correntes;R4;1.5;1.1999;incorreto
+715;numerico;potencias;C1;0.0;0.0;correto
+715;numerico;potencias;L1;0.0;0.0;correto
+715;numerico;potencias;R1;1.0;0.800192;incorreto
+715;numerico;potencias;R2;5.0;12.7992;incorreto
+715;numerico;potencias;R3;4.5;2.87952;incorreto
+715;numerico;potencias;R4;18.0;11.51808;incorreto
+715;numerico;potencias;V1;-10.0;;alucinado
+715;numerico;potencias;V2;20.0;;alucinado
+715;componentes;resistores;R1;5;5 Ω;correto
+715;componentes;resistores;R2;5;5 Ω;correto
+715;componentes;resistores;R3;2;2 Ω;correto
+715;componentes;resistores;R4;8;8 Ω;correto
+715;componentes;fontes;V1;10;+10 V;correto
+715;componentes;fontes;V2;20;+20 V;correto
+715;componentes;capacitores;C1;10m;10 mF;correto
+715;componentes;indutores;L1;1;1 H;correto
+716;numerico;tensoes;A;15.0;12.0002;incorreto
+716;numerico;tensoes;B;15.0;11.999;incorreto
+716;numerico;correntes;C1;0.0;0.0;correto
+716;numerico;correntes;L1;0.0;1.1999;incorreto
+716;numerico;correntes;R1;1.0;0.400048;incorreto
+716;numerico;correntes;R2;1.0;1.59995;incorreto
+716;numerico;correntes;R3;0.0;1.1999;incorreto
+716;numerico;correntes;R4;1.25;1.1999;correto
+716;numerico;potencias;C1;0.0;0.0;correto
+716;numerico;potencias;L1;0.0;0.0;correto
+716;numerico;potencias;R1;5.0;0.800192;incorreto
+716;numerico;potencias;R2;5.0;12.7992;incorreto
+716;numerico;potencias;R3;0.0;2.87952;incorreto
+716;numerico;potencias;R4;12.5;11.51808;incorreto
+716;numerico;potencias;V1;-10.0;;alucinado
+716;numerico;potencias;V2;20.0;;alucinado
+716;componentes;resistores;R1;5;5 Ω;correto
+716;componentes;resistores;R2;5;5 Ω;correto
+716;componentes;resistores;R3;2;2 Ω;correto
+716;componentes;resistores;R4;8;8 Ω;correto
+716;componentes;fontes;V1;10;+10 V;correto
+716;componentes;fontes;V2;20;+20 V;correto
+716;componentes;capacitores;C1;10m;10 mF;correto
+716;componentes;indutores;L1;1;1 H;correto
+717;numerico;tensoes;A;15.0;12.0002;incorreto
+717;numerico;tensoes;B;15.0;11.999;incorreto
+717;numerico;correntes;C1;0.0;0.0;correto
+717;numerico;correntes;L1;0.0;1.1999;incorreto
+717;numerico;correntes;R1;1.0;0.400048;incorreto
+717;numerico;correntes;R2;1.0;1.59995;incorreto
+717;numerico;correntes;R3;0.625;1.1999;incorreto
+717;numerico;correntes;R4;1.25;1.1999;correto
+717;numerico;potencias;C1;0.0;0.0;correto
+717;numerico;potencias;L1;0.0;0.0;correto
+717;numerico;potencias;R1;1.0;0.800192;incorreto
+717;numerico;potencias;R2;1.0;12.7992;incorreto
+717;numerico;potencias;R3;0.78125;2.87952;incorreto
+717;numerico;potencias;R4;12.5;11.51808;incorreto
+717;numerico;potencias;V1;-10.0;;alucinado
+717;numerico;potencias;V2;20.0;;alucinado
+717;componentes;resistores;R1;5;5 Ω;correto
+717;componentes;resistores;R2;5;5 Ω;correto
+717;componentes;resistores;R3;2;2 Ω;correto
+717;componentes;resistores;R4;8;8 Ω;correto
+717;componentes;fontes;V1;10;+10 V;correto
+717;componentes;fontes;V2;20;+20 V;correto
+717;componentes;capacitores;C1;10m;10 mF;correto
+717;componentes;indutores;L1;1;1 H;correto
+718;numerico;tensoes;A;15.0;12.0002;incorreto
+718;numerico;tensoes;B;15.0;11.999;incorreto
+718;numerico;correntes;C1;0.0;0.0;correto
+718;numerico;correntes;L1;0.0;1.1999;incorreto
+718;numerico;correntes;R1;1.0;0.400048;incorreto
+718;numerico;correntes;R2;1.0;1.59995;incorreto
+718;numerico;correntes;R3;0.0;1.1999;incorreto
+718;numerico;correntes;R4;1.25;1.1999;correto
+718;numerico;potencias;C1;0.0;0.0;correto
+718;numerico;potencias;L1;0.0;0.0;correto
+718;numerico;potencias;R1;25.0;0.800192;incorreto
+718;numerico;potencias;R2;25.0;12.7992;incorreto
+718;numerico;potencias;R3;0.0;2.87952;incorreto
+718;numerico;potencias;R4;100.0;11.51808;incorreto
+718;numerico;potencias;V1;-10.0;;alucinado
+718;numerico;potencias;V2;20.0;;alucinado
+718;componentes;resistores;R1;5;5 Ω;correto
+718;componentes;resistores;R2;5;5 Ω;correto
+718;componentes;resistores;R3;2;2 Ω;correto
+718;componentes;resistores;R4;8;8 Ω;correto
+718;componentes;fontes;V1;10;+10 V;correto
+718;componentes;fontes;V2;20;+20 V;correto
+718;componentes;capacitores;C1;10m;10 mF;correto
+718;componentes;indutores;L1;1;1 H;correto
+719;numerico;tensoes;A;15.0;12.0002;incorreto
+719;numerico;tensoes;B;15.0;11.999;incorreto
+719;numerico;correntes;C1;0.0;0.0;correto
+719;numerico;correntes;L1;0.0;1.1999;incorreto
+719;numerico;correntes;R1;1.0;0.400048;incorreto
+719;numerico;correntes;R2;1.0;1.59995;incorreto
+719;numerico;correntes;R3;1.5;1.1999;incorreto
+719;numerico;correntes;R4;1.5;1.1999;incorreto
+719;numerico;potencias;C1;;0.0;faltante
+719;numerico;potencias;L1;;0.0;faltante
+719;numerico;potencias;R1;1.0;0.800192;incorreto
+719;numerico;potencias;R2;1.0;12.7992;incorreto
+719;numerico;potencias;R3;4.5;2.87952;incorreto
+719;numerico;potencias;R4;18.0;11.51808;incorreto
+719;numerico;potencias;V1;-10.0;;alucinado
+719;numerico;potencias;V2;20.0;;alucinado
+719;componentes;resistores;R1;5;5 Ω;correto
+719;componentes;resistores;R2;5;5 Ω;correto
+719;componentes;resistores;R3;2;2 Ω;correto
+719;componentes;resistores;R4;8;8 Ω;correto
+719;componentes;fontes;V1;10;+10 V;correto
+719;componentes;fontes;V2;20;+20 V;correto
+719;componentes;capacitores;C1;10m;10 mF;correto
+719;componentes;indutores;L1;1;1 H;correto
+720;numerico;tensoes;A;15.0;12.0002;incorreto
+720;numerico;tensoes;B;15.0;11.999;incorreto
+720;numerico;correntes;C1;0.0;0.0;correto
+720;numerico;correntes;L1;0.0;1.1999;incorreto
+720;numerico;correntes;R1;1.0;0.400048;incorreto
+720;numerico;correntes;R2;1.0;1.59995;incorreto
+720;numerico;correntes;R3;0.0;1.1999;incorreto
+720;numerico;correntes;R4;1.25;1.1999;correto
+720;numerico;potencias;C1;;0.0;faltante
+720;numerico;potencias;L1;;0.0;faltante
+720;numerico;potencias;R1;25.0;0.800192;incorreto
+720;numerico;potencias;R2;25.0;12.7992;incorreto
+720;numerico;potencias;R3;0.0;2.87952;incorreto
+720;numerico;potencias;R4;12.5;11.51808;incorreto
+720;numerico;potencias;V1;-10.0;;alucinado
+720;numerico;potencias;V2;20.0;;alucinado
+720;componentes;resistores;R1;5;5 Ω;correto
+720;componentes;resistores;R2;5;5 Ω;correto
+720;componentes;resistores;R3;2;2 Ω;correto
+720;componentes;resistores;R4;8;8 Ω;correto
+720;componentes;fontes;V1;10;+10 V;correto
+720;componentes;fontes;V2;20;+20 V;correto
+720;componentes;capacitores;C1;10m;10 mF;correto
+720;componentes;indutores;L1;1;1 H;correto

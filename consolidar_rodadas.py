@@ -40,6 +40,7 @@ from config import (PREFIXO_CSV_DETALHES, PREFIXO_CSV_RESULTADOS,
 # Modelos ausentes daqui são gravados com ORIGEM_PADRAO, com aviso.
 ORIGEM = {
     "gemini-2.5-flash": ("Google (API)", "nao divulgada"),
+    "gemini-2.5-flash (sem raciocinio)": ("Google (API)", "nao divulgada"),
     "gemma-3-27b-bf16 (openrouter)": ("Novita (OpenRouter)", "bf16"),
     "qwen3-vl-32b (openrouter)": ("Alibaba (OpenRouter)", "nao declarada"),
     "qwen3-vl-8b-bf16 (openrouter)": ("Parasail (OpenRouter)", "bf16"),

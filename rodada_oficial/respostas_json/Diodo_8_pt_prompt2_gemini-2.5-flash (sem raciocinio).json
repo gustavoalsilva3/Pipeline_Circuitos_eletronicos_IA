@@ -1,0 +1,86 @@
+{
+    "tipo_circuito": "Circuito Retificador/Seletor de Tensão",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "3"
+            },
+            {
+                "id": "R2",
+                "valor": "6"
+            },
+            {
+                "id": "R3",
+                "valor": "6"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V3",
+                "valor": "4"
+            },
+            {
+                "id": "V2",
+                "valor": "7"
+            },
+            {
+                "id": "V1",
+                "valor": "2"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [
+            {
+                "id": "D1"
+            },
+            {
+                "id": "D2"
+            },
+            {
+                "id": "D3"
+            },
+            {
+                "id": "D4"
+            }
+        ],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": null,
+        "Vout_teorico_V": 3.0,
+        "Vout_real_V": 3.0,
+        "tensoes_V": {
+            "A": 7.0,
+            "B": 6.0,
+            "Vout": 3.0
+        },
+        "correntes_A": {
+            "D1": 0.0,
+            "D2": 0.0,
+            "D3": 0.0,
+            "D4": 0.5,
+            "R1": 0.3333333333333333,
+            "R2": 0.6666666666666666,
+            "R3": 0.5
+        },
+        "potencias_W": {
+            "V1": 0.0,
+            "V2": 0.0,
+            "V3": 0.0,
+            "R1": 0.3333333333333333,
+            "R2": 2.6666666666666665,
+            "R3": 1.5
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "D1": "Corte",
+            "D2": "Condução Direta",
+            "D3": "Corte",
+            "D4": "Condução Direta"
+        },
+        "terra_virtual": false
+    }
+}

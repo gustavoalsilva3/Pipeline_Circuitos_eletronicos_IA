@@ -66,6 +66,6 @@
         "regiao_operacao": {
             "U1": "Linear"
         },
-        "terra_virtual": true
+        "terra_virtual": false
     }
 }

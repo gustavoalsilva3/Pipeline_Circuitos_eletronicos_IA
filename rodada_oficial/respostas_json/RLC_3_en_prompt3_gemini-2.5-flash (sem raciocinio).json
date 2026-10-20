@@ -1,0 +1,61 @@
+{
+    "tipo_circuito": "DC Resistive-Inductive Circuit",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "3"
+            },
+            {
+                "id": "R2",
+                "valor": "5"
+            },
+            {
+                "id": "R3",
+                "valor": "9"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "15"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [],
+        "indutores": [
+            {
+                "id": "L1",
+                "valor": "1"
+            }
+        ]
+    },
+    "analise_numerica": {
+        "ganho_teorico": null,
+        "Vout_teorico_V": 9.0,
+        "Vout_real_V": 9.0,
+        "tensoes_V": {
+            "A": 12.0,
+            "Vout": 9.0
+        },
+        "correntes_A": {
+            "R1": 1.0,
+            "R2": 1.0,
+            "L1": 0.0,
+            "R3": 1.0,
+            "V1": 1.0
+        },
+        "potencias_W": {
+            "R1": 3.0,
+            "R2": 5.0,
+            "L1": 0.0,
+            "R3": 9.0,
+            "V1": -15.0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {},
+        "terra_virtual": false
+    }
+}

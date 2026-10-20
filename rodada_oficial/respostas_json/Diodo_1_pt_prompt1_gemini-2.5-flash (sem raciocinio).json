@@ -1,0 +1,61 @@
+{
+    "tipo_circuito": "circuito com diodo",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R2",
+                "valor": "5"
+            },
+            {
+                "id": "R1",
+                "valor": "10"
+            },
+            {
+                "id": "R3",
+                "valor": "5"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "10"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [
+            {
+                "id": "D1"
+            }
+        ],
+        "indutores": []
+    },
+    "analise_numerica": {
+        "ganho_teorico": null,
+        "Vout_teorico_V": 0.0,
+        "Vout_real_V": 0.0,
+        "tensoes_V": {
+            "A": 6.666666666666667,
+            "Vout": 0.0
+        },
+        "correntes_A": {
+            "R1": 0.3333333333333333,
+            "R2": 0.6666666666666666,
+            "D1": 0.0,
+            "R3": 0.0
+        },
+        "potencias_W": {
+            "V1": -10.0,
+            "R1": 3.3333333333333335,
+            "R2": 4.444444444444445,
+            "R3": 0.0,
+            "D1": 0.0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {
+            "D1": "Corte"
+        },
+        "terra_virtual": false
+    }
+}

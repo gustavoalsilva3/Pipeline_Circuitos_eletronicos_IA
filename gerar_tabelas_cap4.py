@@ -4,26 +4,51 @@ Escreve um arquivo .tex por tabela em TFC/tabelas_cap4/, de modo que o texto
 da dissertacao apenas as inclua. Assim, refazer a rodada e regerar as tabelas
 nao exige reescrever o capitulo, e nenhum numero e digitado a mao.
 """
+import argparse
 import json
 import os
 import numpy as np
 import pandas as pd
 
 BASE = os.path.dirname(os.path.abspath(__file__))
-# Rodada analisada: a pasta versionada, que acompanha o repositorio, para que
-# as tabelas do texto possam ser regeradas num clone limpo (resultados/ e
-# ignorada pelo git). CARIMBO registra de qual rodada esses dados sairam.
-CARIMBO = "20261010_144312"
-CSV = os.path.join(BASE, "rodada_oficial", "resultados.csv")
-DET = os.path.join(BASE, "rodada_oficial", "resultados_detalhe.csv")
-SAIDA = os.path.join(BASE, "TFC", "tabelas_cap4")
+
+# Rodada analisada: por padrao a pasta versionada, que acompanha o
+# repositorio, para que as tabelas do texto possam ser regeradas num clone
+# limpo (resultados/ e ignorada pelo git). CARIMBO registra de qual rodada
+# esses dados sairam.
+#
+# Com --carimbo, le uma rodada de resultados/ e escreve numa pasta com o
+# carimbo no nome. Assim as tabelas do texto nunca sao sobrescritas por uma
+# rodada diferente da oficial.
+_ap = argparse.ArgumentParser(
+    description="Gera as tabelas LaTeX do capitulo de resultados.")
+_ap.add_argument("--carimbo", default=None,
+                 help="carimbo de uma rodada em resultados/ "
+                      "(AAAAMMDD_HHMMSS); sem isso usa a rodada oficial")
+_args = _ap.parse_args()
+
+if _args.carimbo:
+    CARIMBO = _args.carimbo
+    CSV = os.path.join(BASE, "resultados", f"resultados_{CARIMBO}.csv")
+    DET = os.path.join(BASE, "resultados", f"resultados_detalhe_{CARIMBO}.csv")
+    SAIDA = os.path.join(BASE, "TFC", f"tabelas_cap4_{CARIMBO}")
+else:
+    CARIMBO = "20261010_144312"
+    CSV = os.path.join(BASE, "rodada_oficial", "resultados.csv")
+    DET = os.path.join(BASE, "rodada_oficial", "resultados_detalhe.csv")
+    SAIDA = os.path.join(BASE, "TFC", "tabelas_cap4")
 os.makedirs(SAIDA, exist_ok=True)
 
 ROT = {"gemini-2.5-flash": "Gemini 2.5 Flash",
+       "gemini-2.5-flash (sem raciocinio)": "Gemini sem raciocínio",
        "qwen3-vl-32b (openrouter)": "Qwen3-VL 32B",
        "gemma-3-27b-bf16 (openrouter)": "Gemma 3 27B",
        "qwen3-vl-8b-bf16 (openrouter)": "Qwen3-VL 8B"}
-ORDEM = ["Gemini 2.5 Flash", "Qwen3-VL 32B", "Gemma 3 27B", "Qwen3-VL 8B"]
+# Ordem de referencia. A ORDEM efetiva sai do proprio dado, logo abaixo da
+# leitura do CSV: um modelo ausente da rodada nao vira linha, de modo que a
+# rodada oficial produz exatamente as mesmas tabelas de antes.
+ORDEM_BASE = ["Gemini 2.5 Flash", "Gemini sem raciocínio",
+              "Qwen3-VL 32B", "Gemma 3 27B", "Qwen3-VL 8B"]
 FAM = {"Amp": "Amplificador operacional", "Dio": "Diodo", "RLC": "RLC"}
 CATS = ["amplificadores_operacionais", "resistores", "fontes", "diodos", "capacitores", "indutores"]
 NOME_CAT = {"amplificadores_operacionais": "Amplificadores operacionais", "resistores": "Resistores",
@@ -32,6 +57,7 @@ NOME_CAT = {"amplificadores_operacionais": "Amplificadores operacionais", "resis
 d = pd.read_csv(CSV, sep=";", engine="python", on_bad_lines="skip", dtype=str)
 dd = pd.read_csv(DET, sep=";", engine="python", on_bad_lines="skip", dtype=str)
 d["m"] = d.modelo.map(ROT)
+ORDEM = [nome for nome in ORDEM_BASE if nome in set(d["m"].dropna())]
 d["fam"] = d["imagem"].str.extract(r"(Amp|Dio|RLC)", expand=False).map(FAM)
 d["circ"] = d["imagem"].str.replace(r"\.\w+$", "", regex=True)
 d["idi"] = d["idioma"].map({"pt": "Português", "en": "Inglês"})
@@ -106,15 +132,20 @@ for rot, k in [("Tensões nodais (\\%)", "tens"), ("Correntes (\\%)", "corr"),
     col = NUM.get(k, k)
     linhas.append(f"{rot} & " + " & ".join(v(d[d.m == m][col].mean()) for m in ORDEM) + r" \\")
 linhas.append(r"\midrule")
+# As quatro linhas de Vout repetiam o prefixo "Tensao de saida: ", o que
+# levava o rotulo mais longo a 45 caracteres numa coluna de 4,3 cm. Com um
+# cabecalho de bloco, o mais longo cai para 29 e cabe em uma linha.
+linhas.append(f"\\multicolumn{{{1 + len(ORDEM)}}}{{l}}{{\\textit{{Tensão de saída}}}}" + r" \\")
 for st, rot in [("correto", "corretas"), ("incorreto", "incorretas"), ("faltante", "sem valor informado")]:
-    linhas.append(f"Tensão de saída: execuções {rot} & " +
+    linhas.append(f"\\quad execuções {rot} & " +
                   " & ".join(mil((d[d.m == m].numerico_Vout_status == st).sum()) for m in ORDEM) + r" \\")
-linhas.append("Erro percentual mediano na tensão de saída (\\%) & " +
+linhas.append("\\quad erro percentual mediano (\\%) & " +
               " & ".join(v(d[d.m == m][NUM['errVout']].median()) for m in ORDEM) + r" \\")
 escreve("resumo_modelos.tex", tabela(
     "Resumo do desempenho por modelo (taxa média de acerto por execução).", "tab:resumoModelos",
-    {"spec": "p{5.6cm} c c c c", "cab": "Métrica & " + " & ".join(ORDEM)},
-    linhas, tam="scriptsize", tabcolsep="4pt"))
+    {"spec": ">{\\raggedright\\arraybackslash}p{4.3cm}" + " c" * len(ORDEM),
+     "cab": "Métrica & " + " & ".join(ORDEM)},
+    linhas, tam="scriptsize", tabcolsep="2pt"))
 
 # ---------------------------------------------------------------- por prompt / idioma
 for nome, chave, grupos, cap, lab in [
@@ -144,12 +175,16 @@ for i, m in enumerate(ORDEM):
     for j, f in enumerate(["Amplificador operacional", "Diodo", "RLC"]):
         s = d[(d.m == m) & (d.fam == f)]
         reg = s[NUM["reg"]].mean()
-        linhas.append(f"{m if j==0 else ''} & {f} & " + " & ".join(v(s[NUM[k]].mean()) for k in ["tens", "corr", "pot"])
-                      + f" & {'---' if f=='RLC' else v(reg)} & {v(s[NUM['errVout']].mean())}" + r" \\")
+        # As taxas numericas sairam daqui: sao as mesmas da figura do
+        # painel por familia, que fica logo abaixo desta tabela no texto.
+        linhas.append(f"{m if j==0 else ''} & {f}"
+                      + f" & {'---' if f=='RLC' else v(reg)} & {v(s[NUM['errVout']].median())}" + r" \\")
+# Erro em Vout pela mediana, como no resumo por modelo: poucas respostas
+# erradas por centenas de por cento puxavam a media para longe do caso tipico.
 escreve("por_familia.tex", tabela(
-    "Taxa média de acerto (\\%) e erro médio na tensão de saída por família de circuito, para cada modelo.",
-    "tab:porFamilia", {"spec": "l l c c c c c",
-    "cab": "Modelo & Família & Tensões & Correntes & Potências & Região & Erro em Vout (\\%)"}, linhas, tabcolsep="4pt"))
+    "Acerto na região de operação (\\%) e erro mediano na tensão de saída por família de circuito, para cada modelo.",
+    "tab:porFamilia", {"spec": "l l c c",
+    "cab": "Modelo & Família & Região & Erro em Vout (\\%)"}, linhas, tabcolsep="6pt"))
 
 # ---------------------------------------------------------------- componentes
 # Duas tabelas em vez de uma: 4 modelos x 4 metricas dariam 17 colunas, que
@@ -182,7 +217,31 @@ for suf, cap, lab, calc in [
             cel.append(v(2*tp/(2*tp+fp+fn), 3))
         linhas.append("Todas as categorias & " + " & ".join(cel) + r" \\")
     escreve(f"componentes_{suf}.tex", tabela(cap, lab,
-            {"spec": "l c c c c", "cab": "Categoria & " + " & ".join(ORDEM)}, linhas, tabcolsep="4pt"))
+            {"spec": "l" + " c" * len(ORDEM), "cab": "Categoria & " + " & ".join(ORDEM)}, linhas, tabcolsep="4pt"))
+
+# ------------------------------------------------- componentes, agregado
+# Substitui no texto o grafico de barras: com todos os valores entre 92% e
+# 100%, as barras saiam praticamente da mesma altura. A tabela traz tambem as
+# contagens de que a precision, o recall e o F1 sao calculados.
+tot = {m: [comp(d[d.m == m], None, s) for s in ("TP", "FP", "FN")] for m in ORDEM}
+linhas = []
+for rot, f in [("Verdadeiros positivos", lambda tp, fp, fn: mil(tp)),
+               ("Falsos positivos", lambda tp, fp, fn: mil(fp)),
+               ("Falsos negativos", lambda tp, fp, fn: mil(fn)),
+               (r"\textit{Precision}", lambda tp, fp, fn: v(tp/(tp+fp), 3)),
+               (r"\textit{Recall}", lambda tp, fp, fn: v(tp/(tp+fn), 3)),
+               (r"$F_1$-\textit{score}", lambda tp, fp, fn: v(2*tp/(2*tp+fp+fn), 3))]:
+    linhas.append(f"{rot} & " + " & ".join(f(*tot[m]) for m in ORDEM) + r" \\")
+# Acerto do valor calculado como no grafico substituido: media, entre as
+# execucoes, da media das categorias que tem valor no esquema de dados.
+cols_val = [c for c in (f"componentes_{cat}_valor_taxa_acerto_percentual" for cat in CATS) if c in d.columns]
+val = d[cols_val].apply(lambda s: pd.to_numeric(s.astype(str).str.replace(",", "."), errors="coerce"))
+linhas.append(r"Acerto do valor (\%) & "
+              + " & ".join(v(val[d.m == m].mean(axis=1).mean()) for m in ORDEM) + r" \\")
+escreve("componentes_modelo.tex", tabela(
+    "Identificação de componentes por modelo, com as contagens e as métricas agregadas sobre todas as categorias.",
+    "tab:componentesModelo", {"spec": "l" + " c" * len(ORDEM), "cab": "Métrica & " + " & ".join(ORDEM)},
+    linhas, tabcolsep="2pt"))
 
 # ---------------------------------------------------------------- regiao de operacao
 r = dd[dd.categoria == "regiao_operacao"]
@@ -228,7 +287,7 @@ for rot, f in [("Tempo médio por execução (s)", lambda s: v(s[NUM["tempo"]].m
     linhas.append(f"{rot} & " + " & ".join(f(d[d.m == m]) for m in ORDEM) + r" \\")
 escreve("custo_tempo.tex", tabela(
     "Consumo de \\textit{tokens}, tempo e custo por modelo (144 execuções cada).", "tab:custoTempo",
-    {"spec": "l c c c c", "cab": " & " + " & ".join(ORDEM)}, linhas, tabcolsep="4pt"))
+    {"spec": "l" + " c" * len(ORDEM), "cab": " & " + " & ".join(ORDEM)}, linhas, tam="scriptsize", tabcolsep="2pt"))
 
 # ------------------------------------------------- natureza do item alucinado
 # O status 'alucinado' reune dois casos de natureza muito diferente: informar
@@ -274,7 +333,7 @@ escreve("alucinado_natureza.tex", tabela(
     "tab:alucinadoNatureza",
     {"spec": "l c c c c",
      "cab": "Modelo & Excesso & Invenção & Total & Invenção (\\%)"},
-    linhas, tabcolsep="6pt"))
+    linhas, tabcolsep="2pt"))
 
 # ------------------------------------------------- magnitude do erro numerico
 # A taxa de acerto e binaria: cai dentro da tolerancia ou nao. Estas metricas
@@ -299,13 +358,14 @@ for g, rot, un in GRANDEZAS:
         cel += [v(erm), v(mae, 2), v(rms, 2)]
     linhas.append(f"{rot} ({un}) & " + " & ".join(cel) + r" \\")
 escreve("magnitude_erro.tex", tabela(
-    "Magnitude do erro numérico por modelo: mediana do erro relativo médio (ERM), erro "
-    "absoluto médio (MAE) e raiz do erro quadrático médio (RMSE).",
+    "Magnitude do erro numérico por modelo. O erro relativo médio (ERM), o erro absoluto "
+    "médio (MAE) e a raiz do erro quadrático médio (RMSE) são calculados em cada execução; "
+    "a tabela traz a mediana do ERM e a média do MAE e do RMSE entre as execuções.",
     "tab:magnitudeErro",
     {"spec": "l" + " c c c" * len(ORDEM),
      "cab": " & " + " & ".join("\\multicolumn{3}{c}{" + m + "}" for m in ORDEM)
             + r" \\ & " + " & ".join(["ERM & MAE & RMSE"] * len(ORDEM))},
-    linhas, tam="scriptsize", tabcolsep="3pt"))
+    linhas, tam="scriptsize", tabcolsep="2pt"))
 
 # ------------------------------------------- sensibilidade a tolerancia
 # A tolerancia de 5% e uma escolha do autor. Aqui as taxas sao recalculadas

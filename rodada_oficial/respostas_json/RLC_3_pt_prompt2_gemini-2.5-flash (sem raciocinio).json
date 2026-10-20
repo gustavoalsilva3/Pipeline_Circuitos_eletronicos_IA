@@ -1,0 +1,60 @@
+{
+    "tipo_circuito": "Divisor de tensão com indutor em DC",
+    "componentes": {
+        "amplificadores_operacionais": [],
+        "resistores": [
+            {
+                "id": "R1",
+                "valor": "3"
+            },
+            {
+                "id": "R2",
+                "valor": "5"
+            },
+            {
+                "id": "R3",
+                "valor": "9"
+            }
+        ],
+        "fontes": [
+            {
+                "id": "V1",
+                "valor": "15"
+            }
+        ],
+        "capacitores": [],
+        "diodos": [],
+        "indutores": [
+            {
+                "id": "L1",
+                "valor": "1"
+            }
+        ]
+    },
+    "analise_numerica": {
+        "ganho_teorico": null,
+        "Vout_teorico_V": 9.0,
+        "Vout_real_V": 9.0,
+        "tensoes_V": {
+            "A": 15.0,
+            "Vout": 9.0
+        },
+        "correntes_A": {
+            "R1": 2.0,
+            "R2": 1.8,
+            "L1": 0.2,
+            "R3": 1.0
+        },
+        "potencias_W": {
+            "V1": -30.0,
+            "R1": 12.0,
+            "R2": 16.2,
+            "L1": 0.0,
+            "R3": 9.0
+        }
+    },
+    "analise_textual": {
+        "regiao_operacao": {},
+        "terra_virtual": false
+    }
+}

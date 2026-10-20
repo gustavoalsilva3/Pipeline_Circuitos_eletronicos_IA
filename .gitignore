@@ -16,8 +16,9 @@ resultados/
 # com .git e .gitignore separados. Fica de fora daqui para nao virar gitlink.
 TFC/
 
-# Scripts de uso pontual, mantidos localmente mas fora do repositorio:
-# teste de fumaca do OpenRouter e reexecucao de chamadas que falharam.
-teste_openrouter.py
-refazer_falhas.py
 
+
+# Saidas do LTspice: geradas ao rodar os esquematicos, nao versionadas.
+simulacoes/*.raw
+simulacoes/*.log
+simulacoes/*.net
