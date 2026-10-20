@@ -1,0 +1,17 @@
+﻿idioma;categoria;alucinado;correto;faltante;incorreto
+en;capacitores;0;21;0;0
+en;correntes;41;267;6;52
+en;fontes;0;161;0;7
+en;indutores;0;12;0;0
+en;potencias;104;221;74;38
+en;regiao_operacao;0;68;0;22
+en;resistores;0;228;0;0
+en;tensoes;0;119;0;16
+pt;capacitores;0;21;0;0
+pt;correntes;38;280;0;41
+pt;fontes;0;161;0;7
+pt;indutores;0;12;0;0
+pt;potencias;114;229;77;30
+pt;regiao_operacao;1;71;0;19
+pt;resistores;0;228;0;0
+pt;tensoes;0;120;0;15

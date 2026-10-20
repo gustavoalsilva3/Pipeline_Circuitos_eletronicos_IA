@@ -1,0 +1,4 @@
+﻿conjunto;grandeza;ERM médio (%);ERM mediano (%);MAE;RMSE
+todos;Tensões;38,5718;0,0007;1,5253;1,6865
+todos;Correntes;12,6792;0,0067;0,1658;0,2464
+todos;Potências;27,9177;0,0077;1,1867;1,9373

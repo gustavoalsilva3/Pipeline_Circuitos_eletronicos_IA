@@ -1,0 +1,4 @@
+﻿nivel_prompt;numerico_tensoes_taxa_acerto_percentual;numerico_correntes_taxa_acerto_percentual;numerico_potencias_taxa_acerto_percentual;numerico_Vout_erro_percentual;textual_regiao_operacao_taxa_acerto_percentual;tempo_execucao_s;custo_usd;terra_virtual_taxa_acerto_percentual
+1;42,024;22,417;25,823;72,061;56,25;8,628;0,0;81,2
+2;38,765;18,908;22,388;62,052;60,675;9,007;0,0;83,3
+3;36,226;25,192;27,838;69,736;62,5;9,31;0,0;77,1

@@ -1,0 +1,13 @@
+﻿idioma;categoria;precision;recall;f1_score;valor_taxa_acerto_percentual;TP_total;FP_total;FN_total
+en;amplificadores_operacionais;1,0;1,0;1,0;;30;0;0
+en;resistores;1,0;1,0;1,0;100,0;228;0;0
+en;fontes;1,0;1,0;1,0;97,9167;168;0;0
+en;diodos;1,0;1,0;1,0;;60;0;0
+en;capacitores;1,0;1,0;1,0;100,0;21;0;0
+en;indutores;1,0;1,0;1,0;100,0;12;0;0
+pt;amplificadores_operacionais;1,0;1,0;1,0;;30;0;0
+pt;resistores;1,0;1,0;1,0;100,0;228;0;0
+pt;fontes;1,0;1,0;1,0;97,9167;168;0;0
+pt;diodos;1,0;1,0;1,0;;60;0;0
+pt;capacitores;1,0;1,0;1,0;100,0;21;0;0
+pt;indutores;1,0;1,0;1,0;100,0;12;0;0

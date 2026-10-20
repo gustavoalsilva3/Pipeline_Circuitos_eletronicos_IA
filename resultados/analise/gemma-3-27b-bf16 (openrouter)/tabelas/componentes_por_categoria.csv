@@ -1,0 +1,7 @@
+﻿categoria;precision;recall;f1_score;valor_taxa_acerto_percentual;TP_total;FP_total;FN_total
+amplificadores_operacionais;0,5217;1,0;0,6857;;60;55;0
+resistores;1,0;1,0;1,0;100,0;456;0;0
+fontes;0,96;1,0;0,9796;93,1174;336;14;0
+diodos;0,916;1,0;0,9562;;120;11;0
+capacitores;1,0;1,0;1,0;100,0;42;0;0
+indutores;1,0;1,0;1,0;100,0;24;0;0

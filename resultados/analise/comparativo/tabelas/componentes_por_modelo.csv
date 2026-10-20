@@ -1,0 +1,31 @@
+﻿modelo;categoria;precision;recall;f1_score;valor_taxa_acerto_percentual;TP_total;FP_total;FN_total
+gemini-2.5-flash;amplificadores_operacionais;1,0;1,0;1,0;;60;0;0
+gemini-2.5-flash;resistores;1,0;1,0;1,0;100,0;456;0;0
+gemini-2.5-flash;fontes;1,0;1,0;1,0;97,5118;336;0;0
+gemini-2.5-flash;diodos;1,0;1,0;1,0;;120;0;0
+gemini-2.5-flash;capacitores;1,0;1,0;1,0;100,0;42;0;0
+gemini-2.5-flash;indutores;1,0;1,0;1,0;100,0;24;0;0
+gemini-2.5-flash (sem raciocinio);amplificadores_operacionais;1,0;1,0;1,0;;60;0;0
+gemini-2.5-flash (sem raciocinio);resistores;1,0;1,0;1,0;100,0;456;0;0
+gemini-2.5-flash (sem raciocinio);fontes;1,0;1,0;1,0;97,9167;336;0;0
+gemini-2.5-flash (sem raciocinio);diodos;1,0;1,0;1,0;;120;0;0
+gemini-2.5-flash (sem raciocinio);capacitores;1,0;1,0;1,0;100,0;42;0;0
+gemini-2.5-flash (sem raciocinio);indutores;1,0;1,0;1,0;100,0;24;0;0
+gemma-3-27b-bf16 (openrouter);amplificadores_operacionais;0,5217;1,0;0,6857;;60;55;0
+gemma-3-27b-bf16 (openrouter);resistores;1,0;1,0;1,0;100,0;456;0;0
+gemma-3-27b-bf16 (openrouter);fontes;0,96;1,0;0,9796;93,1174;336;14;0
+gemma-3-27b-bf16 (openrouter);diodos;0,916;1,0;0,9562;;120;11;0
+gemma-3-27b-bf16 (openrouter);capacitores;1,0;1,0;1,0;100,0;42;0;0
+gemma-3-27b-bf16 (openrouter);indutores;1,0;1,0;1,0;100,0;24;0;0
+qwen3-vl-32b (openrouter);amplificadores_operacionais;1,0;1,0;1,0;;60;0;0
+qwen3-vl-32b (openrouter);resistores;1,0;1,0;1,0;100,0;456;0;0
+qwen3-vl-32b (openrouter);fontes;1,0;1,0;1,0;97,9167;336;0;0
+qwen3-vl-32b (openrouter);diodos;1,0;1,0;1,0;;120;0;0
+qwen3-vl-32b (openrouter);capacitores;1,0;1,0;1,0;100,0;42;0;0
+qwen3-vl-32b (openrouter);indutores;1,0;1,0;1,0;100,0;24;0;0
+qwen3-vl-8b-bf16 (openrouter);amplificadores_operacionais;0,6122;1,0;0,7595;;60;38;0
+qwen3-vl-8b-bf16 (openrouter);resistores;1,0;1,0;1,0;100,0;456;0;0
+qwen3-vl-8b-bf16 (openrouter);fontes;1,0;1,0;1,0;96,5868;336;0;0
+qwen3-vl-8b-bf16 (openrouter);diodos;1,0;1,0;1,0;;120;0;0
+qwen3-vl-8b-bf16 (openrouter);capacitores;1,0;1,0;1,0;100,0;42;0;0
+qwen3-vl-8b-bf16 (openrouter);indutores;1,0;1,0;1,0;100,0;24;0;0

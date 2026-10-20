@@ -1,0 +1,6 @@
+﻿modelo;alucinado;correto;faltante;incorreto
+gemini-2.5-flash;298;2219;157;247
+gemini-2.5-flash (sem raciocinio);276;1525;247;897
+gemma-3-27b-bf16 (openrouter);241;1152;275;1171
+qwen3-vl-32b (openrouter);30;1372;230;990
+qwen3-vl-8b-bf16 (openrouter);186;1154;389;1049

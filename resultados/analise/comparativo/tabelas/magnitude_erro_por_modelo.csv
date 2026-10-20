@@ -1,0 +1,16 @@
+﻿modelo;grandeza;ERM médio (%);ERM mediano (%);MAE;RMSE
+gemini-2.5-flash;Tensões;38,5718;0,0007;1,5253;1,6865
+gemini-2.5-flash;Correntes;12,6792;0,0067;0,1658;0,2464
+gemini-2.5-flash;Potências;27,9177;0,0077;1,1867;1,9373
+gemini-2.5-flash (sem raciocinio);Tensões;52,2652;25,007;3,4993;4,2203
+gemini-2.5-flash (sem raciocinio);Correntes;62,0687;38,7501;0,6954;0,9512
+gemini-2.5-flash (sem raciocinio);Potências;202,0806;64,0102;5,7583;8,8121
+gemma-3-27b-bf16 (openrouter);Tensões;103,6977;61,1111;6,7696;7,9079
+gemma-3-27b-bf16 (openrouter);Correntes;150,599;122,2222;1,6514;2,0155
+gemma-3-27b-bf16 (openrouter);Potências;903,1285;200,2101;25,2528;33,2908
+qwen3-vl-32b (openrouter);Tensões;43,7274;25,0097;2,6592;3,0745
+qwen3-vl-32b (openrouter);Correntes;78,1626;60,5572;0,9538;1,2502
+qwen3-vl-32b (openrouter);Potências;3115,6771;165,4458;19,3115;28,4347
+qwen3-vl-8b-bf16 (openrouter);Tensões;65,9533;68,1818;5,1997;5,824
+qwen3-vl-8b-bf16 (openrouter);Correntes;104,7706;75,0;1,3524;1,6708
+qwen3-vl-8b-bf16 (openrouter);Potências;352,2178;100,0;24,3609;32,3941

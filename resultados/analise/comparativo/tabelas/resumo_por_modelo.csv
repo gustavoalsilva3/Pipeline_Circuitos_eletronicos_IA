@@ -1,0 +1,6 @@
+﻿modelo;numerico_tensoes_taxa_acerto_percentual;numerico_correntes_taxa_acerto_percentual;numerico_potencias_taxa_acerto_percentual;numerico_Vout_erro_percentual;textual_regiao_operacao_taxa_acerto_percentual;tempo_execucao_s;custo_usd;terra_virtual_taxa_acerto_percentual
+gemini-2.5-flash;82,85;75,446;54,858;38,856;73,711;23,041;0,013;97,2
+gemini-2.5-flash (sem raciocinio);38,649;36,949;22,993;64,921;54,599;3,841;0,002;85,4
+gemma-3-27b-bf16 (openrouter);15,36;10,827;12,392;189,327;39,706;32,294;0,0;58,3
+qwen3-vl-32b (openrouter);39,005;22,172;25,349;67,978;59,808;8,982;0,0;80,6
+qwen3-vl-8b-bf16 (openrouter);22,099;14,153;11,931;131,825;23,195;13,411;0,001;66,7

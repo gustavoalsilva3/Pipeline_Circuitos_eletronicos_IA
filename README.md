@@ -277,13 +277,13 @@ A rodada original foi executada em partes, em 24/09, e reunida com o
 python Analise_erros.py           # a rodada mais recente de resultados/
 python Analise_erros.py oficial   # ou a rodada oficial versionada
 python gerar_tabelas_cap4.py      # tabelas LaTeX      -> TFC/tabelas_cap4/
-python intervalos_confianca.py    # bootstrap          -> TFC/tab_intervalos.tex
-python gerar_apendice_prompts.py  # apêndice           -> TFC/apendice_prompts.tex
+python intervalos_confianca.py    # bootstrap          -> TFC/tab_pareado.tex e a figura dos intervalos
 ```
 
 Todos escrevem direto nas fontes LaTeX ou em `resultados/analise/`, de modo
-que **nenhum número da monografia é digitado à mão**: refazer a rodada e
-reexecutar os scripts atualiza tabelas, figuras e apêndice sem tocar no texto.
+que **nenhuma tabela e nenhuma figura da monografia é montada à mão**:
+refazer a rodada e reexecutar os scripts atualiza as duas coisas sem tocar
+no texto.
 
 ## Notas de implementação
 

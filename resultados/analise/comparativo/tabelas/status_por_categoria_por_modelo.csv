@@ -1,0 +1,44 @@
+﻿modelo;categoria;alucinado;correto;faltante;incorreto
+gemini-2.5-flash;capacitores;0;42;0;0
+gemini-2.5-flash;correntes;79;547;6;93
+gemini-2.5-flash;fontes;0;322;0;14
+gemini-2.5-flash;indutores;0;24;0;0
+gemini-2.5-flash;potencias;218;450;151;68
+gemini-2.5-flash;regiao_operacao;1;139;0;41
+gemini-2.5-flash;resistores;0;456;0;0
+gemini-2.5-flash;tensoes;0;239;0;31
+gemini-2.5-flash (sem raciocinio);capacitores;0;42;0;0
+gemini-2.5-flash (sem raciocinio);correntes;32;250;0;392
+gemini-2.5-flash (sem raciocinio);fontes;0;324;0;12
+gemini-2.5-flash (sem raciocinio);indutores;0;24;0;0
+gemini-2.5-flash (sem raciocinio);potencias;244;197;247;275
+gemini-2.5-flash (sem raciocinio);regiao_operacao;0;104;0;76
+gemini-2.5-flash (sem raciocinio);resistores;0;456;0;0
+gemini-2.5-flash (sem raciocinio);tensoes;0;128;0;142
+gemma-3-27b-bf16 (openrouter);amplificadores_operacionais;55;0;0;0
+gemma-3-27b-bf16 (openrouter);capacitores;0;42;0;0
+gemma-3-27b-bf16 (openrouter);correntes;22;75;111;456
+gemma-3-27b-bf16 (openrouter);diodos;11;0;0;0
+gemma-3-27b-bf16 (openrouter);fontes;14;302;0;34
+gemma-3-27b-bf16 (openrouter);indutores;0;24;0;0
+gemma-3-27b-bf16 (openrouter);potencias;19;87;156;399
+gemma-3-27b-bf16 (openrouter);regiao_operacao;66;110;0;70
+gemma-3-27b-bf16 (openrouter);resistores;0;456;0;0
+gemma-3-27b-bf16 (openrouter);tensoes;54;56;8;212
+qwen3-vl-32b (openrouter);capacitores;0;42;0;0
+qwen3-vl-32b (openrouter);correntes;0;135;105;402
+qwen3-vl-32b (openrouter);fontes;0;324;0;12
+qwen3-vl-32b (openrouter);indutores;0;24;0;0
+qwen3-vl-32b (openrouter);potencias;18;162;113;367
+qwen3-vl-32b (openrouter);regiao_operacao;0;117;0;63
+qwen3-vl-32b (openrouter);resistores;0;456;0;0
+qwen3-vl-32b (openrouter);tensoes;12;112;12;146
+qwen3-vl-8b-bf16 (openrouter);amplificadores_operacionais;38;0;0;0
+qwen3-vl-8b-bf16 (openrouter);capacitores;0;42;0;0
+qwen3-vl-8b-bf16 (openrouter);correntes;0;88;184;370
+qwen3-vl-8b-bf16 (openrouter);fontes;0;318;0;18
+qwen3-vl-8b-bf16 (openrouter);indutores;0;24;0;0
+qwen3-vl-8b-bf16 (openrouter);potencias;4;79;189;374
+qwen3-vl-8b-bf16 (openrouter);regiao_operacao;93;71;14;95
+qwen3-vl-8b-bf16 (openrouter);resistores;0;456;0;0
+qwen3-vl-8b-bf16 (openrouter);tensoes;51;76;2;192

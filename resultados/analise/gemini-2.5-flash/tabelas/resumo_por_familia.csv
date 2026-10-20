@@ -1,0 +1,4 @@
+﻿familia;numerico_tensoes_taxa_acerto_percentual;numerico_correntes_taxa_acerto_percentual;numerico_potencias_taxa_acerto_percentual;numerico_Vout_erro_percentual;textual_regiao_operacao_taxa_acerto_percentual;tempo_execucao_s;custo_usd
+Amp_op;92,36;80,877;64,84;26,736;79,167;29,615;0,017
+Diodo;62,5;63,994;33,179;87,922;69,792;22,67;0,013
+RLC;95,238;81,467;66,556;1,909;0,0;16,839;0,01
