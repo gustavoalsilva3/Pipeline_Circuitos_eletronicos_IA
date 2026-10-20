@@ -20,3 +20,8 @@ TFC/
 simulacoes/*.raw
 simulacoes/*.log
 simulacoes/*.net
+
+# As rodadas carimbadas que os scripts gravam a cada execucao: a analise
+# versionada em resultados/analise e o registro, e o par de CSVs se refaz
+# com reavaliar_rodada.py a partir de rodada_oficial/.
+resultados/resultados_*.csv
