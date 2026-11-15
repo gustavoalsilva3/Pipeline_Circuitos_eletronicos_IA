@@ -7,7 +7,6 @@ nao exige reescrever o capitulo, e nenhum numero e digitado a mao.
 import argparse
 import json
 import os
-import numpy as np
 import pandas as pd
 
 BASE = os.path.dirname(os.path.abspath(__file__))

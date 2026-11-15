@@ -1,0 +1,11 @@
+# Normaliza os finais de linha: texto vira LF no repositorio e e convertido
+# na saida do checkout conforme o SO (CRLF no Windows). Sem isso, cada commit
+# no Windows avisava "LF will be replaced by CRLF".
+* text=auto eol=lf
+
+# Binarios: nunca normalizar, e dar diff de forma inteligivel onde der.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.raw binary
+*.pdf binary

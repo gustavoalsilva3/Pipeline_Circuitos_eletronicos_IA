@@ -115,6 +115,8 @@ nodais e todas as correntes coincidem, com convergência limpa.
 
 ## Instalação
 
+Requer **Python 3.10+** (o código usa `X | None` em anotações de tipo).
+
 ```bash
 python -m venv .venv
 .venv\Scripts\activate          # Windows;  source .venv/bin/activate no Linux/macOS

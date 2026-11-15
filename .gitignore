@@ -25,3 +25,8 @@ simulacoes/*.net
 # versionada em resultados/analise e o registro, e o par de CSVs se refaz
 # com reavaliar_rodada.py a partir de rodada_oficial/.
 resultados/resultados_*.csv
+
+# Log de chamadas ao OpenRouter: o cliente grava em modo append a cada
+# execucao, entao versiona-lo sujaria a arvore toda vez. O registro da
+# rodada oficial ja esta em rodada_oficial/openrouter_chamadas.jsonl.
+resultados/openrouter_chamadas.jsonl
