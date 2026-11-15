@@ -1,6 +1,8 @@
-# Normaliza os finais de linha: texto vira LF no repositorio e e convertido
-# na saida do checkout conforme o SO (CRLF no Windows). Sem isso, cada commit
-# no Windows avisava "LF will be replaced by CRLF".
+# Normaliza os finais de linha: texto vira LF no repositorio e permanece LF
+# no checkout, em qualquer SO (eol=lf forca isso mesmo no Windows, independente
+# de core.autocrlf local). Sem isso, cada commit no Windows avisava "LF will
+# be replaced by CRLF", e um `core.autocrlf` diferente entre maquinas podia
+# fazer os CSV gerados pela pipeline nao baterem byte a byte com os versionados.
 * text=auto eol=lf
 
 # Binarios: nunca normalizar, e dar diff de forma inteligivel onde der.
