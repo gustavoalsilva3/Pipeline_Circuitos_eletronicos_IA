@@ -176,8 +176,8 @@ def main(*carimbos):
     p_res = RESULTADOS_DIR / f"{PREFIXO_CSV_RESULTADOS}_{novo}.csv"
     p_det = caminho_detalhe(p_res)
     p_res.parent.mkdir(parents=True, exist_ok=True)
-    resumo.to_csv(p_res, sep=";", index=False, encoding="utf-8-sig")
-    detalhe.to_csv(p_det, sep=";", index=False, encoding="utf-8-sig")
+    resumo.to_csv(p_res, sep=";", index=False, encoding="utf-8-sig", lineterminator="\n")
+    detalhe.to_csv(p_det, sep=";", index=False, encoding="utf-8-sig", lineterminator="\n")
 
     print(f"resumo : {p_res.name}  ({len(resumo)} execucoes)")
     print(f"detalhe: {p_det.name}  ({len(detalhe)} itens)")

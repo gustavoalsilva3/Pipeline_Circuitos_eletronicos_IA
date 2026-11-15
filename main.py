@@ -391,6 +391,7 @@ def salvar_resultados_csv(df_final: pd.DataFrame, caminho: Path) -> Path:
             sep=";",
             decimal=",",
             encoding="utf-8-sig",
+            lineterminator="\n",
         )
         return caminho
     except PermissionError:
@@ -407,6 +408,7 @@ def salvar_resultados_csv(df_final: pd.DataFrame, caminho: Path) -> Path:
             sep=";",
             decimal=",",
             encoding="utf-8-sig",
+            lineterminator="\n",
         )
         return nome_fallback
     except Exception as exc:
@@ -421,6 +423,7 @@ def salvar_resultados_csv(df_final: pd.DataFrame, caminho: Path) -> Path:
             sep=";",
             decimal=",",
             encoding="utf-8-sig",
+            lineterminator="\n",
         )
         return nome_fallback
 

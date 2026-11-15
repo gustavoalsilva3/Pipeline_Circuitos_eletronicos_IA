@@ -526,7 +526,7 @@ def gerar_tabelas(df, dfd):
 
     for nome, tabela in tabelas.items():
         caminho = PASTA_TABELAS / f"{nome}.csv"
-        tabela.to_csv(caminho, sep=";", decimal=",", encoding="utf-8-sig")
+        tabela.to_csv(caminho, sep=";", decimal=",", encoding="utf-8-sig", lineterminator="\n")
         print(f"Tabela salva: {caminho}")
 
     return tabelas
