@@ -374,3 +374,8 @@ em `TFC/`.
 ## Autor
 
 Gustavo de Almeida Silva — Engenharia Elétrica, UFSJ
+
+## Licença
+
+Código sob [MIT](LICENSE). Dataset, gabaritos, simulações e resultados sob
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
